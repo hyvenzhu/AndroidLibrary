@@ -39,7 +39,10 @@ public class AppDroid extends Application
         {
             ((BasicActivity) context).finishAll();
         }
-        anrWatchDog.interrupt();
+        if (anrWatchDog != null)
+        {
+            anrWatchDog.interrupt();
+        }
     }
 
     public static AppDroid getInstance()
