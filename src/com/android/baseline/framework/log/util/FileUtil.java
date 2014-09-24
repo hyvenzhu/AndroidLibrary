@@ -15,8 +15,8 @@ import com.android.baseline.framework.log.Logger;
  * 
  * [文件处理工具]<BR>
  * 
- * @author zhuhf
- * @version [BaseLine_Android, 2013-1-28]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-1-28]
  */
 public class FileUtil
 {

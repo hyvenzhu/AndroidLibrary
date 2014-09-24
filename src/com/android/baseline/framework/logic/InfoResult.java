@@ -1,8 +1,8 @@
 package com.android.baseline.framework.logic;
 /**
  * 网络请求返回数据
- * @author haifeng
- * @version [BaseLine_Android, 2013-7-23]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-7-23]
  */
 public class InfoResult
 {
@@ -62,7 +62,7 @@ public class InfoResult
     /**
      * The builder to build 'InfoResult'
      * @author hiphonezhu@gmail.com
-     * @version [BaseLine_Android_V5, 2014-9-23]
+     * @version [Android-BaseLine, 2014-9-23]
      */
     public static class Builder
     {

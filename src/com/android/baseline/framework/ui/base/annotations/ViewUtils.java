@@ -15,7 +15,7 @@ import android.widget.AbsListView;
 /**
  * 利用注解实现View初始化和事件绑定
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V4, 2014-9-15]
+ * @version [Android-BaseLine, 2014-9-15]
  */
 public class ViewUtils
 {

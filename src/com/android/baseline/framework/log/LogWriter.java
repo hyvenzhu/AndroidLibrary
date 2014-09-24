@@ -29,8 +29,8 @@ import com.android.baseline.framework.log.util.FileUtil;
  * 
  * [日志信息写入到指定的文件中]<BR>
  * 
- * @author zhuhf
- * @version [BaseLine_Android, 2013-1-28]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-1-28]
  */
 public class LogWriter
 {

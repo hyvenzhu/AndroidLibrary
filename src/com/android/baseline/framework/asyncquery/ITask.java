@@ -5,7 +5,7 @@ package com.android.baseline.framework.asyncquery;
  * 任务接口定义
  * 
  * @author hiphonezhu@gmail.com
- * @version [CCEnglish, 2014-5-21]
+ * @version [Android-BaseLine, 2014-5-21]
  */
 public interface ITask extends Runnable
 {

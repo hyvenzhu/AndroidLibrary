@@ -3,7 +3,7 @@ package com.android.baseline.framework.logic;
  * 业务逻辑EventBus事件定义注册, 解绑订阅者
  * 
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-15]
+ * @version [Android-BaseLine, 2014-9-15]
  */
 public interface ILogic
 {

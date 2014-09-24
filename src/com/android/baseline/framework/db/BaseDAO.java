@@ -7,8 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Sqlite“写”操作必须进行数据同步锁操作, 多线程“读”是支持的 其他DAO的“写”操作需要通过该类来操作
  * 
- * @author haifeng
- * @version [139cx, 2014-3-10]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2014-3-10]
  */
 public class BaseDAO
 {

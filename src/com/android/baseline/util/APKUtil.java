@@ -12,7 +12,7 @@ import com.android.baseline.AppDroid;
  * 基础工具类 [尽量减少类似Util的类存在]
  * 
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V4, 2014-8-29]
+ * @version [Android-BaseLine, 2014-8-29]
  */
 public class APKUtil
 {

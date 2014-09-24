@@ -44,8 +44,8 @@ import com.android.baseline.util.APKUtil;
  * if your log message is filtered out, you might be doing significant work and
  * incurring significant overhead.
  * 
- * @author zhuhf
- * @version [BaseLine_Android, 2013-1-28]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-1-28]
  */
 public final class Logger
 {

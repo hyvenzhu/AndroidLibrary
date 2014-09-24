@@ -21,7 +21,7 @@ import com.android.baseline.framework.ui.base.BaseActivity;
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-15]
+ * @version [Android-BaseLine, 2014-9-15]
  */
 public class BasicActivity extends BaseActivity
 {

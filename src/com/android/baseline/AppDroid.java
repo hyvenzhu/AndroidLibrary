@@ -8,9 +8,9 @@ import com.android.baseline.util.anrwatchdog.ANRWatchDog;
 import com.android.baseline.util.crash2email.GlobalExceptionHandler;
 
 /**
- * 应用程序Appliccation
- * @author zhuhf
- * @version [SzMap, 2013-5-3]
+ * App application
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-5-3]
  */
 public class AppDroid extends Application
 {

@@ -8,7 +8,7 @@ import android.text.TextUtils;
 /**
  * Boundary generator
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-22]
+ * @version [Android-BaseLine, 2014-9-22]
  */
 public class Boundary
 {

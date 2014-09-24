@@ -10,7 +10,7 @@ import org.apache.http.entity.AbstractHttpEntity;
 /**
  * A entry contains multi part to upload
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-22]
+ * @version [Android-BaseLine, 2014-9-22]
  */
 public class MultipartEntity extends AbstractHttpEntity implements Cloneable
 {

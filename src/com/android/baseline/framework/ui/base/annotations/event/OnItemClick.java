@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 /**
  * item单击事件注解
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-19]
+ * @version [Android-BaseLine, 2014-9-19]
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

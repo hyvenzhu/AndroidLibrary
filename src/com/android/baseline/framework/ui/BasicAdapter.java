@@ -13,7 +13,7 @@ import android.widget.BaseAdapter;
  * 基类Adapter
  * 
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V4, 2014-8-29]
+ * @version [Android-BaseLine, 2014-8-29]
  */
 public abstract class BasicAdapter<T> extends BaseAdapter
 {
@@ -86,7 +86,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter
      * ViewHolder工具类
      * 
      * @author hiphonezhu@gmail.com
-     * @version [BaseLine_Android_V4, 2014-8-29]
+     * @version [Android-BaseLine, 2014-8-29]
      */
     private static class ViewHolderUtil
     {

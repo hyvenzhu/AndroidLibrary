@@ -9,8 +9,8 @@ import java.io.File;
  * 
  * [Collection of methods for operate memory]<BR>
  * 
- * @author zhuhf
- * @version [BaseLine_Android, 2013-1-28]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-1-28]
  */
 public class MemoryStatus
 {
@@ -55,7 +55,7 @@ public class MemoryStatus
      * [功能详细描述]
      * 
      * @return available internal memory size
-     * @author zhuhf
+     * @author hiphonezhu@gmail.com
      */
     public static long getAvailableInternalMemorySize()
     {
@@ -108,7 +108,7 @@ public class MemoryStatus
      * [用于获取外部存储器总的内存大小]<BR>
      * 
      * @return 外部存储器总的内存大小
-     * @author zhuhf
+     * @author hiphonezhu@gmail.com
      */
     public static long getTotalExternalMemorySize()
     {
@@ -171,7 +171,7 @@ public class MemoryStatus
      * 
      * @param size 指定文件大小
      * @return 外部存储器是否可用
-     * @author zhuhf
+     * @author hiphonezhu@gmail.com
      */
     public static boolean isExternalMemoryAvailable(long size)
     {

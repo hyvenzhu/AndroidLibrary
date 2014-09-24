@@ -17,7 +17,7 @@ import de.greenrobot.event.EventBus;
  * 1、提供订阅者注册、解绑的实现
  * 2、提供统一的Volley请求队列
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-15]
+ * @version [Android-BaseLine, 2014-9-15]
  */
 public class BaseLogic implements ILogic
 {

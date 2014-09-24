@@ -12,7 +12,7 @@ import com.android.baseline.framework.ui.base.annotations.ViewUtils;
  * 1、实现View初始化、事件绑定 
  * 2、提供EventBus事件通知
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-15]
+ * @version [Android-BaseLine, 2014-9-15]
  */
 public abstract class BaseActivity extends FragmentActivity
 {

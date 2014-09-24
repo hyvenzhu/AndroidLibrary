@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 /**
  * View注解定义
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V4, 2014-9-10]
+ * @version [Android-BaseLine, 2014-9-10]
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

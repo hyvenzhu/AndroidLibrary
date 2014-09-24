@@ -11,7 +11,7 @@ import com.android.volley.Response.Listener;
 /**
  * Request supports multipart uploading, this request can be supported with volley library rewrite.
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-22]
+ * @version [Android-BaseLine, 2014-9-22]
  */
 public abstract class MultiPartRequest<T> extends Request<T> implements ProgressListener
 {

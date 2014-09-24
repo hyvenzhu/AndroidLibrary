@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
  * 简单的耗时任务执行器
  * 
  * @author hiphonezhu@gmail.com
- * @version [CCEnglish, 2014-5-21]
+ * @version [Android-BaseLine, 2014-5-21]
  */
 public class TaskExecutor
 {

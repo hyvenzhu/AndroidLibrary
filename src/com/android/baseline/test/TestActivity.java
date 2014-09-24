@@ -22,7 +22,7 @@ import com.android.volley.VolleyError;
  *   4、日志打印Logger
  * ]
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-19]
+ * @version [Android-BaseLine, 2014-9-19]
  */
 public class TestActivity extends BasicActivity
 {

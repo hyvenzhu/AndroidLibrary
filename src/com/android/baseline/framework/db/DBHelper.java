@@ -10,8 +10,8 @@ import com.android.baseline.framework.log.Logger;
 /**
  * 数据库轻量级操作封装
  * 
- * @author zhuhf
- * @version [2013-3-18]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-3-18]
  */
 public class DBHelper
 {

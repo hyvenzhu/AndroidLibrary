@@ -15,8 +15,8 @@ import com.android.baseline.framework.log.util.MemoryStatus;
 /**
  * [Log缓存]<BR>
  * 
- * @author zhuhf
- * @version [BaseLine_Android, 2013-1-28]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2013-1-28]
  */
 public class LogCache
 {
@@ -277,8 +277,8 @@ public class LogCache
      * [写入日志任务]<BR>
      * [功能详细描述]
      * 
-     * @author zhuhf
-     * @version [BaseLine_Android, 2013-1-28]
+     * @author hiphonezhu@gmail.com
+     * @version [Android-BaseLine, 2013-1-28]
      */
     private final class LogTask implements Runnable
     {

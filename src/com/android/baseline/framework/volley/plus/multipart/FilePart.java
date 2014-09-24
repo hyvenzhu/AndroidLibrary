@@ -10,7 +10,7 @@ import org.apache.http.protocol.HTTP;
 /**
  * File part
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-22]
+ * @version [Android-BaseLine, 2014-9-22]
  */
 public class FilePart extends BasePart
 {

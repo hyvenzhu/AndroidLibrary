@@ -5,7 +5,7 @@ import org.apache.http.util.EncodingUtils;
 /**
  * Parent class for FilePart and StringPart.
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-22]
+ * @version [Android-BaseLine, 2014-9-22]
  */
 abstract class BasePart implements Part
 {

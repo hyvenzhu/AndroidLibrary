@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
  * 自定义的View事件 [触发的方法中反射用户的方法]
  * 
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V4, 2014-9-15]
+ * @version [Android-BaseLine, 2014-9-15]
  */
 public class EventListener implements OnClickListener , OnLongClickListener , OnItemClickListener ,
         OnItemLongClickListener

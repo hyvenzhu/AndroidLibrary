@@ -21,7 +21,7 @@ import com.android.volley.toolbox.HttpHeaderParser;
  *   2、提供post方式设置消息体body
  * ]
  * @author hiphonezhu@gmail.com
- * @version [BaseLine_Android_V5, 2014-9-18]
+ * @version [Android-BaseLine, 2014-9-18]
  */
 public class InfoResultRequest extends Request<InfoResult> implements Listener<InfoResult>
 {
@@ -132,7 +132,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     /**
      * 通知调用者根据各自业务解析响应字符串到InfoResult
      * @author hiphonezhu@gmail.com
-     * @version [BaseLine_Android_V5, 2014-9-18]
+     * @version [Android-BaseLine, 2014-9-18]
      */
     public interface ResponseParserListener
     {

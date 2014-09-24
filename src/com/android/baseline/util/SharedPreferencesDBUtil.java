@@ -10,8 +10,8 @@ import com.android.baseline.framework.log.Logger;
 /**
  * 配置信息数据库保存 key-value
  * 
- * @author haifeng
- * @version [139cx, 2014-2-20]
+ * @author hiphonezhu@gmail.com
+ * @version [Android-BaseLine, 2014-2-20]
  */
 public class SharedPreferencesDBUtil
 {
