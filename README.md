@@ -29,3 +29,6 @@ Android基线框架, 提供以下基础功能
 
 
 9、基类Adapter, 提供控件复用的管理机制
+
+
+10、支持App ANR时, 可以通过Email及时发送ANR的trace到开发者手中

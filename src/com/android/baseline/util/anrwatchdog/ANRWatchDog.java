@@ -26,7 +26,8 @@ package com.android.baseline.util.anrwatchdog;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
+
+import com.android.baseline.framework.log.Logger;
 
 /**
  * A watchdog timer thread that detects when the UI thread has frozen.
@@ -45,13 +46,14 @@ public class ANRWatchDog extends Thread {
 
     private static final ANRListener DEFAULT_ANR_LISTENER = new ANRListener() {
         @Override public void onAppNotResponding(ANRError error) {
+            Logger.d("ANRWatchdog", "ANRError: " + error.getMessage());
             throw error;
         }
     };
 
     private static final InterruptionListener DEFAULT_INTERRUPTION_LISTENER = new InterruptionListener() {
         @Override public void onInterrupted(InterruptedException exception) {
-            Log.d("ANRWatchdog", "Interrupted: " + exception.getMessage());
+            Logger.d("ANRWatchdog", "Interrupted: " + exception.getMessage());
         }
     };
 
