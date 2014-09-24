@@ -23,8 +23,11 @@ public class AppDroid extends Application
         sInstance = this;
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         // ANR Watch support
-        anrWatchDog = new ANRWatchDog(10000);
-        anrWatchDog.start();
+        if (BuildConfig.DEBUG == false)
+        {
+            anrWatchDog = new ANRWatchDog(10000);
+            anrWatchDog.start();
+        }
     }
 
     /**
