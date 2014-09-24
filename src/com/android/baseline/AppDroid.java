@@ -4,24 +4,26 @@ import android.app.Application;
 import android.content.Context;
 
 import com.android.baseline.framework.ui.BasicActivity;
+import com.android.baseline.util.anrwatchdog.ANRWatchDog;
 import com.android.baseline.util.crash2email.GlobalExceptionHandler;
 
 /**
  * 应用程序Appliccation
- * 
  * @author zhuhf
  * @version [SzMap, 2013-5-3]
  */
 public class AppDroid extends Application
 {
     private static AppDroid sInstance;
-
+    private ANRWatchDog anrWatchDog;
     @Override
     public void onCreate()
     {
         super.onCreate();
         sInstance = this;
-        Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler(getApplicationContext()));
+        Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
+        anrWatchDog = new ANRWatchDog(10000);
+        anrWatchDog.start();
     }
 
     /**
@@ -33,6 +35,7 @@ public class AppDroid extends Application
         {
             ((BasicActivity) context).finishAll();
         }
+        anrWatchDog.interrupt();
     }
 
     public static AppDroid getInstance()
