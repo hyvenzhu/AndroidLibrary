@@ -113,7 +113,7 @@ public class ViewUtils
     {
         OnClick onclick = method.getAnnotation(OnClick.class);
         int[] ids = onclick.value();
-        if (ids != null && ids.length > 0)
+        if (ids != null)
         {
             for (int id : ids)
             {
@@ -133,7 +133,7 @@ public class ViewUtils
     {
         OnLongClick onLongClick = method.getAnnotation(OnLongClick.class);
         int[] ids = onLongClick.value();
-        if (ids != null && ids.length > 0)
+        if (ids != null)
         {
             for (int id : ids)
             {
@@ -153,7 +153,7 @@ public class ViewUtils
     {
         OnItemClick onItemClick = method.getAnnotation(OnItemClick.class);
         int[] ids = onItemClick.value();
-        if (ids != null && ids.length > 0)
+        if (ids != null)
         {
             for (int id : ids)
             {
@@ -176,7 +176,7 @@ public class ViewUtils
     {
         OnItemLongClick onItemLongClick = method.getAnnotation(OnItemLongClick.class);
         int[] ids = onItemLongClick.value();
-        if (ids != null && ids.length > 0)
+        if (ids != null)
         {
             for (int id : ids)
             {
