@@ -8,4 +8,9 @@
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
 	</style>
+	
+    <!-- App theme -->
+    <style name="AppTheme" parent="android:Theme">
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>
