@@ -3,6 +3,8 @@ package com.android.baseline.util.crash2email;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import com.android.baseline.util.MailUtil;
+
 /**
  * 全局异常处理
  * @author hiphonezhu@gmail.com
@@ -55,8 +57,8 @@ public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHan
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             throwable.printStackTrace(ps);
-            final String errorMsg = new String(baos.toByteArray());
-            MailUtil.sendMail(errorMsg);
+            String errorMsg = new String(baos.toByteArray());
+            MailUtil.sendMail(CrashMailProvider.getInstance().getMailInfo(errorMsg));
             return true;
         }
         catch (Exception e)
