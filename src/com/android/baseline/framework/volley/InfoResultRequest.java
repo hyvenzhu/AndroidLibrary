@@ -120,6 +120,10 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         catch (UnsupportedEncodingException e)
         {
             return Response.error(new VolleyError("UnsupportedEncodingException"));
+        }
+        catch (Exception e)
+        {
+            return Response.error(new VolleyError("Exception is >>> " + e.getMessage()));
         }  
     }
 
@@ -136,6 +140,6 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
      */
     public interface ResponseParserListener
     {
-        InfoResult doParse(String response);
+        InfoResult doParse(final String response) throws Exception;
     }
 }

@@ -1,4 +1,4 @@
-package com.android.baseline.framework.logic;
+package com.android.baseline.framework.logic.parser;
 
 import org.xml.sax.SAXException;
 
@@ -6,6 +6,7 @@ import android.sax.EndTextElementListener;
 import android.sax.RootElement;
 import android.util.Xml;
 
+import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserListener;
 /**
  * A abstract class that parse logic status with type xml
@@ -16,11 +17,11 @@ public abstract class XmlParser implements ResponseParserListener
 {
     /**
      * 解析服务器结果的状态信息(业务成功与失败, 对应错误码和描述信息等)
-     * @param logicStatus
+     * @param response
      * @return InfoResult
      * @throws SAXException 
      */
-    protected InfoResult parseLogicSatus(String logicStatus) throws SAXException
+    public InfoResult doParse(final String response) throws SAXException
     {
         RootElement documentEl = new RootElement("document");
         final InfoResult.Builder infoBilder = new InfoResult.Builder();
@@ -48,7 +49,16 @@ public abstract class XmlParser implements ResponseParserListener
                 infoBilder.desc(body);
             }
         });
-        Xml.parse(logicStatus, documentEl.getContentHandler());
-        return infoBilder.build();
+        Xml.parse(response, documentEl.getContentHandler());
+        InfoResult infoResult = infoBilder.build();
+        parseResponse(infoResult, documentEl);
+        return infoResult;
     }
+    
+    /**
+     * 解析业务数据
+     * @param infoResult
+     * @param element
+     */
+    public abstract void parseResponse(final InfoResult infoResult, final RootElement element);
 }
