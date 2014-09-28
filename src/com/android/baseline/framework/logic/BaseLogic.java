@@ -3,8 +3,6 @@ package com.android.baseline.framework.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import android.os.Message;
 
 import com.android.baseline.AppDroid;
@@ -81,19 +79,5 @@ public class BaseLogic implements ILogic
         msg.what = action;
         msg.obj = response;
         EventBus.getDefault().post(msg);
-    }
-    
-    /**
-     * 解析服务器结果的状态信息(业务成功与失败, 对应错误码和描述信息等)
-     * @param jsonObject
-     * @return
-     */
-    protected InfoResult parseLogicSatus(JSONObject jsonObject)
-    {
-        return new InfoResult.Builder()
-                   .success(jsonObject.optBoolean("success"))
-                   .errorCode(jsonObject.optString("errorCode"))
-                   .desc(jsonObject.optString("desc"))
-                   .build();
     }
 }
