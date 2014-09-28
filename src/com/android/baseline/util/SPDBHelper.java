@@ -403,8 +403,40 @@ public class SPDBHelper
                     e);
         }
     }
+    
+    public static void putInteger(SQLiteDatabase db, String key, int value)
+    {
+        try
+        {
+            if (checkKeyExist(db, key))
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_VALUE,
+                        value);
+                BaseDAO.update(db, TABLE_NAME,
+                        values,
+                        COLUMN_KEY + "=?",
+                        new String[]
+                        { key });
+            }
+            else
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_KEY,
+                        key);
+                values.put(COLUMN_VALUE,
+                        value);
+                BaseDAO.insert(db, TABLE_NAME, values);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+    }
 
-    public Long getLong(String key, long defaultValue)
+    public long getLong(String key, long defaultValue)
     {
         long result = defaultValue;
         Cursor cursor = null;
@@ -473,6 +505,214 @@ public class SPDBHelper
     }
 
     public static void putLong(SQLiteDatabase db, String key, long value)
+    {
+        try
+        {
+            if (checkKeyExist(db,
+                    key))
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_VALUE,
+                        value);
+                BaseDAO.update(db,
+                        TABLE_NAME,
+                        values,
+                        COLUMN_KEY + "=?",
+                        new String[]
+                        { key });
+            }
+            else
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_KEY,
+                        key);
+                values.put(COLUMN_VALUE,
+                        value);
+                BaseDAO.insert(db,
+                        TABLE_NAME,
+                        values);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+    }
+    
+    public double getDouble(String key, double defaultValue)
+    {
+        double result = defaultValue;
+        Cursor cursor = null;
+        try
+        {
+            cursor = baseDAO.query(TABLE_NAME,
+                    new String[]
+                    { COLUMN_VALUE },
+                    COLUMN_KEY + "=?",
+                    new String[]
+                    { key },
+                    null,
+                    null,
+                    null);
+            if (cursor.moveToNext())
+            {
+                result = cursor.getDouble(cursor.getColumnIndex(COLUMN_VALUE));
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+        finally
+        {
+            if (cursor != null)
+            {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
+    public void putDouble(String key, double value)
+    {
+        try
+        {
+            if (checkKeyExist(key))
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_VALUE,
+                        value);
+                baseDAO.update(TABLE_NAME,
+                        values,
+                        COLUMN_KEY + "=?",
+                        new String[]
+                        { key });
+            }
+            else
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_KEY,
+                        key);
+                values.put(COLUMN_VALUE,
+                        value);
+                baseDAO.insert(TABLE_NAME,
+                        values);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+    }
+
+    public static void putDouble(SQLiteDatabase db, String key, double value)
+    {
+        try
+        {
+            if (checkKeyExist(db,
+                    key))
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_VALUE,
+                        value);
+                BaseDAO.update(db,
+                        TABLE_NAME,
+                        values,
+                        COLUMN_KEY + "=?",
+                        new String[]
+                        { key });
+            }
+            else
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_KEY,
+                        key);
+                values.put(COLUMN_VALUE,
+                        value);
+                BaseDAO.insert(db,
+                        TABLE_NAME,
+                        values);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+    }
+    
+    public float getFloat(String key, float defaultValue)
+    {
+        float result = defaultValue;
+        Cursor cursor = null;
+        try
+        {
+            cursor = baseDAO.query(TABLE_NAME,
+                    new String[]
+                    { COLUMN_VALUE },
+                    COLUMN_KEY + "=?",
+                    new String[]
+                    { key },
+                    null,
+                    null,
+                    null);
+            if (cursor.moveToNext())
+            {
+                result = cursor.getFloat(cursor.getColumnIndex(COLUMN_VALUE));
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+        finally
+        {
+            if (cursor != null)
+            {
+                cursor.close();
+            }
+        }
+        return result;
+    }
+
+    public void putFloat(String key, float value)
+    {
+        try
+        {
+            if (checkKeyExist(key))
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_VALUE,
+                        value);
+                baseDAO.update(TABLE_NAME,
+                        values,
+                        COLUMN_KEY + "=?",
+                        new String[]
+                        { key });
+            }
+            else
+            {
+                ContentValues values = new ContentValues();
+                values.put(COLUMN_KEY,
+                        key);
+                values.put(COLUMN_VALUE,
+                        value);
+                baseDAO.insert(TABLE_NAME,
+                        values);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.e(TAG,
+                    e);
+        }
+    }
+
+    public static void putFloat(SQLiteDatabase db, String key, float value)
     {
         try
         {
