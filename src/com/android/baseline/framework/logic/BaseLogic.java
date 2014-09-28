@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Message;
 
 import com.android.baseline.AppDroid;
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
@@ -22,7 +23,7 @@ public class BaseLogic implements ILogic
     // 存储所有的订阅者
     private List<Object> subscribers = new ArrayList<Object>();
     // Volley请求队列
-    protected static RequestQueue requestQueue = Volley.newRequestQueue(AppDroid
+    private static RequestQueue requestQueue = Volley.newRequestQueue(AppDroid
             .getInstance().getApplicationContext());
 
     @Override
@@ -59,9 +60,31 @@ public class BaseLogic implements ILogic
      * 取消某一个网络请求
      * @param tag 某次请求的唯一标识
      */
-    public void cancelAll(Object tag)
+    protected void cancelAll(Object tag)
     {
         requestQueue.cancelAll(tag);
+    }
+    
+    /**
+     * 发送网络请求
+     * @param <T>
+     * @param request
+     */
+    protected <T> void sendRequest(Request<T> request)
+    {
+        sendRequest(request, null);
+    }
+    
+    /**
+     * 发送网络请求, 并给这个请求设置TAG
+     * @param <T>
+     * @param request
+     * @param tag
+     */
+    protected <T> void sendRequest(Request<T> request, Object tag)
+    {
+        request.setTag(tag);
+        requestQueue.add(request);
     }
 
     /**
