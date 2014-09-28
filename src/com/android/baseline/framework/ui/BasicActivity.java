@@ -187,9 +187,9 @@ public class BasicActivity extends BaseActivity
      * {@link #defaultDialogHidden(boolean)}]
      * 
      * @param msg
-     * @see com.android.baseline.framework.ui.base.BaseActivity#handleStateMessage(android.os.Message)
+     * @see com.android.baseline.framework.ui.base.BaseActivity#onResponse(android.os.Message)
      */
-    public void handleStateMessage(Message msg)
+    public void onResponse(Message msg)
     {
         if (dialogHidden)
         {

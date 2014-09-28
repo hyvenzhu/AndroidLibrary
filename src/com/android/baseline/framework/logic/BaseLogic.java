@@ -13,8 +13,9 @@ import com.android.volley.toolbox.Volley;
 import de.greenrobot.event.EventBus;
 
 /**
- * 1、提供订阅者注册、解绑的实现
- * 2、提供统一的Volley请求队列
+ * 1、统一的Volley请求队列以及Request的发送
+ * 2、使用EventBus通讯订阅者与发送者
+ * 3、提供订阅者注册、解绑和业务请求结果统一分发的实现
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-15]
  */
@@ -25,13 +26,48 @@ public class BaseLogic implements ILogic
     // Volley请求队列
     private static RequestQueue requestQueue = Volley.newRequestQueue(AppDroid
             .getInstance().getApplicationContext());
-
+    // Custom EventBus
+    private EventBus mEventBus;
+    
+    /**
+     * Constructor with a new EventBus
+     */
+    public BaseLogic()
+    {
+        this(new EventBus());
+    }
+    
+    /**
+     * Constructor with custom EventBus
+     * @param eventBus
+     */
+    public BaseLogic(EventBus eventBus)
+    {
+        if (eventBus == null)
+        {
+            mEventBus = EventBus.getDefault();
+        }
+        else
+        {
+            mEventBus = eventBus;
+        }
+    }
+    
+    /**
+     * Get eventbus by default or custom
+     * @return
+     */
+    private EventBus getDefault()
+    {
+        return mEventBus;
+    }
+    
     @Override
     public void register(Object subscriber)
     {
         if (!subscribers.contains(subscriber))
         {
-            EventBus.getDefault().register(subscriber);
+            getDefault().register(subscriber);
             subscribers.add(subscriber);
         }
     }
@@ -41,7 +77,7 @@ public class BaseLogic implements ILogic
     {
         if (subscribers.contains(subscriber))
         {
-            EventBus.getDefault().unregister(subscriber);
+            getDefault().unregister(subscriber);
             subscribers.remove(subscriber);
         }
     }
@@ -51,7 +87,7 @@ public class BaseLogic implements ILogic
     {
         for (Object subscriber : subscribers)
         {
-            EventBus.getDefault().unregister(subscriber);
+            getDefault().unregister(subscriber);
         }
         subscribers.clear();
     }
@@ -89,7 +125,15 @@ public class BaseLogic implements ILogic
 
     /**
      * 负责封装结果内容, post给订阅者
-     * 
+     * [
+     *   一、针对当前框架做了修改
+     *       同一种类型的事件不会发送给多个订阅者(EventBus默认情况会发送个多个订阅者)
+     *     
+     *   二、如果需要同一类型的事件发送给多个订阅者
+     *       使用BaseLogic(EventBus eventBus)构造函数, 为每个订阅者提供同一个EventBus对象(例如EventBus.getDefault()), 这样会出现以下情况
+     *       1、msg的what相同的情况会被多个订阅者接受并处理
+     *       2、msg的what不相同的话会被多个订阅者接受, 但不会被处理(具体需要业务层控制)
+     * ]
      * @param action 任务标识
      * @param response 响应结果 
      *                 instanceof VolleyError表示网络请求出错
@@ -101,6 +145,6 @@ public class BaseLogic implements ILogic
         Message msg = new Message();
         msg.what = action;
         msg.obj = response;
-        EventBus.getDefault().post(msg);
+        getDefault().post(msg);
     }
 }

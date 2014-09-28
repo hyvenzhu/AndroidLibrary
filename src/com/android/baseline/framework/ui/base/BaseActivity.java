@@ -45,8 +45,8 @@ public abstract class BaseActivity extends FragmentActivity
      */
     public void onEventMainThread(Message msg)
     {
-        handleStateMessage(msg);
+        onResponse(msg);
     }
-
-    public abstract void handleStateMessage(Message msg);
+    
+    public abstract void onResponse(Message msg);
 }

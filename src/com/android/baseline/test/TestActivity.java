@@ -62,9 +62,9 @@ public class TestActivity extends BasicActivity
     }
 
     @Override
-    public void handleStateMessage(Message msg)
+    public void onResponse(Message msg)
     {
-        super.handleStateMessage(msg);
+        super.onResponse(msg);
         switch (msg.what)
         {
             case R.id.testHttp:
