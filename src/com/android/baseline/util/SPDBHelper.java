@@ -47,7 +47,7 @@ public class SPDBHelper
         baseDAO = BaseDAO.getInstance();
     }
 
-    public boolean checkKeyExist(String key)
+    public boolean contains(String key)
     {
         boolean isExist = false;
         Cursor cursor = null;
@@ -81,7 +81,7 @@ public class SPDBHelper
         return isExist;
     }
 
-    public static boolean checkKeyExist(SQLiteDatabase db, String key)
+    public static boolean contains(SQLiteDatabase db, String key)
     {
         boolean isExist = false;
         Cursor cursor = null;
@@ -167,7 +167,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(key))
+            if (contains(key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -200,7 +200,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(db,
+            if (contains(db,
                     key))
             {
                 ContentValues values = new ContentValues();
@@ -271,7 +271,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(key))
+            if (contains(key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -304,7 +304,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(db,
+            if (contains(db,
                     key))
             {
                 ContentValues values = new ContentValues();
@@ -375,7 +375,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(key))
+            if (contains(key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -408,7 +408,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(db, key))
+            if (contains(db, key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -475,7 +475,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(key))
+            if (contains(key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -508,7 +508,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(db,
+            if (contains(db,
                     key))
             {
                 ContentValues values = new ContentValues();
@@ -579,7 +579,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(key))
+            if (contains(key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -612,7 +612,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(db,
+            if (contains(db,
                     key))
             {
                 ContentValues values = new ContentValues();
@@ -683,7 +683,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(key))
+            if (contains(key))
             {
                 ContentValues values = new ContentValues();
                 values.put(COLUMN_VALUE,
@@ -716,7 +716,7 @@ public class SPDBHelper
     {
         try
         {
-            if (checkKeyExist(db,
+            if (contains(db,
                     key))
             {
                 ContentValues values = new ContentValues();
