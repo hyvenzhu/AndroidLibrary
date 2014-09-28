@@ -32,3 +32,6 @@ Android基线框架, 提供以下基础功能
 
 
 10、支持App ANR时, 可以通过Email及时发送ANR的trace到开发者手中
+
+
+欢迎star、watch、fork，共同交流进步，有好的建议或疑问请联系我hiphonezhu@gmail.com
