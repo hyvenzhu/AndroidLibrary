@@ -25,7 +25,7 @@ Android基线框架, 提供以下基础功能
 7、SharedPreferences配置文件通过数据库来保存, 避免部分手机无法保存问题, 使用方法与原生API保持一致
 
 
-8、基类Activity提供View的注解和事件绑定框架, 以及统一的Toast、ProgressDialog等UI组件
+8、基类Activity和Fragment提供View的注解和事件绑定框架, 以及统一的Toast、ProgressDialog等UI组件
 
 
 9、基类Adapter, 提供控件复用的管理机制
