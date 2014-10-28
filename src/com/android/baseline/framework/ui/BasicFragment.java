@@ -37,6 +37,10 @@ public abstract class BasicFragment extends Fragment
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
+        if (!(activity instanceof BasicActivity))
+        {
+            throw new RuntimeException("Activity must extend BasicActivity.");
+        }
         basicActivity = (BasicActivity)activity;
     }
     
