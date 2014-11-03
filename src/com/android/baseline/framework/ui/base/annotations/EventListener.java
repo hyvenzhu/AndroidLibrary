@@ -8,6 +8,8 @@ import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  * 自定义的View事件 [触发的方法中反射用户的方法]
@@ -16,7 +18,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
  * @version [Android-BaseLine, 2014-9-15]
  */
 public class EventListener implements OnClickListener , OnLongClickListener , OnItemClickListener ,
-        OnItemLongClickListener
+        OnItemLongClickListener,OnCheckedChangeListener
 {
     private Object receiver;
     private String methodName;
@@ -103,5 +105,21 @@ public class EventListener implements OnClickListener , OnLongClickListener , On
         {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    {
+        try
+        {
+            Method method = receiver.getClass().getDeclaredMethod(methodName,CompoundButton.class,
+                    boolean.class);
+            method.invoke(receiver,buttonView,isChecked);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        
     }
 }
