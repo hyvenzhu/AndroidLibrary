@@ -23,7 +23,7 @@ import com.android.baseline.framework.ui.base.BaseActivity;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-15]
  */
-public class BasicActivity extends BaseActivity
+public class BasicActivity extends BaseActivity implements UIInterface
 {
     private final String TAG = "BasicActivity";
     /** 基类Toast */

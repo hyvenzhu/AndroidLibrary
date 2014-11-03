@@ -32,16 +32,16 @@ public abstract class BasicFragment extends Fragment
         return v;
     }
     
-    private BasicActivity basicActivity;
+    private UIInterface uiInterface;
     @Override
     public void onAttach(Activity activity)
     {
         super.onAttach(activity);
         if (!(activity instanceof BasicActivity))
         {
-            throw new RuntimeException("Activity must extend BasicActivity.");
+            throw new RuntimeException("Activity must implements Interface 'UIInterface'.");
         }
-        basicActivity = (BasicActivity)activity;
+        uiInterface = (UIInterface)activity;
     }
     
     /**
@@ -50,7 +50,7 @@ public abstract class BasicFragment extends Fragment
      */
     public void showToast(CharSequence message)
     {
-        basicActivity.showToast(message);
+        uiInterface.showToast(message);
     }
 
     public void showProgress(String message)
@@ -60,7 +60,7 @@ public abstract class BasicFragment extends Fragment
 
     public void showProgress(String message, boolean cancelable)
     {
-        basicActivity.showProgress(message, cancelable);
+        uiInterface.showProgress(message, cancelable);
     }
     
     @Override
@@ -81,7 +81,7 @@ public abstract class BasicFragment extends Fragment
     public void onDestroy()
     {
         super.onDestroy();
-        basicActivity.hideProgress();
+        uiInterface.hideProgress();
     }
     
     /**
@@ -92,7 +92,7 @@ public abstract class BasicFragment extends Fragment
     {
         if (dialogHidden)
         {
-            basicActivity.hideProgress();
+            uiInterface.hideProgress();
         }
     }
 
