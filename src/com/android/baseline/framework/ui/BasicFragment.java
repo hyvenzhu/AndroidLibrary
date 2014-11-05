@@ -3,6 +3,7 @@ package com.android.baseline.framework.ui;
 import android.app.Activity;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,17 @@ public abstract class BasicFragment extends Fragment
     {
         super.onDestroy();
         uiInterface.hideProgress();
+    }
+    
+    /**
+     * 关闭当前Fragment
+     */
+    protected void finish()
+    {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.remove(this);
+        transaction.commit();
+        getFragmentManager().popBackStackImmediate();
     }
     
     /**
