@@ -12,9 +12,21 @@ import de.greenrobot.event.EventBus;
 public abstract class Task implements ITask
 {
     private int mTaskId;
+    private EventBus eventBus;
     public Task(int taskId)
     {
+        this(taskId, null);
+        this.eventBus = new EventBus();
+    }
+    
+    public Task(int taskId, EventBus eventBus)
+    {
         this.mTaskId = taskId;
+        if (eventBus == null)
+        {
+            eventBus = new EventBus();
+        }
+        this.eventBus = eventBus;
     }
     
     @Override
@@ -24,6 +36,6 @@ public abstract class Task implements ITask
         Message msg = new Message();
         msg.what = mTaskId;
         msg.obj = result;
-        EventBus.getDefault().post(msg);
+        eventBus.post(msg);
     }
 }
