@@ -1,3 +1,0 @@
-target=android-19
-android.library=false
-proguard.config=./proguard-project.txt:proguard-android.txt
