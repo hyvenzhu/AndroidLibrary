@@ -64,6 +64,11 @@ public abstract class BasicFragment extends Fragment
         uiInterface.showProgress(message, cancelable);
     }
     
+    public void hideProgress()
+    {
+        uiInterface.hideProgress();
+    }
+    
     @Override
     public void onResume()
     {

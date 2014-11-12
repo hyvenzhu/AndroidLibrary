@@ -27,6 +27,16 @@ public abstract class BasicAdapter<T> extends BaseAdapter
         mData = data;
         mResourceId = resourceId;
     }
+    
+    public void setDataSource(List<T> data)
+    {
+        mData = data;
+    }
+    
+    public List<T> getDataSource()
+    {
+        return mData;
+    }
 
     @Override
     public int getCount()

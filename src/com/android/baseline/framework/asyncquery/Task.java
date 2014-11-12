@@ -13,13 +13,12 @@ public abstract class Task implements ITask
 {
     private int mTaskId;
     private EventBus eventBus;
-    public Task(int taskId)
+    public Task(int taskId, Object subscriber)
     {
-        this(taskId, null);
-        this.eventBus = new EventBus();
+        this(taskId, new EventBus(), subscriber);
     }
     
-    public Task(int taskId, EventBus eventBus)
+    public Task(int taskId, EventBus eventBus, Object subscriber)
     {
         this.mTaskId = taskId;
         if (eventBus == null)
@@ -27,6 +26,7 @@ public abstract class Task implements ITask
             eventBus = new EventBus();
         }
         this.eventBus = eventBus;
+        this.eventBus.register(subscriber);
     }
     
     @Override

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.baseline.R;
+import com.android.baseline.framework.asyncquery.TaskExecutor;
 import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
@@ -49,12 +50,12 @@ public class TestActivity extends BasicActivity
                 showProgress("请稍后...");
                 resultTxt.setText("");
                 // 网络请求
-                logic.userLogin();
+//                logic.userLogin();
                 // 取消请求
 //                logic.cancelAll(R.id.testHttp);
                 
                 // 非网络请求, 耗时任务
-//                TaskExecutor.getInstance().execute(new TestTask(R.id.testTask));
+                TaskExecutor.getInstance().execute(new TestTask(R.id.testTask, this));
                 break;
             default:
                 break;

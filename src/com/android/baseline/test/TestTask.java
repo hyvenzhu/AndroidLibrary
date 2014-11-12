@@ -9,9 +9,9 @@ import com.android.baseline.framework.logic.InfoResult;
  */
 public class TestTask extends Task
 {
-    public TestTask(int taskId)
+    public TestTask(int taskId, Object subscriber)
     {
-        super(taskId);
+        super(taskId, subscriber);
     }
 
     @Override
