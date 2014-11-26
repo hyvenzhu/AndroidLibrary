@@ -42,7 +42,6 @@
 }
 
 # 保持枚举 enum 类不被混淆
--dontwarn enum * 
 -keepclassmembers enum * {
     public static **[] values();
     public static ** valueOf(java.lang.String);
