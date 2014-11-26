@@ -2,3 +2,4 @@
 gen/
 bin/
 .svn/
+proguard/
