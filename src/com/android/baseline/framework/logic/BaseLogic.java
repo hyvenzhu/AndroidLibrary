@@ -110,7 +110,7 @@ public class BaseLogic implements ILogic
      */
     protected <T> void sendRequest(Request<T> request)
     {
-        sendRequest(request, null);
+        requestQueue.add(request);
     }
     
     /**
@@ -123,6 +123,30 @@ public class BaseLogic implements ILogic
     {
         request.setTag(tag);
         requestQueue.add(request);
+    }
+    
+    /**
+     * 使用自定义队列发送网络请求, 并给这个请求设置TAG
+     * @param <T>
+     * @param request
+     * @param tag
+     * @param requestQueue
+     */
+    protected <T> void sendRequest(Request<T> request, Object tag, RequestQueue requestQueue)
+    {
+        request.setTag(tag);
+        requestQueue.add(request);
+    }
+    
+    /**
+     * 使用自定义队列发送网络请求
+     * @param <T>
+     * @param request
+     * @param requestQueue
+     */
+    protected <T> void sendRequest(Request<T> request, RequestQueue requestQueue)
+    {
+        sendRequest(request, null, requestQueue);
     }
 
     /**
