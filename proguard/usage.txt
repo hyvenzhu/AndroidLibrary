@@ -326,13 +326,13 @@ com.android.baseline.framework.log.Logger:
     public static final int WARN
     public static final int ERROR
     116:118:private Logger()
-    216:216:public static int v(java.lang.String,java.lang.String,java.lang.Throwable)
-    247:247:public static int d(java.lang.String,java.lang.String,java.lang.Throwable)
-    262:262:public static int i(java.lang.String,java.lang.String)
-    278:278:public static int i(java.lang.String,java.lang.String,java.lang.Throwable)
-    309:309:public static int w(java.lang.String,java.lang.String,java.lang.Throwable)
-    341:341:public static int e(java.lang.String,java.lang.String)
-    356:356:public static int e(java.lang.String,java.lang.Throwable)
+    216:218:public static int v(java.lang.String,java.lang.String,java.lang.Throwable)
+    247:249:public static int d(java.lang.String,java.lang.String,java.lang.Throwable)
+    262:264:public static int i(java.lang.String,java.lang.String)
+    278:280:public static int i(java.lang.String,java.lang.String,java.lang.Throwable)
+    309:311:public static int w(java.lang.String,java.lang.String,java.lang.Throwable)
+    341:343:public static int e(java.lang.String,java.lang.String)
+    356:358:public static int e(java.lang.String,java.lang.Throwable)
     428:429:public static synchronized void stopService()
 com.android.baseline.framework.log.util.FileUtil:
     private static final java.lang.String TAG
@@ -430,8 +430,13 @@ com.android.baseline.util.anrwatchdog.ANRError:
     private static final long serialVersionUID
 com.android.baseline.util.anrwatchdog.ANRWatchDog:
     private static final int DEFAULT_ANR_TIMEOUT
+    78:79:public ANRWatchDog()
+    60:90:public ANRWatchDog(int)
     100:106:public com.android.baseline.util.anrwatchdog.ANRWatchDog setANRListener(com.android.baseline.util.anrwatchdog.ANRWatchDog$ANRListener)
     117:123:public com.android.baseline.util.anrwatchdog.ANRWatchDog setInterruptionListener(com.android.baseline.util.anrwatchdog.ANRWatchDog$InterruptionListener)
+    66:66:static synthetic int access$0(com.android.baseline.util.anrwatchdog.ANRWatchDog)
+    66:66:static synthetic void access$1(com.android.baseline.util.anrwatchdog.ANRWatchDog,int)
+com.android.baseline.util.anrwatchdog.ANRWatchDog$3
 com.android.volley.AuthFailureError:
     34:36:public AuthFailureError(android.content.Intent)
     43:44:public AuthFailureError(java.lang.String)
@@ -496,10 +501,9 @@ com.android.volley.plus.multipart.FilePart$1:
     57:57:public java.lang.String getContentTransferEncoding()
 com.android.volley.plus.multipart.MultiPartRequest:
     private static final java.lang.String PROTOCOL_CHARSET
-    26:30:public MultiPartRequest(int,java.lang.String,com.android.volley.Response$Listener,com.android.volley.Response$ErrorListener)
+    21:30:public MultiPartRequest(int,java.lang.String,com.android.volley.Response$Listener,com.android.volley.Response$ErrorListener)
     44:45:public com.android.volley.plus.multipart.MultiPartRequest addMultipartParam(java.lang.String,java.lang.String,java.lang.String)
     59:60:public com.android.volley.plus.multipart.MultiPartRequest addFile(java.lang.String,java.lang.String)
-    protected abstract com.android.volley.Response parseNetworkResponse(com.android.volley.NetworkResponse)
 com.android.volley.plus.multipart.MultiPartRequest$MultiPartParam:
     public java.lang.String contentType
     125:128:public MultiPartRequest$MultiPartParam(java.lang.String,java.lang.String)
@@ -533,7 +537,7 @@ com.android.volley.toolbox.HurlStack:
     private static final java.lang.String HEADER_CONTENT_TYPE
     private static final java.lang.String CONTENT_TYPE_MULTIPART
 com.android.volley.toolbox.ImageLoader:
-    85:88:public ImageLoader(com.android.volley.RequestQueue,com.android.volley.toolbox.ImageLoader$ImageCache)
+    48:88:public ImageLoader(com.android.volley.RequestQueue,com.android.volley.toolbox.ImageLoader$ImageCache)
     100:100:public static com.android.volley.toolbox.ImageLoader$ImageListener getImageListener(android.widget.ImageView,int,int)
     154:157:public boolean isCached(java.lang.String,int,int)
     245:246:public void setBatchedResponseDelay(int)
@@ -578,9 +582,9 @@ de.greenrobot.event.EventBus:
     302:317:public synchronized varargs void unregister(java.lang.Object,java.lang.Class[])
     381:394:public void cancelEventDelivery(java.lang.Object)
     402:407:public void postSticky(java.lang.Object)
-    415:415:public java.lang.Object getStickyEvent(java.lang.Class)
-    426:426:public java.lang.Object removeStickyEvent(java.lang.Class)
-    437:437:public boolean removeStickyEvent(java.lang.Object)
+    415:416:public java.lang.Object getStickyEvent(java.lang.Class)
+    426:427:public java.lang.Object removeStickyEvent(java.lang.Class)
+    437:444:public boolean removeStickyEvent(java.lang.Object)
     453:456:public void removeAllStickyEvents()
 de.greenrobot.event.EventBus$PostCallback
 de.greenrobot.event.EventBusException:

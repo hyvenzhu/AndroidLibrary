@@ -430,7 +430,7 @@ android.support.v4.app.FragmentManagerImpl -> android.support.v4.app.h:
     void performPendingDeferredStart(android.support.v4.app.Fragment) -> a
     void moveToState(android.support.v4.app.Fragment,int,int,int,boolean) -> a
     void moveToState(android.support.v4.app.Fragment) -> b
-    void moveToState$2563266(int) -> c
+    void moveToState$2563266(int) -> a
     void moveToState(int,int,int,boolean) -> a
     void startPendingDeferredFragments() -> a
     void addFragment(android.support.v4.app.Fragment,boolean) -> a
@@ -441,37 +441,16 @@ android.support.v4.app.FragmentManagerImpl -> android.support.v4.app.h:
     void attachFragment(android.support.v4.app.Fragment,int,int) -> e
     android.support.v4.app.Fragment findFragmentById(int) -> findFragmentById
     android.support.v4.app.Fragment findFragmentByTag(java.lang.String) -> findFragmentByTag
-    void checkStateLoss() -> o
+    void checkStateLoss() -> d
     void enqueueAction(java.lang.Runnable,boolean) -> a
     int allocBackStackIndex(android.support.v4.app.BackStackRecord) -> a
     void setBackStackIndex(int,android.support.v4.app.BackStackRecord) -> a
-    void freeBackStackIndex(int) -> a
     boolean execPendingActions() -> b
-    void reportBackStackChanged() -> p
-    void addBackStackState(android.support.v4.app.BackStackRecord) -> b
+    void reportBackStackChanged() -> c
     boolean popBackStackState$68507953(java.lang.String,int,int) -> a
-    java.util.ArrayList retainNonConfig() -> c
-    void saveFragmentViewState(android.support.v4.app.Fragment) -> c
-    android.os.Bundle saveFragmentBasicState(android.support.v4.app.Fragment) -> d
-    android.os.Parcelable saveAllState() -> d
+    void saveFragmentViewState(android.support.v4.app.Fragment) -> d
+    android.os.Bundle saveFragmentBasicState(android.support.v4.app.Fragment) -> c
     void restoreAllState(android.os.Parcelable,java.util.ArrayList) -> a
-    void attachActivity(android.support.v4.app.FragmentActivity) -> a
-    void noteStateNotSaved() -> e
-    void dispatchCreate() -> f
-    void dispatchActivityCreated() -> g
-    void dispatchStart() -> h
-    void dispatchResume() -> i
-    void dispatchPause() -> j
-    void dispatchStop() -> k
-    void dispatchReallyStop() -> l
-    void dispatchDestroy() -> m
-    void dispatchConfigurationChanged(android.content.res.Configuration) -> a
-    void dispatchLowMemory() -> n
-    boolean dispatchCreateOptionsMenu(android.view.Menu,android.view.MenuInflater) -> a
-    boolean dispatchPrepareOptionsMenu(android.view.Menu) -> a
-    boolean dispatchOptionsItemSelected(android.view.MenuItem) -> a
-    boolean dispatchContextItemSelected(android.view.MenuItem) -> b
-    void dispatchOptionsMenuClosed(android.view.Menu) -> b
     int reverseTransit(int) -> b
 android.support.v4.app.FragmentManagerImpl$1 -> android.support.v4.app.i:
     android.support.v4.app.FragmentManagerImpl this$0 -> a
@@ -535,7 +514,6 @@ android.support.v4.app.FragmentState -> android.support.v4.app.FragmentState:
     android.os.Bundle mSavedFragmentState -> j
     android.support.v4.app.Fragment mInstance -> k
     android.os.Parcelable$Creator CREATOR -> CREATOR
-    android.support.v4.app.Fragment instantiate(android.support.v4.app.FragmentActivity) -> a
     int describeContents() -> describeContents
     void writeToParcel(android.os.Parcel,int) -> writeToParcel
 android.support.v4.app.FragmentState$1 -> android.support.v4.app.o:
@@ -646,7 +624,6 @@ android.support.v4.app.LoaderManagerImpl -> android.support.v4.app.r:
     boolean mStarted -> e
     boolean mRetaining -> f
     boolean mCreatingLoader -> g
-    void updateActivity(android.support.v4.app.FragmentActivity) -> a
     android.support.v4.app.LoaderManagerImpl$LoaderInfo createLoader(int,android.os.Bundle,android.support.v4.app.LoaderManager$LoaderCallbacks) -> a
     android.support.v4.app.LoaderManagerImpl$LoaderInfo createAndInstallLoader(int,android.os.Bundle,android.support.v4.app.LoaderManager$LoaderCallbacks) -> b
     void installLoader(android.support.v4.app.LoaderManagerImpl$LoaderInfo) -> a
@@ -657,10 +634,8 @@ android.support.v4.app.LoaderManagerImpl -> android.support.v4.app.r:
     void doStart() -> a
     void doStop() -> b
     void doRetain() -> c
-    void finishRetain() -> d
-    void doReportNextStart() -> e
-    void doReportStart() -> f
-    void doDestroy() -> g
+    void doReportStart() -> d
+    void doDestroy() -> e
     java.lang.String toString() -> toString
     void dump(java.lang.String,java.io.FileDescriptor,java.io.PrintWriter,java.lang.String[]) -> dump
     boolean hasRunningLoaders() -> hasRunningLoaders
@@ -681,11 +656,8 @@ android.support.v4.app.LoaderManagerImpl$LoaderInfo -> android.support.v4.app.s:
     android.support.v4.app.LoaderManagerImpl$LoaderInfo mPendingLoader -> n
     android.support.v4.app.LoaderManagerImpl this$0 -> o
     void start() -> a
-    void retain() -> b
-    void finishRetain() -> c
-    void reportStart() -> d
-    void stop() -> e
-    void destroy() -> f
+    void stop() -> b
+    void destroy() -> c
     void onLoadComplete(android.support.v4.content.Loader,java.lang.Object) -> onLoadComplete
     void callOnLoadFinished(android.support.v4.content.Loader,java.lang.Object) -> a
     java.lang.String toString() -> toString
@@ -2877,18 +2849,13 @@ com.android.baseline.util.anrwatchdog.ANRWatchDog -> com.android.baseline.a.a.b:
     int mTick -> g
     java.lang.Runnable mTicker -> h
     void run() -> run
-    int access$0(com.android.baseline.util.anrwatchdog.ANRWatchDog) -> a
-    void access$1(com.android.baseline.util.anrwatchdog.ANRWatchDog,int) -> a
 com.android.baseline.util.anrwatchdog.ANRWatchDog$1 -> com.android.baseline.a.a.c:
     void onAppNotResponding(com.android.baseline.util.anrwatchdog.ANRError) -> a
 com.android.baseline.util.anrwatchdog.ANRWatchDog$2 -> com.android.baseline.a.a.d:
     void onInterrupted(java.lang.InterruptedException) -> a
-com.android.baseline.util.anrwatchdog.ANRWatchDog$3 -> com.android.baseline.a.a.e:
-    com.android.baseline.util.anrwatchdog.ANRWatchDog this$0 -> a
-    void run() -> run
-com.android.baseline.util.anrwatchdog.ANRWatchDog$ANRListener -> com.android.baseline.a.a.f:
+com.android.baseline.util.anrwatchdog.ANRWatchDog$ANRListener -> com.android.baseline.a.a.e:
     void onAppNotResponding(com.android.baseline.util.anrwatchdog.ANRError) -> a
-com.android.baseline.util.anrwatchdog.ANRWatchDog$InterruptionListener -> com.android.baseline.a.a.g:
+com.android.baseline.util.anrwatchdog.ANRWatchDog$InterruptionListener -> com.android.baseline.a.a.f:
     void onInterrupted(java.lang.InterruptedException) -> a
 com.android.baseline.util.crash2email.CrashMailProvider -> com.android.baseline.a.b.a:
     java.lang.String LINE_SEPARATOR -> a
@@ -3026,15 +2993,13 @@ com.android.volley.Request -> com.android.volley.p:
     void cancel() -> f
     boolean isCanceled() -> g
     java.util.Map getHeaders() -> h
-    byte[] getPostBody() -> i
-    java.lang.String getBodyContentType() -> j
-    byte[] getBody() -> k
-    boolean shouldCache() -> l
-    com.android.volley.Request$Priority getPriority() -> m
-    int getTimeoutMs() -> n
-    com.android.volley.RetryPolicy getRetryPolicy() -> o
-    void markDelivered() -> p
-    boolean hasHadResponseDelivered() -> q
+    java.lang.String getBodyContentType() -> i
+    boolean shouldCache() -> j
+    com.android.volley.Request$Priority getPriority() -> k
+    int getTimeoutMs() -> l
+    com.android.volley.RetryPolicy getRetryPolicy() -> m
+    void markDelivered() -> n
+    boolean hasHadResponseDelivered() -> o
     com.android.volley.Response parseNetworkResponse(com.android.volley.NetworkResponse) -> a
     com.android.volley.VolleyError parseNetworkError(com.android.volley.VolleyError) -> a
     void deliverResponse(java.lang.Object) -> a
@@ -3147,9 +3112,9 @@ com.android.volley.plus.multipart.FilePart$1 -> com.android.volley.a.a.e:
 com.android.volley.plus.multipart.MultiPartRequest -> com.android.volley.a.a.f:
     java.util.Map mFileUploads -> a
     java.util.Map mMultipartParams -> b
-    java.util.Map getMultipartParams() -> r
-    java.util.Map getFilesToUpload() -> s
-    java.lang.String getProtocolCharset() -> t
+    java.util.Map getMultipartParams() -> p
+    java.util.Map getFilesToUpload() -> q
+    java.lang.String getProtocolCharset() -> r
 com.android.volley.plus.multipart.MultiPartRequest$MultiPartParam -> com.android.volley.a.a.g:
     java.lang.String value -> a
 com.android.volley.plus.multipart.MultipartEntity -> com.android.volley.a.a.h:
@@ -3313,7 +3278,7 @@ com.android.volley.toolbox.ImageRequest -> com.android.volley.toolbox.t:
     int mMaxWidth -> c
     int mMaxHeight -> d
     java.lang.Object sDecodeLock -> e
-    com.android.volley.Request$Priority getPriority() -> m
+    com.android.volley.Request$Priority getPriority() -> k
     int getResizedDimension(int,int,int,int) -> a
     com.android.volley.Response parseNetworkResponse(com.android.volley.NetworkResponse) -> a
     int findBestSampleSize(int,int,int,int) -> b
@@ -4991,20 +4956,18 @@ de.greenrobot.event.BackgroundPoster -> a.a.a.b:
 de.greenrobot.event.EventBus -> a.a.a.c:
     java.util.concurrent.ExecutorService executorService -> a
     java.lang.String TAG -> b
-    de.greenrobot.event.EventBus defaultInstance -> c
-    java.util.Map eventTypesCache -> d
-    java.util.Map subscriptionsByEventType -> e
-    java.util.Map typesBySubscriber -> f
-    java.util.Map stickyEvents -> g
-    java.lang.ThreadLocal currentPostingThreadState -> h
-    de.greenrobot.event.HandlerPoster mainThreadPoster -> i
-    de.greenrobot.event.BackgroundPoster backgroundPoster -> j
-    de.greenrobot.event.AsyncPoster asyncPoster -> k
-    de.greenrobot.event.SubscriberMethodFinder subscriberMethodFinder -> l
-    boolean subscribed -> m
-    boolean logSubscriberExceptions -> n
-    int[] $SWITCH_TABLE$de$greenrobot$event$ThreadMode -> o
-    de.greenrobot.event.EventBus getDefault() -> a
+    java.util.Map eventTypesCache -> c
+    java.util.Map subscriptionsByEventType -> d
+    java.util.Map typesBySubscriber -> e
+    java.util.Map stickyEvents -> f
+    java.lang.ThreadLocal currentPostingThreadState -> g
+    de.greenrobot.event.HandlerPoster mainThreadPoster -> h
+    de.greenrobot.event.BackgroundPoster backgroundPoster -> i
+    de.greenrobot.event.AsyncPoster asyncPoster -> j
+    de.greenrobot.event.SubscriberMethodFinder subscriberMethodFinder -> k
+    boolean subscribed -> l
+    boolean logSubscriberExceptions -> m
+    int[] $SWITCH_TABLE$de$greenrobot$event$ThreadMode -> n
     void register(java.lang.Object) -> a
     void register$10394076(java.lang.Object,java.lang.String) -> a
     void unregister(java.lang.Object) -> b
@@ -5013,7 +4976,7 @@ de.greenrobot.event.EventBus -> a.a.a.c:
     void addInterfaces(java.util.List,java.lang.Class[]) -> a
     void invokeSubscriber(de.greenrobot.event.PendingPost) -> a
     void invokeSubscriber(de.greenrobot.event.Subscription,java.lang.Object) -> a
-    int[] $SWITCH_TABLE$de$greenrobot$event$ThreadMode() -> b
+    int[] $SWITCH_TABLE$de$greenrobot$event$ThreadMode() -> a
 de.greenrobot.event.EventBus$1 -> a.a.a.d:
     de.greenrobot.event.EventBus this$0 -> a
     java.lang.Object initialValue() -> initialValue
