@@ -20,14 +20,14 @@ public abstract class BaseActivity extends FragmentActivity
     public void setContentView(int layoutResID)
     {
         super.setContentView(layoutResID);
-        ViewUtils.inject(this);
+        afterSetContentView();
     }
 
     @Override
     public void setContentView(View view)
     {
         super.setContentView(view);
-        ViewUtils.inject(this);
+        afterSetContentView();
     }
 
     @Override
@@ -35,7 +35,24 @@ public abstract class BaseActivity extends FragmentActivity
     {
         super.setContentView(view,
                 params);
+        afterSetContentView();
+    }
+    
+    /**
+     * setContentView之后调用, 进行view的初始化等操作
+     */
+    private void afterSetContentView()
+    {
         ViewUtils.inject(this);
+        init();
+    }
+    
+    /**
+     * 不希望使用默认的注解来初始化View
+     */
+    protected void init()
+    {
+        
     }
 
     /**

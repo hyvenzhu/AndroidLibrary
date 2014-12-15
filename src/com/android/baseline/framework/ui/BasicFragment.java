@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.android.baseline.framework.ui.BasicActivity;
+
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 /**
  * 基类Fragment
@@ -29,8 +29,62 @@ public abstract class BasicFragment extends Fragment
     protected View inflate(LayoutInflater inflater, ViewGroup container, int resourceId, BasicFragment fragment)
     {
         View v = inflater.inflate(resourceId, container, false);
+        // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
+        interceptTouchEvent(v, true);
         ViewUtils.inject(fragment, v);
+        afterSetContentView(v);
         return v;
+    }
+    
+    /**
+     * setContentView之后调用, 进行view的初始化等操作
+     */
+    private void afterSetContentView(View v)
+    {
+        init(v);
+    }
+    
+    /**
+     * 不希望使用默认的注解来初始化View
+     */
+    protected void init(View v)
+    {
+    }
+    
+    /**
+     * Fragment布局是否拦截事件
+     * @param interceptEvent true拦截|false不拦截
+     */
+    public void interceptTouchEvent(boolean interceptEvent)
+    {
+        interceptTouchEvent(getView(), interceptEvent);
+    }
+    
+    /**
+     * Fragment布局是否拦截事件
+     * @param view
+     * @param interceptEvent true拦截|false不拦截
+     */
+    private void interceptTouchEvent(View view, boolean interceptEvent)
+    {
+        if (interceptEvent)
+        {
+            if (view != null)
+            {
+                view.setEnabled(interceptEvent);
+                view.setClickable(interceptEvent);
+                view.setLongClickable(interceptEvent);
+            }
+        }
+        else
+        {
+            if (view != null)
+            {
+                view.setEnabled(interceptEvent);
+                view.setClickable(interceptEvent);
+                view.setLongClickable(interceptEvent);
+            }
+        }
     }
     
     private UIInterface uiInterface;
