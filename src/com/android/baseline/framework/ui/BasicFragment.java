@@ -1,13 +1,14 @@
 package com.android.baseline.framework.ui;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import com.android.baseline.AppDroid;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 /**
  * 基类Fragment
@@ -18,6 +19,14 @@ public abstract class BasicFragment extends Fragment
 {
     /** 当前Fragment是否处于暂停状态*/
     protected boolean isPaused = true;
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        AppDroid.getInstance().addFragment(this);
+    }
+    
     /**
      * 从资源加载View
      * @param inflater
@@ -142,6 +151,7 @@ public abstract class BasicFragment extends Fragment
     {
         super.onDestroy();
         uiInterface.hideProgress();
+        AppDroid.getInstance().removeFragment(this);
     }
     
     /**

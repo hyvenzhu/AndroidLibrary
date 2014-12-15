@@ -1,9 +1,5 @@
 package com.android.baseline.framework.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Message;
@@ -14,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.ui.base.BaseActivity;
@@ -31,37 +28,12 @@ public class BasicActivity extends BaseActivity implements UIInterface
     private Dialog progressDialog;
     protected boolean isPaused;
     protected boolean mIsNeedRefresh;
-    /** 保存栈中的Activity */
-    protected static List<Activity> activityStack = new ArrayList<Activity>();
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        activityStack.add(this);
-        Logger.d(TAG,
-                "onCreate");
-    }
-
-    /**
-     * 移除栈中的Activity
-     * 
-     * @param stackIndex
-     */
-    public void finishActivity(int stackIndex)
-    {
-        Activity activity = activityStack.get(stackIndex);
-        activity.finish();
-        activityStack.remove(stackIndex);
-    }
-
-    public void finishAll()
-    {
-        for (Activity activity : activityStack)
-        {
-            activity.finish();
-        }
-        activityStack.clear();
+        AppDroid.getInstance().addActivity(this);
+        Logger.d(TAG, "onCreate");
     }
 
     /**
@@ -91,8 +63,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
 
     public void showProgress(String message)
     {
-        showProgress(message,
-                true);
+        showProgress(message, true);
     }
 
     public void showProgress(String message, boolean cancelable)
@@ -156,8 +127,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
     {
         super.onResume();
         isPaused = false;
-        Logger.d(TAG,
-                "onResume");
+        Logger.d(TAG, "onResume");
         if (mIsNeedRefresh)
         {
             onRefresh();
@@ -234,7 +204,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
     {
         super.onDestroy();
         hideProgress();
-        activityStack.remove(this);
+        AppDroid.getInstance().removeActivity(this);
         Logger.d(TAG, "onDestroy");
     }
 }
