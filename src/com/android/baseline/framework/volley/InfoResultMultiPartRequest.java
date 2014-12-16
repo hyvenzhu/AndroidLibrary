@@ -10,9 +10,9 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.plus.multipart.MultiPartRequest;
 import com.android.volley.toolbox.HttpHeaderParser;
@@ -54,12 +54,8 @@ public class InfoResultMultiPartRequest extends MultiPartRequest<InfoResult> imp
         this.parserListener = parseListener;
         this.requestId = requestId;
         this.logic = logic;
-    }
-    
-    @Override
-    public RetryPolicy getRetryPolicy()
-    {
-        return new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        setRetryPolicy(retryPolicy);
     }
     
     @Override

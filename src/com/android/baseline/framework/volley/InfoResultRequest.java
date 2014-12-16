@@ -70,12 +70,8 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         this.parserListener = parseListener;
         this.requestId = requestId;
         this.logic = logic;
-    }
-    
-    @Override
-    public RetryPolicy getRetryPolicy()
-    {
-        return new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        RetryPolicy retryPolicy = new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        setRetryPolicy(retryPolicy);
     }
     
     @Override
