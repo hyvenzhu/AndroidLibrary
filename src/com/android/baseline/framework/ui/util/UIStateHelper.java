@@ -1,7 +1,10 @@
-package com.android.baseline.framework.ui;
+package com.android.baseline.framework.ui.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.android.baseline.framework.ui.BasicActivity;
+import com.android.baseline.framework.ui.BasicFragment;
 
 import android.app.Activity;
 /**

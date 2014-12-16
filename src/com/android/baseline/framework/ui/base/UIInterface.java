@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui;
+package com.android.baseline.framework.ui.base;
 /**
  * UI接口定义
  * @author hiphonezhu@gmail.com

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.android.baseline.AppDroid;
+import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 /**
  * 基类Fragment

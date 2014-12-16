@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.android.baseline.framework.ui.BasicActivity;
 import com.android.baseline.framework.ui.BasicFragment;
-import com.android.baseline.framework.ui.UIStateHelper;
+import com.android.baseline.framework.ui.util.UIStateHelper;
 import com.android.baseline.util.anrwatchdog.ANRWatchDog;
 import com.android.baseline.util.crash2email.GlobalExceptionHandler;
 

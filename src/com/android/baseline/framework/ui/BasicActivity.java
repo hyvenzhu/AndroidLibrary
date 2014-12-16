@@ -14,6 +14,7 @@ import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.ui.base.BaseActivity;
+import com.android.baseline.framework.ui.base.UIInterface;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
