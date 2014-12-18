@@ -71,7 +71,9 @@ public class CrashMailProvider
         toEmailList.toArray(tos);
         mailInfo.setToList(tos);
         mailInfo.setSubject(subject);
-        mailInfo.setContent(crashMsg + LINE_SEPARATOR + LINE_SEPARATOR + collectClientInfo());
+        String content = crashMsg + LINE_SEPARATOR + LINE_SEPARATOR + collectClientInfo();
+        LogUtil.e("GlobalExceptionHandler", content);
+        mailInfo.setContent(content);
         return mailInfo;
     }
     
