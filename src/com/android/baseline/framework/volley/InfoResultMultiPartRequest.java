@@ -37,11 +37,6 @@ public class InfoResultMultiPartRequest extends MultiPartRequest<InfoResult> imp
     
     public InfoResultMultiPartRequest(final int requestId, String url, int method, ResponseParserListener parseListener, final ILogic logic)
     {
-        this(requestId, url, method, null, parseListener, logic);
-    }
-    
-    public InfoResultMultiPartRequest(final int requestId, String url, int method, Map<String, String> headers, ResponseParserListener parseListener, final ILogic logic)
-    {
         super(method, url, null, new ErrorListener()
         {
             @Override
@@ -50,7 +45,6 @@ public class InfoResultMultiPartRequest extends MultiPartRequest<InfoResult> imp
                 logic.onResult(requestId, error);
             }
         });
-        this.headers = headers;
         this.parserListener = parseListener;
         this.requestId = requestId;
         this.logic = logic;
@@ -62,6 +56,31 @@ public class InfoResultMultiPartRequest extends MultiPartRequest<InfoResult> imp
     public void onResponse(InfoResult response)
     {
         logic.onResult(requestId, response);
+    }
+    
+    /**
+     * 设置头信息
+     * @param headers
+     */
+    public void setHeaders(Map<String, String> headers)
+    {
+        this.headers = headers;
+    }
+    
+    /**
+     * 添加头信息
+     * @param headers
+     */
+    public void addHeaders(Map<String, String> headers)
+    {
+        if (this.headers == null || headers == null)
+        {
+            setHeaders(headers);
+        }
+        else
+        {
+            this.headers.putAll(headers);
+        }
     }
     
     @Override
