@@ -6,8 +6,11 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
+
 import com.android.baseline.AppDroid;
 import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
@@ -81,18 +84,21 @@ public abstract class BasicFragment extends Fragment
         {
             if (view != null)
             {
-                view.setEnabled(interceptEvent);
-                view.setClickable(interceptEvent);
-                view.setLongClickable(interceptEvent);
+                view.setOnTouchListener(new OnTouchListener()
+                {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event)
+                    {
+                        return true;
+                    }
+                });
             }
         }
         else
         {
             if (view != null)
             {
-                view.setEnabled(interceptEvent);
-                view.setClickable(interceptEvent);
-                view.setLongClickable(interceptEvent);
+                view.setOnTouchListener(null);
             }
         }
     }
