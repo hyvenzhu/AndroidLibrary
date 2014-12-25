@@ -39,10 +39,17 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     private ILogic logic;
     /** request body*/
     private String body;
+    /** request params*/
+    private Map<String, String> params;
     
     public InfoResultRequest(final int requestId, String url, ResponseParserListener parseListener, final ILogic logic)
     {
         this(requestId, url, Method.GET, null, null, parseListener, logic);
+    }
+    
+    public InfoResultRequest(final int requestId, String url, String body, ResponseParserListener parseListener, final ILogic logic)
+    {
+        this(requestId, url, Method.POST, body, null, parseListener, logic);
     }
     
     public InfoResultRequest(final int requestId, String url, int method, String body, ResponseParserListener parseListener, final ILogic logic)
@@ -50,9 +57,20 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         this(requestId, url, method, body, null, parseListener, logic);
     }
     
+    public InfoResultRequest(final int requestId, String url, int method, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
+    {
+        this(requestId, url, method, null, null, parseListener, logic);
+        this.params = params;
+    }
+    
     public InfoResultRequest(final int requestId, String url, Map<String, String> headers, ResponseParserListener parseListener, final ILogic logic)
     {
         this(requestId, url, Method.GET, null, headers, parseListener, logic);
+    }
+    
+    public InfoResultRequest(final int requestId, String url, String body, Map<String, String> headers, ResponseParserListener parseListener, final ILogic logic)
+    {
+        this(requestId, url, Method.POST, body, parseListener, logic);
     }
     
     public InfoResultRequest(final int requestId, String url, int method, String body, Map<String, String> headers, ResponseParserListener parseListener, final ILogic logic)
@@ -78,12 +96,18 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     public byte[] getBody() throws AuthFailureError
     {
         try {
-            return body == null ? null : body.getBytes(PROTOCOL_CHARSET);
+            return body == null ? super.getBody() : body.getBytes(PROTOCOL_CHARSET);
         } catch (UnsupportedEncodingException uee) {
             VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
                     body, PROTOCOL_CHARSET);
             return null;
         }
+    }
+    
+    @Override
+    protected Map<String, String> getParams() throws AuthFailureError
+    {
+        return params;
     }
     
     @Override
