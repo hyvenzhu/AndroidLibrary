@@ -39,23 +39,35 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     private ILogic logic;
     /** request body*/
     private String body;
-    
-    public InfoResultRequest(final int requestId, String url, ResponseParserListener parseListener, final ILogic logic)
-    {
-        this(requestId, url, Method.GET, null, null, parseListener, logic);
-    }
+    /** request params*/
+    private Map<String, String> params;
     
     public InfoResultRequest(final int requestId, String url, int method, String body, ResponseParserListener parseListener, final ILogic logic)
     {
         this(requestId, url, method, body, null, parseListener, logic);
     }
     
-    public InfoResultRequest(final int requestId, String url, Map<String, String> headers, ResponseParserListener parseListener, final ILogic logic)
+    public InfoResultRequest(final int requestId, String url, int method, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
     {
-        this(requestId, url, Method.GET, null, headers, parseListener, logic);
+        this(requestId, url, method, null, params, parseListener, logic);
     }
     
-    public InfoResultRequest(final int requestId, String url, int method, String body, Map<String, String> headers, ResponseParserListener parseListener, final ILogic logic)
+    public InfoResultRequest(final int requestId, String url, ResponseParserListener parseListener, final ILogic logic)
+    {
+        this(requestId, url, Method.GET, null, null, parseListener, logic);
+    }
+    
+    public InfoResultRequest(final int requestId, String url, String body, ResponseParserListener parseListener, final ILogic logic)
+    {
+        this(requestId, url, Method.POST, body, null, parseListener, logic);
+    }
+    
+    public InfoResultRequest(final int requestId, String url, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
+    {
+        this(requestId, url, Method.POST, null, params, parseListener, logic);
+    }
+    
+    public InfoResultRequest(final int requestId, String url, int method, String body, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
     {
         super(method, url, new ErrorListener()
         {
@@ -66,7 +78,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
             }
         });
         this.body = body;
-        this.headers = headers;
+        this.params = params;
         this.parserListener = parseListener;
         this.requestId = requestId;
         this.logic = logic;
@@ -74,11 +86,12 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         setRetryPolicy(retryPolicy);
     }
     
+    
     @Override
     public byte[] getBody() throws AuthFailureError
     {
         try {
-            return body == null ? null : body.getBytes(PROTOCOL_CHARSET);
+            return body == null ? super.getBody() : body.getBytes(PROTOCOL_CHARSET);
         } catch (UnsupportedEncodingException uee) {
             VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
                     body, PROTOCOL_CHARSET);
@@ -87,9 +100,40 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     }
     
     @Override
+    protected Map<String, String> getParams() throws AuthFailureError
+    {
+        return params;
+    }
+    
+    @Override
     public void onResponse(InfoResult response)
     {
         logic.onResult(requestId, response);
+    }
+    
+    /**
+     * 设置头信息
+     * @param headers
+     */
+    public void setHeaders(Map<String, String> headers)
+    {
+        this.headers = headers;
+    }
+    
+    /**
+     * 添加头信息
+     * @param headers
+     */
+    public void addHeaders(Map<String, String> headers)
+    {
+        if (this.headers == null || headers == null)
+        {
+            setHeaders(headers);
+        }
+        else
+        {
+            this.headers.putAll(headers);
+        }
     }
     
     @Override
