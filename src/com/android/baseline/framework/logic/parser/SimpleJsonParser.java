@@ -1,7 +1,6 @@
 package com.android.baseline.framework.logic.parser;
 
-import org.json.JSONObject;
-
+import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
 /**
  * 通用操作解析器

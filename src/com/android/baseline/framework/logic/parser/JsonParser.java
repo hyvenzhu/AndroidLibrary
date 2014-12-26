@@ -1,8 +1,8 @@
 package com.android.baseline.framework.logic.parser;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserListener;
 /**
@@ -20,11 +20,11 @@ public abstract class JsonParser implements ResponseParserListener
      */
     public InfoResult doParse(final String response) throws JSONException
     {
-        JSONObject jsonObject = new JSONObject(response);
+        JSONObject jsonObject = JSON.parseObject(response);
         InfoResult infoResult = new InfoResult.Builder()
-                   .success(jsonObject.optBoolean("success"))
-                   .errorCode(jsonObject.optString("errorCode"))
-                   .desc(jsonObject.optString("desc"))
+                   .success(jsonObject.getBooleanValue("success"))
+                   .errorCode(jsonObject.getString("errorCode"))
+                   .desc(jsonObject.getString("desc"))
                    .build();
         parseResponse(infoResult, jsonObject);
         return infoResult;
