@@ -4,7 +4,7 @@
 Android基线框架, 提供以下基础功能
 
 
-1、升级Volley框架, 增加对多附件上传及进度更新回调的支持(Volley扩展版地址https://github.com/hiphonezhu/Android-Volley)
+1、升级Volley框架, 增加对多附件上传及进度更新回调的支持
 
 
 2、提供统一的网络请求业务逻辑框架, 使用EventBus和Volley协作完成
@@ -32,6 +32,13 @@ Android基线框架, 提供以下基础功能
 
 
 10、支持App ANR时, 可以通过Email及时发送ANR的trace到开发者手中
+
+
+11、升级Volley框架，ImageLoader支持内存和磁盘两级缓存（L1&L2 LRU Cache）
+
+
+附：Volley升级版的Github地址
+https://github.com/hiphonezhu/Android-Volley
 
 
 欢迎star、watch、fork，共同交流进步，有好的建议或疑问请联系我hiphonezhu@gmail.com
