@@ -1,10 +1,10 @@
-Android-BaseLine
+﻿Android-BaseLine
 ================
 
 Android基线框架, 提供以下基础功能
 
 
-1、升级Volley框架, 增加对多附件上传及进度更新回调的支持
+1、升级Volley框架, 增加对多附件上传及进度更新回调的支持(Volley扩展版地址https://github.com/hiphonezhu/Android-Volley)
 
 
 2、提供统一的网络请求业务逻辑框架, 使用EventBus和Volley协作完成
