@@ -3,6 +3,7 @@ package com.android.baseline.framework.volley;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
+import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.volley.AuthFailureError;
@@ -74,6 +75,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
             @Override
             public void onErrorResponse(VolleyError error)
             {
+                Logger.w("InfoResultMultiPartRequest", error);
                 logic.onResult(requestId, error);
             }
         });

@@ -164,4 +164,14 @@ public class BaseLogic implements ILogic
         msg.obj = response;
         mEventBus.post(msg);
     }
+    
+    /**
+     * EventBus订阅者事件通知的函数, UI线程
+     * 
+     * @param msg
+     */
+    public void onEventMainThread(Message msg)
+    {
+        mEventBus.post(msg);
+    }
 }
