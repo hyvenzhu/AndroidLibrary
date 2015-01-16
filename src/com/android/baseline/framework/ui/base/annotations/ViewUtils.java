@@ -76,7 +76,14 @@ public class ViewUtils
                     View v = viewFinder.findViewById(id);
                     if (v != null)
                     {
-                        field.set(classObj, v);
+                        try
+                        {
+                            field.set(classObj, v);
+                        }
+                        catch (Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
@@ -95,25 +102,32 @@ public class ViewUtils
         java.lang.reflect.Method[] methods = clazz.getDeclaredMethods();
         for (java.lang.reflect.Method method : methods)
         {
-            if (method.isAnnotationPresent(OnClick.class))
+            try
             {
-                setOnClickListener(classObj, viewFinder, method);
+                if (method.isAnnotationPresent(OnClick.class))
+                {
+                    setOnClickListener(classObj, viewFinder, method);
+                }
+                else if (method.isAnnotationPresent(OnLongClick.class))
+                {
+                    setOnLongClickListener(classObj, viewFinder, method);
+                }
+                else if (method.isAnnotationPresent(OnItemClick.class))
+                {
+                    setOnItemClickListener(classObj, viewFinder, method);
+                }
+                else if (method.isAnnotationPresent(OnItemLongClick.class))
+                {
+                    setOnItemLongClickListener(classObj, viewFinder, method);
+                }
+                else if(method.isAnnotationPresent(OnCheckedChanged.class))
+                {
+                    setOnCheckedChangeListener( classObj,  viewFinder,  method);
+                }
             }
-            else if (method.isAnnotationPresent(OnLongClick.class))
+            catch (Exception e)
             {
-                setOnLongClickListener(classObj, viewFinder, method);
-            }
-            else if (method.isAnnotationPresent(OnItemClick.class))
-            {
-                setOnItemClickListener(classObj, viewFinder, method);
-            }
-            else if (method.isAnnotationPresent(OnItemLongClick.class))
-            {
-                setOnItemLongClickListener(classObj, viewFinder, method);
-            }
-            else if(method.isAnnotationPresent(OnCheckedChanged.class))
-            {
-                setOnCheckedChangeListener( classObj,  viewFinder,  method);
+                e.printStackTrace();
             }
         }
     }

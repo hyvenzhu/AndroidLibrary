@@ -71,11 +71,11 @@ public class APKUtil
 
     /**
      * 获得磁盘缓存目录 [PS：应用卸载后会被自动删除]
-     * 
      * @param context
+     * @param uniqueName
      * @return
      */
-    public File getDiskCacheDir(Context context)
+    public File getDiskCacheDir(Context context, String uniqueName)
     {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
@@ -87,6 +87,6 @@ public class APKUtil
         {
             cachePath = context.getFilesDir().getPath();
         }
-        return new File(cachePath);
+        return new File(cachePath + File.separator + uniqueName);
     }
 }
