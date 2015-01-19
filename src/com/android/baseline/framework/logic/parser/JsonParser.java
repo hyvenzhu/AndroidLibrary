@@ -20,7 +20,7 @@ public abstract class JsonParser implements ResponseParserListener
      */
     public InfoResult doParse(final String response) throws JSONException
     {
-        JSONObject jsonObject = JSON.parseObject(response);
+        JSONObject jsonObject = JSON.parseObject(response.replace("\n", "&#xA;"));
         InfoResult infoResult = new InfoResult.Builder()
                    .success(jsonObject.getBooleanValue("success"))
                    .errorCode(jsonObject.getString("errorCode"))
