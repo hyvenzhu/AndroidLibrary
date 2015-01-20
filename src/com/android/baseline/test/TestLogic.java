@@ -6,6 +6,15 @@ import com.android.baseline.framework.volley.InfoResultRequest;
 
 public class TestLogic extends BaseLogic
 {
+    /**
+     * Constructor with a subscriber
+     * @param subscriber
+     */
+    public TestLogic(Object subscriber)
+    {
+        super(subscriber);
+    }
+    
     public void userLogin()
     {
         // json

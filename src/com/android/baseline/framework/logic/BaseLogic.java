@@ -41,18 +41,19 @@ public class BaseLogic implements ILogic
     private EventBus mEventBus;
     
     /**
-     * Constructor with a new EventBus
+     * Constructor with a subscriber
+     * @param subscriber
      */
-    public BaseLogic()
+    public BaseLogic(Object subscriber)
     {
-        this(new EventBus());
+        this(subscriber, new EventBus());
     }
     
     /**
      * Constructor with custom EventBus
      * @param eventBus
      */
-    public BaseLogic(EventBus eventBus)
+    private BaseLogic(Object subscriber, EventBus eventBus)
     {
         if (eventBus == null)
         {
@@ -62,6 +63,7 @@ public class BaseLogic implements ILogic
         {
             mEventBus = eventBus;
         }
+        register(subscriber);
     }
     
     @Override

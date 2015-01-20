@@ -26,8 +26,7 @@ public class TestFragment extends BasicFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
     {
         View v = inflate(inflater, container, R.layout.fragment_test, this);
-        logic = new TestLogic();
-        logic.register(this);
+        logic = new TestLogic(this);
         return v;
     }
     

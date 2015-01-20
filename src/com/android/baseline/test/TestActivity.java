@@ -37,8 +37,7 @@ public class TestActivity extends BasicActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        logic = new TestLogic();
-        logic.register(this);
+        logic = new TestLogic(this);
     }
     
     @OnClick({R.id.test_btn})
