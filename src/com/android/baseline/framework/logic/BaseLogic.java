@@ -53,7 +53,7 @@ public class BaseLogic implements ILogic
      * Constructor with custom EventBus
      * @param eventBus
      */
-    private BaseLogic(Object subscriber, EventBus eventBus)
+    public BaseLogic(Object subscriber, EventBus eventBus)
     {
         if (eventBus == null)
         {
