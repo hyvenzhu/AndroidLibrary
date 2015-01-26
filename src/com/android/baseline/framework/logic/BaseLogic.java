@@ -18,11 +18,11 @@ import de.greenrobot.event.EventBus;
  * 3、提供订阅者注册、解绑和业务请求结果统一分发的实现
  * [
  *   一、针对当前框架做了修改
- *       每一个BaseLogic对象默认情况下使用不同的EventBus{@link #BaseLogic()}, 
+ *       每一个BaseLogic对象默认情况下使用不同的EventBus{@link #BaseLogic(Object subscriber)}, 
  *       保证同一种类型的事件不会发送给多个订阅者(EventBus默认情况会发送个多个订阅者)
  *     
  *   二、如果需要同一类型的事件发送给多个订阅者
- *       使用{@link #BaseLogic(EventBus eventBus)}构造函数, 为每个订阅者提供同一个EventBus对象(例如EventBus.getDefault()), 
+ *       使用{@link #BaseLogic(Object subscriber, EventBus eventBus)}构造函数, 为每个订阅者提供同一个EventBus对象(例如EventBus.getDefault()), 
  *       这样会出现以下情况
  *       1、msg的what相同的情况会被多个订阅者接受并处理
  *       2、msg的what不相同的话会被多个订阅者接受, 但不会被处理(具体需要业务层控制)
