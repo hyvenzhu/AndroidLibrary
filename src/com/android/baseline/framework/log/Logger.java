@@ -2,6 +2,7 @@ package com.android.baseline.framework.log;
 
 import android.os.Environment;
 
+import com.android.baseline.AppDroid;
 import com.android.baseline.util.APKUtil;
 
 /**
@@ -59,7 +60,7 @@ public final class Logger
      */
     public static final String LOG_DIR = Environment
             .getExternalStorageDirectory()
-                .getAbsolutePath() + "/" + APKUtil.getPackageName() + "/log/";
+                .getAbsolutePath() + "/" + APKUtil.getPackageName(AppDroid.getInstance().getApplicationContext()) + "/log/";
 
     /**
      * log file suffix
@@ -69,8 +70,8 @@ public final class Logger
     /**
      * log path
      */
-    public static final String LOG_FILE_PATH = LOG_DIR + APKUtil.getPackageName() + "_v"
-            + APKUtil.getVerName() + LOG_FILE_SUFFIX;
+    public static final String LOG_FILE_PATH = LOG_DIR + APKUtil.getPackageName(AppDroid.getInstance().getApplicationContext()) + "_v"
+            + APKUtil.getVerName(AppDroid.getInstance().getApplicationContext()) + LOG_FILE_SUFFIX;
 
     /**
      * stack count

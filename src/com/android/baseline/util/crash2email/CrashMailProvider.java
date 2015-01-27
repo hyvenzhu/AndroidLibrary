@@ -59,7 +59,8 @@ public class CrashMailProvider
      */
     public MailInfo getMailInfo(String crashMsg)
     {
-        String subject = APKUtil.getPackageName() + "_v" + APKUtil.getVerName() + " Crash Report";
+        String subject = APKUtil.getPackageName(AppDroid.getInstance().getApplicationContext())
+            + "_v" + APKUtil.getVerName(AppDroid.getInstance().getApplicationContext()) + " Crash Report";
         MailUtil.MailInfo mailInfo = new MailUtil.MailInfo();
         int index = (int) (Math.floor(Math.random() * fromEmailList.size()));
         MailInfo info = fromEmailList.get(index);

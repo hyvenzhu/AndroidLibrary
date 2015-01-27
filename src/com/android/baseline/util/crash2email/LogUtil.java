@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import android.os.Environment;
 import android.util.Log;
 
+import com.android.baseline.AppDroid;
 import com.android.baseline.util.APKUtil;
 
 /**
@@ -54,14 +55,14 @@ public class LogUtil
      */
     private static final String SAVE_LOG_DIR_PATH = Environment
         .getExternalStorageDirectory().getAbsolutePath()
-        + "/" + APKUtil.getPackageName() + "/log/";
+        + "/" + APKUtil.getPackageName(AppDroid.getInstance().getApplicationContext()) + "/log/";
 
     /**
      * 保存LOG日志的路径
      */
     private static final String SAVE_LOG_PATH = SAVE_LOG_DIR_PATH 
-        + APKUtil.getPackageName() + "_CrashException_v"
-        + APKUtil.getVerName() + ".log";
+        + APKUtil.getPackageName(AppDroid.getInstance().getApplicationContext()) + "_CrashException_v"
+        + APKUtil.getVerName(AppDroid.getInstance().getApplicationContext()) + ".log";
 
     /**
      * 日志打印时间Format

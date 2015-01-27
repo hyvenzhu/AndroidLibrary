@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
 
-import com.android.baseline.AppDroid;
-
 /**
  * 基础工具类 [尽量减少类似Util的类存在]
  * 
@@ -21,14 +19,13 @@ public class APKUtil
      * 
      * @return
      */
-    public static int getVerCode()
+    public static int getVerCode(Context context)
     {
         int verCode = -1;
         try
         {
-            Context appContext = AppDroid.getInstance().getApplicationContext();
-            verCode = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(),
-                    0).versionCode;
+            verCode = context.getApplicationContext().getPackageManager()
+                    .getPackageInfo(context.getApplicationContext().getPackageName(), 0).versionCode;
         }
         catch (NameNotFoundException e)
         {
@@ -42,14 +39,13 @@ public class APKUtil
      * 
      * @return
      */
-    public static String getVerName()
+    public static String getVerName(Context context)
     {
         String verName = "";
         try
         {
-            Context appContext = AppDroid.getInstance().getApplicationContext();
-            verName = appContext.getPackageManager().getPackageInfo(appContext.getPackageName(),
-                    0).versionName;
+            verName = context.getApplicationContext().getPackageManager()
+                    .getPackageInfo(context.getApplicationContext().getPackageName(), 0).versionName;
         }
         catch (NameNotFoundException e)
         {
@@ -63,10 +59,9 @@ public class APKUtil
      * 
      * @return
      */
-    public static String getPackageName()
+    public static String getPackageName(Context context)
     {
-        Context appContext = AppDroid.getInstance().getApplicationContext();
-        return appContext.getPackageName();
+        return context.getApplicationContext().getPackageName();
     }
 
     /**
@@ -81,11 +76,11 @@ public class APKUtil
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable())
         {
-            cachePath = context.getExternalCacheDir().getPath();
+            cachePath = context.getApplicationContext().getExternalCacheDir().getPath();
         }
         else
         {
-            cachePath = context.getFilesDir().getPath();
+            cachePath = context.getApplicationContext().getFilesDir().getPath();
         }
         return new File(cachePath + File.separator + uniqueName);
     }
