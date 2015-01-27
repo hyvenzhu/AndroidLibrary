@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.framework.log.Logger;
+import com.android.baseline.util.SPDBHelper;
 
 /**
  * 数据库轻量级操作封装
@@ -138,6 +139,7 @@ public class DBHelper
             db.beginTransaction();
             try
             {
+                db.execSQL(SPDBHelper.TABLE_CREATE_SQL);
                 db.setTransactionSuccessful();
             }
             catch (Exception e)
