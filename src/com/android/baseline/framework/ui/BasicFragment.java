@@ -23,6 +23,7 @@ public abstract class BasicFragment extends Fragment
 {
     /** 当前Fragment是否处于暂停状态*/
     protected boolean isPaused = true;
+    private View mView;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -54,6 +55,7 @@ public abstract class BasicFragment extends Fragment
      */
     private void afterSetContentView(View v)
     {
+        mView = v;
         init(v);
     }
     
@@ -68,9 +70,9 @@ public abstract class BasicFragment extends Fragment
      * Fragment布局是否拦截事件
      * @param interceptEvent true拦截|false不拦截
      */
-    public void interceptTouchEvent(boolean interceptEvent)
+    protected void interceptTouchEvent(boolean interceptEvent)
     {
-        interceptTouchEvent(getView(), interceptEvent);
+        interceptTouchEvent(mView, interceptEvent);
     }
     
     /**
