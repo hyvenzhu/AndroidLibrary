@@ -19,7 +19,7 @@ public class TestLogic extends BaseLogic
     {
         // json
         InfoResultRequest infoResultRequest = new InfoResultRequest(R.id.testHttp, 
-                "http://121.40.140.54:8080/ShiCC/userLogin?name=jack&mobile=18652048507", new UserLoginJsonParser(), this);
+                "http://121.40.140.54:8080/ShiCC/userLogin?name=jack&mobile=1865204850", new UserLoginJsonParser(), this);
         // xml. It can not be used directly unless server supporting
 //        InfoResultRequest infoResultRequest = new InfoResultRequest(R.id.testHttp, 
 //                "http://121.40.140.54:8080/ShiCC/userLogin?name=jack&mobile=18652048507", new UserLoginXmlParser(), this);

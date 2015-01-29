@@ -19,15 +19,16 @@ public class TestTask extends Task
     {
         try
         {
-            Thread.sleep(3000);
+            Thread.sleep(5000);
         }
         catch (InterruptedException e)
         {
             e.printStackTrace();
         }
         // bean封装
-        return new InfoResult.Builder()
-                   .success(true)
-                   .extraObj("Thread sleep 3 ms.").build();
+//        return new InfoResult.Builder()
+//                   .success(true)
+//                   .extraObj("Thread sleep 3 ms.").build();
+        return null;
     }
 }
