@@ -10,10 +10,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.baseline.AppDroid;
+import com.android.baseline.R;
 import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+import com.android.baseline.framework.ui.view.LoadingView;
 /**
  * 基类Fragment
  * @author hiphonezhu@gmail.com
@@ -25,6 +29,14 @@ public abstract class BasicFragment extends Fragment
     protected boolean isPaused = true;
     private View mView;
     
+    /** 标题栏 */
+    protected View titleLay;
+    protected Button leftBtn;
+    protected TextView titleTxt;
+    protected Button rightBtn;
+    
+    /** 加载进度*/
+    private LoadingView mLoadingView;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -64,6 +76,126 @@ public abstract class BasicFragment extends Fragment
      */
     protected void init(View v)
     {
+        titleLay = v.findViewById(R.id.title_lay);
+        leftBtn = (Button)v.findViewById(R.id.title_left_btn);
+        titleTxt = (TextView)v.findViewById(R.id.title_txt);
+        rightBtn = (Button)v.findViewById(R.id.title_right_btn);
+        mLoadingView = (LoadingView)v.findViewById(R.id.loading_view);
+    }
+    
+    /**
+     * 设置标题栏属性
+     * @param leftVisible 左侧按钮是否可见
+     * @param resId 标题资源id
+     * @param rightVisible 右侧按钮是否可见
+     */
+    protected void setTitleBar(boolean leftVisible, int resId, boolean rightVisible)
+    {
+        leftBtn.setVisibility(leftVisible? View.VISIBLE : View.INVISIBLE);
+        titleTxt.setText(resId);
+        rightBtn.setVisibility(rightVisible? View.VISIBLE : View.INVISIBLE);
+    }
+    
+    /**
+     * 设置标题栏属性
+     * @param leftVisible 左侧按钮是否可见
+     * @param title 标题
+     * @param rightVisible 右侧按钮是否可见
+     */
+    protected void setTitleBar(boolean leftVisible, String title, boolean rightVisible)
+    {
+        leftBtn.setVisibility(leftVisible? View.VISIBLE : View.INVISIBLE);
+        titleTxt.setText(title);
+        rightBtn.setVisibility(rightVisible? View.VISIBLE : View.INVISIBLE);
+    }
+    
+    /**
+     * 正在加载
+     */
+    protected void onLoading()
+    {
+        onLoading(R.string.app_name);
+    }
+    
+    /**
+     * 正在加载
+     * @param obj
+     */
+    protected void onLoading(Object obj)
+    {
+        onLoading(R.string.app_name, obj);
+    }
+    
+    /**
+     * 正在加载
+     * @param stringId 描述信息
+     */
+    protected void onLoading(int stringId)
+    {
+        onLoading(getResources().getString(stringId));
+    }
+    
+    /**
+     * 正在加载
+     * @param stringId 描述信息
+     * @param obj
+     */
+    public void onLoading(int stringId, Object obj)
+    {
+        onLoading(getResources().getString(stringId), obj);
+    }
+    
+    /**
+     * 正在加载
+     * @param loadDesc 描述信息
+     */
+    protected void onLoading(String loadDesc)
+    {
+        mLoadingView.onLoading(loadDesc, null);
+    }
+    
+    /**
+     * 正在加载
+     * @param loadDesc 描述信息
+     * @param obj 传递的参数
+     */
+    public void onLoading(String loadDesc, Object obj)
+    {
+        mLoadingView.onLoading(loadDesc, obj);
+    }
+    
+    /**
+     * 失败
+     */
+    protected void onFailure()
+    {
+        onFailure(R.string.loading_failure);
+    }
+    
+    /**
+     * 失败
+     * @param stringId 描述信息
+     */
+    protected void onFailure(int stringId)
+    {
+        onFailure(getResources().getString(stringId));
+    }
+    
+    /**
+     * 失败
+     * @param errorDesc 描述信息
+     */
+    protected void onFailure(String errorDesc)
+    {
+        mLoadingView.onFailure(errorDesc);
+    }
+    
+    /**
+     * 成功
+     */
+    protected void onSuccess()
+    {
+        mLoadingView.onSuccess();
     }
     
     /**
