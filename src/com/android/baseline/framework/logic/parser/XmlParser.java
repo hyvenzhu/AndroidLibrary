@@ -1,5 +1,8 @@
 package com.android.baseline.framework.logic.parser;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.xml.sax.SAXException;
 
 import android.sax.EndTextElementListener;
@@ -15,6 +18,8 @@ import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserLis
  */
 public abstract class XmlParser implements ResponseParserListener
 {
+    /** 附加数据*/
+    private Map<String, Object> extras = new HashMap<String, Object>();
     /**
      * 解析服务器结果的状态信息(业务成功与失败, 对应错误码和描述信息等)
      * @param response
@@ -53,6 +58,17 @@ public abstract class XmlParser implements ResponseParserListener
         InfoResult infoResult = infoBilder.build();
         parseResponse(infoResult, documentEl);
         return infoResult;
+    }
+    
+    public XmlParser putExtra(String key, Object value)
+    {
+        extras.put(key, value);
+        return this;
+    }
+    
+    protected Object getExtra(String key)
+    {
+        return extras.get(key);
     }
     
     /**
