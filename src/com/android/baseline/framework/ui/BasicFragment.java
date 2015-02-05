@@ -69,6 +69,10 @@ public abstract class BasicFragment extends Fragment
     {
         mView = v;
         init(v);
+        if (mLoadingView != null)
+        {
+            mLoadingView.register(this);
+        }
     }
     
     /**

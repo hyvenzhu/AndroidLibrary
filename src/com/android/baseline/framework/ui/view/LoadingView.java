@@ -27,6 +27,7 @@ public class LoadingView extends RelativeLayout implements OnClickListener
     private TextView tipTxt;
     private boolean isLoading = true;
     private EventBus eventBus;
+    private Object mSubcriber;
     public LoadingView(Context context)
     {
         super(context);
@@ -49,9 +50,17 @@ public class LoadingView extends RelativeLayout implements OnClickListener
     {
         // 当前View的点击事件
         setOnClickListener(this);
-        
         eventBus = new EventBus();
-        eventBus.register(getContext());
+    }
+    
+    /**
+     * 注册观察者
+     * @param subcriber
+     */
+    public void register(Object subcriber)
+    {
+        mSubcriber = subcriber;
+        eventBus.register(mSubcriber);
     }
     
     @Override
@@ -67,7 +76,10 @@ public class LoadingView extends RelativeLayout implements OnClickListener
     protected void onDetachedFromWindow()
     {
         super.onDetachedFromWindow();
-        eventBus.unregister(getContext());
+        if (mSubcriber != null)
+        {
+            eventBus.unregister(mSubcriber);
+        }
     }
     
     @Override

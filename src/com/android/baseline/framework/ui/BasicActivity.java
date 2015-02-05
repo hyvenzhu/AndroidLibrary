@@ -57,6 +57,10 @@ public class BasicActivity extends BaseActivity implements UIInterface
         titleTxt = (TextView)findViewById(R.id.title_txt);
         rightBtn = (Button)findViewById(R.id.title_right_btn);
         mLoadingView = (LoadingView)findViewById(R.id.loading_view);
+        if (mLoadingView != null)
+        {
+            mLoadingView.register(this);
+        }
     }
     
     /**

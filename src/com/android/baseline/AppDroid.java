@@ -33,6 +33,11 @@ public class AppDroid extends Application
         uiStateHelper = new UIStateHelper();
     }
     
+    public static AppDroid getInstance()
+    {
+        return sInstance;
+    }
+    
     /**
      * Fragment创建时加入栈中
      * @param fragment
@@ -96,11 +101,6 @@ public class AppDroid extends Application
         {
             anrWatchDog.interrupt();
         }
-    }
-
-    public static AppDroid getInstance()
-    {
-        return sInstance;
     }
 
     @Override
