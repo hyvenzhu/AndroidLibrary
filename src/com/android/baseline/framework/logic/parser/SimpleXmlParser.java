@@ -17,6 +17,10 @@ public class SimpleXmlParser extends XmlParser
         this.extraObj = extraObj;
     }
     
+    public SimpleXmlParser()
+    {
+    }
+    
     @Override
     public void parseResponse(InfoResult infoResult, RootElement element)
     {

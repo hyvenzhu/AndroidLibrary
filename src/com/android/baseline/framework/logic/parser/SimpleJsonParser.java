@@ -16,6 +16,10 @@ public class SimpleJsonParser extends JsonParser
         this.extraObj = extraObj;
     }
     
+    public SimpleJsonParser()
+    {
+    }
+    
     @Override
     public void parseResponse(InfoResult infoResult, JSONObject jsonObject)
     {
