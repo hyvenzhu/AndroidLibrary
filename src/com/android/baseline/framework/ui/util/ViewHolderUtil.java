@@ -9,9 +9,6 @@ import android.view.View;
  */
 public class ViewHolderUtil
 {
-    private ViewHolderUtil()
-    {
-    }
     /**
      * 
      * @param <T> View子类
@@ -36,18 +33,5 @@ public class ViewHolderUtil
                     childView);
         }
         return (T) childView;
-    }
-    
-    /**
-     * 类似convertView.findViewById(int viewId), 子类不需要关心如何使用ViewHolder机制
-     * @param <V>
-     * @param convertView
-     * @param viewId
-     * @return
-     */
-    protected static <V extends View> V findViewById(View convertView, int viewId)
-    {
-        return ViewHolderUtil.get(convertView,
-                viewId);
     }
 }

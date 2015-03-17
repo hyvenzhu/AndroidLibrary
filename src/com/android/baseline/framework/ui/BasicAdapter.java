@@ -75,4 +75,18 @@ public abstract class BasicAdapter<T> extends BaseAdapter
      * @param convertView
      */
     protected abstract void getView(final int position, final View convertView);
+    
+    /**
+     * 类似convertView.findViewById(int viewId), 子类不需要关心如何使用ViewHolder机制
+     * 
+     * @param <V>
+     * @param convertView
+     * @param viewId
+     * @return
+     */
+    protected <V extends View> V findViewById(View convertView, int viewId)
+    {
+        return ViewHolderUtil.get(convertView,
+                viewId);
+    }
 }
