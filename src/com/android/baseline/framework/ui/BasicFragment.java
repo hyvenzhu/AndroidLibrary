@@ -340,7 +340,7 @@ public abstract class BasicFragment extends Fragment
      */
     public void onEventMainThread(Message msg)
     {
-        if (!isDetached() && !isRemoving())
+        if (isAdded() && !isDetached() && !isRemoving())
         {
             onResponse(msg);
         }
