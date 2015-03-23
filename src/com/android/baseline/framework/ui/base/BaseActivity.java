@@ -16,6 +16,7 @@ import com.android.baseline.framework.ui.base.annotations.ViewUtils;
  */
 public abstract class BaseActivity extends FragmentActivity
 {
+    private boolean isDestroyed; // Activity是否已销毁
     @Override
     public void setContentView(int layoutResID)
     {
@@ -55,6 +56,13 @@ public abstract class BaseActivity extends FragmentActivity
         
     }
 
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        isDestroyed = true;
+    }
+
     /**
      * EventBus订阅者事件通知的函数, UI线程
      * 
@@ -62,7 +70,10 @@ public abstract class BaseActivity extends FragmentActivity
      */
     public void onEventMainThread(Message msg)
     {
-        onResponse(msg);
+        if (!isDestroyed && !isFinishing())
+        {
+            onResponse(msg);
+        }
     }
     
     public abstract void onResponse(Message msg);
