@@ -18,6 +18,7 @@ import com.android.volley.VolleyError;
  *   2、网络模块
  *   3、耗时任务执行模块
  *   4、日志打印Logger
+ *   5、通用数据加载控件LoadingView
  * ]
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-19]
@@ -45,8 +46,6 @@ public class TestActivity extends BasicActivity
                 resultTxt.setText("");
                 // 网络请求
 //                logic.userLogin();
-                // 取消请求
-//                logic.cancelAll(R.id.testHttp);
                 
                 // 非网络请求, 耗时任务
                 TaskExecutor.getInstance().execute(new TestTask(R.id.testTask, this));

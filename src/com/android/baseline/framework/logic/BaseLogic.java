@@ -1,7 +1,10 @@
 package com.android.baseline.framework.logic;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import android.os.Message;
 
@@ -39,6 +42,9 @@ public class BaseLogic implements ILogic
             .getInstance().getApplicationContext());
     // Default EventBus
     private EventBus mEventBus;
+    
+    // 请求的tags
+    private Set<Object> requestTags = new HashSet<Object>();
     
     /**
      * Constructor with a subscriber
@@ -100,9 +106,23 @@ public class BaseLogic implements ILogic
      * 取消某一个网络请求
      * @param tag 某次请求的唯一标识
      */
-    protected void cancelAll(Object tag)
+    @Override
+    public void cancel(Object tag)
     {
         requestQueue.cancelAll(tag);
+    }
+    
+    /**
+     * 取消所有网络请求
+     */
+    @Override
+    public void cancelAll()
+    {
+        Iterator<Object> tagIterator = requestTags.iterator();
+        while(tagIterator.hasNext())
+        {
+            cancel(tagIterator.next());
+        }
     }
     
     /**
@@ -123,8 +143,7 @@ public class BaseLogic implements ILogic
      */
     protected <T> void sendRequest(Request<T> request, Object tag)
     {
-        request.setTag(tag);
-        requestQueue.add(request);
+        sendRequest(request, tag, requestQueue);
     }
     
     /**
@@ -136,7 +155,11 @@ public class BaseLogic implements ILogic
      */
     protected <T> void sendRequest(Request<T> request, Object tag, RequestQueue requestQueue)
     {
-        request.setTag(tag);
+        if (tag != null)
+        {
+            request.setTag(tag);
+            requestTags.add(tag);
+        }
         requestQueue.add(request);
     }
     

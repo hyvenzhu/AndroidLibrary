@@ -67,7 +67,9 @@ public abstract class BaseActivity extends FragmentActivity
         {
             if (iLogic != null)
             {
+                iLogic.cancelAll();
                 iLogic.unregister(this);
+                iLogic = null;
             }
         }
     }
@@ -81,7 +83,9 @@ public abstract class BaseActivity extends FragmentActivity
         {
             if (iLogic != null)
             {
+                iLogic.cancelAll();
                 iLogic.unregisterAll();
+                iLogic = null;
             }
         }
     }

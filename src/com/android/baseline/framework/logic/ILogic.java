@@ -27,6 +27,17 @@ public interface ILogic
     void unregisterAll();
     
     /**
+     * 取消某一个网络请求
+     * @param tag 某次请求的唯一标识
+     */
+    void cancel(Object tag);
+    
+    /**
+     * 取消所有网络请求
+     */
+    void cancelAll();
+    
+    /**
      * 封装结果内容, post给订阅者
      * @param action 
      * @param response
