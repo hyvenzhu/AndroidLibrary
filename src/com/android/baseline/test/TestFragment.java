@@ -40,8 +40,6 @@ public class TestFragment extends BasicFragment
                 resultTxt.setText("");
                 // 网络请求
                 logic.userLogin();
-                // 取消请求
-//                logic.cancelAll(R.id.testHttp);
                 
                 // 非网络请求, 耗时任务
 //                TaskExecutor.getInstance().execute(new TestTask(R.id.testTask));
@@ -101,6 +99,6 @@ public class TestFragment extends BasicFragment
     public void onDestroy()
     {
         super.onDestroy();
-        logic.unregisterAll();
+        unregisterAll(logic);
     }
 }

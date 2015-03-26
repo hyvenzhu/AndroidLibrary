@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
+import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 import com.android.baseline.framework.ui.view.LoadingView;
@@ -297,6 +298,37 @@ public abstract class BasicFragment extends Fragment
         super.onDestroy();
         uiInterface.hideProgress();
         AppDroid.getInstance().removeFragment(this);
+    }
+    
+    /**
+     * 解绑当前订阅者
+     * @param receiver
+     */
+    protected void unregister(ILogic... iLogics)
+    {
+        for(ILogic iLogic : iLogics)
+        {
+            if (iLogic != null)
+            {
+                iLogic.cancelAll();
+                iLogic.unregister(this);
+            }
+        }
+    }
+
+    /**
+     * 解绑所有订阅者
+     */
+    protected void unregisterAll(ILogic... iLogics)
+    {
+        for(ILogic iLogic : iLogics)
+        {
+            if (iLogic != null)
+            {
+                iLogic.cancelAll();
+                iLogic.unregisterAll();
+            }
+        }
     }
     
     /**
