@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
+import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 
 /**
@@ -54,6 +55,35 @@ public abstract class BaseActivity extends FragmentActivity
     protected void init()
     {
         
+    }
+    
+    /**
+     * 解绑当前订阅者
+     * @param receiver
+     */
+    protected void unregister(ILogic... iLogics)
+    {
+        for(ILogic iLogic : iLogics)
+        {
+            if (iLogic != null)
+            {
+                iLogic.unregister(this);
+            }
+        }
+    }
+
+    /**
+     * 解绑所有订阅者
+     */
+    protected void unregisterAll(ILogic... iLogics)
+    {
+        for(ILogic iLogic : iLogics)
+        {
+            if (iLogic != null)
+            {
+                iLogic.unregisterAll();
+            }
+        }
     }
 
     @Override

@@ -104,7 +104,7 @@ public class TestActivity extends BasicActivity
     protected void onDestroy()
     {
         super.onDestroy();
-        logic.unregisterAll();
+        unregisterAll(logic);
         Logger.d("TestActivity", "onDestroy");
     }
 }
