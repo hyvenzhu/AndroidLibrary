@@ -31,10 +31,7 @@ Android基线框架, 提供以下基础功能
 9、基类Adapter, 提供控件复用的管理机制
 
 
-10、支持App ANR时, 可以通过Email及时发送ANR的trace到开发者手中
-
-
-11、升级Volley框架，ImageLoader支持内存和磁盘两级缓存（L1&L2 LRU Cache）
+10、升级Volley框架，ImageLoader支持内存和磁盘两级缓存（L1&L2 LRU Cache）
 
 
 附：Volley升级版的Github地址
