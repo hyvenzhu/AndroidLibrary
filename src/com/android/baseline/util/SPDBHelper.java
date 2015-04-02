@@ -32,24 +32,14 @@ public class SPDBHelper
     
     private static final Executor mExecutor = Executors.newCachedThreadPool();
 
-    private static class SingleInstanceHolder
-    {
-        private final static SPDBHelper sInstance = new SPDBHelper();
-    }
-
-    public static SPDBHelper getInstance()
-    {
-        return SingleInstanceHolder.sInstance;
-    }
-
     /** 数据库操作对象 */
     private BaseDAO baseDAO;
 
-    private SPDBHelper()
+    public SPDBHelper()
     {
         baseDAO = BaseDAO.getInstance();
     }
-
+    
     public void contains(final String key, final ResultListener<Boolean> listener)
     {
         mExecutor.execute(new Runnable()

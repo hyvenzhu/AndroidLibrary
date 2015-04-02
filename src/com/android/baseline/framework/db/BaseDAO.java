@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class BaseDAO
 {
-    SQLiteDatabase db;
     private DBHelper dbHelper;
 
     private BaseDAO()
@@ -29,17 +28,54 @@ public class BaseDAO
     {
         return SingleInstanceHolder.sInstance;
     }
-
+    
     public synchronized void closeDB()
     {
         dbHelper.close();
     }
+    
+    /**
+     * 事务执行任务
+     * @param transactionListener
+     * @return 事务执行成功与否
+     */
+    public synchronized boolean executeWithTransaction(TransactionListener transactionListener)
+    {
+        try
+        {
+            dbHelper.getWritableSQLiteDatabase().beginTransaction();
+            if (transactionListener != null)
+            {
+                transactionListener.doTransaction();
+            }
+            dbHelper.getWritableSQLiteDatabase().setTransactionSuccessful();
+            return true;
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+        finally
+        {
+            dbHelper.getWritableSQLiteDatabase().endTransaction();
+        }
+    }
+    
+    /**
+     * 批量任务接口
+     * @author hiphonezhu@gmail.com
+     * @version [Android-BaseLine, 2015-4-2]
+     */
+    public interface TransactionListener
+    {
+        void doTransaction();
+    }
 
-    public synchronized Cursor query(String table, String[] columns, String selection,
+    public Cursor query(String table, String[] columns, String selection,
             String[] selectionArgs, String groupBy, String having, String orderBy)
     {
-        db = dbHelper.getSQLiteDatabase();
-        return db.query(table,
+        return dbHelper.getReadableSQLiteDatabase().query(table,
                 columns,
                 selection,
                 selectionArgs,
@@ -48,14 +84,13 @@ public class BaseDAO
                 orderBy);
     }
 
-    public synchronized Cursor rawQuery(String sql, String[] selectionArgs)
+    public Cursor rawQuery(String sql, String[] selectionArgs)
     {
-        db = dbHelper.getSQLiteDatabase();
-        return db.rawQuery(sql,
+        return dbHelper.getReadableSQLiteDatabase().rawQuery(sql,
                 selectionArgs);
     }
 
-    public synchronized static Cursor query(SQLiteDatabase db, String table, String[] columns,
+    public static Cursor query(SQLiteDatabase db, String table, String[] columns,
             String selection, String[] selectionArgs, String groupBy, String having, String orderBy)
     {
         return db.query(table,
@@ -75,12 +110,11 @@ public class BaseDAO
      */
     public synchronized long insert(String tableName, ContentValues values)
     {
-        db = dbHelper.getSQLiteDatabase();
-        return db.insert(tableName,
+        return dbHelper.getWritableSQLiteDatabase().insert(tableName,
                 null,
                 values);
     }
-
+    
     /**
      * 插入数据, 适用于数据库创建与升级时使用
      * 
@@ -104,8 +138,7 @@ public class BaseDAO
      */
     public synchronized int delete(String tableName, String whereClause, String[] whereArgs)
     {
-        db = dbHelper.getSQLiteDatabase();
-        return db.delete(tableName,
+        return dbHelper.getWritableSQLiteDatabase().delete(tableName,
                 whereClause,
                 whereArgs);
     }
@@ -136,8 +169,7 @@ public class BaseDAO
     public synchronized int update(String tableName, ContentValues values, String whereClause,
             String[] whereArgs)
     {
-        db = dbHelper.getSQLiteDatabase();
-        return db.update(tableName,
+        return dbHelper.getWritableSQLiteDatabase().update(tableName,
                 values,
                 whereClause,
                 whereArgs);
@@ -167,8 +199,7 @@ public class BaseDAO
      */
     public synchronized void execSQL(String sql)
     {
-        db = dbHelper.getSQLiteDatabase();
-        db.execSQL(sql);
+        dbHelper.getWritableSQLiteDatabase().execSQL(sql);
     }
 
     /**
@@ -189,8 +220,7 @@ public class BaseDAO
      */
     public synchronized void execSQL(String sql, Object[] bindArgs)
     {
-        db = dbHelper.getSQLiteDatabase();
-        db.execSQL(sql,
+        dbHelper.getWritableSQLiteDatabase().execSQL(sql,
                 bindArgs);
     }
 

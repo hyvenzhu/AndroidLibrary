@@ -16,9 +16,9 @@ import com.android.baseline.util.SPDBHelper;
  */
 public class DBHelper
 {
-    private static final String TAG = "DBHelper";
-    private DataBaseHelper dbHelper = null;
-    private SQLiteDatabase db = null;
+    private DataBaseHelper dbHelper;
+    private SQLiteDatabase writableDB;
+    private SQLiteDatabase readableDB;
     /** 数据库名称 */
     private static final String DATABASE_NAME = "project.db";
     /** 数据库版本 */
@@ -30,63 +30,25 @@ public class DBHelper
     }
 
     /**
-     * 打开数据库
+     * 获取数据库操作对象
+     * 
+     * @return SQLiteDatabase
      */
-    public void open()
+    public synchronized SQLiteDatabase getWritableSQLiteDatabase()
     {
-        Logger.d(TAG,
-                "open()");
-        try
-        {
-            db = dbHelper.getWritableDatabase();
-        }
-        catch (Exception ex)
-        {
-            try
-            {
-                db = dbHelper.getReadableDatabase();
-            }
-            catch (Exception e)
-            {
-                Logger.e(TAG,
-                        e);
-            }
-        }
+        writableDB = dbHelper.getWritableDatabase();
+        return writableDB;
     }
-
-    private int tryCount;
-
+    
     /**
      * 获取数据库操作对象
      * 
      * @return SQLiteDatabase
      */
-    public SQLiteDatabase getSQLiteDatabase()
+    public SQLiteDatabase getReadableSQLiteDatabase()
     {
-        checkDBLocked();
-        tryCount = 0;
-        while (db == null)
-        {
-            if (tryCount > 60)
-            {
-                break;
-            }
-            open();
-            if (db == null)
-            {
-                tryCount++;
-                try
-                {
-                    Thread.sleep(50);
-                }
-                catch (InterruptedException e)
-                {
-                    Logger.e(TAG,
-                            e);
-                }
-            }
-        }
-        return db;
+        readableDB = dbHelper.getReadableDatabase();
+        return readableDB;
     }
 
     /**
@@ -94,30 +56,11 @@ public class DBHelper
      */
     public void close()
     {
+        writableDB = null;
+        readableDB = null;
         if (dbHelper != null)
         {
             dbHelper.close();
-        }
-    }
-
-    /**
-     * 多线程"写"数据库必须进行同步控制
-     */
-    private void checkDBLocked()
-    {
-        while (db != null && db.isDbLockedByCurrentThread())
-        {
-            Logger.w(TAG,
-                    "db is locked by other or current threads!");
-            try
-            {
-                Thread.sleep(10);
-            }
-            catch (InterruptedException e)
-            {
-                Logger.e(TAG,
-                        e);
-            }
         }
     }
 
@@ -127,10 +70,8 @@ public class DBHelper
 
         public DataBaseHelper(Context context)
         {
-            super(context,
-                    DATABASE_NAME,
-                    null,
-                    DATABASE_VERSION);
+            super(context, DATABASE_NAME,
+                    null, DATABASE_VERSION);
         }
 
         @Override
@@ -156,22 +97,6 @@ public class DBHelper
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
-        }
-
-        public void close()
-        {
-            try
-            {
-                if (db != null && db.isOpen())
-                {
-                    db.close();
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.e(TAG,
-                        e);
-            }
         }
     }
 }

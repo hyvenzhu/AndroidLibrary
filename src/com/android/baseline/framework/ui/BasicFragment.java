@@ -3,19 +3,19 @@ package com.android.baseline.framework.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.logic.ILogic;
+import com.android.baseline.framework.ui.base.BaseFragment;
 import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 import com.android.baseline.framework.ui.view.LoadingView;
@@ -24,7 +24,7 @@ import com.android.baseline.framework.ui.view.LoadingView;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-10-27]
  */
-public abstract class BasicFragment extends Fragment
+public abstract class BasicFragment extends BaseFragment
 {
     /** 当前Fragment是否处于暂停状态*/
     protected boolean isPaused = true;
