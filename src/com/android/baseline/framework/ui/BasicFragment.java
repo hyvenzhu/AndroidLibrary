@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
-import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.BaseFragment;
 import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
@@ -301,37 +300,6 @@ public abstract class BasicFragment extends BaseFragment
     }
     
     /**
-     * 解绑当前订阅者
-     * @param receiver
-     */
-    protected void unregister(ILogic... iLogics)
-    {
-        for(ILogic iLogic : iLogics)
-        {
-            if (iLogic != null)
-            {
-                iLogic.cancelAll();
-                iLogic.unregister(this);
-            }
-        }
-    }
-
-    /**
-     * 解绑所有订阅者
-     */
-    protected void unregisterAll(ILogic... iLogics)
-    {
-        for(ILogic iLogic : iLogics)
-        {
-            if (iLogic != null)
-            {
-                iLogic.cancelAll();
-                iLogic.unregisterAll();
-            }
-        }
-    }
-    
-    /**
      * 关闭当前Fragment
      */
     protected void finish()
@@ -346,7 +314,8 @@ public abstract class BasicFragment extends BaseFragment
      * 事件分发
      * @param msg
      */
-    protected void onResponse(Message msg)
+    @Override
+    public void onResponse(Message msg)
     {
         if (dialogHidden)
         {
@@ -366,15 +335,36 @@ public abstract class BasicFragment extends BaseFragment
         dialogHidden = hidden;
     }
     
-    /**
-     * EventBus订阅者事件通知的函数, UI线程
-     * @param msg
-     */
-    public void onEventMainThread(Message msg)
+    protected boolean checkResponse(Message msg)
     {
-        if (isAdded() && !isDetached() && !isRemoving())
-        {
-            onResponse(msg);
-        }
+        return checkResponse(msg, null, null, true);
+    }
+    
+    protected boolean checkResponse(Message msg, boolean tipError)
+    {
+        return checkResponse(msg, null, null, tipError);
+    }
+    
+    protected boolean checkResponse(Message msg, String errorTip)
+    {
+        return checkResponse(msg, null, errorTip, true);
+    }
+    
+    protected boolean checkResponse(Message msg, String successTip, String errorTip)
+    {
+        return checkResponse(msg, successTip, errorTip, true);
+    }
+    
+    /**
+     * 校验服务器响应结果
+     * @param msg
+     * @param successTip 成功提示
+     * @param errorTip 失败提示    为空使用服务器信息或本地固定信息
+     * @param tipError 是否提示错误信息
+     * @return true 业务成功, false业务失败
+     */
+    protected boolean checkResponse(Message msg, String successTip, String errorTip, boolean tipError)
+    {
+        return ((BasicActivity)uiInterface).checkResponse(msg, successTip, errorTip, tipError);
     }
 }

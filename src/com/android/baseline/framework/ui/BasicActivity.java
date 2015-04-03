@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.log.Logger;
+import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.base.BaseActivity;
 import com.android.baseline.framework.ui.base.UIInterface;
 import com.android.baseline.framework.ui.view.LoadingView;
@@ -263,7 +264,85 @@ public class BasicActivity extends BaseActivity implements UIInterface
             progressDialog.dismiss();
         }
     }
-
+    
+    protected boolean checkResponse(Message msg)
+    {
+        return checkResponse(msg, null, null, true);
+    }
+    
+    protected boolean checkResponse(Message msg, boolean tipError)
+    {
+        return checkResponse(msg, null, null, tipError);
+    }
+    
+    protected boolean checkResponse(Message msg, String errorTip)
+    {
+        return checkResponse(msg, null, errorTip, true);
+    }
+    
+    protected boolean checkResponse(Message msg, String successTip, String errorTip)
+    {
+        return checkResponse(msg, successTip, errorTip, true);
+    }
+    
+    /**
+     * 校验服务器响应结果
+     * @param msg
+     * @param successTip 成功提示
+     * @param errorTip 失败提示    为空使用服务器信息或本地固定信息
+     * @param tipError 是否提示错误信息
+     * @return true 业务成功, false业务失败
+     */
+    protected boolean checkResponse(Message msg, String successTip, String errorTip, boolean tipError)
+    {
+        if (msg.obj instanceof InfoResult) 
+        {
+            InfoResult result = (InfoResult)msg.obj;
+            if (result.isSuccess())
+            {
+                if (!TextUtils.isEmpty(successTip))
+                {
+                    showToast(successTip);
+                }
+                return true;
+            }
+            else
+            {
+                if (tipError)
+                {
+                    if (!TextUtils.isEmpty(errorTip))
+                    {
+                        showToast(errorTip);
+                    }
+                    else if (!TextUtils.isEmpty(result.getDesc()))
+                    {
+                        showToast(result.getDesc());
+                    }
+                    else
+                    {
+                        showToast(getString(R.string.requesting_failure));
+                    }
+                }
+                return false;
+            }
+        }
+        else
+        {
+            if (tipError)
+            {
+                if (!TextUtils.isEmpty(errorTip))
+                {
+                    showToast(errorTip);
+                }
+                else
+                {
+                    showToast(getString(R.string.requesting_failure));
+                }
+            }
+            return false;
+        }
+    }
+    
     @Override
     protected void onResume()
     {

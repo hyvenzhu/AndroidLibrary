@@ -1,14 +1,18 @@
 package com.android.baseline.framework.ui.base;
 
+import com.android.baseline.framework.logic.ILogic;
+
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 /**
- * 保存Fragment状态
- * 参考：Android中保存和恢复Fragment状态的最好方法[http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0327/2648.html]
+ * 基类Fragment, 提供业务逻辑的处理和深层的UI处理 
+ * 1、提供EventBus事件通知
+ * 2、保存Fragment状态   参考：Android中保存和恢复Fragment状态的最好方法[http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/0327/2648.html]
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-4-1]
  */
-public class BaseFragment extends Fragment
+public abstract class BaseFragment extends Fragment
 {
     Bundle savedState;
 
@@ -118,4 +122,50 @@ public class BaseFragment extends Fragment
     {
 
     }
+    
+    /**
+     * 解绑当前订阅者
+     * @param receiver
+     */
+    protected void unregister(ILogic... iLogics)
+    {
+        for(ILogic iLogic : iLogics)
+        {
+            if (iLogic != null)
+            {
+                iLogic.cancelAll();
+                iLogic.unregister(this);
+            }
+        }
+    }
+
+    /**
+     * 解绑所有订阅者
+     */
+    protected void unregisterAll(ILogic... iLogics)
+    {
+        for(ILogic iLogic : iLogics)
+        {
+            if (iLogic != null)
+            {
+                iLogic.cancelAll();
+                iLogic.unregisterAll();
+            }
+        }
+    }
+    
+    /**
+     * EventBus订阅者事件通知的函数, UI线程
+     * 
+     * @param msg
+     */
+    public void onEventMainThread(Message msg)
+    {
+        if (isAdded() && !isDetached() && !isRemoving())
+        {
+            onResponse(msg);
+        }
+    }
+    
+    protected abstract void onResponse(Message msg);
 }
