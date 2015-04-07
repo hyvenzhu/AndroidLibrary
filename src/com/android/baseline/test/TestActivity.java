@@ -10,7 +10,6 @@ import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
 import com.android.baseline.framework.ui.base.annotations.ViewInject;
-import com.android.volley.VolleyError;
 /**
  * 演示如何使用框架
  * [
@@ -51,43 +50,25 @@ public class TestActivity extends BasicActivity
                 TaskExecutor.getInstance().execute(new TestTask(R.id.testTask, this));
                 break;
             case R.id.testHttp:
-                if (msg.obj instanceof InfoResult)
+                if (checkResponse(msg))
                 {
                     InfoResult infoResult = (InfoResult)msg.obj;
-                    if (infoResult.isSuccess())
-                    {
-                        // 业务逻辑成功
-                        resultTxt.setText(infoResult.getExtraObj().toString());
-                        onSuccess();
-                    }
-                    else if ("具体错误码".equals(infoResult.getErrorCode()))
-                    {
-                        Logger.w("TestActivity", "error code >>> " + infoResult.getErrorCode());
-                        onFailure(infoResult.getDesc());
-                    }
+                    // 业务逻辑成功
+                    resultTxt.setText(infoResult.getExtraObj().toString());
+                    onSuccess();
                 }
-                else if (msg.obj instanceof VolleyError)
+                else
                 {
-                    // 可提示网络错误，具体类型有TimeoutError ServerError
-                    Logger.w("TestActivity", (VolleyError)msg.obj);
-                    onFailure(msg.obj.toString());
+                    onFailure();
                 }
                 break;
             case R.id.testTask:
-                if (msg.obj instanceof InfoResult)
+                if (checkResponse(msg))
                 {
                     InfoResult infoResult = (InfoResult)msg.obj;
-                    if (infoResult.isSuccess())
-                    {
-                        // 业务逻辑成功
-                        resultTxt.setText(infoResult.getExtraObj().toString());
-                        onSuccess();
-                    }
-                    else if ("具体错误码".equals(infoResult.getErrorCode()))
-                    {
-                        Logger.w("TestActivity", "error code >>> " + infoResult.getErrorCode());
-                        onFailure(infoResult.getDesc());
-                    }
+                    // 业务逻辑成功
+                    resultTxt.setText(infoResult.getExtraObj().toString());
+                    onSuccess();
                 }
                 else
                 {

@@ -3,6 +3,7 @@ package com.android.baseline.framework.ui;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -23,11 +24,12 @@ import com.android.baseline.framework.ui.view.LoadingView;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-10-27]
  */
-public abstract class BasicFragment extends BaseFragment
+public class BasicFragment extends BaseFragment
 {
     /** 当前Fragment是否处于暂停状态*/
     protected boolean isPaused = true;
     private View mView;
+    private Fragment mFragment;
     
     /** 标题栏 */
     protected View titleLay;
@@ -52,23 +54,29 @@ public abstract class BasicFragment extends BaseFragment
      * @param fragment
      * @return
      */
-    protected View inflate(LayoutInflater inflater, ViewGroup container, int resourceId, BasicFragment fragment)
+    protected View inflate(LayoutInflater inflater, ViewGroup container, int resourceId, Fragment fragment)
     {
-        View v = inflater.inflate(resourceId, container, false);
+        mView = inflater.inflate(resourceId, container, false);
+        mFragment = fragment;
+        return mView;
+    }
+    
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
         // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
-        interceptTouchEvent(v, true);
-        ViewUtils.inject(fragment, v);
-        afterSetContentView(v);
-        return v;
+        interceptTouchEvent(mView, true);
+        ViewUtils.inject(mFragment, mView);
+        afterSetContentView();
     }
     
     /**
      * setContentView之后调用, 进行view的初始化等操作
      */
-    private void afterSetContentView(View v)
+    private void afterSetContentView()
     {
-        mView = v;
-        init(v);
+        init(mView);
         if (mLoadingView != null)
         {
             mLoadingView.register(this);
