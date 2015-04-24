@@ -2,6 +2,7 @@ package com.android.baseline.framework.ui;
 
 import java.util.List;
 import java.util.Map;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,7 +103,14 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     }
 
     @Override
-    public int getItemViewType(int position) {
+    public int getItemViewType(int position)
+    {
         return DEFAULT_ITEM_TYPE;
+    }
+
+    @Override
+    public int getViewTypeCount()
+    {
+        return mItemTypeResourceMap.size();
     }
 }
