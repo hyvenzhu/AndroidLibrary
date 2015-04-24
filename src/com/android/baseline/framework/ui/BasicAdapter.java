@@ -1,14 +1,14 @@
 package com.android.baseline.framework.ui;
 
 import java.util.List;
-
-import com.android.baseline.framework.ui.util.ViewHolderUtil;
-
+import java.util.Map;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
+import com.android.baseline.framework.ui.util.ViewHolderUtil;
 
 /**
  * 基类Adapter
@@ -19,13 +19,23 @@ public abstract class BasicAdapter<T> extends BaseAdapter
 {
     private LayoutInflater mLayoutInflater;
     protected List<T> mData; // data source
-    private int mResourceId; // layout id
+//    private int mResourceId; // layout id
+    private Map<Integer, Integer> mItemTypeResourceMap; // 支持不同Item样式<样式类型, 资源文件id>
+    private final int DEFAULT_ITEM_TYPE = 0; // 默认Item类型
 
     public BasicAdapter(Context context, List<T> data, int resourceId)
     {
         mLayoutInflater = LayoutInflater.from(context);
         mData = data;
-        mResourceId = resourceId;
+//        mResourceId = resourceId;
+        mItemTypeResourceMap.put(DEFAULT_ITEM_TYPE, resourceId);
+    }
+
+    public BasicAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap)
+    {
+        mLayoutInflater = LayoutInflater.from(context);
+        mData = data;
+        mItemTypeResourceMap = itemTypeResourceMap;
     }
     
     public void setDataSource(List<T> data)
@@ -61,7 +71,8 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     {
         if (convertView == null)
         {
-            convertView = mLayoutInflater.inflate(mResourceId,
+            int itemType = getItemViewType(position);
+            convertView = mLayoutInflater.inflate(mItemTypeResourceMap.get(itemType),
                     null);
         }
         getView(position,
@@ -88,5 +99,10 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     {
         return ViewHolderUtil.get(convertView,
                 viewId);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return DEFAULT_ITEM_TYPE;
     }
 }
