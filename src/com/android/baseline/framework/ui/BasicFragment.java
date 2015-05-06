@@ -29,7 +29,6 @@ public class BasicFragment extends BaseFragment
     /** 当前Fragment是否处于暂停状态*/
     protected boolean isPaused = true;
     private View mView;
-    private Fragment mFragment;
     
     /** 标题栏 */
     protected View titleLay;
@@ -56,27 +55,28 @@ public class BasicFragment extends BaseFragment
      */
     protected View inflate(LayoutInflater inflater, ViewGroup container, int resourceId, Fragment fragment)
     {
-        mView = inflater.inflate(resourceId, container, false);
-        mFragment = fragment;
-        return mView;
+        View view = inflater.inflate(resourceId, container, false);
+        // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
+        interceptTouchEvent(view, true);
+        ViewUtils.inject(fragment, view);
+        afterSetContentView(view);
+        return view;
     }
     
     @Override
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
-        interceptTouchEvent(mView, true);
-        ViewUtils.inject(mFragment, mView);
-        afterSetContentView();
+        
     }
     
     /**
      * setContentView之后调用, 进行view的初始化等操作
      */
-    private void afterSetContentView()
+    private void afterSetContentView(View view)
     {
-        init(mView);
+        mView = view;
+        init(view);
         if (mLoadingView != null)
         {
             mLoadingView.register(this);

@@ -1,5 +1,6 @@
 package com.android.baseline.framework.ui;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     private LayoutInflater mLayoutInflater;
     protected List<T> mData; // data source
 //    private int mResourceId; // layout id
-    private Map<Integer, Integer> mItemTypeResourceMap; // 支持不同Item样式<样式类型, 资源文件id>
+    private Map<Integer, Integer> mItemTypeResourceMap = new HashMap<Integer, Integer>(); // 支持不同Item样式<样式类型, 资源文件id>
     private final int DEFAULT_ITEM_TYPE = 0; // 默认Item类型
 
     public BasicAdapter(Context context, List<T> data, int resourceId)
@@ -36,7 +37,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     {
         mLayoutInflater = LayoutInflater.from(context);
         mData = data;
-        mItemTypeResourceMap = itemTypeResourceMap;
+        mItemTypeResourceMap.putAll(itemTypeResourceMap);
     }
     
     public void setDataSource(List<T> data)
