@@ -1,5 +1,4 @@
 package com.android.baseline.framework.asyncquery;
-
 import android.os.Message;
 import de.greenrobot.event.EventBus;
 
@@ -11,8 +10,9 @@ import de.greenrobot.event.EventBus;
  */
 public abstract class Task implements ITask
 {
-    private int mTaskId;
+    protected int mTaskId;
     private EventBus eventBus;
+    private boolean isCancelled;
     public Task(int taskId, Object subscriber)
     {
         this(taskId, new EventBus(), subscriber);
@@ -28,14 +28,34 @@ public abstract class Task implements ITask
         this.eventBus = eventBus;
         this.eventBus.register(subscriber);
     }
-    
+
+    /**
+     * 取消任务
+     */
+    public synchronized void cancel()
+    {
+        isCancelled = true;
+    }
+
+    public synchronized boolean isCancelled()
+    {
+        return isCancelled;
+    }
+
     @Override
     public void run()
     {
         final Object result = doInBackground();
-        Message msg = new Message();
-        msg.what = mTaskId;
-        msg.obj = result;
-        eventBus.post(msg);
+        synchronized (this)
+        {
+            if (isCancelled)
+            {
+                return;
+            }
+            Message msg = new Message();
+            msg.what = mTaskId;
+            msg.obj = result;
+            eventBus.post(msg);
+        }
     }
 }

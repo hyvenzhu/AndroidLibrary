@@ -1,10 +1,14 @@
 package com.android.baseline.util;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Environment;
+import android.text.TextUtils;
 
 /**
  * 基础工具类 [尽量减少类似Util的类存在]
@@ -82,6 +86,46 @@ public class APKUtil
         {
             cachePath = context.getApplicationContext().getFilesDir().getPath();
         }
-        return new File(cachePath + File.separator + uniqueName);
+        File dir = new File(cachePath + File.separator + uniqueName);
+        if (!dir.exists())
+        {
+            dir.mkdirs();
+        }
+        return dir;
+    }
+    
+    /**
+     * 组装参数
+     *
+     * @param parameters
+     * @return
+     */
+    public static String getParameters(Map<String, Object> parameters)
+    {
+        if (parameters == null)
+        {
+            return null;
+        }
+        StringBuilder sb = new StringBuilder();
+        Set<String> keys = parameters.keySet();
+        Iterator<String> keysIt = keys.iterator();
+        while (keysIt.hasNext())
+        {
+            String key = keysIt.next();
+            if (!TextUtils.isEmpty(key))
+            {
+                Object value = parameters.get(key);
+                if (value == null)
+                {
+                    value = "";
+                }
+                sb.append(key + "=" + value + "&");
+            }
+        }
+        if (sb.length() > 0)
+        {
+            return sb.substring(0, sb.length() - 1);
+        }
+        return sb.toString();
     }
 }

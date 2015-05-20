@@ -16,6 +16,7 @@ import android.widget.BaseExpandableListAdapter;
  */
 public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableListAdapter
 {
+    protected Context mContext;
     private LayoutInflater mLayoutInflater;
     protected List<K> mGroup; // group data source
     protected List<List<V>> mChildren; // children data source
@@ -24,6 +25,7 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
 
     public BasicExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId)
     {
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mGroup = group;
         mChildren = children;

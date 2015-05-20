@@ -1,6 +1,5 @@
 package com.android.baseline.framework.asyncquery;
 
-
 /**
  * 任务接口定义
  * 

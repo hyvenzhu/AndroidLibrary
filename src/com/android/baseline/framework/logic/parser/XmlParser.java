@@ -10,13 +10,13 @@ import android.sax.RootElement;
 import android.util.Xml;
 
 import com.android.baseline.framework.logic.InfoResult;
-import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserListener;
+import com.android.baseline.framework.volley.ResponseParserListenerAdpater;
 /**
  * A abstract class that parse logic status with type xml
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-28]
  */
-public abstract class XmlParser implements ResponseParserListener
+public abstract class XmlParser extends ResponseParserListenerAdpater
 {
     /** 附加数据*/
     private Map<String, Object> extras = new HashMap<String, Object>();

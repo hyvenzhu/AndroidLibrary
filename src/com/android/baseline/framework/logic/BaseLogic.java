@@ -5,10 +5,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import android.os.Message;
 
 import com.android.baseline.AppDroid;
+import com.android.baseline.framework.volley.InfoResultRequest;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -46,6 +48,10 @@ public class BaseLogic implements ILogic
     // 请求的tags
     private Set<Object> requestTags = new HashSet<Object>();
     
+    private static Object lock = new Object(); // 锁对象
+    private static boolean isSyncRequesting; // 是否正在执行同步请求
+    private static int syncRequestId = -1000; // 同步请求Id
+    private static ConcurrentLinkedQueue<Request<?>> waitQueue = new ConcurrentLinkedQueue<Request<?>>(); // 缓存后续的请求
     /**
      * Constructor with a subscriber
      * @param subscriber
@@ -158,9 +164,28 @@ public class BaseLogic implements ILogic
         if (tag != null)
         {
             request.setTag(tag);
-            requestTags.add(tag);
         }
-        requestQueue.add(request);
+        synchronized (lock)
+        {
+            if (isSyncRequesting)
+            {
+                waitQueue.add(request);
+            }
+            else
+            {
+                if (request instanceof InfoResultRequest)
+                {
+                    InfoResultRequest infoResultRequest = (InfoResultRequest)request;
+                    if (infoResultRequest.isSyncRequest())
+                    {
+                        syncRequestId = infoResultRequest.getRequestId();
+                        isSyncRequesting = true;
+                    }
+                }
+                requestTags.add(tag);
+                requestQueue.add(request);
+            }
+        }
     }
     
     /**
@@ -178,12 +203,47 @@ public class BaseLogic implements ILogic
      * 负责封装结果内容, post给订阅者
      * @param action 任务标识
      * @param response 响应结果 
-     *                 instanceof VolleyError表示网络请求出错
-     *                 instanceof InfoResult表示网络请求成功
      */
     @Override
     public void onResult(int action, Object response)
     {
+        synchronized (lock)
+        {
+            if (action == syncRequestId)
+            {
+                isSyncRequesting = false;
+                Iterator<Request<?>> iterator = waitQueue.iterator();
+                while(iterator.hasNext())
+                {
+                    Request<?> request = iterator.next();
+                    if (request instanceof InfoResultRequest) {
+                        InfoResultRequest infoResultRequest = (InfoResultRequest) request;
+                       
+                        // 更新正在等待的请求数据
+                        infoResultRequest.updateRequest();
+                        
+                        if (isSyncRequesting)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            if (infoResultRequest.isSyncRequest())
+                            {
+                                syncRequestId = infoResultRequest.getRequestId();
+                                isSyncRequesting = true;
+                            }
+                        }
+                    }
+                    // 从缓存队列移除
+                    iterator.remove();
+                    
+                    // 加入到请求队列
+                    requestTags.add(request.getTag());
+                    requestQueue.add(request);
+                }
+            }
+        }
         Message msg = new Message();
         msg.what = action;
         msg.obj = response;

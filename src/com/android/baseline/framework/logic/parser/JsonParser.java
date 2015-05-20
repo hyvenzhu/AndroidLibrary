@@ -7,13 +7,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
-import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserListener;
+import com.android.baseline.framework.volley.ResponseParserListenerAdpater;
 /**
  * A abstract class that parse logic status with type json
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-28]
  */
-public abstract class JsonParser implements ResponseParserListener
+public abstract class JsonParser extends ResponseParserListenerAdpater
 {
     /** 附加数据*/
     private Map<String, Object> extras = new HashMap<String, Object>();

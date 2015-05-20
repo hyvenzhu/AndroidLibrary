@@ -19,6 +19,7 @@ import com.android.baseline.framework.ui.util.ViewHolderUtil;
  */
 public abstract class BasicAdapter<T> extends BaseAdapter
 {
+    protected Context mContext;
     private LayoutInflater mLayoutInflater;
     protected List<T> mData; // data source
 //    private int mResourceId; // layout id
@@ -27,6 +28,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter
 
     public BasicAdapter(Context context, List<T> data, int resourceId)
     {
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mData = data;
 //        mResourceId = resourceId;

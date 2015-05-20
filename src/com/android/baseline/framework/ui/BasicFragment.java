@@ -63,13 +63,6 @@ public class BasicFragment extends BaseFragment
         return view;
     }
     
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        
-    }
-    
     /**
      * setContentView之后调用, 进行view的初始化等操作
      */

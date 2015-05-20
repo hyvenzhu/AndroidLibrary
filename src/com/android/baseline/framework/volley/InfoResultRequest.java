@@ -1,5 +1,6 @@
 package com.android.baseline.framework.volley;
 
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -42,6 +43,10 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     private String body;
     /** request params*/
     private Map<String, String> params;
+    /** 是否返回流*/
+    private boolean isNeedStream;
+    /** 知否是同步阻塞型请求*/
+    private boolean isSyncRequest;
     
     public InfoResultRequest(final int requestId, String url, int method, String body, ResponseParserListener parseListener, final ILogic logic)
     {
@@ -68,7 +73,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         this(requestId, url, Method.POST, null, params, parseListener, logic);
     }
     
-    public InfoResultRequest(final int requestId, String url, int method, String body, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
+    public InfoResultRequest(final int requestId, String url, int method, String body, Map<String, String> params, final ResponseParserListener parseListener, final ILogic logic)
     {
         super(method, url, new ErrorListener()
         {
@@ -76,7 +81,17 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
             public void onErrorResponse(VolleyError error)
             {
                 Logger.w("InfoResultMultiPartRequest", error);
-                logic.onResult(requestId, error);
+                try
+                {
+                    // 错误
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"\",\"data\": {}}");
+                    infoResult.setExtraObj(error);
+                    logic.onResult(requestId, infoResult);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
         this.body = body;
@@ -87,7 +102,6 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         RetryPolicy retryPolicy = new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         setRetryPolicy(retryPolicy);
     }
-    
     
     @Override
     public byte[] getBody() throws AuthFailureError
@@ -105,6 +119,27 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     protected Map<String, String> getParams() throws AuthFailureError
     {
         return params;
+    }
+    
+    /**
+     * 修改参数值
+     * @param key 键
+     * @param value 值
+     */
+    public void setParamValue(String key, String value)
+    {
+        if (params != null)
+        {
+            params.put(key, value);
+        }
+    }
+    
+    /**
+     * 更新请求数据
+     */
+    public void updateRequest()
+    {
+        
     }
     
     @Override
@@ -182,6 +217,38 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     {
         this.onResponse(response);
     }
+    
+    public void setNeedStream(boolean isNeedStream) {
+        this.isNeedStream = isNeedStream;
+        if (isNeedStream)
+        {
+            setShouldCache(false);
+        }
+    }
+
+    @Override
+    public boolean isNeedStream() {
+        return isNeedStream;
+    }
+    
+    /**
+     * 是否是同步的请求, 如果是则其他所有请求都必须等待该请求结束才能执行
+     * @return
+     */
+    public boolean isSyncRequest()
+    {
+        return isSyncRequest;
+    }
+    
+    public void setSyncRequest(boolean isSyncRequest)
+    {
+        this.isSyncRequest = isSyncRequest;
+    }
+
+    public int getRequestId()
+    {
+        return requestId;
+    }
 
     /**
      * 通知调用者根据各自业务解析响应字符串到InfoResult
@@ -191,5 +258,6 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     public interface ResponseParserListener
     {
         InfoResult doParse(final String response) throws Exception;
+        InfoResult doParse(final InputStream response) throws Exception;
     }
 }
