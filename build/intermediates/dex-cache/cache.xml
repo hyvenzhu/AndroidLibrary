@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Android\software\android-sdk\extras\android\m2repository\com\android\support\support-v4\18.0.0\support-v4-18.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="44ec51e9d395a47aab135e5e1b556c0007442156">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\support-v4-18.0.0-fea66d02a47ca49cb1a093cd0b85dfd090b23f03.jar" />
+    </item>
+    <item
+        jar="D:\Android\workspace-studio\Android-BaseLine\app\libs\activation.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d1257cbff6faa44c1f325ae0d9413522d4644383">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\activation-e91d6575fde42f0e0d768f771ed381adb55325d8.jar" />
+    </item>
+    <item
+        jar="D:\Android\workspace-studio\Android-BaseLine\app\libs\eventbus.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="2dce828c2383900af183f4842016948acf59ee23">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\eventbus-48d01021abb0156f949ddd23676ab7f43307b8d2.jar" />
+    </item>
+    <item
+        jar="D:\Android\workspace-studio\Android-BaseLine\app\libs\volley-plus.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1cac7e2b91951946515a2a38a15a7d1e614e445b">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\volley-plus-7dbf5d6d6e73301f8b44621717262a66eb170b2d.jar" />
+    </item>
+    <item
+        jar="D:\Android\workspace-studio\Android-BaseLine\app\libs\mail.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="428e267abff0d10802ccde86b915da2c20471160">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\mail-07d2283a1aecf77f5afe5cf648ecd183b0cdc4fd.jar" />
+    </item>
+    <item
+        jar="D:\Android\workspace-studio\Android-BaseLine\app\libs\additionnal.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="bd9e8dc422bb8c8405359947fe9f4282b49f57f4">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\additionnal-8fe5f7e2319dd9a2b936264e214568c8004f20ac.jar" />
+    </item>
+    <item
+        jar="D:\Android\workspace-studio\Android-BaseLine\app\libs\fastjson-1.1.43.android.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="55201133d499efaf33db67ece976c8e303d2de18">
+        <dex dex="D:\Android\workspace-studio\Android-BaseLine\app\build\intermediates\pre-dexed\debug\fastjson-1.1.43.android-7ca86653b505eed5e019b7ad6543bff5ab6fc8b3.jar" />
+    </item>
+
+</items>

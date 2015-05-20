@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="D:\Android\workspace-studio\Android-BaseLine\app\src\main\assets"><file name="emails.xml" path="D:\Android\workspace-studio\Android-BaseLine\app\src\main\assets\emails.xml"/></source></dataSet><dataSet config="debug"><source path="D:\Android\workspace-studio\Android-BaseLine\app\src\debug\assets"/></dataSet></merger>
