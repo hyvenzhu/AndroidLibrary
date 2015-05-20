@@ -11,40 +11,63 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int loading_dialog_bg=0x7f020001;
-        public static final int loading_error_tip=0x7f020002;
+        public static final int __leak_canary_icon=0x7f020000;
+        public static final int __leak_canary_notification=0x7f020001;
+        public static final int ic_launcher=0x7f020002;
+        public static final int loading_dialog_bg=0x7f020003;
+        public static final int loading_error_tip=0x7f020004;
     }
     public static final class id {
-        public static final int loading_progressBar=0x7f04000b;
-        public static final int loading_view=0x7f04000a;
+        public static final int __leak_canary_action=0x7f040004;
+        public static final int __leak_canary_display_leak_list=0x7f040003;
+        public static final int __leak_canary_row_connector=0x7f040007;
+        public static final int __leak_canary_row_more=0x7f040008;
+        public static final int __leak_canary_row_text=0x7f040005;
+        public static final int __leak_canary_row_time=0x7f040006;
+        public static final int loading_progressBar=0x7f040011;
+        public static final int loading_view=0x7f040010;
         public static final int onLoading=0x7f040000;
-        public static final int result_txt=0x7f040003;
+        public static final int result_txt=0x7f040009;
         public static final int testHttp=0x7f040001;
         public static final int testTask=0x7f040002;
-        public static final int test_btn=0x7f040005;
-        public static final int tipTextView=0x7f040004;
-        public static final int tip_txt=0x7f04000c;
-        public static final int title_lay=0x7f040006;
-        public static final int title_left_btn=0x7f040007;
-        public static final int title_right_btn=0x7f040009;
-        public static final int title_txt=0x7f040008;
+        public static final int test_btn=0x7f04000b;
+        public static final int tipTextView=0x7f04000a;
+        public static final int tip_txt=0x7f040012;
+        public static final int title_lay=0x7f04000c;
+        public static final int title_left_btn=0x7f04000d;
+        public static final int title_right_btn=0x7f04000f;
+        public static final int title_txt=0x7f04000e;
+    }
+    public static final class integer {
+        public static final int __leak_canary_max_stored_leaks=0x7f050000;
     }
     public static final class layout {
-        public static final int activity_test=0x7f030000;
-        public static final int dialog_loading=0x7f030001;
-        public static final int fragment_test=0x7f030002;
-        public static final int layout_common_title=0x7f030003;
-        public static final int layout_loading=0x7f030004;
+        public static final int __leak_canary_display_leak=0x7f030000;
+        public static final int __leak_canary_leak_row=0x7f030001;
+        public static final int __leak_canary_ref_row=0x7f030002;
+        public static final int __leak_canary_ref_top_row=0x7f030003;
+        public static final int activity_test=0x7f030004;
+        public static final int dialog_loading=0x7f030005;
+        public static final int fragment_test=0x7f030006;
+        public static final int layout_common_title=0x7f030007;
+        public static final int layout_loading=0x7f030008;
     }
     public static final class string {
-        public static final int app_name=0x7f050000;
-        public static final int loading_failure=0x7f050001;
-        public static final int loading_text=0x7f050002;
-        public static final int requesting_failure=0x7f050003;
+        public static final int __leak_canary_class_has_leaked=0x7f060000;
+        public static final int __leak_canary_display_activity_label=0x7f060001;
+        public static final int __leak_canary_leak_list_title=0x7f060002;
+        public static final int __leak_canary_notification_message=0x7f060003;
+        public static final int __leak_canary_share_heap_dump=0x7f060004;
+        public static final int __leak_canary_share_leak=0x7f060005;
+        public static final int __leak_canary_share_with=0x7f060006;
+        public static final int app_name=0x7f060007;
+        public static final int loading_failure=0x7f060008;
+        public static final int loading_text=0x7f060009;
+        public static final int requesting_failure=0x7f06000a;
     }
     public static final class style {
-        public static final int AppTheme=0x7f060000;
-        public static final int loading_dialog=0x7f060001;
+        public static final int AppTheme=0x7f070000;
+        public static final int __LeakCanary_Base=0x7f070001;
+        public static final int loading_dialog=0x7f070002;
     }
 }

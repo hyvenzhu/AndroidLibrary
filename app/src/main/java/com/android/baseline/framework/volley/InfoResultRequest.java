@@ -22,15 +22,15 @@ import com.android.volley.toolbox.HttpHeaderParser;
  * 重写Request实现InfoResult结果类型的网络请求, 做了以下扩展
  * [
  *   1、提供设置请求头header
- *   2、提供post方式设置消息体body
+ *   2、支持返回InputStream数据
+ *   3、支持同步请求(其他所有请求必须等待某个请求结束，否则在缓冲队列排队)。
+ *      并支持同步请求结束后其他请求触发的回调，可以其他修改请求的数据等
  * ]
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-18]
  */
 public class InfoResultRequest extends Request<InfoResult> implements Listener<InfoResult>
 {
-    /** Charset for request. */
-    private static final String PROTOCOL_CHARSET = "utf-8";
     /** request identifier*/
     private int requestId;
     /** request headers*/
@@ -39,41 +39,24 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     private ResponseParserListener parserListener;
     /** 分发解析好的数据到业务层*/
     private ILogic logic;
-    /** request body*/
-    private String body;
     /** request params*/
     private Map<String, String> params;
     /** 是否返回流*/
     private boolean isNeedStream;
     /** 知否是同步阻塞型请求*/
     private boolean isSyncRequest;
-    
-    public InfoResultRequest(final int requestId, String url, int method, String body, ResponseParserListener parseListener, final ILogic logic)
+
+    public InfoResultRequest(int requestId, String url, ResponseParserListener parseListener, ILogic logic)
     {
-        this(requestId, url, method, body, null, parseListener, logic);
+        this(requestId, url, Method.GET, null, parseListener, logic);
     }
-    
-    public InfoResultRequest(final int requestId, String url, int method, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
+
+    public InfoResultRequest(int requestId, String url, Map<String, String> params, ResponseParserListener parseListener, ILogic logic)
     {
-        this(requestId, url, method, null, params, parseListener, logic);
+        this(requestId, url, Method.POST, params, parseListener, logic);
     }
-    
-    public InfoResultRequest(final int requestId, String url, ResponseParserListener parseListener, final ILogic logic)
-    {
-        this(requestId, url, Method.GET, null, null, parseListener, logic);
-    }
-    
-    public InfoResultRequest(final int requestId, String url, String body, ResponseParserListener parseListener, final ILogic logic)
-    {
-        this(requestId, url, Method.POST, body, null, parseListener, logic);
-    }
-    
-    public InfoResultRequest(final int requestId, String url, Map<String, String> params, ResponseParserListener parseListener, final ILogic logic)
-    {
-        this(requestId, url, Method.POST, null, params, parseListener, logic);
-    }
-    
-    public InfoResultRequest(final int requestId, String url, int method, String body, Map<String, String> params, final ResponseParserListener parseListener, final ILogic logic)
+
+    public InfoResultRequest(final int requestId, String url, int method, Map<String, String> params, final ResponseParserListener parseListener, final ILogic logic)
     {
         super(method, url, new ErrorListener()
         {
@@ -94,25 +77,12 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
                 }
             }
         });
-        this.body = body;
         this.params = params;
         this.parserListener = parseListener;
         this.requestId = requestId;
         this.logic = logic;
         RetryPolicy retryPolicy = new DefaultRetryPolicy(20000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         setRetryPolicy(retryPolicy);
-    }
-    
-    @Override
-    public byte[] getBody() throws AuthFailureError
-    {
-        try {
-            return body == null ? super.getBody() : body.getBytes(PROTOCOL_CHARSET);
-        } catch (UnsupportedEncodingException uee) {
-            VolleyLog.wtf("Unsupported Encoding while trying to get the bytes of %s using %s",
-                    body, PROTOCOL_CHARSET);
-            return null;
-        }
     }
     
     @Override

@@ -298,6 +298,8 @@ public class BasicFragment extends BaseFragment
         super.onDestroy();
         uiInterface.hideProgress();
         AppDroid.getInstance().removeFragment(this);
+
+        AppDroid.getInstance().getRefWatcher().watch(this);
     }
     
     /**

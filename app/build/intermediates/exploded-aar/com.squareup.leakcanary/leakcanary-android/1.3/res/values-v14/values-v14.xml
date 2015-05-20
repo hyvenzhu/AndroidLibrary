@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/py/dev/leakcanary/library/leakcanary-android/src/main/res/values-v14/__leak_canary_themes.xml -->
+    <eat-comment/>
+    <style name="__LeakCanary.Base" parent="android:Theme.Holo">
+  </style>
+</resources>

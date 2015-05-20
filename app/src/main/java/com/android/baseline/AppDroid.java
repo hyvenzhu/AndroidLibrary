@@ -7,6 +7,8 @@ import com.android.baseline.framework.ui.BasicActivity;
 import com.android.baseline.framework.ui.BasicFragment;
 import com.android.baseline.framework.ui.util.UIStateHelper;
 import com.android.baseline.util.crash2email.GlobalExceptionHandler;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 
 /**
  * App application
@@ -17,6 +19,7 @@ public class AppDroid extends Application
 {
     private static AppDroid sInstance;
     private UIStateHelper uiStateHelper;
+    private RefWatcher refWatcher;
     @Override
     public void onCreate()
     {
@@ -24,11 +27,18 @@ public class AppDroid extends Application
         sInstance = this;
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         uiStateHelper = new UIStateHelper();
+
+        refWatcher = LeakCanary.install(this);
     }
-    
+
     public static AppDroid getInstance()
     {
         return sInstance;
+    }
+
+    public RefWatcher getRefWatcher()
+    {
+        return refWatcher;
     }
     
     /**

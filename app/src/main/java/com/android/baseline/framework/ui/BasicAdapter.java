@@ -22,7 +22,6 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     protected Context mContext;
     private LayoutInflater mLayoutInflater;
     protected List<T> mData; // data source
-//    private int mResourceId; // layout id
     private Map<Integer, Integer> mItemTypeResourceMap = new HashMap<Integer, Integer>(); // 支持不同Item样式<样式类型, 资源文件id>
     private final int DEFAULT_ITEM_TYPE = 0; // 默认Item类型
 
@@ -31,7 +30,6 @@ public abstract class BasicAdapter<T> extends BaseAdapter
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mData = data;
-//        mResourceId = resourceId;
         mItemTypeResourceMap.put(DEFAULT_ITEM_TYPE, resourceId);
     }
 

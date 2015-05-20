@@ -1,5 +1,8 @@
 package com.android.baseline.framework.asyncquery;
 import android.os.Message;
+
+import java.lang.ref.WeakReference;
+
 import de.greenrobot.event.EventBus;
 
 /**

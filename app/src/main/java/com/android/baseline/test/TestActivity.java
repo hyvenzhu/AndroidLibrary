@@ -34,7 +34,7 @@ public class TestActivity extends BasicActivity
         setContentView(R.layout.activity_test);
         logic = new TestLogic(this);
     }
-    
+
     @Override
     public void onResponse(Message msg)
     {
@@ -47,7 +47,7 @@ public class TestActivity extends BasicActivity
 //                logic.userLogin();
                 
                 // 非网络请求, 耗时任务
-                TaskExecutor.getInstance().execute(new TestTask(R.id.testTask, this));
+                logic.testTask();
                 break;
             case R.id.testHttp:
                 if (checkResponse(msg))

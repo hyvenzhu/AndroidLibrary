@@ -39,8 +39,6 @@ public class TestFragment extends BasicFragment
                 // 网络请求
                 logic.userLogin();
                 
-                // 非网络请求, 耗时任务
-//                TaskExecutor.getInstance().execute(new TestTask(R.id.testTask));
                 break;
             default:
                 break;
@@ -54,14 +52,6 @@ public class TestFragment extends BasicFragment
         switch (msg.what)
         {
             case R.id.testHttp:
-                if (checkResponse(msg))
-                {
-                    InfoResult infoResult = (InfoResult)msg.obj;
-                    // 业务逻辑成功
-                    resultTxt.setText(infoResult.getExtraObj().toString());
-                }
-                break;
-            case R.id.testTask:
                 if (checkResponse(msg))
                 {
                     InfoResult infoResult = (InfoResult)msg.obj;
