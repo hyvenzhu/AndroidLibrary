@@ -1,14 +1,17 @@
 package com.android.baseline.framework.ui;
 
-import java.util.List;
-
-import com.android.baseline.framework.ui.util.ViewHolderUtil;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+
+import com.android.baseline.framework.ui.util.ViewHolderUtil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 基类Adapter
  * @author hiphonezhu@gmail.com
@@ -20,8 +23,10 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
     private LayoutInflater mLayoutInflater;
     protected List<K> mGroup; // group data source
     protected List<List<V>> mChildren; // children data source
-    private int mGroupResourceId; // group layout id
-    private int mChildrenResourceId; // children layout id
+
+    private final int DEFAULT_ITEM_TYPE = 0; // 默认Item类型
+    private Map<Integer, Integer> mGroupItemTypeResourceMap = new HashMap<Integer, Integer>();
+    private Map<Integer, Integer> mChildItemTypeResourceMap = new HashMap<Integer, Integer>();
 
     public BasicExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId)
     {
@@ -29,8 +34,44 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
         mLayoutInflater = LayoutInflater.from(context);
         mGroup = group;
         mChildren = children;
-        mGroupResourceId = groupResourceId;
-        mChildrenResourceId = childrenResourceId;
+        mGroupItemTypeResourceMap.put(DEFAULT_ITEM_TYPE, groupResourceId);
+        mChildItemTypeResourceMap.put(DEFAULT_ITEM_TYPE, childrenResourceId);
+    }
+
+    public BasicExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
+                Map<Integer, Integer> groupItemTypeResourceMap,
+                Map<Integer, Integer> childItemTypeResourceMap)
+    {
+        mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        mGroup = group;
+        mChildren = children;
+        mGroupItemTypeResourceMap.putAll(groupItemTypeResourceMap);
+        mChildItemTypeResourceMap.putAll(childItemTypeResourceMap);
+    }
+
+    public BasicExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
+                  int groupResourceId,
+                  Map<Integer, Integer> childItemTypeResourceMap)
+    {
+        mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        mGroup = group;
+        mChildren = children;
+        mGroupItemTypeResourceMap.put(DEFAULT_ITEM_TYPE, groupResourceId);
+        mChildItemTypeResourceMap.putAll(childItemTypeResourceMap);
+    }
+
+    public BasicExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
+                                      Map<Integer, Integer> groupItemTypeResourceMap,
+                                      int childrenResourceId)
+    {
+        mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        mGroup = group;
+        mChildren = children;
+        mGroupItemTypeResourceMap.putAll(groupItemTypeResourceMap);
+        mChildItemTypeResourceMap.put(DEFAULT_ITEM_TYPE, childrenResourceId);
     }
     
     public void setDataSource(List<K> group, List<List<V>> children)
@@ -91,7 +132,7 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
     {
         if (convertView == null)
         {
-            convertView = mLayoutInflater.inflate(mGroupResourceId, null);
+            convertView = mLayoutInflater.inflate(mGroupItemTypeResourceMap.get(getGroupType(groupPosition)), null);
         }
         getGroupView(groupPosition, isExpanded, convertView);
         return convertView;
@@ -104,7 +145,7 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
     {
         if (convertView == null)
         {
-            convertView = mLayoutInflater.inflate(mChildrenResourceId, null);
+            convertView = mLayoutInflater.inflate(mChildItemTypeResourceMap.get(getChildType(groupPosition, childPosition)), null);
         }
         getChildView(groupPosition, childPosition, isLastChild, convertView);
         return convertView;
@@ -131,7 +172,6 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
     /**
      * 类似convertView.findViewById(int viewId), 子类不需要关心如何使用ViewHolder机制
      * 
-     * @param <V>
      * @param convertView
      * @param viewId
      * @return
@@ -140,5 +180,29 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
     {
         return ViewHolderUtil.get(convertView,
                 viewId);
+    }
+
+    @Override
+    public int getGroupTypeCount()
+    {
+        return mGroupItemTypeResourceMap.size();
+    }
+
+    @Override
+    public int getGroupType(int groupPosition)
+    {
+        return DEFAULT_ITEM_TYPE;
+    }
+
+    @Override
+    public int getChildTypeCount()
+    {
+        return mChildItemTypeResourceMap.size();
+    }
+
+    @Override
+    public int getChildType(int groupPosition, int childPosition)
+    {
+        return DEFAULT_ITEM_TYPE;
     }
 }

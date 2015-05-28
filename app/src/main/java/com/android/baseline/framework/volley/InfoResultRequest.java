@@ -1,9 +1,5 @@
 package com.android.baseline.framework.volley;
 
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Map;
-
 import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.logic.InfoResult;
@@ -16,8 +12,11 @@ import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
+
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Map;
 /**
  * 重写Request实现InfoResult结果类型的网络请求, 做了以下扩展
  * [
@@ -40,7 +39,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     /** 分发解析好的数据到业务层*/
     private ILogic logic;
     /** request params*/
-    private Map<String, String> params;
+    private Map<String, Object> params;
     /** 是否返回流*/
     private boolean isNeedStream;
     /** 知否是同步阻塞型请求*/
@@ -51,12 +50,12 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         this(requestId, url, Method.GET, null, parseListener, logic);
     }
 
-    public InfoResultRequest(int requestId, String url, Map<String, String> params, ResponseParserListener parseListener, ILogic logic)
+    public InfoResultRequest(int requestId, String url, Map<String, Object> params, ResponseParserListener parseListener, ILogic logic)
     {
         this(requestId, url, Method.POST, params, parseListener, logic);
     }
 
-    public InfoResultRequest(final int requestId, String url, int method, Map<String, String> params, final ResponseParserListener parseListener, final ILogic logic)
+    public InfoResultRequest(final int requestId, String url, int method, Map<String, Object> params, final ResponseParserListener parseListener, final ILogic logic)
     {
         super(method, url, new ErrorListener()
         {
@@ -86,7 +85,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     }
     
     @Override
-    protected Map<String, String> getParams() throws AuthFailureError
+    protected Map<String, Object> getParams() throws AuthFailureError
     {
         return params;
     }

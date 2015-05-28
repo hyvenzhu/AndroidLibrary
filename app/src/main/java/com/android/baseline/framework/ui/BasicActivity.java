@@ -351,16 +351,8 @@ public class BasicActivity extends BaseActivity implements UIInterface
         Logger.d(TAG, "onResume");
         if (mIsNeedRefresh)
         {
-            onRefresh();
             mIsNeedRefresh = false;
         }
-    }
-
-    /**
-     * Activity onResume需要刷新会触发此方法
-     */
-    protected void onRefresh()
-    {
     }
 
     /**
