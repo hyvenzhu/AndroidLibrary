@@ -59,7 +59,7 @@ public abstract class BaseActivity extends FragmentActivity
     
     /**
      * 解绑当前订阅者
-     * @param receiver
+     * @param iLogics
      */
     protected void unregister(ILogic... iLogics)
     {

@@ -35,7 +35,7 @@ public abstract class BaseFragment extends Fragment
 
     /**
      * 解绑当前订阅者
-     * @param receiver
+     * @param iLogics
      */
     protected void unregister(ILogic... iLogics)
     {
