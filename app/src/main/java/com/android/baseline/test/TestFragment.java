@@ -24,7 +24,7 @@ public class TestFragment extends BasicFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
     {
         View v = inflate(inflater, container, R.layout.fragment_test, this);
-        logic = new TestLogic(this);
+        logic = registeLogic(new TestLogic(this));
         return v;
     }
     
@@ -62,12 +62,5 @@ public class TestFragment extends BasicFragment
             default:
                 break;
         }
-    }
-
-    @Override
-    public void onDestroy()
-    {
-        super.onDestroy();
-        unregisterAll(logic);
     }
 }

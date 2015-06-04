@@ -1,11 +1,14 @@
 package com.android.baseline.framework.ui.base;
 
-import android.os.Bundle;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 
-import com.android.baseline.framework.log.Logger;
+import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.ILogic;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 基类Fragment, 提供业务逻辑的处理和深层的UI处理 
  * 1、提供EventBus事件通知
@@ -15,22 +18,25 @@ import com.android.baseline.framework.logic.ILogic;
 public abstract class BaseFragment extends Fragment
 {
     @Override
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null)
+    public void onDestroy() {
+        super.onDestroy();
+        for(BaseLogic logic : logics)
         {
-            onRestoreState(savedInstanceState);
+            unregister(logic);
         }
     }
-    
+
+    private List<BaseLogic> logics = new ArrayList<BaseLogic>(); // 存储BaseLogic
     /**
-     * 恢复临时状态
-     * @param savedState
+     * 注册BaseLogic, Activity销毁时是自动取消解绑
+     * @param logic
+     * @param <T>
+     * @return
      */
-    protected void onRestoreState(Bundle savedState)
+    protected <T extends BaseLogic> T registeLogic(BaseLogic logic)
     {
-        Logger.d("BaseFragment", "onRestoreState >>>" + savedState);
+        logics.add(logic);
+        return (T)logic;
     }
 
     /**

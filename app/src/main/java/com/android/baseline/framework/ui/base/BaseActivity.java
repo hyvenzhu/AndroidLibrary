@@ -5,8 +5,12 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 
+import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 基类Activity, 提供业务逻辑的处理和深层的UI处理 
@@ -56,6 +60,19 @@ public abstract class BaseActivity extends FragmentActivity
     {
         
     }
+
+    private List<BaseLogic> logics = new ArrayList<BaseLogic>(); // 存储BaseLogic
+    /**
+     * 注册BaseLogic, Activity销毁时是自动取消解绑
+     * @param logic
+     * @param <T>
+     * @return
+     */
+    protected <T extends BaseLogic> T registeLogic(BaseLogic logic)
+    {
+        logics.add(logic);
+        return (T)logic;
+    }
     
     /**
      * 解绑当前订阅者
@@ -93,6 +110,10 @@ public abstract class BaseActivity extends FragmentActivity
     {
         super.onDestroy();
         isDestroyed = true;
+        for(BaseLogic logic : logics)
+        {
+            unregister(logic);
+        }
     }
 
     /**

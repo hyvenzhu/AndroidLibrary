@@ -5,8 +5,6 @@ import android.os.Message;
 import android.widget.TextView;
 
 import com.android.baseline.R;
-import com.android.baseline.framework.asyncquery.TaskExecutor;
-import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
 import com.android.baseline.framework.ui.base.annotations.ViewInject;
@@ -32,7 +30,7 @@ public class TestActivity extends BasicActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
-        logic = new TestLogic(this);
+        logic = registeLogic(new TestLogic(this));
     }
 
     @Override
@@ -78,13 +76,5 @@ public class TestActivity extends BasicActivity
             default:
                 break;
         }
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        super.onDestroy();
-        unregisterAll(logic);
-        Logger.d("TestActivity", "onDestroy");
     }
 }
