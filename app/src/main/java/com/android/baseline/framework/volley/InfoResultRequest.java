@@ -66,7 +66,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
                 try
                 {
                     // 错误
-                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"\",\"data\": {}}");
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"Client inner error, please check exception stack.\",\"data\": {}}");
                     infoResult.setExtraObj(error);
                     logic.onResult(requestId, infoResult);
                 }

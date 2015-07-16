@@ -56,17 +56,6 @@ public class UIStateHelper
     }
     
     /**
-     * 移除栈中的Activity
-     * @param stackIndex
-     */
-    public void finishActivity(int stackIndex)
-    {
-        Activity activity = activityStack.get(stackIndex);
-        activity.finish();
-        activityStack.remove(stackIndex);
-    }
-
-    /**
      * 关闭所有Activity
      */
     public void finishAll()

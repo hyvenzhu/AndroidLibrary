@@ -93,38 +93,4 @@ public class APKUtil
         }
         return dir;
     }
-
-    /**
-     * 组装参数
-     * @param parameters
-     * @return
-     */
-    public static String getParameters(Map<String, Object> parameters)
-    {
-        if (parameters == null)
-        {
-            return null;
-        }
-        StringBuilder sb = new StringBuilder();
-        Set<String> keys = parameters.keySet();
-        Iterator<String> keysIt = keys.iterator();
-        while (keysIt.hasNext())
-        {
-            String key = keysIt.next();
-            if (!TextUtils.isEmpty(key))
-            {
-                Object value = parameters.get(key);
-                if (value == null)
-                {
-                    value = "";
-                }
-                sb.append(key + "=" + value + "&");
-            }
-        }
-        if (sb.length() > 0)
-        {
-            return sb.substring(0, sb.length() - 1);
-        }
-        return sb.toString();
-    }
 }
