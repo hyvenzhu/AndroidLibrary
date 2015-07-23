@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Android\source\Android-BaseLine\app\libs\volley-plus.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="af6c47b4e2fe6d17c3828c388f8baa1906d93d44">
+        <dex dex="D:\Android\source\Android-BaseLine\app\build\intermediates\pre-dexed\debug\volley-plus-08e4a598e0a8b6c635b4f0c60bb61e758b12d1bf.jar" />
+    </item>
+
+</items>
