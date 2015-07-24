@@ -42,7 +42,7 @@ public class BasicFragment extends BaseFragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        AppDroid.getInstance().addFragment(this);
+        AppDroid.getInstance().uiStateHelper.addFragment(this);
     }
     
     /**
@@ -297,9 +297,8 @@ public class BasicFragment extends BaseFragment
     {
         super.onDestroy();
         uiInterface.hideProgress();
-        AppDroid.getInstance().removeFragment(this);
-
-        AppDroid.getInstance().getRefWatcher().watch(this);
+        AppDroid.getInstance().uiStateHelper.removeFragment(this);
+        AppDroid.getInstance().refWatcher.watch(this);
     }
     
     /**

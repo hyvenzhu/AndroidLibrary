@@ -45,7 +45,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        AppDroid.getInstance().addActivity(this);
+        AppDroid.getInstance().uiStateHelper.addActivity(this);
         Logger.d(TAG, "onCreate");
     }
     
@@ -417,7 +417,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
     {
         super.onDestroy();
         hideProgress();
-        AppDroid.getInstance().removeActivity(this);
+        AppDroid.getInstance().uiStateHelper.removeActivity(this);
         Logger.d(TAG, "onDestroy");
     }
 }

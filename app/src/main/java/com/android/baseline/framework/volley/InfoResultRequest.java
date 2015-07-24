@@ -66,7 +66,7 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
                 try
                 {
                     // 错误
-                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"\",\"data\": {}}");
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"Client inner error, please check exception stack.\",\"data\": {}}");
                     infoResult.setExtraObj(error);
                     logic.onResult(requestId, infoResult);
                 }
@@ -160,11 +160,19 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
     {
         try
         {
-            String str = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-            InfoResult infoResult = parserListener.doParse(str);
+            InfoResult infoResult = null;
+            if (isNeedStream())
+            {
+                infoResult = parserListener.doParse(response.is);
+            }
+            else
+            {
+                String str = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+                infoResult = parserListener.doParse(str);
+            }
             if (infoResult == null) // 解析失败
             {
-                return Response.error(new VolleyError("parse response error >>> " + str));
+                return Response.error(new VolleyError("parse response error"));
             }
             else // 解析成功
             {

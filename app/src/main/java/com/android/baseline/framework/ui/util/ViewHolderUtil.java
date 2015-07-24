@@ -12,7 +12,7 @@ public class ViewHolderUtil
     /**
      * 
      * @param <T> View子类
-     * @param view convertView
+     * @param convertView
      * @param id 需要查找的view
      * @return
      */

@@ -18,8 +18,8 @@ import com.squareup.leakcanary.RefWatcher;
 public class AppDroid extends Application
 {
     private static AppDroid sInstance;
-    private UIStateHelper uiStateHelper;
-    private RefWatcher refWatcher;
+    public UIStateHelper uiStateHelper;
+    public RefWatcher refWatcher;
     @Override
     public void onCreate()
     {
@@ -27,7 +27,6 @@ public class AppDroid extends Application
         sInstance = this;
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         uiStateHelper = new UIStateHelper();
-
         refWatcher = LeakCanary.install(this);
     }
 
@@ -36,76 +35,11 @@ public class AppDroid extends Application
         return sInstance;
     }
 
-    public RefWatcher getRefWatcher()
-    {
-        return refWatcher;
-    }
-    
-    /**
-     * Fragment创建时加入栈中
-     * @param fragment
-     */
-    public void addFragment(BasicFragment fragment)
-    {
-        uiStateHelper.addFragment(fragment);
-    }
-    
-    /**
-     * Activity创建时加入栈中
-     * @param activity
-     */
-    public void addActivity(BasicActivity activity)
-    {
-        uiStateHelper.addActivity(activity);
-    }
-    
-    /**
-     * Fragment移除时从栈中删除
-     * @param fragment
-     */
-    public void removeFragment(BasicFragment fragment)
-    {
-        uiStateHelper.removeFragment(fragment);
-    }
-    
-    /**
-     * Activity移除时从栈中删除
-     * @param activity
-     */
-    public void removeActivity(BasicActivity activity)
-    {
-        uiStateHelper.removeActivity(activity);
-    }
-    
-    /**
-     * 移除栈中的Activity
-     * @param stackIndex
-     */
-    public void finishActivity(int stackIndex)
-    {
-        uiStateHelper.finishActivity(stackIndex);
-    }
-
-    /**
-     * 关闭所有Activity
-     */
-    public void finishAll()
-    {
-        uiStateHelper.finishAll();
-    }
-    
     /**
      * 退出程序
      */
     public void exist(Context context)
     {
-        finishAll();
-    }
-
-    @Override
-    public void onTerminate()
-    {
-        super.onTerminate();
-        exist(this);
+        uiStateHelper.finishAll();
     }
 }

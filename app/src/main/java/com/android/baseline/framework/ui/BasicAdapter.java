@@ -35,6 +35,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter
 
     public BasicAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap)
     {
+        mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mData = data;
         mItemTypeResourceMap.putAll(itemTypeResourceMap);
