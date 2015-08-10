@@ -3,14 +3,12 @@ package com.android.baseline.framework.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.android.baseline.AppDroid;
 import com.android.baseline.framework.log.Logger;
 import com.android.baseline.util.SPDBHelper;
 
 /**
  * 数据库轻量级操作封装
- * 
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2013-3-18]
  */
@@ -23,7 +21,6 @@ public class DBHelper
     private static final String DATABASE_NAME = "project.db";
     /** 数据库版本 */
     private static final int DATABASE_VERSION = 1;
-
     public DBHelper()
     {
         dbHelper = new DataBaseHelper(AppDroid.getInstance().getApplicationContext());
@@ -85,8 +82,7 @@ public class DBHelper
             }
             catch (Exception e)
             {
-                Logger.e(TAG,
-                        e);
+                Logger.e(TAG, e);
             }
             finally
             {
@@ -97,6 +93,8 @@ public class DBHelper
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
+            db.execSQL("DROP DATABASE IF EXISTS " + DATABASE_NAME);
+            onCreate(db);
         }
     }
 }

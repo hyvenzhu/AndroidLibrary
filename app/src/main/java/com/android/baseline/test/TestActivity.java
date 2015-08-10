@@ -3,11 +3,11 @@ package com.android.baseline.test;
 import android.os.Bundle;
 import android.os.Message;
 import android.widget.TextView;
-
 import com.android.baseline.R;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
 import com.android.baseline.framework.ui.base.annotations.ViewInject;
+
 /**
  * 演示如何使用框架
  * [

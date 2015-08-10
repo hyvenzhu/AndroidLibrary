@@ -131,20 +131,4 @@ public abstract class BaseActivity extends FragmentActivity
     }
     
     public abstract void onResponse(Message msg);
-
-
-    public WeakReference<BaseActivity> delegateRef = new WeakReference<BaseActivity>(this)
-    {
-        public void onEventMainThread(Message msg)
-        {
-            if (!isDestroyed && !isFinishing())
-            {
-                BaseActivity baseActivity = get();
-                if (baseActivity != null)
-                {
-                    baseActivity.onResponse(msg);
-                }
-            }
-        }
-    };
 }
