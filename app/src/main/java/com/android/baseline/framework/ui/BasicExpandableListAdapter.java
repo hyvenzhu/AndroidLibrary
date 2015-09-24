@@ -89,7 +89,27 @@ public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableList
     {
         return mChildren;
     }
-    
+
+    public void addDataSource(List<K> group, List<List<V>> children)
+    {
+        if (mGroup == null)
+        {
+            mGroup = group;
+        }
+        else
+        {
+            mGroup.addAll(group);
+        }
+        if (mChildren == null)
+        {
+            mChildren = children;
+        }
+        else
+        {
+            mChildren.addAll(children);
+        }
+    }
+
     @Override
     public int getGroupCount()
     {

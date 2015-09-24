@@ -3,7 +3,6 @@ package com.android.baseline.framework.ui;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +48,18 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     public List<T> getDataSource()
     {
         return mData;
+    }
+
+    public void addDataSource(List<T> data)
+    {
+        if (mData == null)
+        {
+            mData = data;
+        }
+        else
+        {
+            mData.addAll(data);
+        }
     }
 
     @Override

@@ -74,7 +74,7 @@ public abstract class BaseActivity extends FragmentActivity
         logics.add(logic);
         return (T)logic;
     }
-    
+
     /**
      * 解绑当前订阅者
      * @param iLogics

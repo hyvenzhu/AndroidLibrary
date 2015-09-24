@@ -24,4 +24,4 @@
         android:textSize="18sp" 
         android:gravity="center_vertical"
         android:drawablePadding="5dp"/>
-</com.android.baseline.framework.ui.view.LoadingView><!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/src/main/res/layout/layout_loading.xml -->
+</com.android.baseline.framework.ui.view.LoadingView><!-- From: file:/D:/Android/source/Android-BaseLine/app/src/main/res/layout/layout_loading.xml -->
