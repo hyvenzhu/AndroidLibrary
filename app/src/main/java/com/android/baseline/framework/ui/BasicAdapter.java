@@ -50,18 +50,6 @@ public abstract class BasicAdapter<T> extends BaseAdapter
         return mData;
     }
 
-    public void addDataSource(List<T> data)
-    {
-        if (mData == null)
-        {
-            mData = data;
-        }
-        else
-        {
-            mData.addAll(data);
-        }
-    }
-
     @Override
     public int getCount()
     {
