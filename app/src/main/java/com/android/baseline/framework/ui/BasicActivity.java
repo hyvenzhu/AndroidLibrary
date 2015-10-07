@@ -3,6 +3,7 @@ package com.android.baseline.framework.ui;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,14 +34,15 @@ public class BasicActivity extends BaseActivity implements UIInterface
     protected boolean isPaused;
     protected boolean mIsNeedRefresh;
     
+    /** 加载进度 */
+    private LoadingView mLoadingView;
+    /** 视图加载器 */
+    protected LayoutInflater mInflater;
+
     /** 标题栏 */
-    protected View titleLay;
     protected Button leftBtn;
     protected TextView titleTxt;
     protected Button rightBtn;
-    
-    /** 加载进度*/
-    private LoadingView mLoadingView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,22 +50,21 @@ public class BasicActivity extends BaseActivity implements UIInterface
         AppDroid.getInstance().uiStateHelper.addActivity(this);
         Logger.d(TAG, "onCreate");
     }
-    
+
     @Override
-    protected void init()
-    {
-        super.init();
-        titleLay = findViewById(R.id.title_lay);
-        leftBtn = (Button)findViewById(R.id.title_left_btn);
-        titleTxt = (TextView)findViewById(R.id.title_txt);
-        rightBtn = (Button)findViewById(R.id.title_right_btn);
-        mLoadingView = (LoadingView)findViewById(R.id.loading_view);
-        if (mLoadingView != null)
-        {
-            mLoadingView.register(this);
-        }
+    protected void onCreateCustomToolBar(Toolbar toolbar) {
+        super.onCreateCustomToolBar(toolbar);
+        toolbar.removeAllViews();
+        // add custom title bar here
+        mInflater = LayoutInflater.from(this);
+
+        // 通用标题栏
+        View commonTitle = mInflater.inflate(R.layout.layout_common_title, toolbar);
+        leftBtn = (Button)commonTitle.findViewById(R.id.title_left_btn);
+        titleTxt = (TextView)commonTitle.findViewById(R.id.title_txt);
+        rightBtn = (Button)commonTitle.findViewById(R.id.title_right_btn);
     }
-    
+
     /**
      * 设置标题栏属性
      * @param leftVisible 左侧按钮是否可见
@@ -76,7 +77,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
         titleTxt.setText(resId);
         rightBtn.setVisibility(rightVisible? View.VISIBLE : View.INVISIBLE);
     }
-    
+
     /**
      * 设置标题栏属性
      * @param leftVisible 左侧按钮是否可见
@@ -88,6 +89,15 @@ public class BasicActivity extends BaseActivity implements UIInterface
         leftBtn.setVisibility(leftVisible? View.VISIBLE : View.INVISIBLE);
         titleTxt.setText(title);
         rightBtn.setVisibility(rightVisible? View.VISIBLE : View.INVISIBLE);
+    }
+
+    protected void afterSetContentView()
+    {
+        mLoadingView = (LoadingView)findViewById(R.id.loading_view);
+        if (mLoadingView != null)
+        {
+            mLoadingView.register(this);
+        }
     }
     
     /**

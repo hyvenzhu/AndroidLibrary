@@ -1,23 +1,15 @@
 package com.android.baseline.framework.ui;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.ui.base.BaseFragment;
 import com.android.baseline.framework.ui.base.UIInterface;
-import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 import com.android.baseline.framework.ui.view.LoadingView;
 /**
  * 基类Fragment
@@ -28,14 +20,6 @@ public class BasicFragment extends BaseFragment
 {
     /** 当前Fragment是否处于暂停状态*/
     protected boolean isPaused = true;
-    private View mView;
-    
-    /** 标题栏 */
-    protected View titleLay;
-    protected Button leftBtn;
-    protected TextView titleTxt;
-    protected Button rightBtn;
-    
     /** 加载进度*/
     private LoadingView mLoadingView;
     @Override
@@ -46,72 +30,15 @@ public class BasicFragment extends BaseFragment
     }
     
     /**
-     * 从资源加载View
-     * @param inflater
-     * @param container
-     * @param resourceId
-     * @param fragment
-     * @return
+     * view的初始化等操作
      */
-    protected View inflate(LayoutInflater inflater, ViewGroup container, int resourceId, Fragment fragment)
+    protected void afterSetContentView(View view)
     {
-        View view = inflater.inflate(resourceId, container, false);
-        // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
-        interceptTouchEvent(view, true);
-        ViewUtils.inject(fragment, view);
-        afterSetContentView(view);
-        return view;
-    }
-    
-    /**
-     * setContentView之后调用, 进行view的初始化等操作
-     */
-    private void afterSetContentView(View view)
-    {
-        mView = view;
-        init(view);
+        mLoadingView = (LoadingView)view.findViewById(R.id.loading_view);
         if (mLoadingView != null)
         {
             mLoadingView.register(this);
         }
-    }
-    
-    /**
-     * 不希望使用默认的注解来初始化View
-     */
-    protected void init(View v)
-    {
-        titleLay = v.findViewById(R.id.title_lay);
-        leftBtn = (Button)v.findViewById(R.id.title_left_btn);
-        titleTxt = (TextView)v.findViewById(R.id.title_txt);
-        rightBtn = (Button)v.findViewById(R.id.title_right_btn);
-        mLoadingView = (LoadingView)v.findViewById(R.id.loading_view);
-    }
-    
-    /**
-     * 设置标题栏属性
-     * @param leftVisible 左侧按钮是否可见
-     * @param resId 标题资源id
-     * @param rightVisible 右侧按钮是否可见
-     */
-    protected void setTitleBar(boolean leftVisible, int resId, boolean rightVisible)
-    {
-        leftBtn.setVisibility(leftVisible? View.VISIBLE : View.INVISIBLE);
-        titleTxt.setText(resId);
-        rightBtn.setVisibility(rightVisible? View.VISIBLE : View.INVISIBLE);
-    }
-    
-    /**
-     * 设置标题栏属性
-     * @param leftVisible 左侧按钮是否可见
-     * @param title 标题
-     * @param rightVisible 右侧按钮是否可见
-     */
-    protected void setTitleBar(boolean leftVisible, String title, boolean rightVisible)
-    {
-        leftBtn.setVisibility(leftVisible? View.VISIBLE : View.INVISIBLE);
-        titleTxt.setText(title);
-        rightBtn.setVisibility(rightVisible? View.VISIBLE : View.INVISIBLE);
     }
     
     /**
@@ -201,45 +128,6 @@ public class BasicFragment extends BaseFragment
     protected void onSuccess()
     {
         mLoadingView.onSuccess();
-    }
-    
-    /**
-     * Fragment布局是否拦截事件
-     * @param interceptEvent true拦截|false不拦截
-     */
-    protected void interceptTouchEvent(boolean interceptEvent)
-    {
-        interceptTouchEvent(mView, interceptEvent);
-    }
-    
-    /**
-     * Fragment布局是否拦截事件
-     * @param view
-     * @param interceptEvent true拦截|false不拦截
-     */
-    private void interceptTouchEvent(View view, boolean interceptEvent)
-    {
-        if (interceptEvent)
-        {
-            if (view != null)
-            {
-                view.setOnTouchListener(new OnTouchListener()
-                {
-                    @Override
-                    public boolean onTouch(View v, MotionEvent event)
-                    {
-                        return true;
-                    }
-                });
-            }
-        }
-        else
-        {
-            if (view != null)
-            {
-                view.setOnTouchListener(null);
-            }
-        }
     }
     
     private UIInterface uiInterface;

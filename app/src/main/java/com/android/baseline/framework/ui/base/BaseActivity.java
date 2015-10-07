@@ -1,15 +1,15 @@
 package com.android.baseline.framework.ui.base;
 
 import android.os.Message;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-
 import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+import com.android.baseline.framework.ui.util.ToolBarHelper;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,46 +20,41 @@ import java.util.List;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-15]
  */
-public abstract class BaseActivity extends FragmentActivity
+public abstract class BaseActivity extends AppCompatActivity
 {
+    private ToolBarHelper mToolBarHelper ;
+    public Toolbar toolbar ;
     private boolean isDestroyed; // Activity是否已销毁
     @Override
     public void setContentView(int layoutResID)
     {
-        super.setContentView(layoutResID);
-        afterSetContentView();
-    }
-
-    @Override
-    public void setContentView(View view)
-    {
-        super.setContentView(view);
-        afterSetContentView();
-    }
-
-    @Override
-    public void setContentView(View view, LayoutParams params)
-    {
-        super.setContentView(view,
-                params);
-        afterSetContentView();
-    }
-    
-    /**
-     * setContentView之后调用, 进行view的初始化等操作
-     */
-    private void afterSetContentView()
-    {
+        mToolBarHelper = new ToolBarHelper(this, layoutResID) ;
+        toolbar = mToolBarHelper.getToolBar() ;
+        super.setContentView(mToolBarHelper.getContentView());
+        /*把 toolbar 设置到Activity 中*/
+        setSupportActionBar(toolbar);
+        /*自定义的一些操作*/
+        onCreateCustomToolBar(toolbar) ;
+        /*View注解*/
         ViewUtils.inject(this);
-        init();
+
+        afterSetContentView();
     }
-    
+
     /**
-     * 不希望使用默认的注解来初始化View
+     * ToolBar自定义
+     * @param toolbar
      */
-    protected void init()
+    protected void onCreateCustomToolBar(Toolbar toolbar){
+        toolbar.setContentInsetsRelative(0, 0);
+    }
+
+    /**
+     * 初始化一些View
+     */
+    protected void afterSetContentView()
     {
-        
+
     }
 
     private List<BaseLogic> logics = new ArrayList<BaseLogic>(); // 存储BaseLogic

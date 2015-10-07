@@ -1,10 +1,15 @@
 package com.android.baseline.framework.ui.base;
 
+import android.app.Fragment;
 import android.os.Message;
-import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.ILogic;
+import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +22,79 @@ import java.util.List;
  */
 public abstract class BaseFragment extends Fragment
 {
+    private View mView;
+    /**
+     * 从资源加载View
+     * @param inflater
+     * @param container
+     * @param resourceId
+     * @param fragment
+     * @return
+     */
+    protected View inflate(LayoutInflater inflater, ViewGroup container, int resourceId, Fragment fragment)
+    {
+        View view = inflater.inflate(resourceId, container, false);
+        // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
+        interceptTouchEvent(view, true);
+        ViewUtils.inject(fragment, view);
+        mView = view;
+        afterSetContentView(view);
+        return view;
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         for(BaseLogic logic : logics)
         {
             unregister(logic);
+        }
+    }
+
+    /**
+     * setContentView之后调用, 进行view的初始化等操作
+     */
+    protected void afterSetContentView(View view)
+    {
+
+    }
+
+    /**
+     * Fragment布局是否拦截事件
+     * @param interceptEvent true拦截|false不拦截
+     */
+    protected void interceptTouchEvent(boolean interceptEvent)
+    {
+        interceptTouchEvent(mView, interceptEvent);
+    }
+
+    /**
+     * Fragment布局是否拦截事件
+     * @param view
+     * @param interceptEvent true拦截|false不拦截
+     */
+    private void interceptTouchEvent(View view, boolean interceptEvent)
+    {
+        if (interceptEvent)
+        {
+            if (view != null)
+            {
+                view.setOnTouchListener(new View.OnTouchListener()
+                {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event)
+                    {
+                        return true;
+                    }
+                });
+            }
+        }
+        else
+        {
+            if (view != null)
+            {
+                view.setOnTouchListener(null);
+            }
         }
     }
 

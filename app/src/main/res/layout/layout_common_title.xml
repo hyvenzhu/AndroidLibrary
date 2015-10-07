@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/title_lay"
-    android:layout_width="fill_parent"
-    android:layout_height="45dp"
-    android:background="#D72F15" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/title_left_btn"
@@ -14,17 +12,6 @@
         android:layout_marginLeft="10dp"
         android:textColor="#ffffff"
         android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/title_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text=""
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold" />
 
     <Button
         android:id="@+id/title_right_btn"
@@ -37,4 +24,17 @@
         android:textSize="16sp"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/title_right_btn"
+        android:layout_toRightOf="@id/title_left_btn"
+        android:text=""
+        android:singleLine="true"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </RelativeLayout>

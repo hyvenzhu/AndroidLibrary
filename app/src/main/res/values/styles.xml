@@ -3,14 +3,20 @@
     <!-- 自定义dialog -->
     <style name="loading_dialog" parent="@android:style/Theme.Dialog">
 		<item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item> 
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/loading_dialog_bg</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
 	</style>
-	
+
     <!-- App theme -->
-    <style name="AppTheme" parent="android:Theme">
-        <item name="android:windowNoTitle">true</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--导航栏底色-->
+        <item name="colorPrimary">@color/accent_material_dark</item>
+        <!--状态栏底色 5.0以下无效-->
+        <!--<item name="colorPrimaryDark">@color/accent_material_light</item>-->
+        <!--Activity窗口的颜色-->
+        <!--<item name="android:windowBackground">@color/material_blue_grey_800</item>-->
     </style>
 </resources>
