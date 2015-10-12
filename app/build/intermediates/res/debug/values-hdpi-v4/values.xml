@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/source/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-hdpi/values-hdpi.xml -->
+    <!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values-hdpi/values-hdpi.xml -->
     <eat-comment/>
     <style name="Base.Widget.AppCompat.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle.Common">
-          <item name="barLength">18.66dp</item>
+          <item name="barSize">18.66dp</item>
           <item name="gapBetweenBars">3.33dp</item>
           <item name="drawableSize">24dp</item>
      </style>

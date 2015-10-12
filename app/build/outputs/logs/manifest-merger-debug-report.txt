@@ -15,8 +15,8 @@ ADDED from AndroidManifest.xml:2:1
 		INJECTED from AndroidManifest.xml:0:0
 uses-sdk
 ADDED from AndroidManifest.xml:7:5
-MERGED from com.android.support:appcompat-v7:23.0.1:20:5
-MERGED from com.android.support:support-v4:23.0.1:20:5
+MERGED from com.android.support:appcompat-v7:22.2.1:20:5
+MERGED from com.android.support:support-v4:22.2.1:20:5
 MERGED from com.squareup.leakcanary:leakcanary-android:1.3:20:5
 	android:targetSdkVersion
 		ADDED from AndroidManifest.xml:7:42
@@ -40,8 +40,8 @@ ADDED from AndroidManifest.xml:11:5
 		ADDED from AndroidManifest.xml:11:22
 application
 ADDED from AndroidManifest.xml:12:5
-MERGED from com.android.support:appcompat-v7:23.0.1:22:5
-MERGED from com.android.support:support-v4:23.0.1:22:5
+MERGED from com.android.support:appcompat-v7:22.2.1:22:5
+MERGED from com.android.support:support-v4:22.2.1:22:5
 MERGED from com.squareup.leakcanary:leakcanary-android:1.3:24:5
 	android:label
 		ADDED from AndroidManifest.xml:16:9

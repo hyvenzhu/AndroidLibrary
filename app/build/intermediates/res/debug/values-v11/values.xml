@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/source/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.1/res/values-v11/values-v11.xml -->
+    <!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values-v11/values-v11.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat.Inverse">
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
@@ -27,7 +27,7 @@
         <item name="android:textColorLink">?android:attr/textColorLinkInverse</item>
     </style>
     <style name="Base.TextAppearance.AppCompat.Subhead.Inverse">
-        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
         <item name="android:textColorHint">?android:attr/textColorHintInverse</item>
         <item name="android:textColorHighlight">?android:attr/textColorHighlightInverse</item>
         <item name="android:textColorLink">?android:attr/textColorLinkInverse</item>
@@ -54,6 +54,11 @@
     </style>
     <style name="Base.Widget.AppCompat.ProgressBar.Horizontal" parent="android:Widget.Holo.ProgressBar.Horizontal">
     </style>
+    <style name="Base.Widget.AppCompat.Spinner" parent="android:Widget.Holo.Spinner">
+        <item name="android:background">@drawable/abc_spinner_mtrl_am_alpha</item>
+        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
+        <item name="android:popupBackground">@drawable/abc_popup_background_mtrl_mult</item>
+    </style>
     <style name="Platform.AppCompat" parent="Platform.V11.AppCompat"/>
     <style name="Platform.AppCompat.Light" parent="Platform.V11.AppCompat.Light"/>
     <style name="Platform.V11.AppCompat" parent="android:Theme.Holo">
@@ -66,8 +71,8 @@
         <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
 
         <!-- Window colors -->
-        <item name="android:colorForeground">@color/foreground_material_dark</item>
-        <item name="android:colorForegroundInverse">@color/foreground_material_light</item>
+        <item name="android:colorForeground">@color/bright_foreground_material_dark</item>
+        <item name="android:colorForegroundInverse">@color/bright_foreground_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
         <item name="android:colorBackgroundCacheHint">@color/abc_background_cache_hint_selector_material_dark</item>
         <item name="android:disabledAlpha">@dimen/abc_disabled_alpha_material_dark</item>
@@ -86,8 +91,8 @@
         <item name="android:textColorHintInverse">@color/hint_foreground_material_light</item>
         <item name="android:textColorHighlight">@color/highlighted_text_material_dark</item>
         <item name="android:textColorHighlightInverse">@color/highlighted_text_material_light</item>
-        <item name="android:textColorLink">?attr/colorAccent</item>
-        <item name="android:textColorLinkInverse">?attr/colorAccent</item>
+        <item name="android:textColorLink">@color/link_text_material_dark</item>
+        <item name="android:textColorLinkInverse">@color/link_text_material_light</item>
         <item name="android:textColorAlertDialogListItem">@color/abc_primary_text_material_dark</item>
 
         <!-- Text styles -->
@@ -117,8 +122,8 @@
         <item name="selectableItemBackground">?android:attr/selectableItemBackground</item>
 
         <!-- Window colors -->
-        <item name="android:colorForeground">@color/foreground_material_light</item>
-        <item name="android:colorForegroundInverse">@color/foreground_material_dark</item>
+        <item name="android:colorForeground">@color/bright_foreground_material_light</item>
+        <item name="android:colorForegroundInverse">@color/bright_foreground_material_dark</item>
         <item name="android:colorBackground">@color/background_material_light</item>
         <item name="android:colorBackgroundCacheHint">@color/abc_background_cache_hint_selector_material_light</item>
         <item name="android:disabledAlpha">@dimen/abc_disabled_alpha_material_light</item>
@@ -138,8 +143,8 @@
         <item name="android:textColorHintInverse">@color/hint_foreground_material_dark</item>
         <item name="android:textColorHighlight">@color/highlighted_text_material_light</item>
         <item name="android:textColorHighlightInverse">@color/highlighted_text_material_dark</item>
-        <item name="android:textColorLink">?attr/colorAccent</item>
-        <item name="android:textColorLinkInverse">?attr/colorAccent</item>
+        <item name="android:textColorLink">@color/link_text_material_light</item>
+        <item name="android:textColorLinkInverse">@color/link_text_material_dark</item>
         <item name="android:textColorAlertDialogListItem">@color/abc_primary_text_material_light</item>
 
         <!-- Text styles -->
@@ -159,5 +164,4 @@
         <item name="android:actionModeCopyDrawable">?actionModeCopyDrawable</item>
         <item name="android:actionModePasteDrawable">?actionModePasteDrawable</item>
     </style>
-    <style name="Platform.Widget.AppCompat.Spinner" parent="android:Widget.Holo.Spinner"/>
 </resources>

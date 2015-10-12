@@ -37,4 +37,4 @@
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
-</RelativeLayout><!-- From: file:/D:/Android/source/Android-BaseLine/app/src/main/res/layout/layout_common_title.xml -->
+</RelativeLayout><!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/src/main/res/layout/layout_common_title.xml -->
