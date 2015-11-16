@@ -34,6 +34,11 @@ public class TestActivity extends BasicActivity
     }
 
     @Override
+    protected boolean isToolBarVisible() {
+        return false;
+    }
+
+    @Override
     public void onResponse(Message msg)
     {
         super.onResponse(msg);

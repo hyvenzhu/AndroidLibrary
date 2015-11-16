@@ -28,7 +28,7 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     public void setContentView(int layoutResID)
     {
-        mToolBarHelper = new ToolBarHelper(this, layoutResID) ;
+        mToolBarHelper = new ToolBarHelper(this, layoutResID, isToolBarVisible()) ;
         toolbar = mToolBarHelper.getToolBar() ;
         super.setContentView(mToolBarHelper.getContentView());
         /*把 toolbar 设置到Activity 中*/
@@ -39,6 +39,15 @@ public abstract class BaseActivity extends AppCompatActivity
         ViewUtils.inject(this);
 
         afterSetContentView();
+    }
+
+    /**
+     * ToolBar隐藏与显示
+     * @return
+     */
+    protected boolean isToolBarVisible()
+    {
+        return true;
     }
 
     /**

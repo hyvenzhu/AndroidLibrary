@@ -12,11 +12,11 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class BaseDAO
 {
-    private EncryptDBHelper encryptDBHelper;
+    private DBHelper dBHelper;
 
     private BaseDAO()
     {
-        encryptDBHelper = new EncryptDBHelper();
+        dBHelper = new DBHelper();
     }
 
     private static class SingleInstanceHolder
@@ -31,7 +31,7 @@ public class BaseDAO
     
     public synchronized void closeDB()
     {
-        encryptDBHelper.close();
+        dBHelper.close();
     }
     
     /**
@@ -43,12 +43,12 @@ public class BaseDAO
     {
         try
         {
-            encryptDBHelper.getWritableSQLiteDatabase().beginTransaction();
+            dBHelper.getWritableSQLiteDatabase().beginTransaction();
             if (transactionListener != null)
             {
                 transactionListener.doTransaction();
             }
-            encryptDBHelper.getWritableSQLiteDatabase().setTransactionSuccessful();
+            dBHelper.getWritableSQLiteDatabase().setTransactionSuccessful();
             return true;
         }
         catch (Exception e) 
@@ -58,7 +58,7 @@ public class BaseDAO
         }
         finally
         {
-            encryptDBHelper.getWritableSQLiteDatabase().endTransaction();
+            dBHelper.getWritableSQLiteDatabase().endTransaction();
         }
     }
     
@@ -75,7 +75,7 @@ public class BaseDAO
     public Cursor query(String table, String[] columns, String selection,
             String[] selectionArgs, String groupBy, String having, String orderBy)
     {
-        return encryptDBHelper.getReadableSQLiteDatabase().query(table,
+        return dBHelper.getReadableSQLiteDatabase().query(table,
                 columns,
                 selection,
                 selectionArgs,
@@ -86,7 +86,7 @@ public class BaseDAO
 
     public Cursor rawQuery(String sql, String[] selectionArgs)
     {
-        return encryptDBHelper.getReadableSQLiteDatabase().rawQuery(sql,
+        return dBHelper.getReadableSQLiteDatabase().rawQuery(sql,
                 selectionArgs);
     }
 
@@ -110,7 +110,7 @@ public class BaseDAO
      */
     public synchronized long insert(String tableName, ContentValues values)
     {
-        return encryptDBHelper.getWritableSQLiteDatabase().insert(tableName,
+        return dBHelper.getWritableSQLiteDatabase().insert(tableName,
                 null,
                 values);
     }
@@ -138,7 +138,7 @@ public class BaseDAO
      */
     public synchronized int delete(String tableName, String whereClause, String[] whereArgs)
     {
-        return encryptDBHelper.getWritableSQLiteDatabase().delete(tableName,
+        return dBHelper.getWritableSQLiteDatabase().delete(tableName,
                 whereClause,
                 whereArgs);
     }
@@ -169,7 +169,7 @@ public class BaseDAO
     public synchronized int update(String tableName, ContentValues values, String whereClause,
             String[] whereArgs)
     {
-        return encryptDBHelper.getWritableSQLiteDatabase().update(tableName,
+        return dBHelper.getWritableSQLiteDatabase().update(tableName,
                 values,
                 whereClause,
                 whereArgs);
@@ -199,7 +199,7 @@ public class BaseDAO
      */
     public synchronized void execSQL(String sql)
     {
-        encryptDBHelper.getWritableSQLiteDatabase().execSQL(sql);
+        dBHelper.getWritableSQLiteDatabase().execSQL(sql);
     }
 
     /**
@@ -220,7 +220,7 @@ public class BaseDAO
      */
     public synchronized void execSQL(String sql, Object[] bindArgs)
     {
-        encryptDBHelper.getWritableSQLiteDatabase().execSQL(sql,
+        dBHelper.getWritableSQLiteDatabase().execSQL(sql,
                 bindArgs);
     }
 

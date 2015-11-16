@@ -29,6 +29,9 @@ public class ToolBarHelper {
     /*视图构造器*/
     private LayoutInflater mInflater;
 
+    /*ToolBar是否可见*/
+    private boolean mToolBarVisible;
+
     /*
     * 两个属性
     * 1、toolbar是否悬浮在窗口之上
@@ -40,8 +43,13 @@ public class ToolBarHelper {
     };
 
     public ToolBarHelper(Context context, int layoutId) {
+        this(context, layoutId, true);
+    }
+
+    public ToolBarHelper(Context context, int layoutId, boolean isToolBarVisible) {
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
+        this.mToolBarVisible = isToolBarVisible;
         /*初始化整个内容*/
         initContentView();
         /*初始化用户定义的布局*/
@@ -62,6 +70,7 @@ public class ToolBarHelper {
         /*通过inflater获取toolbar的布局文件*/
         View toolbar = mInflater.inflate(R.layout.toolbar, mContentView);
         mToolBar = (Toolbar) toolbar.findViewById(R.id.id_tool_bar);
+        mToolBar.setVisibility(mToolBarVisible? View.VISIBLE : View.GONE);
     }
 
     private void initUserView(int id) {
@@ -73,8 +82,8 @@ public class ToolBarHelper {
         /*获取主题中定义的toolbar的高度*/
         int toolBarSize = (int) typedArray.getDimension(1,(int) mContext.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
         typedArray.recycle();
-        /*如果是悬浮状态，则不需要设置间距*/
-        params.topMargin = overly ? 0 : toolBarSize;
+        /*如果是悬浮状态，则不需要设置间距；ToolBar不可见也不设置间距*/
+        params.topMargin = overly || !mToolBarVisible ? 0 : toolBarSize;
         mContentView.addView(mUserView, params);
     }
 
