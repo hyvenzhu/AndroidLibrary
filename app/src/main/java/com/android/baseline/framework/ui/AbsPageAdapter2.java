@@ -1,6 +1,7 @@
 package com.android.baseline.framework.ui;
 
 import android.content.Context;
+
 import java.util.List;
 import java.util.Map;
 
@@ -9,21 +10,21 @@ import java.util.Map;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
-public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
-    private int currPageIndex; // 当前页下标
+public abstract class AbsPageAdapter2<T> extends BasicAdapter<T> {
+    private int startIndex; // 起始下标
+    private int lastStartIndex; // 记录上一次的起始下标
     private int pageSize; // 分页大小
-    private int lastPageIndex; // 记录上一次的页下标
-    private IPage iPage; // 分页参数回调接口
+    private IPage2 iPage; // 分页参数回调接口
     private boolean isLoading; // 是否正在加载
     private Object lock = new Object(); // 锁
 
-    public AbsPageAdapter(Context context, List<T> data, int resourceId, IPage iPage) {
+    public AbsPageAdapter2(Context context, List<T> data, int resourceId, IPage2 iPage) {
         super(context, data, resourceId);
         this.iPage = iPage;
         initPageConfig();
     }
 
-    public AbsPageAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, IPage iPage) {
+    public AbsPageAdapter2(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, IPage2 iPage) {
         super(context, data, itemTypeResourceMap);
         this.iPage = iPage;
         initPageConfig();
@@ -34,28 +35,36 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     private void initPageConfig()
     {
-        currPageIndex = getStartPageIndex() - 1;
-        lastPageIndex = currPageIndex;
+        startIndex = getStartPageIndex() - 1;
+        lastStartIndex = startIndex;
         pageSize = getPageSize();
         isLoading = false;
     }
-
     /**
-     * 返回起始页下标, 默认为0
+     * 返回起始页下标, 默认为1
      * @return
      */
-    protected int getStartPageIndex()
+    public int getStartPageIndex()
     {
-        return IPage.DEFAULT_START_PAGE_INDEX;
+        return IPage2.DEFAULT_START_PAGE_INDEX;
     }
 
     /**
      * 返回分页大小, 默认为10
      * @return
      */
-    protected int getPageSize()
+    public int getPageSize()
     {
-        return IPage.DEFAULT_PAGE_SIZE;
+        return IPage2.DEFAULT_PAGE_SIZE;
+    }
+
+    /**
+     * 当前是否是第一页数据
+     * @return
+     */
+    public boolean isFirstPage()
+    {
+        return startIndex == getStartPageIndex();
     }
 
     /**
@@ -78,13 +87,42 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
         }
         if (isFirstPage)
         {
-            currPageIndex = getStartPageIndex();
+            startIndex = getStartPageIndex();
         }
         else
         {
-            currPageIndex++;
+            startIndex += pageSize;
         }
-        iPage.load(currPageIndex, pageSize);
+        iPage.load(startIndex, startIndex + pageSize - 1);
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex()
+    {
+        startIndex--;
+        checkBound();
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex(int size)
+    {
+        startIndex -= size;
+        checkBound();
+    }
+
+    /**
+     * 边界检测
+     */
+    private void checkBound()
+    {
+        if (startIndex < getStartPageIndex() - pageSize)
+        {
+            startIndex = getStartPageIndex() - pageSize;
+        }
     }
 
     /**
@@ -99,11 +137,11 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
         }
         if (success)
         {
-            lastPageIndex = currPageIndex;
+            lastStartIndex = startIndex;
         }
         else
         {
-            currPageIndex = lastPageIndex;
+            startIndex = lastStartIndex;
         }
     }
 
@@ -133,7 +171,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
         }
         else
         {
-            if (currPageIndex == getStartPageIndex())
+            if (startIndex == getStartPageIndex())
             {
                 mData.clear();
             }
@@ -145,7 +183,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
     /**
      * 分页参数回调接口
      */
-    public interface IPage
+    public interface IPage2
     {
         // 默认起始页下标
         int DEFAULT_START_PAGE_INDEX = 0;
@@ -154,9 +192,9 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
 
         /**
          * 加载分页数据
-         * @param pageIndex 下标
-         * @param pageSize 分页大小
+         * @param first 起始页
+         * @param last 结束页
          */
-        void load(int pageIndex, int pageSize);
+        void load(int first, int last);
     }
 }
