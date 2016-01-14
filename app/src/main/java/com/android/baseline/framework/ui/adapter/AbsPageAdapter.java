@@ -1,11 +1,14 @@
-package com.android.baseline.framework.ui;
+package com.android.baseline.framework.ui.adapter;
 
 import android.content.Context;
+
+import com.android.baseline.framework.ui.BasicAdapter;
+
 import java.util.List;
 import java.util.Map;
 
 /**
- * 分页适配器
+ * 分页适配器(pageIndex、pageSize模式)
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */

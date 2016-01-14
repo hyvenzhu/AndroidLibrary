@@ -1,5 +1,6 @@
 package com.android.baseline.framework.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +45,7 @@ public abstract class BasicAdapter<T> extends BaseAdapter
     {
         mData = data;
     }
-    
+
     public List<T> getDataSource()
     {
         return mData;
