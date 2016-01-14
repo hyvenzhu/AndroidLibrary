@@ -1,5 +1,7 @@
 package com.android.baseline.framework.volley;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
@@ -7,6 +9,7 @@ import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserListener;
+import com.android.baseline.util.crash2email.LogUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -36,15 +39,33 @@ public class InfoResultMultiPartRequest extends MultiPartRequest<InfoResult> imp
     /** 分发解析好的数据到业务层*/
     private ILogic logic;
     
-    public InfoResultMultiPartRequest(final int requestId, String url, int method, ResponseParserListener parseListener, final ILogic logic)
+    public InfoResultMultiPartRequest(final int requestId, final String url, final int method, final ResponseParserListener parseListener, final ILogic logic)
     {
         super(method, url, null, new ErrorListener()
         {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Logger.w("InfoResultMultiPartRequest", error);
-                logic.onResult(requestId, error);
+                try
+                {
+                    // 错误
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    PrintStream ps = new PrintStream(baos);
+                    error.printStackTrace(ps);
+                    String errorMsg = new String(baos.toByteArray());
+
+                    // 日志
+                    LogUtil.e("RequestInfo", "url:" + url + "\nmethod:" + (method == Method.GET? "GET" : "POST"));
+                    LogUtil.e("ErrorInfo", errorMsg);
+
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"" + errorMsg + "\",\"data\": {}}");
+                    infoResult.setExtraObj(error);
+                    logic.onResult(requestId, infoResult);
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
             }
         });
         this.parserListener = parseListener;

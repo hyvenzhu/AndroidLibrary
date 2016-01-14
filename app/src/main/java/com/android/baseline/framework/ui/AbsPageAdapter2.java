@@ -64,7 +64,7 @@ public abstract class AbsPageAdapter2<T> extends BasicAdapter<T> {
      */
     public boolean isFirstPage()
     {
-        return startIndex == getStartPageIndex();
+        return startIndex <= getStartPageIndex();
     }
 
     /**

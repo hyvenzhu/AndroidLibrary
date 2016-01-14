@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values-v14/values-v14.xml -->
+    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values-v14/values-v14.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat.Button">
         <item name="android:textSize">@dimen/abc_text_size_button_material</item>
@@ -28,7 +28,7 @@
     </style>
     <style name="TextAppearance.StatusBar.EventContent.Time"/>
     <style name="TextAppearance.StatusBar.EventContent.Title" parent="@android:style/TextAppearance.StatusBar.EventContent.Title"/>
-    <!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values-v14/values-v14.xml -->
+    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values-v14/values-v14.xml -->
     <eat-comment/>
     <style name="__LeakCanary.Base" parent="android:Theme.Holo">
   </style>

@@ -1,6 +1,8 @@
 package com.android.baseline.util;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -92,5 +94,45 @@ public class APKUtil
             dir.mkdirs();
         }
         return dir;
+    }
+
+    /**
+     * RL参数编码
+     * @param params
+     * @return
+     */
+    public String encodeParameters(Map<String, Object> params) {
+        return encodeParameters(params, "utf-8");
+    }
+
+    /**
+     * URL参数编码
+     * @param params
+     * @param paramsEncoding
+     * @return
+     */
+    public String encodeParameters(Map<String, Object> params, String paramsEncoding) {
+        StringBuilder encodedParams = new StringBuilder();
+
+        try {
+            Iterator var5 = params.entrySet().iterator();
+
+            while(var5.hasNext()) {
+                java.util.Map.Entry uee = (java.util.Map.Entry)var5.next();
+                encodedParams.append(URLEncoder.encode((String)uee.getKey(), paramsEncoding));
+                encodedParams.append('=');
+                Object value = uee.getValue();
+                if(value == null) {
+                    value = "";
+                }
+
+                encodedParams.append(URLEncoder.encode(value.toString(), paramsEncoding));
+                encodedParams.append('&');
+            }
+
+            return encodedParams.toString();
+        } catch (UnsupportedEncodingException var7) {
+            throw new RuntimeException("Encoding not supported: " + paramsEncoding, var7);
+        }
     }
 }

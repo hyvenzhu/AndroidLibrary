@@ -7,4 +7,4 @@
         android:layout_width="match_parent"
         android:id="@+id/id_tool_bar"
         android:background="?attr/colorPrimary"/>
-</FrameLayout><!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/src/main/res/layout/toolbar.xml -->
+</FrameLayout><!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/layout/toolbar.xml -->

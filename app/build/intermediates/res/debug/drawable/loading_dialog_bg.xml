@@ -8,4 +8,4 @@
                 android:bottomLeftRadius="5dp" android:bottomRightRadius="5dp"/>
 		</shape>
     </item>
-</selector><!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/src/main/res/drawable/loading_dialog_bg.xml -->
+</selector><!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/drawable/loading_dialog_bg.xml -->

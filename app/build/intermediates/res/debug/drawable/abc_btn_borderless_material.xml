@@ -20,4 +20,4 @@
     <item android:drawable="@android:color/transparent"/>
 </selector>
 
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_btn_borderless_material.xml --><!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_borderless_material.xml -->
+<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/lmp-mr1-supportlib-release/frameworks/support/v7/appcompat/res/drawable/abc_btn_borderless_material.xml --><!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/drawable/abc_btn_borderless_material.xml -->

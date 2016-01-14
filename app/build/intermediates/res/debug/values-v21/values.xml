@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values-v21/values-v21.xml -->
+    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values-v21/values-v21.xml -->
     <eat-comment/>
     <style name="Base.TextAppearance.AppCompat" parent="android:TextAppearance.Material"/>
     <style name="Base.TextAppearance.AppCompat.Body1" parent="android:TextAppearance.Material.Body1"/>
@@ -255,7 +255,7 @@
         <item name="android:colorControlHighlight">?attr/colorControlHighlight</item>
         <item name="android:colorButtonNormal">?attr/colorButtonNormal</item>
     </style>
-    <!-- From: file:/D:/Android/源码相关/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values-v21/values-v21.xml -->
+    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values-v21/values-v21.xml -->
     <eat-comment/>
     <style name="__LeakCanary.Base" parent="android:Theme.Material">
   </style>

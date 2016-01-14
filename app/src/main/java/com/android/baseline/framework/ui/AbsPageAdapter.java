@@ -59,6 +59,15 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
+     * 当前是否是第一页数据
+     * @return
+     */
+    public boolean isFirstPage()
+    {
+        return currPageIndex <= getStartPageIndex();
+    }
+
+    /**
      * 分页加载数据
      * [可能会抛出异常，请确认数据加载结束后，你已经调用了finishLoad(boolean success)方法]
      * @param isFirstPage true: 第一页  false: 下一页

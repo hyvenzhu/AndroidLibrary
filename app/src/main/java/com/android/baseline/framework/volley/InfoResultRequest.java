@@ -1,8 +1,8 @@
 package com.android.baseline.framework.volley;
 
-import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.logic.InfoResult;
+import com.android.baseline.util.crash2email.LogUtil;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -14,7 +14,9 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 /**
@@ -55,18 +57,26 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
         this(requestId, url, Method.POST, params, parseListener, logic);
     }
 
-    public InfoResultRequest(final int requestId, String url, int method, Map<String, Object> params, final ResponseParserListener parseListener, final ILogic logic)
+    private InfoResultRequest(final int requestId, final String url, final int method, final Map<String, Object> params, final ResponseParserListener parseListener, final ILogic logic)
     {
         super(method, url, new ErrorListener()
         {
             @Override
             public void onErrorResponse(VolleyError error)
             {
-                Logger.w("InfoResultMultiPartRequest", error);
                 try
                 {
                     // 错误
-                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"Client inner error, please check exception stack.\",\"data\": {}}");
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    PrintStream ps = new PrintStream(baos);
+                    error.printStackTrace(ps);
+                    String errorMsg = new String(baos.toByteArray());
+
+                    // 日志
+                    LogUtil.e("RequestInfo", "url:" + url + "\nmethod:" + (method == Method.GET? "GET" : "POST") + "\nparams:" + params.toString());
+                    LogUtil.e("ErrorInfo", errorMsg);
+
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"" + errorMsg + "\",\"data\": {}}");
                     infoResult.setExtraObj(error);
                     logic.onResult(requestId, infoResult);
                 }
