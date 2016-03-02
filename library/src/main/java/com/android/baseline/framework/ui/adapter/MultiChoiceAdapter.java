@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ¶àÑ¡ÊÊÅäÆ÷
- * ×¢Òâ£ºÑ¡ÖĞÓëÈ¡ÏûÑ¡ÖĞµÄ·ºĞÍT±ØĞëÊÇÍ¬Ò»¸ö¶ÔÏó»òÕßÖØĞ´equals·½·¨
+ * å¤šé€‰é€‚é…å™¨
+ * æ³¨æ„ï¼šé€‰ä¸­ä¸å–æ¶ˆé€‰ä¸­çš„æ³›å‹Tå¿…é¡»æ˜¯åŒä¸€ä¸ªå¯¹è±¡æˆ–è€…é‡å†™equalsæ–¹æ³•
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/01/14 11:52]
  * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
@@ -22,7 +22,7 @@ public abstract class MultiChoiceAdapter<T> extends SingleChoiceAdapter<T> {
     }
 
     /**
-     * Ñ¡ÖĞÄ³Ò»Ïî
+     * é€‰ä¸­æŸä¸€é¡¹
      * @param choice
      */
     @Override
@@ -36,7 +36,7 @@ public abstract class MultiChoiceAdapter<T> extends SingleChoiceAdapter<T> {
     }
 
     /**
-     * Ñ¡ÖĞ
+     * é€‰ä¸­
      */
     public void selectAll(List<T> items)
     {
@@ -46,7 +46,7 @@ public abstract class MultiChoiceAdapter<T> extends SingleChoiceAdapter<T> {
     }
 
     /**
-     * Ñ¡ÖĞËùÓĞ
+     * é€‰ä¸­æ‰€æœ‰
      */
     public void selectAll()
     {
@@ -56,7 +56,7 @@ public abstract class MultiChoiceAdapter<T> extends SingleChoiceAdapter<T> {
     }
 
     /**
-     * È¡ÏûÑ¡ÖĞ
+     * å–æ¶ˆé€‰ä¸­
      */
     public void disselectAll(List<T> items)
     {
@@ -65,7 +65,7 @@ public abstract class MultiChoiceAdapter<T> extends SingleChoiceAdapter<T> {
     }
 
     /**
-     * È¡ÏûÑ¡ÖĞËùÓĞ
+     * å–æ¶ˆé€‰ä¸­æ‰€æœ‰
      */
     public void disselectAll()
     {
@@ -74,7 +74,7 @@ public abstract class MultiChoiceAdapter<T> extends SingleChoiceAdapter<T> {
     }
 
     /**
-     * ·µ»ØËùÓĞÑ¡ÖĞµÄÏîÄ¿
+     * è¿”å›æ‰€æœ‰é€‰ä¸­çš„é¡¹ç›®
      * @return
      */
     public List<T> getSelectedItems()

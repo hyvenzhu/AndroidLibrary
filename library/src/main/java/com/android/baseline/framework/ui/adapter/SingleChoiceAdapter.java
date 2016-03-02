@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * µ¥Ñ¡ÊÊÅäÆ÷
- * ×¢Òâ£ºÑ¡ÖĞÓëÈ¡ÏûÑ¡ÖĞµÄ·ºĞÍT±ØĞëÊÇÍ¬Ò»¸ö¶ÔÏó»òÕßÖØĞ´equals·½·¨
+ * å•é€‰é€‚é…å™¨
+ * æ³¨æ„ï¼šé€‰ä¸­ä¸å–æ¶ˆé€‰ä¸­çš„æ³›å‹Tå¿…é¡»æ˜¯åŒä¸€ä¸ªå¯¹è±¡æˆ–è€…é‡å†™equalsæ–¹æ³•
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/01/14 13:45]
  * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
@@ -25,7 +25,7 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * Ñ¡ÖĞÄ³Ò»Ïî
+     * é€‰ä¸­æŸä¸€é¡¹
      * @param position
      */
     public void selectItem(int position)
@@ -34,12 +34,12 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * Ñ¡ÖĞÄ³Ò»Ïî
+     * é€‰ä¸­æŸä¸€é¡¹
      * @param choice
      */
     public void selectItem(T choice)
     {
-        // ±£Ö¤¼¯ºÏÀïÃæÖ»ÓĞÒ»¸öÔªËØ
+        // ä¿è¯é›†åˆé‡Œé¢åªæœ‰ä¸€ä¸ªå…ƒç´ 
         selectedItems.clear();
         if (choice != null)
         {
@@ -49,7 +49,7 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * È¡ÏûÑ¡ÖĞÄ³Ò»Ïî
+     * å–æ¶ˆé€‰ä¸­æŸä¸€é¡¹
      * @param position
      */
     public void disselectItem(int position)
@@ -58,7 +58,7 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * È¡ÏûÑ¡ÖĞÄ³Ò»Ïî
+     * å–æ¶ˆé€‰ä¸­æŸä¸€é¡¹
      * @param choice
      */
     public void disselectItem(T choice)
@@ -71,7 +71,7 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * ÊÇ·ñÑ¡ÖĞÄ³Ò»Ïî
+     * æ˜¯å¦é€‰ä¸­æŸä¸€é¡¹
      * @param position
      * @return
      */
@@ -81,7 +81,7 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * ÊÇ·ñÑ¡ÖĞÄ³Ò»Ïî
+     * æ˜¯å¦é€‰ä¸­æŸä¸€é¡¹
      * @param choice
      * @return
      */
@@ -91,7 +91,7 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
     }
 
     /**
-     * ·µ»ØËùÓĞÑ¡ÖĞµÄÏîÄ¿
+     * è¿”å›æ‰€æœ‰é€‰ä¸­çš„é¡¹ç›®
      * @return
      */
     public T getSelectedItem()

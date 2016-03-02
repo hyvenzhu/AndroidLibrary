@@ -3,7 +3,7 @@ package com.android.baseline.framework.ui;
 import android.widget.ExpandableListView;
 
 /**
- * ·Ö×éListViewÕ¹¿ªÄ³Ò»¸ö×Ô¶¯¹Ø±ÕÆäËû
+ * åˆ†ç»„ListViewå±•å¼€æŸä¸€ä¸ªè‡ªåŠ¨å…³é—­å…¶ä»–
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-12-16]
  */
@@ -18,7 +18,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
     }
 
     /**
-     * ÉèÖÃÕ¹¿ª»Øµ÷
+     * è®¾ç½®å±•å¼€å›è°ƒ
      * @param onGroupExpandListener
      */
     public OnGroupStateChangeListener setOnGroupExpandListener(ExpandableListView.OnGroupExpandListener onGroupExpandListener)
@@ -28,7 +28,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
     }
 
     /**
-     * ÉèÖÃºÏ²¢»Øµ÷
+     * è®¾ç½®åˆå¹¶å›è°ƒ
      * @param onGroupCollapseListener
      */
     public OnGroupStateChangeListener setOnGroupCollapseListener(ExpandableListView.OnGroupCollapseListener onGroupCollapseListener)
@@ -38,7 +38,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
     }
 
     /**
-     * °ó¶¨ÊÂ¼ş
+     * ç»‘å®šäº‹ä»¶
      */
     public void bind()
     {
@@ -49,7 +49,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
     @Override
     public void onGroupExpand(int groupPosition) {
         if (lastExpandedGroup != groupPosition) {
-            // ¹Ø±ÕÉÏÒ»¸ö
+            // å…³é—­ä¸Šä¸€ä¸ª
             expandableListView.collapseGroup(lastExpandedGroup);
         }
         lastExpandedGroup = groupPosition;
