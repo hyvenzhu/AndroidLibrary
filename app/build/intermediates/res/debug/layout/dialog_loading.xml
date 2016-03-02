@@ -16,4 +16,4 @@
 		android:layout_marginLeft="10dp"
 		android:text="数据加载中..." />
 </LinearLayout>
-<!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/layout/dialog_loading.xml -->
+<!-- From: file:/D:/Android/temp/Android-BaseLine/app/src/main/res/layout/dialog_loading.xml -->

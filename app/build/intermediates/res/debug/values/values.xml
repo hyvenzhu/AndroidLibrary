@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>
@@ -164,32 +164,32 @@
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
     <item name="home" type="id"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/values/ids.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/src/main/res/values/ids.xml -->
     <eat-comment/>
     <item name="onLoading" type="id"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
     <item name="split_action_bar" type="id"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/values/ids.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/src/main/res/values/ids.xml -->
     <eat-comment/>
     <item name="testHttp" type="id"/>
     <item name="testTask" type="id"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <item name="up" type="id"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values/values.xml -->
     <eat-comment/>
     <integer name="__leak_canary_max_stored_leaks">7</integer>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <integer name="abc_config_activityDefaultDur">220</integer>
     <integer name="abc_config_activityShortDur">150</integer>
     <integer name="abc_max_action_buttons">2</integer>
     <integer name="cancel_button_image_alpha">127</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values/values.xml -->
     <eat-comment/>
     <string name="__leak_canary_class_has_leaked">%s has leaked</string>
     <string name="__leak_canary_display_activity_label">Leaks</string>
@@ -198,7 +198,7 @@
     <string name="__leak_canary_share_heap_dump">Share heap dump</string>
     <string name="__leak_canary_share_leak">Share leak</string>
     <string name="__leak_canary_share_with">Share with…</string>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -217,20 +217,20 @@
     <string name="abc_shareactionprovider_share_with">Share with</string>
     <string name="abc_shareactionprovider_share_with_application">Share with %s</string>
     <string name="abc_toolbar_collapse_description">Collapse</string>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/values/strings.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/src/main/res/values/strings.xml -->
     <eat-comment/>
     <string name="app_name">Android-BaseLine</string>
     <string name="loading_failure">点击屏幕 , 重新加载</string>
     <string name="loading_text">正在加载, 请稍候...</string>
     <string name="requesting_failure">请求失败, 请稍后重试</string>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <string name="status_bar_notification_info_overflow">999+</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
     <style name="Animation.AppCompat.DropDownUp" parent="Base.Animation.AppCompat.DropDownUp"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -241,7 +241,7 @@
         <!--Activity窗口的颜色-->
         <!--<item name="android:windowBackground">@color/material_blue_grey_800</item>-->
     </style>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.1/res/values/values.xml -->
     <eat-comment/>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
@@ -1482,11 +1482,11 @@
     <style name="Widget.AppCompat.TextView.SpinnerItem" parent="Base.Widget.AppCompat.TextView.SpinnerItem"/>
     <style name="Widget.AppCompat.Toolbar" parent="Base.Widget.AppCompat.Toolbar"/>
     <style name="Widget.AppCompat.Toolbar.Button.Navigation" parent="RtlOverlay.Widget.AppCompat.Toolbar.Button.Navigation"/>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values/values.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/build/intermediates/exploded-aar/com.squareup.leakcanary/leakcanary-android/1.3/res/values/values.xml -->
     <eat-comment/>
     <style name="__LeakCanary.Base" parent="android:Theme">
   </style>
-    <!-- From: file:/D:/Android/workspace-studio/Android-BaseLine/app/src/main/res/values/styles.xml -->
+    <!-- From: file:/D:/Android/temp/Android-BaseLine/app/src/main/res/values/styles.xml -->
     <eat-comment/>
     <style name="loading_dialog" parent="@android:style/Theme.Dialog">
 		<item name="android:windowFrame">@null</item>

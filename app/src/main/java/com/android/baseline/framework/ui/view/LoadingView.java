@@ -21,9 +21,7 @@ import de.greenrobot.event.EventBus;
  */
 public class LoadingView extends RelativeLayout implements OnClickListener
 {
-    @ViewInject(value = R.id.loading_progressBar)
     private ProgressBar progressBar;
-    @ViewInject(value = R.id.tip_txt)
     private TextView tipTxt;
     private boolean isLoading = true;
     private EventBus eventBus;
@@ -48,6 +46,8 @@ public class LoadingView extends RelativeLayout implements OnClickListener
     
     private void init()
     {
+        progressBar = (ProgressBar)findViewById(R.id.loading_progressBar);
+        tipTxt = (TextView)findViewById(R.id.tip_txt);
         // 当前View的点击事件
         setOnClickListener(this);
         eventBus = new EventBus();

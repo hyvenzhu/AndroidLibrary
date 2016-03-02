@@ -7,3 +7,4 @@ build/
 gen/
 gradle/
 app/build/
+local.properties
