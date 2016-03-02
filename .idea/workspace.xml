@@ -6,9 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b28fc84e-1eb6-4e37-aac5-209d3e053ebe" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/library/src/main/AndroidManifest.xml" />
-    </list>
+    <list default="true" id="b28fc84e-1eb6-4e37-aac5-209d3e053ebe" name="Default" comment="" />
     <ignored path="Android-BaseLine.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

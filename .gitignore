@@ -6,5 +6,5 @@ bin/
 build/
 gen/
 gradle/
-app/build/
+library/build/
 local.properties
