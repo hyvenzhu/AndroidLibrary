@@ -2,6 +2,4 @@
 <!-- 定义请求的标示符 -->
 <resources>
   <item type="id" name="onLoading"/>
-  <item type="id" name="testHttp"/>
-  <item type="id" name="testTask"/>
 </resources>
