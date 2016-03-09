@@ -25,14 +25,7 @@ public abstract class JsonParser extends ResponseParserListenerAdpater
      */
     public InfoResult doParse(final String response) throws JSONException
     {
-        JSONObject jsonObject = JSON.parseObject(response);
-        InfoResult infoResult = new InfoResult.Builder()
-                   .success(jsonObject.getBooleanValue("success"))
-                   .errorCode(jsonObject.getString("errorCode"))
-                   .desc(jsonObject.getString("desc"))
-                   .build();
-        parseResponse(infoResult, jsonObject);
-        return infoResult;
+        return null;
     }
     
     public JsonParser putExtra(String key, Object value)
