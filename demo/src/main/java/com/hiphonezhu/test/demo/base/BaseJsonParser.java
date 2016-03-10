@@ -1,4 +1,4 @@
-package com.hiphonezhu.test.demo;
+package com.hiphonezhu.test.demo.base;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;

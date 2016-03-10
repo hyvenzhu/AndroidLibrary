@@ -2,6 +2,7 @@ package com.hiphonezhu.test.demo;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
+import com.hiphonezhu.test.demo.base.BaseJsonParser;
 
 /**
  * [description about this class]
