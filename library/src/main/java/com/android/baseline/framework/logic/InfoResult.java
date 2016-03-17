@@ -18,7 +18,7 @@ public class InfoResult
         this.desc = builder.desc;
         this.extraObj = builder.extraObj;
     }
-    
+
     public boolean isSuccess()
     {
         return success;
@@ -58,7 +58,7 @@ public class InfoResult
     {
         this.desc = desc;
     }
-    
+
     /**
      * The builder to build 'InfoResult'
      * @author hiphonezhu@gmail.com
@@ -70,31 +70,31 @@ public class InfoResult
         private String errorCode;
         private String desc;
         private Object extraObj;
-        
+
         public Builder success(boolean success)
         {
             this.success = success;
             return this;
         }
-        
+
         public Builder errorCode(String errorCode)
         {
             this.errorCode = errorCode;
             return this;
         }
-        
+
         public Builder desc(String desc)
         {
             this.desc = desc;
             return this;
         }
-        
+
         public Builder extraObj(Object extraObj)
         {
             this.extraObj = extraObj;
             return this;
         }
-        
+
         public InfoResult build()
         {
             return new InfoResult(this);

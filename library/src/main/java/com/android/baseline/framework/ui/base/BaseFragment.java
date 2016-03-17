@@ -11,6 +11,9 @@ import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,6 +150,7 @@ public abstract class BaseFragment extends Fragment
      * 
      * @param msg
      */
+    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void onEventMainThread(Message msg)
     {
         if (isAdded() && !isDetached() && !isRemoving())

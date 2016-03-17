@@ -9,6 +9,10 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -17,8 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
-import de.greenrobot.event.EventBus;
 
 /**
  * 1、统一的Volley请求队列以及Request的发送
@@ -333,6 +335,7 @@ public class BaseLogic implements ILogic
      * 
      * @param msg
      */
+    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void onEventMainThread(Message msg)
     {
         mEventBus.post(msg);

@@ -1,5 +1,6 @@
 package com.hiphonezhu.test.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
 import com.hiphonezhu.test.demo.base.BaseJsonParser;
@@ -18,8 +19,8 @@ public class NetParser extends BaseJsonParser {
         {
             JSONObject retData = jsonObject.getJSONObject("retData");
             // json到bean等处理可以在这里做
-
-            infoResult.setExtraObj(retData);
+            MobileBean bean = JSON.parseObject(retData.toJSONString(), MobileBean.class);
+            infoResult.setExtraObj(bean);
         }
     }
 }

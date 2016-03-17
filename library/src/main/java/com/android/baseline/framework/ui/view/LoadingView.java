@@ -10,10 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.baseline.R;
-import com.android.baseline.framework.ui.base.annotations.ViewInject;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+import org.greenrobot.eventbus.EventBus;
 
-import de.greenrobot.event.EventBus;
 /**
  * 加载数据View, 提供加载提示、失败点击重试等功能
  * @author hiphonezhu@gmail.com

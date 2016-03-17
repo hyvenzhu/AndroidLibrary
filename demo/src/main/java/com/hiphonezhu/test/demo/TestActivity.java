@@ -52,8 +52,8 @@ public class TestActivity extends BasicActivity{
                 if (checkResponse(msg))
                 {
                     InfoResult infoResult = (InfoResult)msg.obj;
-                    JSONObject retData = (JSONObject)infoResult.getExtraObj();
-                    showToast(retData.toJSONString());
+                    MobileBean retData = (MobileBean)infoResult.getExtraObj();
+                    showToast(retData.toString());
                 }
                 break;
             case R.id.testTask:

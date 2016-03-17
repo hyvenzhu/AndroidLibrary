@@ -1,10 +1,7 @@
 package com.android.baseline.framework.asyncquery;
 import android.os.Message;
 
-import java.lang.ref.WeakReference;
-
-import de.greenrobot.event.EventBus;
-
+import org.greenrobot.eventbus.EventBus;
 /**
  * 任务父类, 子类继承并实现doInBackground()方法, 在其中执行耗时操作
  * 
