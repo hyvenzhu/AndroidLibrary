@@ -1,1 +1,1 @@
-compile 'org.baseline:library:0.0.3'
+compile 'org.baseline:library:0.0.4'
