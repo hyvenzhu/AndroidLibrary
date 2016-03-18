@@ -3,8 +3,6 @@ package com.hiphonezhu.test.demo;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-
-import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
 

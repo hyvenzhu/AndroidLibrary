@@ -2,7 +2,6 @@ package com.hiphonezhu.test.demo.base;
 
 import com.alibaba.fastjson.JSONObject;
 import com.android.baseline.framework.logic.InfoResult;
-import com.android.baseline.framework.logic.parser.JsonParser;
 
 /**
  * 通用操作解析器
