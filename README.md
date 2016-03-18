@@ -5,6 +5,7 @@ Proguard:
 -keepclassmembers class ** {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
+
 -keep enum org.greenrobot.eventbus.ThreadMode { *; }
 
 # Only required if you use AsyncExecutor
