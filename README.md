@@ -1,6 +1,7 @@
 compile 'org.baseline:library:0.0.4'
 
 Proguard:
+
 -keepclassmembers class ** {
     @org.greenrobot.eventbus.Subscribe <methods>;
 }
