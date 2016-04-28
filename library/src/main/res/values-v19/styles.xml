@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- App theme -->
+    <style name="AppTheme" parent="@style/BaseAppTheme">
+        <!--大意就是说状态栏是否半透明，如果是true的话，你会发现你的Toolbar陷入到状态栏里面了，所以为了预留空间，需要配合android:fitsSystemWindows属性-->
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+</resources>

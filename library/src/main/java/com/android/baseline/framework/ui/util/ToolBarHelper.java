@@ -2,6 +2,7 @@ package com.android.baseline.framework.ui.util;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,10 @@ public class ToolBarHelper {
         mContentView = new FrameLayout(mContext);
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT);
+        // 不设置的话ToolBar会陷到状态栏里面去
+        mContentView.setFitsSystemWindows(true);
+        // 设置颜色和ToolBar一致
+        mContentView.setBackgroundColor(mContext.getResources().getColor(R.color.primary));
         mContentView.setLayoutParams(params);
     }
 
@@ -84,6 +89,8 @@ public class ToolBarHelper {
         typedArray.recycle();
         /*如果是悬浮状态，则不需要设置间距；ToolBar不可见也不设置间距*/
         params.topMargin = overly || !mToolBarVisible ? 0 : toolBarSize;
+        // 用户的布局默认设为白色
+        mUserView.setBackgroundColor(Color.WHITE);
         mContentView.addView(mUserView, params);
     }
 
