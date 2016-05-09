@@ -3,8 +3,8 @@ package com.android.baseline.framework.ui.base;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup.LayoutParams;
+
+import com.android.baseline.R;
 import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity
     @Override
     public void setContentView(int layoutResID)
     {
-        mToolBarHelper = new ToolBarHelper(this, layoutResID, isToolBarVisible()) ;
+        mToolBarHelper = new ToolBarHelper(this, layoutResID, isToolBarVisible(), getToolBarColor()) ;
         toolbar = mToolBarHelper.getToolBar() ;
         super.setContentView(mToolBarHelper.getContentView());
         /*把 toolbar 设置到Activity 中*/
@@ -42,6 +42,15 @@ public abstract class BaseActivity extends AppCompatActivity
         ViewUtils.inject(this);
 
         afterSetContentView();
+    }
+
+    /**
+     * ToolBar颜色
+     * @return
+     */
+    protected int getToolBarColor()
+    {
+        return getResources().getColor(R.color.primary);
     }
 
     /**

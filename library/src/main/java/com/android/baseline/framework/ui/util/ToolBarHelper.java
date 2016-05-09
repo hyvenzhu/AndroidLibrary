@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+
 import com.android.baseline.R;
+
 /**
  * ToolBar辅助类
  * @author hiphonezhu@gmail.com
@@ -33,6 +35,9 @@ public class ToolBarHelper {
     /*ToolBar是否可见*/
     private boolean mToolBarVisible;
 
+    /*ToolBar颜色*/
+    private int mToolBarColor;
+
     /*
     * 两个属性
     * 1、toolbar是否悬浮在窗口之上
@@ -44,13 +49,14 @@ public class ToolBarHelper {
     };
 
     public ToolBarHelper(Context context, int layoutId) {
-        this(context, layoutId, true);
+        this(context, layoutId, true, context.getResources().getColor(R.color.primary));
     }
 
-    public ToolBarHelper(Context context, int layoutId, boolean isToolBarVisible) {
+    public ToolBarHelper(Context context, int layoutId, boolean isToolBarVisible, int toolBarColor) {
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
         this.mToolBarVisible = isToolBarVisible;
+        this.mToolBarColor = toolBarColor;
         /*初始化整个内容*/
         initContentView();
         /*初始化用户定义的布局*/
@@ -67,7 +73,7 @@ public class ToolBarHelper {
         // 不设置的话ToolBar会陷到状态栏里面去
         mContentView.setFitsSystemWindows(true);
         // 设置颜色和ToolBar一致
-        mContentView.setBackgroundColor(mContext.getResources().getColor(R.color.primary));
+        mContentView.setBackgroundColor(mToolBarColor);
         mContentView.setLayoutParams(params);
     }
 
