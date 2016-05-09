@@ -28,7 +28,7 @@ public class DBHelper
 
     /**
      * 获取数据库操作对象
-     * 
+     *
      * @return SQLiteDatabase
      */
     public synchronized SQLiteDatabase getWritableSQLiteDatabase()
@@ -36,10 +36,10 @@ public class DBHelper
         writableDB = dbHelper.getWritableDatabase();
         return writableDB;
     }
-    
+
     /**
      * 获取数据库操作对象
-     * 
+     *
      * @return SQLiteDatabase
      */
     public SQLiteDatabase getReadableSQLiteDatabase()
@@ -78,6 +78,7 @@ public class DBHelper
             try
             {
                 db.execSQL(SPDBHelper.TABLE_CREATE_SQL);
+                AppDroid.getInstance().onDBCreate(db);
                 db.setTransactionSuccessful();
             }
             catch (Exception e)
@@ -93,8 +94,19 @@ public class DBHelper
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
         {
-            db.execSQL("DROP DATABASE IF EXISTS " + DATABASE_NAME);
-            onCreate(db);
+            db.beginTransaction();
+            try
+            {
+                AppDroid.getInstance().onDBUpgrade(db, oldVersion, newVersion);
+            }
+            catch (Exception e)
+            {
+                Logger.e(TAG, e);
+            }
+            finally
+            {
+                db.endTransaction();
+            }
         }
     }
 }
