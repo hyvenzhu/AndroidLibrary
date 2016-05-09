@@ -36,7 +36,6 @@ public class AppDroid extends Application
      */
     public void onDBCreate(SQLiteDatabase db)
     {
-
     }
 
     /**
@@ -47,6 +46,15 @@ public class AppDroid extends Application
      */
     public void onDBUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
+    }
+
+    /**
+     * 数据库版本
+     * @return
+     */
+    public int getDataBaseVersion()
+    {
+        return 1;
     }
 
     /**

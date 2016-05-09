@@ -19,8 +19,6 @@ public class DBHelper
     private SQLiteDatabase readableDB;
     /** 数据库名称 */
     private static final String DATABASE_NAME = "project.db";
-    /** 数据库版本 */
-    private static final int DATABASE_VERSION = 1;
     public DBHelper()
     {
         dbHelper = new DataBaseHelper(AppDroid.getInstance().getApplicationContext());
@@ -68,7 +66,7 @@ public class DBHelper
         public DataBaseHelper(Context context)
         {
             super(context, DATABASE_NAME,
-                    null, DATABASE_VERSION);
+                    null, AppDroid.getInstance().getDataBaseVersion());
         }
 
         @Override
