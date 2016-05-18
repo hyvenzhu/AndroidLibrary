@@ -96,7 +96,7 @@ public class ToolBarHelper {
         /*如果是悬浮状态，则不需要设置间距；ToolBar不可见也不设置间距*/
         params.topMargin = overly || !mToolBarVisible ? 0 : toolBarSize;
         // 用户的布局默认设为白色
-        mUserView.setBackgroundColor(Color.WHITE);
+//        mUserView.setBackgroundColor(Color.WHITE);
         mContentView.addView(mUserView, params);
     }
 
