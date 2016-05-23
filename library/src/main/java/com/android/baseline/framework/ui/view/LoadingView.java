@@ -45,8 +45,6 @@ public class LoadingView extends RelativeLayout implements OnClickListener
     
     private void init()
     {
-        progressBar = (ProgressBar)findViewById(R.id.loading_progressBar);
-        tipTxt = (TextView)findViewById(R.id.tip_txt);
         // 当前View的点击事件
         setOnClickListener(this);
         eventBus = new EventBus();
@@ -66,8 +64,8 @@ public class LoadingView extends RelativeLayout implements OnClickListener
     protected void onAttachedToWindow()
     {
         super.onAttachedToWindow();
-        // View注解
-        ViewUtils.inject(this, this);
+        progressBar = (ProgressBar)findViewById(R.id.loading_progressBar);
+        tipTxt = (TextView)findViewById(R.id.tip_txt);
         onLoading();
     }
     
