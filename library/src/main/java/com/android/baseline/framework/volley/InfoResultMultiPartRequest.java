@@ -58,7 +58,7 @@ public class InfoResultMultiPartRequest extends MultiPartRequest<InfoResult> imp
                     LogUtil.e("RequestInfo", "url:" + url + "\nmethod:" + (method == Method.GET? "GET" : "POST"));
                     LogUtil.e("ErrorInfo", errorMsg);
 
-                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"" + errorMsg + "\",\"data\": {}}");
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"" + "request error" + "\",\"data\": {}}");
                     infoResult.setExtraObj(error);
                     logic.onResult(requestId, infoResult);
                 }

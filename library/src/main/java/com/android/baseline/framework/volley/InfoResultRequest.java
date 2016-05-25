@@ -73,10 +73,10 @@ public class InfoResultRequest extends Request<InfoResult> implements Listener<I
                     String errorMsg = new String(baos.toByteArray());
 
                     // 日志
-                    LogUtil.e("RequestInfo", "url:" + url + "\nmethod:" + (method == Method.GET? "GET" : "POST") + "\nparams:" + params.toString());
+                    LogUtil.e("RequestInfo", "url:" + url + "\nmethod:" + (method == Method.GET? "GET" : "POST") + "\nparams:" + params != null? params.toString() : "");
                     LogUtil.e("ErrorInfo", errorMsg);
 
-                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"" + errorMsg + "\",\"data\": {}}");
+                    InfoResult infoResult = parseListener.doParse("{\"success\": \"false\",\"code\": -100,\"desc\": \"" + "request error" + "\",\"data\": {}}");
                     infoResult.setExtraObj(error);
                     logic.onResult(requestId, infoResult);
                 }

@@ -41,6 +41,16 @@ public class TestActivity extends BasicActivity{
     }
 
     @Override
+    protected boolean isToolBarVisible() {
+        return super.isToolBarVisible();
+    }
+
+    @Override
+    protected int getToolBarColor() {
+        return super.getToolBarColor();
+    }
+
+    @Override
     public void onResponse(Message msg) {
         super.onResponse(msg);
         switch (msg.what)
