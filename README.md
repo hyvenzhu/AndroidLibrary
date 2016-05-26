@@ -1,6 +1,6 @@
 #Gradle
 
-compile 'org.baseline:library:0.0.4'
+compile 'org.baseline:library:0.0.5'
 
 #Proguard
 
