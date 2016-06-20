@@ -49,7 +49,7 @@ public class BaseLogic implements ILogic
     private final static RequestQueue DEFAULT_REQUEST_QUEUE = Volley.newRequestQueue(AppDroid
             .getInstance().getApplicationContext());
     // Default EventBus
-    private EventBus mEventBus;
+    protected EventBus mEventBus;
     
     // 请求的tags
     private Set<Object> requestTags = new HashSet<Object>();
@@ -60,7 +60,7 @@ public class BaseLogic implements ILogic
     private static ConcurrentLinkedQueue<Request<?>> waitQueue = new ConcurrentLinkedQueue<Request<?>>(); // 缓存后续的请求
 
     // Volley队列池
-    private static Map<String, RequestQueue> requestQueuePool = new HashMap<String, RequestQueue>();
+    protected static Map<String, RequestQueue> requestQueuePool = new HashMap<String, RequestQueue>();
     // 默认Volley tag
     public static final String DEFAULT_VOLLEY_TAG = "default";
     static
@@ -68,17 +68,18 @@ public class BaseLogic implements ILogic
         requestQueuePool.put(DEFAULT_VOLLEY_TAG, DEFAULT_REQUEST_QUEUE);
     }
     // 当前队列标识
-    private static String currentVolleyTag = DEFAULT_VOLLEY_TAG;
+    protected static String currentVolleyTag = DEFAULT_VOLLEY_TAG;
     // 当前Volley队列
-    private RequestQueue currentRequestQueue;
+    protected RequestQueue currentRequestQueue;
 
+    public static String GLOBAL_ENCODING = "utf-8";
     /**
      * Constructor with a subscriber
      * @param subscriber
      */
     public BaseLogic(Object subscriber)
     {
-        this(subscriber, new EventBus(), currentVolleyTag);
+        this(subscriber, currentVolleyTag);
     }
 
     /**
@@ -204,7 +205,7 @@ public class BaseLogic implements ILogic
             cancel(tagIterator.next());
         }
     }
-    
+
     /**
      * 发送网络请求
      * @param <T>
@@ -212,9 +213,9 @@ public class BaseLogic implements ILogic
      */
     protected <T> void sendRequest(Request<T> request)
     {
-        currentRequestQueue.add(request);
+        sendRequest(request, null);
     }
-    
+
     /**
      * 发送网络请求, 并给这个请求设置TAG
      * @param <T>

@@ -76,7 +76,7 @@ public class APKUtil
      * @param uniqueName
      * @return
      */
-    public File getDiskCacheDir(Context context, String uniqueName)
+    public static File getDiskCacheDir(Context context, String uniqueName)
     {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
@@ -101,7 +101,7 @@ public class APKUtil
      * @param params
      * @return
      */
-    public String encodeParameters(Map<String, Object> params) {
+    public static String encodeParameters(Map<String, Object> params) {
         return encodeParameters(params, "utf-8");
     }
 
@@ -111,7 +111,7 @@ public class APKUtil
      * @param paramsEncoding
      * @return
      */
-    public String encodeParameters(Map<String, Object> params, String paramsEncoding) {
+    public static String encodeParameters(Map<String, Object> params, String paramsEncoding) {
         StringBuilder encodedParams = new StringBuilder();
 
         try {

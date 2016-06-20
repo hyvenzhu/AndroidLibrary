@@ -1,6 +1,7 @@
 -ignorewarnings
 
--keepclassmembers class com.hiphonezhu.test.demo.MobileBean {
+# 建立使用fastjson转换的bean都实现Serializable接口
+-keepclassmembers class * implements java.ios.Serializable  {
    *;
 }
 
