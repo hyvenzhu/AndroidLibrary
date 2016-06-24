@@ -23,9 +23,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
+    compile 'com.alibaba:fastjson:1.1.52.android'
     compile "com.android.support:appcompat-v7:${APPCOMPAT_V7_VERSION}"
     compile 'org.greenrobot:eventbus:3.0.0'
 }
 
-apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
+//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
 

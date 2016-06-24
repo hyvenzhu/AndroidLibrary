@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="testNet" type="id"/>
+    <item name="mobilenumber" type="id"/>
+    <item name="citylist" type="id"/>
     <item name="testTask" type="id"/>
 </resources>

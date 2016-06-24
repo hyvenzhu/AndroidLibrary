@@ -5,6 +5,7 @@ import android.os.Message;
 import android.view.View;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
+import com.hiphonezhu.test.demo.base.ListEntry;
 
 /**
  *  网络请求测试
@@ -26,7 +27,7 @@ public class TestActivity extends BasicActivity{
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                moduleLogic.testNet();
+                moduleLogic.mobilenumber();
             }
         });
 
@@ -55,12 +56,21 @@ public class TestActivity extends BasicActivity{
         super.onResponse(msg);
         switch (msg.what)
         {
-            case R.id.testNet:
+            case R.id.mobilenumber:
                 hideProgress();
                 if (checkResponse(msg))
                 {
-                    InfoResult infoResult = (InfoResult)msg.obj;
-                    MobileBean retData = (MobileBean)infoResult.getExtraObj();
+                    InfoResult<MobileBean> infoResult = (InfoResult)msg.obj;
+                    MobileBean retData = infoResult.getExtraObj();
+                    showToast(retData.toString());
+                }
+                break;
+            case R.id.citylist:
+                hideProgress();
+                if (checkResponse(msg))
+                {
+                    InfoResult<ListEntry<MobileBean>> infoResult = (InfoResult)msg.obj;
+                    ListEntry<MobileBean> retData = infoResult.getExtraObj();
                     showToast(retData.toString());
                 }
                 break;

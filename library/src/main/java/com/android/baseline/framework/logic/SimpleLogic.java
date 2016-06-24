@@ -53,6 +53,29 @@ public class SimpleLogic extends BaseLogic
      * GET方式请求
      * @param requestId 请求标识
      * @param url 地址
+     * @param parser 对应返回结果的解析器
+     */
+    protected void sendGetRequest(int requestId, String url, JsonParser parser)
+    {
+        this.sendGetRequest(requestId, url, parser, null);
+    }
+
+    /**
+     * GET方式请求
+     * @param requestId 请求标识
+     * @param url 地址
+     * @param parser 对应返回结果的解析器
+     * @param headers 请求头信息
+     */
+    protected void sendGetRequest(int requestId, String url, JsonParser parser, Map<String, String> headers)
+    {
+        this.sendGetRequest(requestId, url, null, parser, headers);
+    }
+
+    /**
+     * GET方式请求
+     * @param requestId 请求标识
+     * @param url 地址
      * @param params 参数
      * @param parser 对应返回结果的解析器
      */
@@ -85,8 +108,12 @@ public class SimpleLogic extends BaseLogic
      */
     protected void sendGetRequest(int requestId, String url, Map<String, Object> params, JsonParser parser, Map<String, String> headers, String volleyTag)
     {
-        String encodeParams = APKUtil.encodeParameters(params, GLOBAL_ENCODING);
-        InfoResultRequest request = new InfoResultRequest(requestId, url + "?" + encodeParams, parser, this);
+        if (params != null)
+        {
+            String encodeParams = APKUtil.encodeParameters(params, GLOBAL_ENCODING);
+            url += "?" + encodeParams;
+        }
+        InfoResultRequest request = new InfoResultRequest(requestId, url, parser, this);
         request.addHeaders(headers);
         sendRequest(request, requestId, volleyTag);
     }

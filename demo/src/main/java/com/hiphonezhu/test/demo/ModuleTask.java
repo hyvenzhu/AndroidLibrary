@@ -20,6 +20,6 @@ public class ModuleTask extends Task {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new InfoResult.Builder().success(true).extraObj("task over").build();
+        return new InfoResult(true, "0", "task over");
     }
 }
