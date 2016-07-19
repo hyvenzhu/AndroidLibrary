@@ -5,7 +5,6 @@ import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
-import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.volley.InfoResultRequest.ResponseParserListener;

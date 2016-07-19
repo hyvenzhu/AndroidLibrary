@@ -3,8 +3,8 @@ package com.android.baseline.framework.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import com.android.baseline.AppDroid;
-import com.android.baseline.framework.log.Logger;
 import com.android.baseline.util.SPDBHelper;
 
 /**
@@ -81,7 +81,6 @@ public class DBHelper
             }
             catch (Exception e)
             {
-                Logger.e(TAG, e);
             }
             finally
             {
@@ -99,7 +98,6 @@ public class DBHelper
             }
             catch (Exception e)
             {
-                Logger.e(TAG, e);
             }
             finally
             {

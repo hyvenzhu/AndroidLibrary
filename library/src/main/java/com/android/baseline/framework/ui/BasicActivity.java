@@ -11,10 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
-import com.android.baseline.framework.log.Logger;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.base.BaseActivity;
 import com.android.baseline.framework.ui.base.UIInterface;
@@ -48,7 +46,6 @@ public class BasicActivity extends BaseActivity implements UIInterface
     {
         super.onCreate(savedInstanceState);
         AppDroid.getInstance().uiStateHelper.addActivity(this);
-        Logger.d(TAG, "onCreate");
     }
 
     @Override
@@ -358,7 +355,6 @@ public class BasicActivity extends BaseActivity implements UIInterface
     {
         super.onResume();
         isPaused = false;
-        Logger.d(TAG, "onResume");
         if (mIsNeedRefresh)
         {
             mIsNeedRefresh = false;
@@ -419,7 +415,6 @@ public class BasicActivity extends BaseActivity implements UIInterface
                         0);
             }
         }
-        Logger.d(TAG, "onPause");
     }
 
     @Override
@@ -428,6 +423,5 @@ public class BasicActivity extends BaseActivity implements UIInterface
         super.onDestroy();
         hideProgress();
         AppDroid.getInstance().uiStateHelper.removeActivity(this);
-        Logger.d(TAG, "onDestroy");
     }
 }
