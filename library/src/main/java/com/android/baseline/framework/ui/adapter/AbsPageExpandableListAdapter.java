@@ -2,7 +2,7 @@ package com.android.baseline.framework.ui.adapter;
 
 import android.content.Context;
 
-import com.android.baseline.framework.ui.BasicAdapter;
+import com.android.baseline.framework.ui.BasicExpandableListAdapter;
 
 import java.util.List;
 import java.util.Map;
@@ -12,7 +12,7 @@ import java.util.Map;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
-public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
+public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandableListAdapter<K, V> {
     private int currPageIndex; // 当前页下标
     private int pageSize; // 分页大小
     private int lastPageIndex; // 记录上一次的页下标
@@ -20,14 +20,33 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
     private boolean isLoading; // 是否正在加载
     private Object lock = new Object(); // 锁
 
-    public AbsPageAdapter(Context context, List<T> data, int resourceId, IPage iPage) {
-        super(context, data, resourceId);
+
+    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId, IPage iPage) {
+        super(context, group, children, groupResourceId, childrenResourceId);
         this.iPage = iPage;
         initPageConfig();
     }
 
-    public AbsPageAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, IPage iPage) {
-        super(context, data, itemTypeResourceMap);
+    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
+                                        Map<Integer, Integer> groupItemTypeResourceMap,
+                                        Map<Integer, Integer> childItemTypeResourceMap, IPage iPage) {
+        super(context, group, children, groupItemTypeResourceMap, childItemTypeResourceMap);
+        this.iPage = iPage;
+        initPageConfig();
+    }
+
+    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
+                                        int groupResourceId,
+                                        Map<Integer, Integer> childItemTypeResourceMap, IPage iPage) {
+        super(context, group, children, groupResourceId, childItemTypeResourceMap);
+        this.iPage = iPage;
+        initPageConfig();
+    }
+
+    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
+                                        Map<Integer, Integer> groupItemTypeResourceMap,
+                                        int childrenResourceId, IPage iPage) {
+        super(context, group, children, groupItemTypeResourceMap, childrenResourceId);
         this.iPage = iPage;
         initPageConfig();
     }
@@ -128,29 +147,44 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
     }
 
     @Override
-    public void setDataSource(List<T> data) {
-        super.setDataSource(data);
+    public void setDataSource(List<K> group, List<List<V>> children) {
+        super.setDataSource(group, children);
         finishLoad(true);
     }
 
     /**
      * 增加数据
-     * @param data
+     * @param group
+     * @param children
      */
-    public final void addDataSource(List<T> data)
+    public final void addDataSource(List<K> group, List<List<V>> children)
     {
-        if (mData == null)
+        if (mGroup == null)
         {
-            mData = data;
+            mGroup = group;
         }
         else
         {
             if (currPageIndex == getStartPageIndex())
             {
-                mData.clear();
+                mGroup.clear();
             }
-            mData.addAll(data);
+            mGroup.addAll(group);
         }
+
+        if (mChildren == null)
+        {
+            mChildren = children;
+        }
+        else
+        {
+            if (currPageIndex == getStartPageIndex())
+            {
+                mChildren.clear();
+            }
+            mChildren.addAll(children);
+        }
+
         finishLoad(true);
     }
 }
