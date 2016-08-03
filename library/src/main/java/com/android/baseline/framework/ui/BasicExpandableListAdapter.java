@@ -20,7 +20,7 @@ import java.util.Map;
 public abstract class BasicExpandableListAdapter<K,V> extends BaseExpandableListAdapter
 {
     protected Context mContext;
-    private LayoutInflater mLayoutInflater;
+    protected LayoutInflater mLayoutInflater;
     protected List<K> mGroup; // group data source
     protected List<List<V>> mChildren; // children data source
 

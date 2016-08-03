@@ -188,6 +188,7 @@ public class LoadingView extends RelativeLayout implements OnClickListener
         progressBar.setVisibility(View.GONE);
         tipTxt.setCompoundDrawablesWithIntrinsicBounds(getResources().getDrawable(R.drawable.loading_error_tip), null, null, null);
         tipTxt.setText(errorDesc);
+        setVisibility(View.VISIBLE);
     }
     
     /**
