@@ -27,7 +27,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
 {
     private final String TAG = "BasicActivity";
     /** 基类Toast */
-    private Toast mToast;
+    private static Toast mToast;
     private Dialog progressDialog;
     protected boolean isPaused;
     protected boolean mIsNeedRefresh;
@@ -200,7 +200,7 @@ public class BasicActivity extends BaseActivity implements UIInterface
         }
         if (mToast == null)
         {
-            mToast = Toast.makeText(this,
+            mToast = Toast.makeText(getApplicationContext(),
                     message,
                     Toast.LENGTH_SHORT);
         }
