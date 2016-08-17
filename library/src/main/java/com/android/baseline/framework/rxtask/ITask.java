@@ -5,12 +5,12 @@ package com.android.baseline.framework.rxtask;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-5-21]
  */
-public interface ITask<T>
+public interface ITask
 {
     /**
      * 执行耗时任务
      * 
      * @return
      */
-    T doInBackground();
+    Object doInBackground();
 }
