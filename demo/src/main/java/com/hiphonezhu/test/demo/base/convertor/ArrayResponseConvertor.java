@@ -16,7 +16,6 @@ import java.lang.reflect.Type;
  * @see ObjectResponseConvertor
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/06/24 10:23]
- * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
  */
 public class ArrayResponseConvertor extends BaseJsonParser {
     private Class type;

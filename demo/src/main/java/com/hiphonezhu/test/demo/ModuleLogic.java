@@ -11,7 +11,6 @@ import java.util.Map;
  * 模块的接口等
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:02]
- * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
  */
 public class ModuleLogic extends SimpleLogic {
     public ModuleLogic(Object subscriber) {

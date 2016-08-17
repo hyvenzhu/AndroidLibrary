@@ -6,7 +6,6 @@ import com.android.baseline.framework.logic.InfoResult;
 /**
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 17:03]
- * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
  */
 public class ModuleTask extends Task {
     public ModuleTask(int taskId, Object subscriber) {

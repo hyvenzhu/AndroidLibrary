@@ -13,7 +13,6 @@ import com.hiphonezhu.test.demo.base.ListEntry;
  * 网络请求测试
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
- * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
  */
 public class TestActivity extends BasicActivity{
     private ModuleLogic moduleLogic;

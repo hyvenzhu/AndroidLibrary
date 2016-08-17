@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/17 10:25]
- * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
  */
 public class MobileBean implements Serializable{
     private String phone;

@@ -41,7 +41,6 @@ import com.android.baseline.framework.logic.parser.JsonParser;
  }
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:24]
- * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
  */
 public abstract class BaseJsonParser extends JsonParser {
     @Override
