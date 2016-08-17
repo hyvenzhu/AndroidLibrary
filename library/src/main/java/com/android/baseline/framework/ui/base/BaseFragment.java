@@ -7,19 +7,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.baseline.framework.rxtask.Task;
 import com.android.baseline.framework.logic.BaseLogic;
-import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+import com.android.baseline.framework.ui.base.helper.LogicHelper;
+import com.android.baseline.framework.ui.base.helper.TaskHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 基类Fragment, 提供业务逻辑的处理和深层的UI处理 
- * 1、提供EventBus事件通知
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-4-1]
  */
@@ -45,13 +43,35 @@ public abstract class BaseFragment extends Fragment
         return view;
     }
 
+    LogicHelper logicHelper = new LogicHelper();
+    TaskHelper taskHelper = new TaskHelper();
+    /**
+     * 注册BaseLogic, Fragment销毁时是自动取消解绑
+     * @param logic
+     * @param <T>
+     * @return
+     */
+    protected <T extends BaseLogic> T registLogic(BaseLogic logic)
+    {
+        return logicHelper.registLogic(logic);
+    }
+
+    /**
+     * 注册Task, Fragment销毁时是自动取消解绑
+     * @param task
+     * @param <T>
+     * @return
+     */
+    public <T extends Task> T registTask(Task task)
+    {
+        return taskHelper.registTask(task);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        for(BaseLogic logic : logics)
-        {
-            unregister(logic);
-        }
+        logicHelper.unregistAll();
+        taskHelper.unregistAll();
     }
 
     /**
@@ -101,50 +121,6 @@ public abstract class BaseFragment extends Fragment
         }
     }
 
-    private List<BaseLogic> logics = new ArrayList<BaseLogic>(); // 存储BaseLogic
-    /**
-     * 注册BaseLogic, Activity销毁时是自动取消解绑
-     * @param logic
-     * @param <T>
-     * @return
-     */
-    protected <T extends BaseLogic> T registeLogic(BaseLogic logic)
-    {
-        logics.add(logic);
-        return (T)logic;
-    }
-
-    /**
-     * 解绑当前订阅者
-     * @param iLogics
-     */
-    protected void unregister(ILogic... iLogics)
-    {
-        for(ILogic iLogic : iLogics)
-        {
-            if (iLogic != null)
-            {
-                iLogic.cancelAll();
-                iLogic.unregister(this);
-            }
-        }
-    }
-
-    /**
-     * 解绑所有订阅者
-     */
-    protected void unregisterAll(ILogic... iLogics)
-    {
-        for(ILogic iLogic : iLogics)
-        {
-            if (iLogic != null)
-            {
-                iLogic.cancelAll();
-                iLogic.unregisterAll();
-            }
-        }
-    }
-    
     /**
      * EventBus订阅者事件通知的函数, UI线程
      * 

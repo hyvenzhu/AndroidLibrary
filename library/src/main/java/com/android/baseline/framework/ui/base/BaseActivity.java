@@ -5,21 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.android.baseline.R;
+import com.android.baseline.framework.rxtask.Task;
 import com.android.baseline.framework.logic.BaseLogic;
-import com.android.baseline.framework.logic.ILogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+import com.android.baseline.framework.ui.base.helper.LogicHelper;
+import com.android.baseline.framework.ui.base.helper.TaskHelper;
 import com.android.baseline.framework.ui.util.ToolBarHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * 基类Activity, 提供业务逻辑的处理和深层的UI处理 
- * 1、实现View初始化、事件绑定 
- * 2、提供EventBus事件通知
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-15]
  */
@@ -78,59 +75,38 @@ public abstract class BaseActivity extends AppCompatActivity
 
     }
 
-    private List<BaseLogic> logics = new ArrayList<BaseLogic>(); // 存储BaseLogic
+    LogicHelper logicHelper = new LogicHelper();
+    TaskHelper taskHelper = new TaskHelper();
     /**
      * 注册BaseLogic, Activity销毁时是自动取消解绑
      * @param logic
      * @param <T>
      * @return
      */
-    protected <T extends BaseLogic> T registeLogic(BaseLogic logic)
+    protected <T extends BaseLogic> T registLogic(BaseLogic logic)
     {
-        logics.add(logic);
-        return (T)logic;
+        return logicHelper.registLogic(logic);
     }
 
     /**
-     * 解绑当前订阅者
-     * @param iLogics
+     * 注册Task, Activity销毁时是自动取消解绑
+     * @param task
+     * @param <T>
+     * @return
      */
-    protected void unregister(ILogic... iLogics)
+    public <T extends Task> T registTask(Task task)
     {
-        for(ILogic iLogic : iLogics)
-        {
-            if (iLogic != null)
-            {
-                iLogic.cancelAll();
-                iLogic.unregister(this);
-            }
-        }
+        return taskHelper.registTask(task);
     }
 
-    /**
-     * 解绑所有订阅者
-     */
-    protected void unregisterAll(ILogic... iLogics)
-    {
-        for(ILogic iLogic : iLogics)
-        {
-            if (iLogic != null)
-            {
-                iLogic.cancelAll();
-                iLogic.unregisterAll();
-            }
-        }
-    }
 
     @Override
     protected void onDestroy()
     {
         super.onDestroy();
         isDestroyed = true;
-        for(BaseLogic logic : logics)
-        {
-            unregister(logic);
-        }
+        logicHelper.unregistAll();
+        taskHelper.unregistAll();
     }
 
     /**

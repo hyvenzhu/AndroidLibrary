@@ -26,6 +26,11 @@ dependencies {
     compile 'com.alibaba:fastjson:1.1.52.android'
     compile "com.android.support:appcompat-v7:${APPCOMPAT_V7_VERSION}"
     compile 'org.greenrobot:eventbus:3.0.0'
+
+    compile 'io.reactivex:rxandroid:1.2.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    compile 'io.reactivex:rxjava:1.1.6'
 }
 
 //apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"

@@ -3,12 +3,14 @@ package com.hiphonezhu.test.demo;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+
+import com.android.baseline.framework.rxtask.TaskExecutor;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.BasicActivity;
 import com.hiphonezhu.test.demo.base.ListEntry;
 
 /**
- *  网络请求测试
+ * 网络请求测试
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
@@ -20,7 +22,7 @@ public class TestActivity extends BasicActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        moduleLogic = new ModuleLogic(this);
+        moduleLogic = registLogic(new ModuleLogic(this));
 
         // 网络请求
         findViewById(R.id.net_btn).setOnClickListener(new View.OnClickListener() {
@@ -36,7 +38,7 @@ public class TestActivity extends BasicActivity{
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                moduleLogic.testTask();
+                TaskExecutor.getInstance().execute(registTask(new ModuleTask(R.id.testTask, TestActivity.this)));
             }
         });
     }
@@ -79,7 +81,7 @@ public class TestActivity extends BasicActivity{
                 if (checkResponse(msg))
                 {
                     InfoResult infoResult = (InfoResult)msg.obj;
-                    showToast(infoResult.getExtraObj().toString());
+                    showToast(infoResult.toString());
                 }
                 break;
         }

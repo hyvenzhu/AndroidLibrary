@@ -1,9 +1,9 @@
 package com.hiphonezhu.test.demo;
 
-import com.android.baseline.framework.asyncquery.TaskExecutor;
 import com.android.baseline.framework.logic.SimpleLogic;
 import com.hiphonezhu.test.demo.base.convertor.ArrayResponseConvertor;
 import com.hiphonezhu.test.demo.base.convertor.ObjectResponseConvertor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,10 +47,5 @@ public class ModuleLogic extends SimpleLogic {
                 "}";
         // 返回结果json数据格式为response
         sendGetRequest(R.id.citylist, "http://xxxx", new ArrayResponseConvertor(MobileBean.class));
-    }
-
-    public void testTask()
-    {
-        TaskExecutor.getInstance().execute(new ModuleTask(R.id.testTask, this));
     }
 }

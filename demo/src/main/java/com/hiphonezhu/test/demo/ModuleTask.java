@@ -1,6 +1,6 @@
 package com.hiphonezhu.test.demo;
 
-import com.android.baseline.framework.asyncquery.Task;
+import com.android.baseline.framework.rxtask.Task;
 import com.android.baseline.framework.logic.InfoResult;
 
 /**
