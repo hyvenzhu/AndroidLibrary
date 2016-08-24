@@ -1,6 +1,6 @@
 -ignorewarnings
 
-# 建立使用fastjson转换的bean都实现Serializable接口
+# 建议使用fastjson转换的bean都实现Serializable接口
 -keepclassmembers class * implements java.ios.Serializable  {
    *;
 }

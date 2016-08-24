@@ -9,3 +9,4 @@ gradle/
 library/build/
 local.properties
 library/local.properties
+*.iml
