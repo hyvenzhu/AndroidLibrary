@@ -2,6 +2,8 @@ package com.android.baseline.framework.ui.adapter;
 
 import android.content.Context;
 
+import com.android.baseline.framework.logic.page.IPage;
+import com.android.baseline.framework.logic.page.Page1;
 import com.android.baseline.framework.ui.BasicAdapter;
 
 import java.util.List;
@@ -13,34 +15,25 @@ import java.util.Map;
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
 public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
-    private int currPageIndex; // 当前页下标
-    private int pageSize; // 分页大小
-    private int lastPageIndex; // 记录上一次的页下标
-    private IPage iPage; // 分页参数回调接口
-    private boolean isLoading; // 是否正在加载
-    private Object lock = new Object(); // 锁
-
-    public AbsPageAdapter(Context context, List<T> data, int resourceId, IPage iPage) {
+    Page1 page1;
+    public AbsPageAdapter(Context context, List<T> data, int resourceId, Page1 page1) {
         super(context, data, resourceId);
-        this.iPage = iPage;
-        initPageConfig();
+        initPage(page1);
     }
 
-    public AbsPageAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, IPage iPage) {
+    public AbsPageAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, Page1 page1) {
         super(context, data, itemTypeResourceMap);
-        this.iPage = iPage;
-        initPageConfig();
+        initPage(page1);
     }
 
     /**
      * 初始化分页参数
      */
-    private void initPageConfig()
+    private void initPage(Page1 page1)
     {
-        currPageIndex = getStartPageIndex() - 1;
-        lastPageIndex = currPageIndex;
-        pageSize = getPageSize();
-        isLoading = false;
+        this.page1 = page1;
+        page1.setStartPageIndex(getStartPageIndex())
+                .setPageSize(getPageSize());
     }
 
     /**
@@ -67,7 +60,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     public boolean isFirstPage()
     {
-        return currPageIndex <= getStartPageIndex();
+        return page1.isFirstPage();
     }
 
     /**
@@ -77,54 +70,16 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     public void loadPage(boolean isFirstPage)
     {
-        synchronized (lock)
-        {
-            if (isLoading) // 如果正在加载数据，则抛出异常
-            {
-                throw new RuntimeException();
-            }
-            else
-            {
-                isLoading = true;
-            }
-        }
-        if (isFirstPage)
-        {
-            currPageIndex = getStartPageIndex();
-        }
-        else
-        {
-            currPageIndex++;
-        }
-        iPage.load(currPageIndex, pageSize);
+        page1.loadPage(isFirstPage);
     }
 
     /**
      * 加载结束
      * @param success true：加载成功  false：失败(无数据)
      */
-    private void finishLoad(boolean success)
+    public void finishLoad(boolean success)
     {
-        synchronized (lock)
-        {
-            isLoading = false;
-        }
-        if (success)
-        {
-            lastPageIndex = currPageIndex;
-        }
-        else
-        {
-            currPageIndex = lastPageIndex;
-        }
-    }
-
-    /**
-     * 加载失败时调用
-     */
-    public void loadFailure()
-    {
-        finishLoad(false);
+        page1.finishLoad(success);
     }
 
     @Override
@@ -145,7 +100,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
         }
         else
         {
-            if (currPageIndex == getStartPageIndex())
+            if (isFirstPage())
             {
                 mData.clear();
             }

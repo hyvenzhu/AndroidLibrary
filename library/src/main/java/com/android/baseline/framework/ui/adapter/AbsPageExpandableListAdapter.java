@@ -2,7 +2,9 @@ package com.android.baseline.framework.ui.adapter;
 
 import android.content.Context;
 
+import com.android.baseline.framework.logic.page.Page1;
 import com.android.baseline.framework.ui.BasicExpandableListAdapter;
+import com.android.baseline.framework.logic.page.IPage;
 
 import java.util.List;
 import java.util.Map;
@@ -13,53 +15,42 @@ import java.util.Map;
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
 public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandableListAdapter<K, V> {
-    private int currPageIndex; // 当前页下标
-    private int pageSize; // 分页大小
-    private int lastPageIndex; // 记录上一次的页下标
-    private IPage iPage; // 分页参数回调接口
-    private boolean isLoading; // 是否正在加载
-    private Object lock = new Object(); // 锁
+    Page1 page1;
 
-
-    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId, IPage iPage) {
+    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId, Page1 page2) {
         super(context, group, children, groupResourceId, childrenResourceId);
-        this.iPage = iPage;
-        initPageConfig();
+        initPage(page2);
     }
 
     public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
                                         Map<Integer, Integer> groupItemTypeResourceMap,
-                                        Map<Integer, Integer> childItemTypeResourceMap, IPage iPage) {
+                                        Map<Integer, Integer> childItemTypeResourceMap, Page1 page2) {
         super(context, group, children, groupItemTypeResourceMap, childItemTypeResourceMap);
-        this.iPage = iPage;
-        initPageConfig();
+        initPage(page2);
     }
 
     public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
                                         int groupResourceId,
-                                        Map<Integer, Integer> childItemTypeResourceMap, IPage iPage) {
+                                        Map<Integer, Integer> childItemTypeResourceMap, Page1 page2) {
         super(context, group, children, groupResourceId, childItemTypeResourceMap);
-        this.iPage = iPage;
-        initPageConfig();
+        initPage(page2);
     }
 
     public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
                                         Map<Integer, Integer> groupItemTypeResourceMap,
-                                        int childrenResourceId, IPage iPage) {
+                                        int childrenResourceId, Page1 page2) {
         super(context, group, children, groupItemTypeResourceMap, childrenResourceId);
-        this.iPage = iPage;
-        initPageConfig();
+        initPage(page2);
     }
 
     /**
      * 初始化分页参数
      */
-    private void initPageConfig()
+    private void initPage(Page1 page2)
     {
-        currPageIndex = getStartPageIndex() - 1;
-        lastPageIndex = currPageIndex;
-        pageSize = getPageSize();
-        isLoading = false;
+        this.page1 = page2;
+        page2.setStartPageIndex(getStartPageIndex())
+                .setPageSize(getPageSize());
     }
 
     /**
@@ -86,7 +77,7 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
      */
     public boolean isFirstPage()
     {
-        return currPageIndex <= getStartPageIndex();
+        return page1.isFirstPage();
     }
 
     /**
@@ -96,54 +87,16 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
      */
     public void loadPage(boolean isFirstPage)
     {
-        synchronized (lock)
-        {
-            if (isLoading) // 如果正在加载数据，则抛出异常
-            {
-                throw new RuntimeException();
-            }
-            else
-            {
-                isLoading = true;
-            }
-        }
-        if (isFirstPage)
-        {
-            currPageIndex = getStartPageIndex();
-        }
-        else
-        {
-            currPageIndex++;
-        }
-        iPage.load(currPageIndex, pageSize);
+        page1.loadPage(isFirstPage);
     }
 
     /**
      * 加载结束
      * @param success true：加载成功  false：失败(无数据)
      */
-    private void finishLoad(boolean success)
+    public void finishLoad(boolean success)
     {
-        synchronized (lock)
-        {
-            isLoading = false;
-        }
-        if (success)
-        {
-            lastPageIndex = currPageIndex;
-        }
-        else
-        {
-            currPageIndex = lastPageIndex;
-        }
-    }
-
-    /**
-     * 加载失败时调用
-     */
-    public void loadFailure()
-    {
-        finishLoad(false);
+        page1.finishLoad(success);
     }
 
     @Override
@@ -165,7 +118,7 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
         }
         else
         {
-            if (currPageIndex == getStartPageIndex())
+            if (isFirstPage())
             {
                 mGroup.clear();
             }
@@ -178,7 +131,7 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
         }
         else
         {
-            if (currPageIndex == getStartPageIndex())
+            if (isFirstPage())
             {
                 mChildren.clear();
             }
