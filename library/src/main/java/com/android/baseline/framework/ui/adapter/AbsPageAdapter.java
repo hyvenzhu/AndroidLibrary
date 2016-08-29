@@ -84,8 +84,15 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
 
     @Override
     public void setDataSource(List<T> data) {
-        super.setDataSource(data);
-        finishLoad(true);
+        if (data == null || data.size() == 0)
+        {
+            finishLoad(false);
+        }
+        else
+        {
+            super.setDataSource(data);
+            finishLoad(true);
+        }
     }
 
     /**
@@ -94,18 +101,30 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     public final void addDataSource(List<T> data)
     {
-        if (mData == null)
+        if (data == null || data.size() == 0)
         {
-            mData = data;
-        }
-        else
-        {
-            if (isFirstPage())
+            if (isFirstPage() && mData != null) // 第一页,清空数据
             {
                 mData.clear();
             }
-            mData.addAll(data);
+
+            finishLoad(false);
         }
-        finishLoad(true);
+        else
+        {
+            if (mData == null)
+            {
+                mData = data;
+            }
+            else
+            {
+                if (isFirstPage())
+                {
+                    mData.clear();
+                }
+                mData.addAll(data);
+            }
+            finishLoad(true);
+        }
     }
 }

@@ -116,8 +116,16 @@ public abstract class AbsPageExpandableListAdapter2<K, V> extends BasicExpandabl
 
     @Override
     public void setDataSource(List<K> group, List<List<V>> children) {
-        super.setDataSource(group, children);
-        finishLoad(true);
+        if ((group == null || group.size() == 0)
+                && (children == null || children.size() == 0))
+        {
+            finishLoad(false);
+        }
+        else
+        {
+            super.setDataSource(group, children);
+            finishLoad(true);
+        }
     }
 
     /**
@@ -127,32 +135,52 @@ public abstract class AbsPageExpandableListAdapter2<K, V> extends BasicExpandabl
      */
     public final void addDataSource(List<K> group, List<List<V>> children)
     {
-        if (mGroup == null)
+        if ((group == null || group.size() == 0)
+                && (children == null || children.size() == 0))
         {
-            mGroup = group;
+            if (isFirstPage()) // 第一页,清空数据
+            {
+                if (mGroup != null)
+                {
+                    mGroup.clear();
+                }
+                if (mChildren != null)
+                {
+                    mChildren.clear();
+                }
+            }
+
+            finishLoad(false);
         }
         else
         {
-            if (isFirstPage())
+            if (mGroup == null)
             {
-                mGroup.clear();
+                mGroup = group;
             }
-            mGroup.addAll(group);
-        }
-
-        if (mChildren == null)
-        {
-            mChildren = children;
-        }
-        else
-        {
-            if (isFirstPage())
+            else
             {
-                mChildren.clear();
+                if (isFirstPage())
+                {
+                    mGroup.clear();
+                }
+                mGroup.addAll(group);
             }
-            mChildren.addAll(children);
-        }
 
-        finishLoad(true);
+            if (mChildren == null)
+            {
+                mChildren = children;
+            }
+            else
+            {
+                if (isFirstPage())
+                {
+                    mChildren.clear();
+                }
+                mChildren.addAll(children);
+            }
+
+            finishLoad(true);
+        }
     }
 }
