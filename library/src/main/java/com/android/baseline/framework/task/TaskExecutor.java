@@ -1,4 +1,4 @@
-package com.android.baseline.framework.rxtask;
+package com.android.baseline.framework.task;
 
 import android.os.Message;
 import org.greenrobot.eventbus.EventBus;

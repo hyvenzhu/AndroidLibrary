@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 
-import com.android.baseline.framework.rxtask.TaskExecutor;
 import com.android.baseline.framework.logic.InfoResult;
+import com.android.baseline.framework.task.TaskExecutor;
 import com.android.baseline.framework.ui.BasicActivity;
-import com.hiphonezhu.test.demo.base.ListEntry;
 
 /**
  * 网络请求测试
@@ -15,20 +14,20 @@ import com.hiphonezhu.test.demo.base.ListEntry;
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
 public class TestActivity extends BasicActivity{
-    private ModuleLogic moduleLogic;
+    private XLogic moduleLogic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        moduleLogic = registLogic(new ModuleLogic(this));
+        moduleLogic = registLogic(new XLogic(this));
 
         // 网络请求
         findViewById(R.id.net_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                moduleLogic.mobilenumber();
+                moduleLogic.getResult("18068440586");
             }
         });
 
@@ -61,18 +60,8 @@ public class TestActivity extends BasicActivity{
                 hideProgress();
                 if (checkResponse(msg))
                 {
-                    InfoResult<MobileBean> infoResult = (InfoResult)msg.obj;
-                    MobileBean retData = infoResult.getExtraObj();
-                    showToast(retData.toString());
-                }
-                break;
-            case R.id.citylist:
-                hideProgress();
-                if (checkResponse(msg))
-                {
-                    InfoResult<ListEntry<MobileBean>> infoResult = (InfoResult)msg.obj;
-                    ListEntry<MobileBean> retData = infoResult.getExtraObj();
-                    showToast(retData.toString());
+                    InfoResult phoneResult = (InfoResult)msg.obj;
+                    showToast(phoneResult.toString());
                 }
                 break;
             case R.id.testTask:

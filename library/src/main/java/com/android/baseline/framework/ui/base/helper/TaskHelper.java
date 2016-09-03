@@ -1,6 +1,6 @@
 package com.android.baseline.framework.ui.base.helper;
 
-import com.android.baseline.framework.rxtask.Task;
+import com.android.baseline.framework.task.Task;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,5 @@
 package com.android.baseline.framework.ui.base.helper;
 
-import com.android.baseline.framework.logic.BaseLogic;
-import com.android.baseline.framework.logic.ILogic;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +9,14 @@ import java.util.List;
  * @version [Android-BaseLine, 16/8/17 14:58]
  */
 public class LogicHelper {
-    private List<BaseLogic> logics = new ArrayList<BaseLogic>(); // 存储BaseLogic
+    private List<com.android.baseline.framework.logic.LogicHelper> logics = new ArrayList<com.android.baseline.framework.logic.LogicHelper>(); // 存储BaseLogic
     /**
      * 注册BaseLogic, Activity销毁时是自动取消解绑
      * @param logic
      * @param <T>
      * @return
      */
-    public <T extends BaseLogic> T registLogic(BaseLogic logic)
+    public <T extends com.android.baseline.framework.logic.LogicHelper> T registLogic(com.android.baseline.framework.logic.LogicHelper logic)
     {
         logics.add(logic);
         return (T)logic;
@@ -29,13 +26,12 @@ public class LogicHelper {
      * 解绑当前订阅者
      * @param iLogics
      */
-    public void unregist(ILogic... iLogics)
+    public void unregist(com.android.baseline.framework.logic.LogicHelper... iLogics)
     {
-        for(ILogic iLogic : iLogics)
+        for(com.android.baseline.framework.logic.LogicHelper iLogic : iLogics)
         {
             if (iLogic != null)
             {
-                iLogic.cancelAll();
                 iLogic.unregisterAll();
             }
         }
@@ -46,7 +42,7 @@ public class LogicHelper {
      */
     public void unregistAll()
     {
-        for(ILogic iLogic : logics)
+        for(com.android.baseline.framework.logic.LogicHelper iLogic : logics)
         {
             unregist(iLogic);
         }

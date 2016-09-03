@@ -7,10 +7,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.baseline.framework.rxtask.Task;
-import com.android.baseline.framework.logic.BaseLogic;
+import com.android.baseline.framework.task.Task;
+import com.android.baseline.framework.logic.LogicHelper;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
-import com.android.baseline.framework.ui.base.helper.LogicHelper;
 import com.android.baseline.framework.ui.base.helper.TaskHelper;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -43,7 +42,7 @@ public abstract class BaseFragment extends Fragment
         return view;
     }
 
-    LogicHelper logicHelper = new LogicHelper();
+    com.android.baseline.framework.ui.base.helper.LogicHelper logicHelper = new com.android.baseline.framework.ui.base.helper.LogicHelper();
     TaskHelper taskHelper = new TaskHelper();
     /**
      * 注册BaseLogic, Fragment销毁时是自动取消解绑
@@ -51,7 +50,7 @@ public abstract class BaseFragment extends Fragment
      * @param <T>
      * @return
      */
-    protected <T extends BaseLogic> T registLogic(BaseLogic logic)
+    protected <T extends LogicHelper> T registLogic(LogicHelper logic)
     {
         return logicHelper.registLogic(logic);
     }

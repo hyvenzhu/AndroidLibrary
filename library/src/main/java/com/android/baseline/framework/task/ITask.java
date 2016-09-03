@@ -1,4 +1,4 @@
-package com.android.baseline.framework.rxtask;
+package com.android.baseline.framework.task;
 
 /**
  * 任务接口定义

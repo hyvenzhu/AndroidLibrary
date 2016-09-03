@@ -1,4 +1,6 @@
 package com.android.baseline.framework.logic;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * 网络请求返回数据
  * @author hiphonezhu@gmail.com
@@ -6,26 +8,25 @@ package com.android.baseline.framework.logic;
  */
 public class InfoResult<T>
 {
-    private boolean success;
+    // 成功Code
+    public static final String SUCCESS_CODE = "0";
+
+    @SerializedName("errNum")
     private String errorCode;
+    @SerializedName("retMsg")
     private String desc;
+    @SerializedName("retData")
     private T extraObj;
 
-    public InfoResult(boolean success, String errorCode, String desc)
+    public InfoResult(String errorCode, String desc)
     {
-        this.success = success;
         this.errorCode = errorCode;
         this.desc = desc;
     }
 
     public boolean isSuccess()
     {
-        return success;
-    }
-
-    public void setSuccess(boolean success)
-    {
-        this.success = success;
+        return SUCCESS_CODE.equals(errorCode);
     }
 
     public String getErrorCode()

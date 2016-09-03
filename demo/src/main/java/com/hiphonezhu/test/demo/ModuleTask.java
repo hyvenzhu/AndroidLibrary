@@ -1,9 +1,10 @@
 package com.hiphonezhu.test.demo;
 
-import com.android.baseline.framework.rxtask.Task;
 import com.android.baseline.framework.logic.InfoResult;
+import com.android.baseline.framework.task.Task;
 
 /**
+ * 模拟异步任务
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 17:03]
  */
@@ -19,6 +20,6 @@ public class ModuleTask extends Task {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return new InfoResult(true, "0", "task over");
+        return new InfoResult("0", "task over");
     }
 }
