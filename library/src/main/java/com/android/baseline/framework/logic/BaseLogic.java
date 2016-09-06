@@ -56,7 +56,7 @@ public abstract class BaseLogic extends EventLogic {
     }
 
     /**
-     * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map or flaMap'等在BaseLogic的子类做好处理)
+     * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map、flaMap、doOnNext'等在BaseLogic的子类做好处理)
      * @param observable
      * @param what 请求标示
      */
