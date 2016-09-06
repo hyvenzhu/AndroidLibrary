@@ -2,8 +2,6 @@ package com.hiphonezhu.test.demo;
 
 import com.android.baseline.framework.logic.BaseLogic;
 
-import okhttp3.OkHttpClient;
-
 /**
  * 业务模块
  * @author hiphonezhu@gmail.com
@@ -24,10 +22,5 @@ public class XLogic extends BaseLogic {
     @Override
     public String getBaseUrl() {
         return "http://apis.baidu.com/";
-    }
-
-    @Override
-    public OkHttpClient getClient() {
-        return null;
     }
 }

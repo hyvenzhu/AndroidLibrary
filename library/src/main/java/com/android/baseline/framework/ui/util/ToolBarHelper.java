@@ -1,8 +1,11 @@
 package com.android.baseline.framework.ui.util;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +47,7 @@ public class ToolBarHelper {
     * 2、toolbar的高度获取
     * */
     private static int[] ATTRS = {
-            R.attr.windowActionBarOverlay,
-            R.attr.actionBarSize
+            R.attr.actionBarSize,
     };
 
     public ToolBarHelper(Context context, int layoutId) {
@@ -77,6 +79,22 @@ public class ToolBarHelper {
         mContentView.setLayoutParams(params);
     }
 
+    /**
+     * 设置整个Window的背景(状态栏+导航栏+Layout)
+     * tips: 4.4以下状态栏无效果
+     * @param resid
+     */
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    public void setWindowBackground(int resid)
+    {
+        mContentView.setBackgroundResource(resid);
+        // Layout布局的背景设为透明(否则看不到window设置的背景)
+        if (resid != 0)
+        {
+            mUserView.setBackgroundColor(Color.TRANSPARENT);
+        }
+    }
+
     private void initToolBar() {
         /*通过inflater获取toolbar的布局文件*/
         View toolbar = mInflater.inflate(R.layout.toolbar, mContentView);
@@ -89,12 +107,17 @@ public class ToolBarHelper {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         TypedArray typedArray = mContext.getTheme().obtainStyledAttributes(ATTRS);
         /*获取主题中定义的toolbar的高度*/
-        int toolBarSize = (int) typedArray.getDimension(1,(int) mContext.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
-        typedArray.recycle();
-        /*如果是悬浮状态，则不需要设置间距；ToolBar不可见也不设置间距*/
+        int toolBarSize = (int) typedArray.getDimension(0,(int) mContext.getResources().getDimension(R.dimen.abc_action_bar_default_height_material));
+
+        /*ToolBar不可见也不设置间距*/
         params.topMargin = !mToolBarVisible ? 0 : toolBarSize;
-        // 用户的布局默认设为白色
-//        mUserView.setBackgroundColor(Color.WHITE);
+        // 用户的布局背景
+        Drawable bgDrawable = mUserView.getBackground();
+        if (bgDrawable == null)
+        {
+            mUserView.setBackgroundColor(Color.WHITE);
+        }
+        typedArray.recycle();
         mContentView.addView(mUserView, params);
     }
 

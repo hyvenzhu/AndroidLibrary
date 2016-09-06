@@ -43,7 +43,7 @@ public class TestActivity extends BasicActivity{
 
     @Override
     protected boolean isToolBarVisible() {
-        return super.isToolBarVisible();
+        return true;
     }
 
     @Override

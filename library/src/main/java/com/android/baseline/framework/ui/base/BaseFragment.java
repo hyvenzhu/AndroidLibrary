@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.baseline.framework.task.Task;
-import com.android.baseline.framework.logic.LogicHelper;
+import com.android.baseline.framework.logic.EventLogic;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 import com.android.baseline.framework.ui.base.helper.TaskHelper;
 
@@ -50,7 +50,7 @@ public abstract class BaseFragment extends Fragment
      * @param <T>
      * @return
      */
-    protected <T extends LogicHelper> T registLogic(LogicHelper logic)
+    protected <T extends EventLogic> T registLogic(EventLogic logic)
     {
         return logicHelper.registLogic(logic);
     }

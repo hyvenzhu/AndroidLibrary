@@ -58,4 +58,13 @@ public class InfoResult<T>
     {
         this.desc = desc;
     }
+
+    @Override
+    public String toString() {
+        return "InfoResult{" +
+                "errorCode='" + errorCode + '\'' +
+                ", desc='" + desc + '\'' +
+                ", extraObj=" + extraObj +
+                '}';
+    }
 }

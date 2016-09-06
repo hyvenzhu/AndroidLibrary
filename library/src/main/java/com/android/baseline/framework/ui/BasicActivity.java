@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.logic.InfoResult;

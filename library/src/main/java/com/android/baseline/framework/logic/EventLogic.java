@@ -11,7 +11,7 @@ import java.util.List;
  * 维护Logic的订阅者,以及提供取消订阅等方法
  * @version [Android-BaseLine, 16/9/3 11:07]
  */
-public class LogicHelper
+public class EventLogic
 {
     // 存储所有的订阅者
     private List<Object> subscribers = new ArrayList<Object>();
@@ -22,7 +22,7 @@ public class LogicHelper
      * Constructor with a subscriber and custom volleyTag
      * @param subscriber
      */
-    public LogicHelper(Object subscriber)
+    public EventLogic(Object subscriber)
     {
         this(subscriber, new EventBus());
     }
@@ -31,7 +31,7 @@ public class LogicHelper
      * Constructor with custom EventBus and volleyTag
      * @param eventBus
      */
-    public LogicHelper(Object subscriber, EventBus eventBus)
+    public EventLogic(Object subscriber, EventBus eventBus)
     {
         if (eventBus == null)
         {

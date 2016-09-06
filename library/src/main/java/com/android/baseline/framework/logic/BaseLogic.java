@@ -14,7 +14,7 @@ import rx.schedulers.Schedulers;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/3 11:07]
  */
-public abstract class BaseLogic extends LogicHelper {
+public abstract class BaseLogic extends EventLogic {
     protected Retrofit retrofit;
 
     /**
@@ -56,7 +56,7 @@ public abstract class BaseLogic extends LogicHelper {
     }
 
     /**
-     * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map or flaMap'等在Manager做好处理)
+     * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map or flaMap'等在BaseLogic的子类做好处理)
      * @param observable
      * @param what 请求标示
      */
@@ -92,5 +92,8 @@ public abstract class BaseLogic extends LogicHelper {
      * 自定义OkHttpClient,常用于实现拦截器
      * @return
      */
-    public abstract OkHttpClient getClient();
+    public OkHttpClient getClient()
+    {
+        return null;
+    }
 }

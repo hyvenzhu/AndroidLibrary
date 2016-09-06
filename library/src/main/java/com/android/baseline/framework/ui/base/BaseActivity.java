@@ -5,9 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.android.baseline.R;
+import com.android.baseline.framework.logic.EventLogic;
 import com.android.baseline.framework.task.Task;
-import com.android.baseline.framework.logic.LogicHelper;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+import com.android.baseline.framework.ui.base.helper.LogicHelper;
 import com.android.baseline.framework.ui.base.helper.TaskHelper;
 import com.android.baseline.framework.ui.util.ToolBarHelper;
 
@@ -38,6 +39,11 @@ public abstract class BaseActivity extends AppCompatActivity
         ViewUtils.inject(this);
 
         afterSetContentView();
+    }
+
+    public void setWindowBackground(int resid)
+    {
+        mToolBarHelper.setWindowBackground(resid);
     }
 
     /**
@@ -74,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity
 
     }
 
-    com.android.baseline.framework.ui.base.helper.LogicHelper logicHelper = new com.android.baseline.framework.ui.base.helper.LogicHelper();
+    LogicHelper logicHelper = new LogicHelper();
     TaskHelper taskHelper = new TaskHelper();
     /**
      * 注册BaseLogic, Activity销毁时是自动取消解绑
@@ -82,7 +88,7 @@ public abstract class BaseActivity extends AppCompatActivity
      * @param <T>
      * @return
      */
-    protected <T extends LogicHelper> T registLogic(LogicHelper logic)
+    protected <T extends EventLogic> T registLogic(EventLogic logic)
     {
         return logicHelper.registLogic(logic);
     }

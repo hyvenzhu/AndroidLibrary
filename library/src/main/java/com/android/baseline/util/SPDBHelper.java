@@ -1,13 +1,16 @@
 package com.android.baseline.util;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.android.baseline.framework.db.BaseDAO;
+
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * SharedPreferences的数据库实现方式
@@ -30,8 +33,6 @@ public class SPDBHelper
                 .append(" TEXT)")
                 .toString();
     
-    private static final Executor mExecutor = Executors.newCachedThreadPool();
-
     /** 数据库操作对象 */
     private BaseDAO baseDAO;
 
@@ -42,16 +43,15 @@ public class SPDBHelper
     
     public void contains(final String key, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                listener.onResult(contains(key));
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(contains(key));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
-    
+
     private boolean contains(final String key)
     {
         boolean isExist = false;
@@ -83,14 +83,13 @@ public class SPDBHelper
 
     public static void contains(final SQLiteDatabase db, final String key, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                listener.onResult(contains(db, key));
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(contains(db, key));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
     private static boolean contains(final SQLiteDatabase db, final String key)
@@ -125,14 +124,13 @@ public class SPDBHelper
     
     public void getBoolean(final String key, final boolean defaultResult, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                listener.onResult(getBoolean(key, defaultResult));
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(getBoolean(key, defaultResult));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
     /**
@@ -173,18 +171,13 @@ public class SPDBHelper
 
     public void putBoolean(final String key, final boolean value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putBoolean(key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putBoolean(key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
     /**
@@ -193,18 +186,18 @@ public class SPDBHelper
      * @param key
      * @param value
      */
-    public void putBoolean(String key, boolean value)
+    public boolean putBoolean(String key, boolean value)
     {
         if (contains(key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.update(TABLE_NAME,
+            return baseDAO.update(TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -213,28 +206,23 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.insert(TABLE_NAME,
-                    values);
+            return baseDAO.insert(TABLE_NAME,
+                    values) != -1;
         }
     }
     
     public static void putBoolean(final SQLiteDatabase db, final String key, final boolean value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putBoolean(db, key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putBoolean(db, key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public static void putBoolean(SQLiteDatabase db, String key, boolean value)
+    public static boolean putBoolean(SQLiteDatabase db, String key, boolean value)
     {
         if (contains(db,
                 key))
@@ -242,12 +230,12 @@ public class SPDBHelper
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.update(db,
+            return BaseDAO.update(db,
                     TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -256,22 +244,21 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.insert(db,
+            return BaseDAO.insert(db,
                     TABLE_NAME,
-                    values);
+                    values) != -1;
         }
     }
     
     public void getString(final String key, final String defaultValue, final ResultListener<String> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<String>() {
             @Override
-            public void run()
-            {
-                listener.onResult(getString(key, defaultValue));
+            public void call(Subscriber<? super String> subscriber) {
+                subscriber.onNext(getString(key, defaultValue));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
     public String getString(String key, String defaultValue)
@@ -306,32 +293,27 @@ public class SPDBHelper
     
     public void putString(final String key, final String value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putString(key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putString(key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public void putString(String key, String value)
+    public boolean putString(String key, String value)
     {
         if (contains(key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.update(TABLE_NAME,
+            return baseDAO.update(TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -340,28 +322,23 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.insert(TABLE_NAME,
-                    values);
+            return baseDAO.insert(TABLE_NAME,
+                    values) != -1;
         }
     }
     
     public static void putString(final SQLiteDatabase db, final String key, final String value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putString(db, key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putString(db, key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public static void putString(SQLiteDatabase db, String key, String value)
+    public static boolean putString(SQLiteDatabase db, String key, String value)
     {
         if (contains(db,
                 key))
@@ -369,12 +346,12 @@ public class SPDBHelper
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.update(db,
+            return BaseDAO.update(db,
                     TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -383,22 +360,21 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.insert(db,
+            return BaseDAO.insert(db,
                     TABLE_NAME,
-                    values);
+                    values) != -1;
         }
     }
     
     public void getInteger(final String key, final int defaultValue, final ResultListener<Integer> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Integer>() {
             @Override
-            public void run()
-            {
-                listener.onResult(getInteger(key, defaultValue));
+            public void call(Subscriber<? super Integer> subscriber) {
+                subscriber.onNext(getInteger(key, defaultValue));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
     public int getInteger(String key, int defaultValue)
@@ -433,32 +409,27 @@ public class SPDBHelper
 
     public void putInteger(final String key, final int value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putInteger(key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putInteger(key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
-    public void putInteger(String key, int value)
+    public boolean putInteger(String key, int value)
     {
         if (contains(key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.update(TABLE_NAME,
+            return baseDAO.update(TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -467,39 +438,34 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.insert(TABLE_NAME,
-                    values);
+            return baseDAO.insert(TABLE_NAME,
+                    values) != -1;
         }
     }
     
     public static void putInteger(final SQLiteDatabase db, final String key, final int value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putInteger(db, key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putInteger(db, key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
-    public static void putInteger(SQLiteDatabase db, String key, int value)
+    public static boolean putInteger(SQLiteDatabase db, String key, int value)
     {
         if (contains(db, key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.update(db, TABLE_NAME,
+            return BaseDAO.update(db, TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -508,20 +474,19 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.insert(db, TABLE_NAME, values);
+            return BaseDAO.insert(db, TABLE_NAME, values) != -1;
         }
     }
     
     public void getLong(final String key, final long defaultValue, final ResultListener<Long> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Long>() {
             @Override
-            public void run()
-            {
-                listener.onResult(getLong(key, defaultValue));
+            public void call(Subscriber<? super Long> subscriber) {
+                subscriber.onNext(getLong(key, defaultValue));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
     public long getLong(String key, long defaultValue)
@@ -556,32 +521,27 @@ public class SPDBHelper
     
     public void putLong(final String key, final long value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putLong(key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putLong(key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public void putLong(String key, long value)
+    public boolean putLong(String key, long value)
     {
         if (contains(key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.update(TABLE_NAME,
+            return baseDAO.update(TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -590,28 +550,23 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.insert(TABLE_NAME,
-                    values);
+            return baseDAO.insert(TABLE_NAME,
+                    values) != -1;
         }
     }
     
     public static void putLong(final SQLiteDatabase db, final String key, final long value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putLong(db, key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putLong(db, key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public static void putLong(SQLiteDatabase db, String key, long value)
+    public static boolean putLong(SQLiteDatabase db, String key, long value)
     {
         if (contains(db,
                 key))
@@ -619,12 +574,12 @@ public class SPDBHelper
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.update(db,
+            return BaseDAO.update(db,
                     TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -633,23 +588,21 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.insert(db,
+            return BaseDAO.insert(db,
                     TABLE_NAME,
-                    values);
+                    values) != -1;
         }
     }
     
     public void getDouble(final String key, final double defaultValue, final ResultListener<Double> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
-            
+        onResult(new Observable.OnSubscribe<Double>() {
             @Override
-            public void run()
-            {
-                listener.onResult(getDouble(key, defaultValue));
+            public void call(Subscriber<? super Double> subscriber) {
+                subscriber.onNext(getDouble(key, defaultValue));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
     public double getDouble(String key, double defaultValue)
@@ -684,32 +637,27 @@ public class SPDBHelper
 
     public void putDouble(final String key, final double value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putDouble(key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putDouble(key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
-    public void putDouble(String key, double value)
+    public boolean putDouble(String key, double value)
     {
         if (contains(key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.update(TABLE_NAME,
+            return baseDAO.update(TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -718,28 +666,23 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.insert(TABLE_NAME,
-                    values);
+            return baseDAO.insert(TABLE_NAME,
+                    values) != 0;
         }
     }
     
     public static void putDouble(final SQLiteDatabase db, final String key, final double value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putDouble(db, key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putDouble(db, key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public static void putDouble(SQLiteDatabase db, String key, double value)
+    public static boolean putDouble(SQLiteDatabase db, String key, double value)
     {
         if (contains(db,
                 key))
@@ -747,12 +690,12 @@ public class SPDBHelper
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.update(db,
+            return BaseDAO.update(db,
                     TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -761,22 +704,21 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.insert(db,
+            return BaseDAO.insert(db,
                     TABLE_NAME,
-                    values);
+                    values) != -1;
         }
     }
     
     public void getFloat(final String key, final float defaultValue, final ResultListener<Float> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
+        onResult(new Observable.OnSubscribe<Float>() {
             @Override
-            public void run()
-            {
-                listener.onResult(getFloat(key, defaultValue));
+            public void call(Subscriber<? super Float> subscriber) {
+                subscriber.onNext(getFloat(key, defaultValue));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
     
     public float getFloat(String key, float defaultValue)
@@ -811,33 +753,27 @@ public class SPDBHelper
     
     public void putFloat(final String key, final float value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
-            
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putFloat(key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putFloat(key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public void putFloat(String key, float value)
+    public boolean putFloat(String key, float value)
     {
         if (contains(key))
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.update(TABLE_NAME,
+            return baseDAO.update(TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -846,29 +782,23 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            baseDAO.insert(TABLE_NAME,
-                    values);
+            return baseDAO.insert(TABLE_NAME,
+                    values) != -1;
         }
     }
     
     public static void putFloat(final SQLiteDatabase db, final String key, final float value, final ResultListener<Boolean> listener)
     {
-        mExecutor.execute(new Runnable()
-        {
-            
+        onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
-            public void run()
-            {
-                putFloat(db, key, value);
-                if (listener != null)
-                {
-                    listener.onResult(true);
-                }
+            public void call(Subscriber<? super Boolean> subscriber) {
+                subscriber.onNext(putFloat(db, key, value));
+                subscriber.onCompleted();
             }
-        });
+        }, listener);
     }
 
-    public static void putFloat(SQLiteDatabase db, String key, float value)
+    public static boolean putFloat(SQLiteDatabase db, String key, float value)
     {
         if (contains(db,
                 key))
@@ -876,12 +806,12 @@ public class SPDBHelper
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.update(db,
+            return BaseDAO.update(db,
                     TABLE_NAME,
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key });
+                    { key }) > 0;
         }
         else
         {
@@ -890,10 +820,22 @@ public class SPDBHelper
                     key);
             values.put(COLUMN_VALUE,
                     value);
-            BaseDAO.insert(db,
+            return BaseDAO.insert(db,
                     TABLE_NAME,
-                    values);
+                    values) != -1;
         }
+    }
+
+    private static <T> void onResult(Observable.OnSubscribe<T> onSubscribe, final ResultListener<T> listener) {
+        Observable.create(onSubscribe)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<T>() {
+                    @Override
+                    public void call(T o) {
+                        listener.onResult(o);
+                    }
+                });
     }
     
     public interface ResultListener<T>
