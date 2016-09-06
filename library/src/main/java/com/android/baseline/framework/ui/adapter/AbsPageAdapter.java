@@ -3,7 +3,6 @@ package com.android.baseline.framework.ui.adapter;
 import android.content.Context;
 
 import com.android.baseline.framework.logic.page.IPage;
-import com.android.baseline.framework.logic.page.Page1;
 import com.android.baseline.framework.ui.BasicAdapter;
 
 import java.util.List;
@@ -15,24 +14,24 @@ import java.util.Map;
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
 public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
-    Page1 page1;
-    public AbsPageAdapter(Context context, List<T> data, int resourceId, Page1 page1) {
+    IPage page;
+    public AbsPageAdapter(Context context, List<T> data, int resourceId, IPage page) {
         super(context, data, resourceId);
-        initPage(page1);
+        initPage(page);
     }
 
-    public AbsPageAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, Page1 page1) {
+    public AbsPageAdapter(Context context, List<T> data, Map<Integer, Integer> itemTypeResourceMap, IPage page) {
         super(context, data, itemTypeResourceMap);
-        initPage(page1);
+        initPage(page);
     }
 
     /**
      * 初始化分页参数
      */
-    private void initPage(Page1 page1)
+    private void initPage(IPage page)
     {
-        this.page1 = page1;
-        page1.setStartPageIndex(getStartPageIndex())
+        this.page = page;
+        this.page.setStartPageIndex(getStartPageIndex())
                 .setPageSize(getPageSize());
     }
 
@@ -60,7 +59,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     public boolean isFirstPage()
     {
-        return page1.isFirstPage();
+        return page.isFirstPage();
     }
 
     /**
@@ -70,7 +69,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     public void loadPage(boolean isFirstPage)
     {
-        page1.loadPage(isFirstPage);
+        page.loadPage(isFirstPage);
     }
 
     /**
@@ -79,7 +78,7 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
      */
     public void finishLoad(boolean success)
     {
-        page1.finishLoad(success);
+        page.finishLoad(success);
     }
 
     @Override
@@ -126,5 +125,21 @@ public abstract class AbsPageAdapter<T> extends BasicAdapter<T> {
             }
             finishLoad(true);
         }
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex()
+    {
+        page.decreaseStartIndex();
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex(int size)
+    {
+        page.decreaseStartIndex(size);
     }
 }

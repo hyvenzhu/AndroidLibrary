@@ -154,4 +154,18 @@ public abstract class IPage {
             currPageIndex = lastPageIndex;
         }
     }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex()
+    {
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex(int size)
+    {
+    }
 }

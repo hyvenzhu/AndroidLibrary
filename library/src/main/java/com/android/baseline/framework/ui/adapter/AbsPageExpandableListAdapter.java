@@ -2,9 +2,8 @@ package com.android.baseline.framework.ui.adapter;
 
 import android.content.Context;
 
-import com.android.baseline.framework.logic.page.Page1;
-import com.android.baseline.framework.ui.BasicExpandableListAdapter;
 import com.android.baseline.framework.logic.page.IPage;
+import com.android.baseline.framework.ui.BasicExpandableListAdapter;
 
 import java.util.List;
 import java.util.Map;
@@ -15,41 +14,41 @@ import java.util.Map;
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
 public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandableListAdapter<K, V> {
-    Page1 page1;
+    IPage page;
 
-    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId, Page1 page2) {
+    public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children, int groupResourceId, int childrenResourceId, IPage page) {
         super(context, group, children, groupResourceId, childrenResourceId);
-        initPage(page2);
+        initPage(page);
     }
 
     public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
                                         Map<Integer, Integer> groupItemTypeResourceMap,
-                                        Map<Integer, Integer> childItemTypeResourceMap, Page1 page2) {
+                                        Map<Integer, Integer> childItemTypeResourceMap, IPage page) {
         super(context, group, children, groupItemTypeResourceMap, childItemTypeResourceMap);
-        initPage(page2);
+        initPage(page);
     }
 
     public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
                                         int groupResourceId,
-                                        Map<Integer, Integer> childItemTypeResourceMap, Page1 page2) {
+                                        Map<Integer, Integer> childItemTypeResourceMap, IPage page) {
         super(context, group, children, groupResourceId, childItemTypeResourceMap);
-        initPage(page2);
+        initPage(page);
     }
 
     public AbsPageExpandableListAdapter(Context context, List<K> group, List<List<V>> children,
                                         Map<Integer, Integer> groupItemTypeResourceMap,
-                                        int childrenResourceId, Page1 page2) {
+                                        int childrenResourceId, IPage page) {
         super(context, group, children, groupItemTypeResourceMap, childrenResourceId);
-        initPage(page2);
+        initPage(page);
     }
 
     /**
      * 初始化分页参数
      */
-    private void initPage(Page1 page2)
+    private void initPage(IPage page)
     {
-        this.page1 = page2;
-        page2.setStartPageIndex(getStartPageIndex())
+        this.page = page;
+        this.page.setStartPageIndex(getStartPageIndex())
                 .setPageSize(getPageSize());
     }
 
@@ -77,7 +76,7 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
      */
     public boolean isFirstPage()
     {
-        return page1.isFirstPage();
+        return page.isFirstPage();
     }
 
     /**
@@ -87,7 +86,7 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
      */
     public void loadPage(boolean isFirstPage)
     {
-        page1.loadPage(isFirstPage);
+        page.loadPage(isFirstPage);
     }
 
     /**
@@ -96,7 +95,7 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
      */
     public void finishLoad(boolean success)
     {
-        page1.finishLoad(success);
+        page.finishLoad(success);
     }
 
     @Override
@@ -167,5 +166,21 @@ public abstract class AbsPageExpandableListAdapter<K, V> extends BasicExpandable
 
             finishLoad(true);
         }
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex()
+    {
+        page.decreaseStartIndex();
+    }
+
+    /**
+     * 起始下标递减
+     */
+    public void decreaseStartIndex(int size)
+    {
+        page.decreaseStartIndex(size);
     }
 }
