@@ -8,7 +8,7 @@ package com.android.baseline.framework.logic.page;
 public abstract class Page1 extends IPage
 {
     @Override
-    public int handlePageIndex(int currPageIndex) {
+    public int handlePageIndex(int currPageIndex, int pageSize) {
         return ++currPageIndex;
     }
 

@@ -34,9 +34,10 @@ public abstract class IPage {
     /**
      * 根据分页策略,处理第一个分页参数
      * @param currPageIndex
+     * @param pageSize
      * @return
      */
-    public abstract int handlePageIndex(int currPageIndex);
+    public abstract int handlePageIndex(int currPageIndex, int pageSize);
 
     /**
      * 根据分页策略,处理第二个分页参数
@@ -124,13 +125,13 @@ public abstract class IPage {
                 isLoading = true;
             }
         }
-        if (isFirstPage)
+        if (isFirstPage) // 加载第一页数据
         {
             currPageIndex = getStartPageIndex();
         }
         else
         {
-            currPageIndex = handlePageIndex(currPageIndex);
+            currPageIndex = handlePageIndex(currPageIndex, pageSize);
         }
         load(currPageIndex, handlePage(currPageIndex, pageSize));
     }

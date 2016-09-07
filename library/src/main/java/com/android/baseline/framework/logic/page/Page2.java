@@ -8,10 +8,10 @@ package com.android.baseline.framework.logic.page;
 public abstract class Page2 extends IPage
 {
     @Override
-    public int handlePageIndex(int currPageIndex) {
-        if (currPageIndex == -1) // 第一页
+    public int handlePageIndex(int currPageIndex, int pageSize) {
+        if (currPageIndex == getStartPageIndex() - 1) // 加载第一页数据(防止第一页使用"上拉加载更多")
         {
-            return 0;
+            return getStartPageIndex();
         }
         return currPageIndex + pageSize;
     }
