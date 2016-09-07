@@ -9,6 +9,10 @@ public abstract class Page2 extends IPage
 {
     @Override
     public int handlePageIndex(int currPageIndex) {
+        if (currPageIndex == -1) // 第一页
+        {
+            return 0;
+        }
         return currPageIndex + pageSize;
     }
 
