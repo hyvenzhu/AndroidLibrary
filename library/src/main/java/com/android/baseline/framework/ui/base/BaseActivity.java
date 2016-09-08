@@ -10,7 +10,7 @@ import com.android.baseline.framework.task.Task;
 import com.android.baseline.framework.ui.base.annotations.ViewUtils;
 import com.android.baseline.framework.ui.base.helper.LogicHelper;
 import com.android.baseline.framework.ui.base.helper.TaskHelper;
-import com.android.baseline.framework.ui.util.ToolBarHelper;
+import com.android.baseline.framework.ui.util.ContentViewHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -22,13 +22,13 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class BaseActivity extends AppCompatActivity
 {
-    private ToolBarHelper mToolBarHelper ;
+    private ContentViewHelper mToolBarHelper ;
     public Toolbar toolbar ;
     private boolean isDestroyed; // Activity是否已销毁
     @Override
     public void setContentView(int layoutResID)
     {
-        mToolBarHelper = new ToolBarHelper(this, layoutResID, isToolBarVisible(), getToolBarColor()) ;
+        mToolBarHelper = new ContentViewHelper(this, layoutResID, isToolBarVisible(), getToolBarColor()) ;
         toolbar = mToolBarHelper.getToolBar() ;
         super.setContentView(mToolBarHelper.getContentView());
         /*把 toolbar 设置到Activity 中*/

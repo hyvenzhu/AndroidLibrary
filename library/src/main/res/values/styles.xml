@@ -21,10 +21,5 @@
 
     <!-- 公共属性-->
     <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <!--导航栏底色-->
-        <item name="colorPrimary">@color/primary</item>
-        <!--状态栏底色 5.0以下无效-->
-        <item name="colorPrimaryDark">@color/primary</item>
     </style>
 </resources>

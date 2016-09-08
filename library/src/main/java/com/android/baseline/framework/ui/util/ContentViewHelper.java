@@ -15,11 +15,11 @@ import android.widget.FrameLayout;
 import com.android.baseline.R;
 
 /**
- * ToolBar辅助类
+ * 用于实现沉浸式效果的帮助类
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-10-07 20:52]
 */
-public class ToolBarHelper {
+public class ContentViewHelper {
     /*上下文，创建view的时候需要用到*/
     private Context mContext;
 
@@ -50,11 +50,11 @@ public class ToolBarHelper {
             R.attr.actionBarSize,
     };
 
-    public ToolBarHelper(Context context, int layoutId) {
+    public ContentViewHelper(Context context, int layoutId) {
         this(context, layoutId, true, context.getResources().getColor(R.color.primary));
     }
 
-    public ToolBarHelper(Context context, int layoutId, boolean isToolBarVisible, int toolBarColor) {
+    public ContentViewHelper(Context context, int layoutId, boolean isToolBarVisible, int toolBarColor) {
         this.mContext = context;
         mInflater = LayoutInflater.from(mContext);
         this.mToolBarVisible = isToolBarVisible;
