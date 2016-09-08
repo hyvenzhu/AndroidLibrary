@@ -13,7 +13,7 @@ import rx.functions.Action1;
 import rx.schedulers.Schedulers;
 
 /**
- * SharedPreferences的数据库实现方式
+ * key-value数据库
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-2-20]
  */
@@ -36,8 +36,20 @@ public class SPDBHelper
     /** 数据库操作对象 */
     private BaseDAO baseDAO;
 
+    private static String keyPrefix; // key前缀, 常用来区分用户
+
     public SPDBHelper()
     {
+        this(null);
+    }
+
+    public SPDBHelper(String keyPrefix)
+    {
+        if (keyPrefix == null)
+        {
+            keyPrefix = "";
+        }
+        this.keyPrefix = keyPrefix;
         baseDAO = BaseDAO.getInstance();
     }
     
@@ -62,7 +74,7 @@ public class SPDBHelper
                     null,
                     COLUMN_KEY + "=?",
                     new String[]
-                               { key },
+                               { wrapKey(key) },
                                null,
                                null,
                                null);
@@ -103,7 +115,7 @@ public class SPDBHelper
                     null,
                     COLUMN_KEY + "=?",
                     new String[]
-                               { key },
+                               { wrapKey(key) },
                                null,
                                null,
                                null);
@@ -150,7 +162,7 @@ public class SPDBHelper
                     null,
                     COLUMN_KEY + "=?",
                     new String[]
-                               { key },
+                               { wrapKey(key) },
                                null,
                                null,
                                null);
@@ -197,13 +209,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return baseDAO.insert(TABLE_NAME,
@@ -235,13 +247,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return BaseDAO.insert(db,
@@ -272,7 +284,7 @@ public class SPDBHelper
                     { COLUMN_VALUE },
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key },
+                    { wrapKey(key) },
                     null,
                     null,
                     null);
@@ -313,13 +325,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return baseDAO.insert(TABLE_NAME,
@@ -351,13 +363,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return BaseDAO.insert(db,
@@ -388,7 +400,7 @@ public class SPDBHelper
                     { COLUMN_VALUE },
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key },
+                    { wrapKey(key) },
                     null,
                     null,
                     null);
@@ -429,13 +441,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return baseDAO.insert(TABLE_NAME,
@@ -465,13 +477,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return BaseDAO.insert(db, TABLE_NAME, values) != -1;
@@ -500,7 +512,7 @@ public class SPDBHelper
                     { COLUMN_VALUE },
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key },
+                    { wrapKey(key) },
                     null,
                     null,
                     null);
@@ -541,13 +553,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return baseDAO.insert(TABLE_NAME,
@@ -579,13 +591,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return BaseDAO.insert(db,
@@ -616,7 +628,7 @@ public class SPDBHelper
                     { COLUMN_VALUE },
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key },
+                    { wrapKey(key) },
                     null,
                     null,
                     null);
@@ -657,13 +669,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return baseDAO.insert(TABLE_NAME,
@@ -695,13 +707,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return BaseDAO.insert(db,
@@ -732,7 +744,7 @@ public class SPDBHelper
                     { COLUMN_VALUE },
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key },
+                    { wrapKey(key) },
                     null,
                     null,
                     null);
@@ -773,13 +785,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return baseDAO.insert(TABLE_NAME,
@@ -811,13 +823,13 @@ public class SPDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { key }) > 0;
+                    { wrapKey(key) }) > 0;
         }
         else
         {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
-                    key);
+                    wrapKey(key));
             values.put(COLUMN_VALUE,
                     value);
             return BaseDAO.insert(db,
@@ -836,6 +848,16 @@ public class SPDBHelper
                         listener.onResult(o);
                     }
                 });
+    }
+
+    /**
+     * 给key加上前缀
+     * @param key
+     * @return
+     */
+    private static String wrapKey(String key)
+    {
+        return keyPrefix + "_" + key;
     }
     
     public interface ResultListener<T>
