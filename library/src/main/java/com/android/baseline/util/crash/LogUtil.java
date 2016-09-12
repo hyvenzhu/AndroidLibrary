@@ -1,4 +1,10 @@
-package com.android.baseline.util.crash2email;
+package com.android.baseline.util.crash;
+
+import android.os.Environment;
+import android.util.Log;
+
+import com.android.baseline.AppDroid;
+import com.android.baseline.util.APKUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,12 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-
-import android.os.Environment;
-import android.util.Log;
-
-import com.android.baseline.AppDroid;
-import com.android.baseline.util.APKUtil;
 
 /**
  * 日志的功能操作类 可将日志保存至SD卡
@@ -48,8 +48,6 @@ public class LogUtil
 
     private static boolean isPrintStackInfo = true;
     
-    public static final String TIME_TAG = "Time";
-
     /**
      * 保存LOG日志的目录
      */

@@ -22,13 +22,12 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class BaseActivity extends AppCompatActivity
 {
-    private ContentViewHelper mToolBarHelper ;
     public Toolbar toolbar ;
     private boolean isDestroyed; // Activity是否已销毁
     @Override
     public void setContentView(int layoutResID)
     {
-        mToolBarHelper = new ContentViewHelper(this, layoutResID, isToolBarVisible(), getToolBarColor()) ;
+        ContentViewHelper mToolBarHelper = new ContentViewHelper(this, layoutResID, defaultTitleBarVisible()) ;
         toolbar = mToolBarHelper.getToolBar() ;
         super.setContentView(mToolBarHelper.getContentView());
         /*把 toolbar 设置到Activity 中*/
@@ -41,25 +40,11 @@ public abstract class BaseActivity extends AppCompatActivity
         afterSetContentView();
     }
 
-    public void setWindowBackground(int resid)
-    {
-        mToolBarHelper.setWindowBackground(resid);
-    }
-
     /**
-     * ToolBar颜色
+     * 默认标题栏是否可见
      * @return
      */
-    protected int getToolBarColor()
-    {
-        return getResources().getColor(R.color.primary);
-    }
-
-    /**
-     * ToolBar隐藏与显示
-     * @return
-     */
-    protected boolean isToolBarVisible()
+    protected boolean defaultTitleBarVisible()
     {
         return true;
     }

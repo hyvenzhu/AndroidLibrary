@@ -5,7 +5,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.android.baseline.framework.ui.util.UIStateHelper;
-import com.android.baseline.util.crash2email.GlobalExceptionHandler;
+import com.android.baseline.util.crash.GlobalExceptionHandler;
 
 /**
  * App application

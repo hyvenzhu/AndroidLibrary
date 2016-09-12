@@ -2,6 +2,7 @@ package com.hiphonezhu.test.demo;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.android.baseline.framework.logic.InfoResult;
@@ -13,12 +14,12 @@ import com.android.baseline.framework.ui.BasicActivity;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
-public class TestActivity extends BasicActivity{
+public class ActivityDemo extends BasicActivity{
     private XLogic moduleLogic;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test);
+//        setContentView(R.layout.activity_demo);
 
         moduleLogic = registLogic(new XLogic(this));
 
@@ -36,19 +37,24 @@ public class TestActivity extends BasicActivity{
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                TaskExecutor.getInstance().execute(registTask(new ModuleTask(R.id.testTask, TestActivity.this)));
+                TaskExecutor.getInstance().execute(registTask(new ModuleTask(R.id.testTask, ActivityDemo.this)));
             }
         });
     }
 
     @Override
-    protected boolean isToolBarVisible() {
-        return true;
+    protected void onCreateCustomToolBar(Toolbar toolbar) {
+        // use custom Title Layout
+        // super.onCreateCustomToolBar(toolbar);
+
+        // use ToolBar
+        toolbar.setTitle("标题");
+        toolbar.setLogo(R.drawable.ic_launcher);
     }
 
     @Override
-    protected int getToolBarColor() {
-        return super.getToolBarColor();
+    protected boolean defaultTitleBarVisible() {
+        return true;
     }
 
     @Override
