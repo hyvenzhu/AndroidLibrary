@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.task.TaskExecutor;
-import com.android.baseline.framework.ui.BasicActivity;
+import com.android.baseline.framework.ui.activity.BasicActivity;
 
 /**
  * 网络请求测试

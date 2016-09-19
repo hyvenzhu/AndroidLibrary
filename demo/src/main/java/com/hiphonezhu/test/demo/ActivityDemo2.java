@@ -2,7 +2,7 @@ package com.hiphonezhu.test.demo;
 
 import android.os.Bundle;
 
-import com.android.baseline.framework.ui.BasicActivity;
+import com.android.baseline.framework.ui.activity.BasicActivity;
 
 /**
  * 默认标题栏不可见

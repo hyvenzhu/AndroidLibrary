@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.baseline.R;
-import com.android.baseline.framework.ui.base.annotations.ViewUtils;
+
 import org.greenrobot.eventbus.EventBus;
 
 /**

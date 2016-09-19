@@ -12,7 +12,7 @@
 
     <application>
         <!-- 权限申请 -->
-        <activity android:name="com.android.baseline.framework.ui.base.PermissionsActivity"
+        <activity android:name=".framework.ui.activity.PermissionsActivity"
             android:configChanges="orientation"
             android:theme="@style/ActivityTransparentTheme"
             android:screenOrientation="portrait"/>
