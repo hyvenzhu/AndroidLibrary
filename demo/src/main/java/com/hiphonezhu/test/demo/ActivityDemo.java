@@ -19,7 +19,7 @@ public class ActivityDemo extends BasicActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_demo);
+        setContentView(R.layout.activity_demo);
 
         moduleLogic = registLogic(new XLogic(this));
 
