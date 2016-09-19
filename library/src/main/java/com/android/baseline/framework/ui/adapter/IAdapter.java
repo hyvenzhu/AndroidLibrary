@@ -3,6 +3,7 @@ package com.android.baseline.framework.ui.adapter;
 import java.util.List;
 
 /**
+ * Adapter Interface
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/19 15:48]
  */
