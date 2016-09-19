@@ -231,9 +231,13 @@ public class PermissionsActivity extends BasicActivity {
     /**
      * 启动应用设置
      */
-    private void startAppSettings() {
+    private void startAppSettings()
+    {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + getPackageName()));
-        startActivity(intent);
+        if (intent.resolveActivity(getPackageManager()) != null)
+        {
+            startActivity(intent);
+        }
     }
 }
