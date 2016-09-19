@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.android.baseline.AppDroid;
-import com.android.baseline.util.SPDBHelper;
+import com.android.baseline.util.KVDBHelper;
 
 /**
  * 数据库轻量级操作封装
@@ -75,7 +75,7 @@ public class DBHelper
             db.beginTransaction();
             try
             {
-                db.execSQL(SPDBHelper.TABLE_CREATE_SQL);
+                db.execSQL(KVDBHelper.TABLE_CREATE_SQL);
                 AppDroid.getInstance().onDBCreate(db);
                 db.setTransactionSuccessful();
             }

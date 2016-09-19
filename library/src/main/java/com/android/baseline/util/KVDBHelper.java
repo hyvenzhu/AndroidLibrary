@@ -17,9 +17,9 @@ import rx.schedulers.Schedulers;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-2-20]
  */
-public class SPDBHelper
+public class KVDBHelper
 {
-    public static final String TABLE_NAME = "shared_prefs";
+    public static final String TABLE_NAME = "key_value";
     private static final String COLUMN_KEY = "key";
     private static final String COLUMN_VALUE = "value";
     /** 建表语句 */
@@ -38,12 +38,12 @@ public class SPDBHelper
 
     private static String keyPrefix; // key前缀, 常用来区分用户
 
-    public SPDBHelper()
+    public KVDBHelper()
     {
         this(null);
     }
 
-    public SPDBHelper(String keyPrefix)
+    public KVDBHelper(String keyPrefix)
     {
         if (keyPrefix == null)
         {
