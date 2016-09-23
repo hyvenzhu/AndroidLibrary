@@ -7,11 +7,17 @@
         android:id="@+id/net_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Net"/>
+        android:text="Get Request"/>
 
     <Button
         android:id="@+id/task_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Task"/>
+        android:text="Local Task"/>
+
+    <Button
+        android:id="@+id/download_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download"/>
 </LinearLayout>

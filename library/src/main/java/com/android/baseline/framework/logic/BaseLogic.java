@@ -72,6 +72,7 @@ public abstract class BaseLogic extends EventLogic {
 
                     @Override
                     public void onError(Throwable e) {
+                        // 无网络、解析报错、404\500
                         onResult(what, e);
                     }
 

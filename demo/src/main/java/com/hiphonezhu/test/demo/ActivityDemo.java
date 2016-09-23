@@ -1,21 +1,26 @@
 package com.hiphonezhu.test.demo;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Message;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.android.baseline.framework.logic.InfoResult;
+import com.android.baseline.framework.logic.net.IProgress;
 import com.android.baseline.framework.task.TaskExecutor;
 import com.android.baseline.framework.ui.activity.BasicActivity;
 
 /**
  * 网络请求测试
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
-public class ActivityDemo extends BasicActivity{
+public class ActivityDemo extends BasicActivity {
     private XLogic moduleLogic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,21 @@ public class ActivityDemo extends BasicActivity{
                 TaskExecutor.getInstance().execute(registTask(new ModuleTask(R.id.testTask, ActivityDemo.this)));
             }
         });
+
+        findViewById(R.id.download_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgress("handling...");
+                moduleLogic.download("http://photocdn.sohu.com/20160923/Img468996929.jpeg"
+                        , Environment.getExternalStorageDirectory() + "/file.jpeg"
+                        , new IProgress() {
+                            @Override
+                            public void onProgress(long current, long total) {
+                                Log.e("onProgress", "current: " + current + ", total: " + total);
+                            }
+                        }, null);
+            }
+        });
     }
 
     @Override
@@ -60,21 +80,26 @@ public class ActivityDemo extends BasicActivity{
     @Override
     public void onResponse(Message msg) {
         super.onResponse(msg);
-        switch (msg.what)
-        {
+        switch (msg.what) {
             case R.id.mobilenumber:
                 hideProgress();
-                if (checkResponse(msg))
-                {
-                    InfoResult phoneResult = (InfoResult)msg.obj;
+                if (checkResponse(msg)) {
+                    InfoResult phoneResult = (InfoResult) msg.obj;
                     showToast(phoneResult.toString());
                 }
                 break;
             case R.id.testTask:
                 hideProgress();
+                if (checkResponse(msg)) {
+                    InfoResult infoResult = (InfoResult) msg.obj;
+                    showToast(infoResult.toString());
+                }
+                break;
+            case R.id.download:
+                hideProgress();
                 if (checkResponse(msg))
                 {
-                    InfoResult infoResult = (InfoResult)msg.obj;
+                    InfoResult infoResult = (InfoResult) msg.obj;
                     showToast(infoResult.toString());
                 }
                 break;

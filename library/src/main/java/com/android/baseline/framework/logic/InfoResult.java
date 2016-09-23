@@ -24,6 +24,10 @@ public class InfoResult<T>
         this.desc = desc;
     }
 
+    public InfoResult()
+    {
+    }
+
     public boolean isSuccess()
     {
         return SUCCESS_CODE.equals(errorCode);

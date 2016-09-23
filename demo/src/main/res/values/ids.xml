@@ -3,4 +3,5 @@
     <item name="mobilenumber" type="id"/>
     <item name="citylist" type="id"/>
     <item name="testTask" type="id"/>
+    <item name="download" type="id"/>
 </resources>
