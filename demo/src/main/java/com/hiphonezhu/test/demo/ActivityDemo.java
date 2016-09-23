@@ -60,6 +60,22 @@ public class ActivityDemo extends BasicActivity {
                         }, null);
             }
         });
+
+        findViewById(R.id.upload_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgress("handling...");
+                moduleLogic.upload("admin", Environment.getExternalStorageDirectory() + "/file.jpeg");
+            }
+        });
+
+        findViewById(R.id.batchUpload_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgress("handling...");
+                moduleLogic.batchUpload("admin", Environment.getExternalStorageDirectory() + "/file.jpeg", Environment.getExternalStorageDirectory() + "/file.jpeg");
+            }
+        });
     }
 
     @Override
@@ -96,6 +112,14 @@ public class ActivityDemo extends BasicActivity {
                 }
                 break;
             case R.id.download:
+                hideProgress();
+                if (checkResponse(msg))
+                {
+                    InfoResult infoResult = (InfoResult) msg.obj;
+                    showToast(infoResult.toString());
+                }
+                break;
+            case R.id.upload:
                 hideProgress();
                 if (checkResponse(msg))
                 {

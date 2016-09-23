@@ -4,4 +4,5 @@
     <item name="citylist" type="id"/>
     <item name="testTask" type="id"/>
     <item name="download" type="id"/>
+    <item name="upload" type="id"/>
 </resources>

@@ -9,7 +9,9 @@ import com.google.gson.annotations.SerializedName;
 public class InfoResult<T>
 {
     // 成功Code
-    public static final String SUCCESS_CODE = "0";
+    public static final String DEFAULT_SUCCESS_CODE = "0";
+    // 内部错误码
+    public static final String INNER_ERROR_CODE = "-1";
 
     @SerializedName("errNum")
     private String errorCode;
@@ -24,13 +26,18 @@ public class InfoResult<T>
         this.desc = desc;
     }
 
+    public InfoResult(String errorCode)
+    {
+        this.errorCode = errorCode;
+    }
+
     public InfoResult()
     {
     }
 
     public boolean isSuccess()
     {
-        return SUCCESS_CODE.equals(errorCode);
+        return DEFAULT_SUCCESS_CODE.equals(errorCode);
     }
 
     public String getErrorCode()
