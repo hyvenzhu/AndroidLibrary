@@ -80,7 +80,7 @@ public class APKUtil
         }
         else
         {
-            cachePath = context.getApplicationContext().getFilesDir().getPath();
+            cachePath = context.getApplicationContext().getCacheDir().getPath();
         }
         File dir = new File(cachePath + File.separator + uniqueName);
         if (!dir.exists())
