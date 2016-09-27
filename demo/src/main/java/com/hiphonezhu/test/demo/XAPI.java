@@ -38,7 +38,7 @@ public interface XAPI {
     // 同upload, 只不过filename无法修改
     @POST
     @Multipart
-    Observable<UploadResult> upload2(@Url String url, @Part("account") String account, @Part("avatar\"; filename=\"file.jpeg") RequestBody body);
+    Observable<UploadResult> upload2(@Url String url, @Part("account") String account, @Part("avatar\"; filename=\"file1.jpeg") RequestBody body);
 
     @POST
     @Multipart

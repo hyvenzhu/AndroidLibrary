@@ -21,6 +21,7 @@ import com.android.baseline.framework.ui.activity.BasicActivity;
 public class ActivityDemo extends BasicActivity {
     private XLogic moduleLogic;
 
+    private int n;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +51,21 @@ public class ActivityDemo extends BasicActivity {
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
+
+                String filePath;
+                n++;
+                int r = n % 2;
+                if (r == 0)
+                {
+                    filePath = Environment.getExternalStorageDirectory() + "/file1.jpeg";
+                }
+                else
+                {
+                    filePath = Environment.getExternalStorageDirectory() + "/file2.jpeg";
+                }
+
                 moduleLogic.download("http://photocdn.sohu.com/20160923/Img468996929.jpeg"
-                        , Environment.getExternalStorageDirectory() + "/file2.jpeg"
+                        , filePath
                         , new IProgress() {
                             @Override
                             public void onProgress(long current, long total) {
@@ -65,7 +79,7 @@ public class ActivityDemo extends BasicActivity {
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                moduleLogic.upload("admin", Environment.getExternalStorageDirectory() + "/file.jpeg");
+                moduleLogic.upload("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg");
             }
         });
 
@@ -81,7 +95,7 @@ public class ActivityDemo extends BasicActivity {
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                moduleLogic.uploadWithProgress("admin", Environment.getExternalStorageDirectory() + "/file.jpeg", new IProgress() {
+                moduleLogic.uploadWithProgress("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg", new IProgress() {
                     @Override
                     public void onProgress(long current, long total) {
                         Log.e("onProgress", "current: " + current + ", total: " + total);
