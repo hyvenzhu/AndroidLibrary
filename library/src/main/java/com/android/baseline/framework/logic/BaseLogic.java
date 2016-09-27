@@ -1,9 +1,8 @@
 package com.android.baseline.framework.logic;
 
-import okhttp3.OkHttpClient;
+import com.android.baseline.framework.logic.net.RetrofitManager;
+
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -24,25 +23,7 @@ public abstract class BaseLogic extends EventLogic {
     public BaseLogic(Object subscriber)
     {
         super(subscriber);
-
-        Retrofit.Builder retrofitBuilder = new Retrofit.Builder()
-                .baseUrl(getBaseUrl())
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
-        if (getClient() != null)
-        {
-            retrofitBuilder.client(getClient());
-        }
-        build(retrofitBuilder);
-    }
-
-    /**
-     * subclass can build again before build
-     * @param retrofitBuilder
-     */
-    protected void build(Retrofit.Builder retrofitBuilder)
-    {
-        retrofit = retrofitBuilder.build();
+        retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl());
     }
 
     /**
@@ -87,14 +68,8 @@ public abstract class BaseLogic extends EventLogic {
      * API根地址
      * @return
      */
-    public abstract String getBaseUrl();
-
-    /**
-     * 自定义OkHttpClient,常用于实现拦截器
-     * @return
-     */
-    public OkHttpClient getClient()
+    protected String getBaseUrl()
     {
-        return null;
+        return "http://apis.baidu.com/";
     }
 }

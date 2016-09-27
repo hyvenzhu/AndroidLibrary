@@ -51,7 +51,7 @@ public class ActivityDemo extends BasicActivity {
             public void onClick(View v) {
                 showProgress("handling...");
                 moduleLogic.download("http://photocdn.sohu.com/20160923/Img468996929.jpeg"
-                        , Environment.getExternalStorageDirectory() + "/file.jpeg"
+                        , Environment.getExternalStorageDirectory() + "/file2.jpeg"
                         , new IProgress() {
                             @Override
                             public void onProgress(long current, long total) {
@@ -73,7 +73,20 @@ public class ActivityDemo extends BasicActivity {
             @Override
             public void onClick(View v) {
                 showProgress("handling...");
-                moduleLogic.batchUpload("admin", Environment.getExternalStorageDirectory() + "/file.jpeg", Environment.getExternalStorageDirectory() + "/file.jpeg");
+                moduleLogic.batchUpload("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg", Environment.getExternalStorageDirectory() + "/file2.jpeg");
+            }
+        });
+
+        findViewById(R.id.uploadProgress_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProgress("handling...");
+                moduleLogic.uploadWithProgress("admin", Environment.getExternalStorageDirectory() + "/file.jpeg", new IProgress() {
+                    @Override
+                    public void onProgress(long current, long total) {
+                        Log.e("onProgress", "current: " + current + ", total: " + total);
+                    }
+                });
             }
         });
     }
@@ -121,11 +134,8 @@ public class ActivityDemo extends BasicActivity {
                 break;
             case R.id.upload:
                 hideProgress();
-                if (checkResponse(msg))
-                {
-                    InfoResult infoResult = (InfoResult) msg.obj;
-                    showToast(infoResult.toString());
-                }
+                UploadResult result = (UploadResult) msg.obj;
+                showToast(result.toString());
                 break;
         }
     }

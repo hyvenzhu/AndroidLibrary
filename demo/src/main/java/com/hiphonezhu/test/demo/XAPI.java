@@ -33,14 +33,14 @@ public interface XAPI {
 
     @POST
     @Multipart
-    Observable<InfoResult> upload(@Url String url, @Part("account") String account, @Part MultipartBody.Part file);
+    Observable<UploadResult> upload(@Url String url, @Part("account") String account, @Part MultipartBody.Part file);
 
     // 同upload, 只不过filename无法修改
     @POST
     @Multipart
-    Observable<InfoResult> upload2(@Url String url, @Part("account") String account, @Part("avatar\"; filename=\"file.jpeg") RequestBody bo);
+    Observable<UploadResult> upload2(@Url String url, @Part("account") String account, @Part("avatar\"; filename=\"file.jpeg") RequestBody body);
 
     @POST
     @Multipart
-    Observable<InfoResult> batchUpload(@Url String url, @PartMap Map<String, RequestBody> params);
+    Observable<UploadResult> batchUpload(@Url String url, @PartMap Map<String, RequestBody> params);
 }

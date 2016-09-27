@@ -3,6 +3,7 @@ package com.hiphonezhu.test.demo;
 import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.logic.net.IProgress;
+import com.android.baseline.framework.logic.net.PartProgressBody;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -119,6 +120,21 @@ public class XLogic extends BaseLogic {
     }
 
     /**
+     * 普通参数和单个文件同时上传(上传进度)
+     * @param account
+     * @param filePath
+     */
+    public void uploadWithProgress(String account, String filePath, IProgress progress)
+    {
+        File file = new File(filePath);
+
+        RequestBody requestFile = PartProgressBody.create(MediaType.parse("multipart/form-data"), file, progress);
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+        sendRequest(phoneService.upload("http://115.159.86.13:8080/TPGD/fileUpload", account, body), R.id.upload);
+    }
+
+    /**
      * 普通参数和多个文件同时上传
      * @param account
      * @param filePath1
@@ -131,13 +147,8 @@ public class XLogic extends BaseLogic {
 
         Map<String, RequestBody> params = new HashMap<>();
         params.put("account", RequestBody.create(MediaType.parse("text/plain"), account));
-        params.put("avatar1\"; filename=\"" + file1.getName(),  RequestBody.create(MediaType.parse("multipart/form-data"), file1));
-        params.put("avatar2\"; filename=\"" + file2.getName(),  RequestBody.create(MediaType.parse("multipart/form-data"), file2));
+        params.put("avatar\"; filename=\"" + file1.getName(),  RequestBody.create(MediaType.parse("multipart/form-data"), file1));
+        params.put("avatar\"; filename=\"" + file2.getName(),  RequestBody.create(MediaType.parse("multipart/form-data"), file2));
         sendRequest(phoneService.batchUpload("http://115.159.86.13:8080/TPGD/fileUpload", params), R.id.upload);
-    }
-
-    @Override
-    public String getBaseUrl() {
-        return "http://apis.baidu.com/";
     }
 }

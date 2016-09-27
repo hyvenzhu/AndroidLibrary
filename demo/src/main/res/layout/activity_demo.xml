@@ -32,4 +32,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Batch Upload"/>
+
+    <Button
+        android:id="@+id/uploadProgress_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload With Progress"/>
 </LinearLayout>
