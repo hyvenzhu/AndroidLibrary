@@ -10,7 +10,7 @@
         android:label="@string/app_name" android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivityDemo"
+            android:name=".MainActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|navigation"
             android:windowSoftInputMode="adjustPan|stateVisible|adjustUnspecified|stateHidden">
             <intent-filter>
@@ -19,12 +19,9 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".ActivityDemo2">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <activity android:name=".ActivityDemo"/>
+        <activity android:name=".ActivityDemo2"/>
+        <activity android:name=".ActivityDemo3"/>
     </application>
 
 </manifest>

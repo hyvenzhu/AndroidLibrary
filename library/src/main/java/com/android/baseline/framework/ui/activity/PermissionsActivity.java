@@ -1,16 +1,16 @@
 package com.android.baseline.framework.ui.activity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.view.View;
 
 import com.android.baseline.R;
 
@@ -125,10 +125,6 @@ public class PermissionsActivity extends BasicActivity {
      * @param isShowRationale
      */
     private void showMissingPermissionDialog(final boolean isShowRationale) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(PermissionsActivity.this);
-        builder.setTitle(R.string.tips);
-
-        String appName = getString(R.string.app_name);
         String formatStr = null;
         if (isShowRationale)
         {
@@ -138,18 +134,11 @@ public class PermissionsActivity extends BasicActivity {
         {
             formatStr = getString(R.string.permission_desc_text2);
         }
-        String message = String.format(formatStr, appName, TextUtils.isEmpty(permissionDesc)? "必要" : permissionDesc, appName);
-        builder.setMessage(message);
+        String message = String.format(formatStr, TextUtils.isEmpty(permissionDesc)? "必要" : permissionDesc);
 
-        builder.setNegativeButton(R.string.quit, new DialogInterface.OnClickListener() {
+        Snackbar.make(getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).setAction(R.string.settings, new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                setResult(PERMISSIONS_DENIED);
-                finish();
-            }
-        });
-        builder.setPositiveButton(R.string.settings, new DialogInterface.OnClickListener() {
-            @Override public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View v) {
                 isRequesting = false;
                 if (isShowRationale)
                 {
@@ -160,16 +149,17 @@ public class PermissionsActivity extends BasicActivity {
                     startAppSettings();
                 }
             }
-        });
-        builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        }).setCallback(new Snackbar.Callback() {
             @Override
-            public void onCancel(DialogInterface dialog) {
-                setResult(PERMISSIONS_DENIED);
-                finish();
+            public void onDismissed(Snackbar snackbar, int event) {
+                // 不是点击按钮取消的
+                if (event != Snackbar.Callback.DISMISS_EVENT_ACTION)
+                {
+                    setResult(PERMISSIONS_DENIED);
+                    finish();
+                }
             }
-        });
-
-        builder.show();
+        }).show();
     }
 
     /**

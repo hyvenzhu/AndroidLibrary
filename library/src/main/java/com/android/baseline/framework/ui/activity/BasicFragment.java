@@ -2,6 +2,7 @@ package com.android.baseline.framework.ui.activity;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -132,22 +133,25 @@ public class BasicFragment extends BaseFragment
     
     private UIInterface uiInterface;
     @Override
-    public void onAttach(Activity activity)
-    {
-        super.onAttach(activity);
-        if (!(activity instanceof BasicActivity))
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (!(context instanceof BasicActivity))
         {
             throw new RuntimeException("Activity must implements Interface 'UIInterface'.");
         }
-        uiInterface = (UIInterface)activity;
+        uiInterface = (UIInterface)context;
     }
-    
+
     /**
      * 根据字符串 show toast<BR>
      * @param message 字符串
      */
     public void showToast(CharSequence message)
     {
+        if (!isVisible())
+        {
+            return;
+        }
         uiInterface.showToast(message);
     }
 
