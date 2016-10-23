@@ -1,5 +1,7 @@
 package com.hiphonezhu.test.demo;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
@@ -9,8 +11,11 @@ import android.view.View;
 
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.logic.net.IProgress;
+import com.android.baseline.framework.router.Interceptor;
+import com.android.baseline.framework.router.LiteRouter;
 import com.android.baseline.framework.task.TaskExecutor;
 import com.android.baseline.framework.ui.activity.BasicActivity;
+import com.hiphonezhu.test.demo.router.IntentService;
 
 /**
  * 网络请求测试
@@ -33,8 +38,15 @@ public class ActivityDemo extends BasicActivity {
         findViewById(R.id.net_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgress("handling...");
-                moduleLogic.getResult("18068440586");
+//                showProgress("handling...");
+//                moduleLogic.getResult("18068440586");
+
+                new LiteRouter.Builder().interceptor(new Interceptor() {
+                    @Override
+                    public boolean intercept(Context context, String className, Bundle bundle) {
+                        return false;
+                    }
+                }).build().create(IntentService.class, ActivityDemo.this).intent2ActivityDemo2("android", 2016);
             }
         });
 
@@ -152,5 +164,10 @@ public class ActivityDemo extends BasicActivity {
                 showToast(result.toString());
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

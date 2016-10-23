@@ -1,6 +1,8 @@
 package com.hiphonezhu.test.demo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.android.baseline.framework.ui.activity.BasicActivity;
 
@@ -14,6 +16,14 @@ public class ActivityDemo2 extends BasicActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_demo2);
+
+        Intent intent = getIntent();
+        String platform = intent.getStringExtra("platform");
+        int year = intent.getIntExtra("year", 0);
+        Log.e("platform: ", platform);
+        Log.e("year: ", String.valueOf(year));
+
+        setResult(RESULT_OK);
     }
 
     @Override
