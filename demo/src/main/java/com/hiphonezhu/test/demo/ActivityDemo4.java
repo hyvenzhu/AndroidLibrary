@@ -1,12 +1,10 @@
 package com.hiphonezhu.test.demo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.android.baseline.framework.router.Interceptor;
 import com.android.baseline.framework.router.LiteRouter;
 import com.android.baseline.framework.ui.activity.BasicActivity;
 import com.hiphonezhu.test.demo.router.IntentService;
@@ -26,12 +24,9 @@ public class ActivityDemo4 extends BasicActivity {
         findViewById(R.id.net_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new LiteRouter.Builder().interceptor(new Interceptor() {
-                    @Override
-                    public boolean intercept(Context context, String className, Bundle bundle) {
-                        return false;
-                    }
-                }).build().create(IntentService.class, ActivityDemo4.this).intent2ActivityDemo2("android", 2016);
+                LiteRouter liteRouter = new LiteRouter.Builder().build();
+                IntentService intentService = liteRouter.create(IntentService.class, ActivityDemo4.this);
+                intentService.intent2ActivityDemo2("android", 2016);
             }
         });
     }
