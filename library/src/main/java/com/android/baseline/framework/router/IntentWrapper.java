@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.SparseArray;
 
@@ -52,6 +53,11 @@ public class IntentWrapper {
 
     public String getClassName() {
         return mClassName;
+    }
+
+    public void setClassName(@NonNull String newClassName)
+    {
+        mIntent.setClassName(mContext, newClassName);
     }
 
     public Bundle getExtras() {

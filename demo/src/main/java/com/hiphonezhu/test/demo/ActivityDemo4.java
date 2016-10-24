@@ -1,6 +1,5 @@
 package com.hiphonezhu.test.demo;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,7 +24,7 @@ public class ActivityDemo4 extends BasicActivity {
 
         LiteRouter liteRouter = new LiteRouter.Builder().interceptor(new Interceptor() {
             @Override
-            public boolean intercept(Context context, String className, Bundle bundle) {
+            public boolean intercept(IntentWrapper intentWrapper) {
                 return false;
             }
         }).build();

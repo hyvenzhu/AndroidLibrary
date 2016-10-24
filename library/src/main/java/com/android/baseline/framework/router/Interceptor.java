@@ -1,8 +1,5 @@
 package com.android.baseline.framework.router;
 
-import android.content.Context;
-import android.os.Bundle;
-
 /**
  * Interceptor before actual executor
  * @author hiphonezhu@gmail.com
@@ -12,10 +9,8 @@ import android.os.Bundle;
 public interface Interceptor {
     /**
      * return true to intercept executor
-     * @param context
-     * @param className Dest class path
-     * @param bundle intent extras
+     * @param intentWrapper the intent wrapper
      * @return
      */
-    boolean intercept(Context context, String className, Bundle bundle);
+    boolean intercept(IntentWrapper intentWrapper);
 }

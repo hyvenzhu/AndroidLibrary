@@ -36,7 +36,7 @@ public final class LiteRouter {
                         Class returnTYpe = method.getReturnType();
                         if (returnTYpe == void.class)
                         {
-                            if (interceptor == null || !interceptor.intercept(context, intentWrapper.getClassName(), intentWrapper.getExtras()))
+                            if (interceptor == null || !interceptor.intercept(intentWrapper))
                             {
                                 intentWrapper.start();
                             }
