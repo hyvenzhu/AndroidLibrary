@@ -32,11 +32,21 @@ public final class LiteRouter {
                     @Override public Object invoke(Object proxy, Method method, Object... args)
                             throws Throwable {
                         IntentWrapper intentWrapper = loadIntentWrapper(context, method, args);
-                        if (interceptor == null || !interceptor.intercept(context, intentWrapper.getClassName(), intentWrapper.getExtras()))
+
+                        Class returnTYpe = method.getReturnType();
+                        if (returnTYpe == void.class)
                         {
-                            intentWrapper.start();
+                            if (interceptor == null || !interceptor.intercept(context, intentWrapper.getClassName(), intentWrapper.getExtras()))
+                            {
+                                intentWrapper.start();
+                            }
+                            return null;
                         }
-                        return null;
+                        else if (returnTYpe == IntentWrapper.class)
+                        {
+                            return intentWrapper;
+                        }
+                        throw new RuntimeException("method return type only support 'void' or 'IntentWrapper'");
                     }
                 });
     }

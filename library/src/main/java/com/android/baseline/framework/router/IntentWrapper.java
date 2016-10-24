@@ -63,6 +63,16 @@ public class IntentWrapper {
         return mIntent;
     }
 
+    public Context getContext()
+    {
+        return mContext;
+    }
+
+    public void addFlags(int flags)
+    {
+        mIntent.addFlags(flags);
+    }
+
     public void start()
     {
         if (mRequestCode == -1)
