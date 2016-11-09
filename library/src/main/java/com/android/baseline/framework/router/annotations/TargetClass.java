@@ -6,13 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Target ClassName Annotation
- * 适合跨团队Class未知的情况, 已知{@link TargetClass}
+ * Target Class Annotation
+ * 与{@link ClassName}注解区别是: TargetClass目标Class已知
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/21 11:30]
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ClassName {
-    String value();
+public @interface TargetClass {
+    Class value();
 }

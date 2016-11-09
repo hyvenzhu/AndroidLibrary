@@ -12,6 +12,7 @@ import android.util.SparseArray;
 import com.android.baseline.framework.router.annotations.ClassName;
 import com.android.baseline.framework.router.annotations.Key;
 import com.android.baseline.framework.router.annotations.RequestCode;
+import com.android.baseline.framework.router.annotations.TargetClass;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -34,30 +35,35 @@ public class IntentWrapper {
     private int mFlags;
     private Context mContext;
     private Bundle mExtras;
-    private String mClassName;
+    private Class mTargetClass;
     private int mRequestCode = -1;
     private Intent mIntent;
 
-    IntentWrapper(Context context, String className, Bundle extras, int flags, int requestCode) {
+    IntentWrapper(Context context, Class targetClass, Bundle extras, int flags, int requestCode) {
         mFlags = flags;
         mContext = context;
         mExtras = extras;
-        mClassName = className;
+        mTargetClass = targetClass;
         mRequestCode = requestCode;
 
         mIntent = new Intent();
-        mIntent.setClassName(mContext, mClassName);
+        mIntent.setClass(mContext, mTargetClass);
         mIntent.putExtras(mExtras);
         mIntent.addFlags(mFlags);
     }
 
-    public String getClassName() {
-        return mClassName;
+    public Class getTargetClass() {
+        return mTargetClass;
     }
 
-    public void setClassName(@NonNull String newClassName)
+    public void setClass(@NonNull String newClassName) throws ClassNotFoundException {
+        setClass(Class.forName(newClassName));
+    }
+
+    public void setClass(@NonNull Class newTargetClass)
     {
-        mIntent.setClassName(mContext, newClassName);
+        mTargetClass = newTargetClass;
+        mIntent.setClass(mContext, mTargetClass);
     }
 
     public Bundle getExtras() {
@@ -116,6 +122,7 @@ public class IntentWrapper {
         Method mMethod;
         Object[] mArgs;
         String mClassName;
+        Class mTargetClass;
         int mRequestCode;
 
         public Builder(Context context, Method method, Object... args)
@@ -131,16 +138,15 @@ public class IntentWrapper {
             return this;
         }
 
-        public IntentWrapper build()
-        {
+        public IntentWrapper build() throws ClassNotFoundException {
             // 解析方法注解
             Annotation[] methodAnnotations = mMethod.getAnnotations();
             for (Annotation annotation : methodAnnotations) {
                 parseMethodAnnotation(annotation);
             }
-            if (TextUtils.isEmpty(mClassName))
+            if (TextUtils.isEmpty(mClassName) && mTargetClass == null)
             {
-                throw new RuntimeException("ClassName annotation is required.");
+                throw new RuntimeException("Target Class is required.");
             }
             // 参数类型
             Type[] types = mMethod.getGenericParameterTypes();
@@ -163,7 +169,7 @@ public class IntentWrapper {
                 }
                 parseParameter(bundleExtra, types[i], key, mArgs[i]);
             }
-            return new IntentWrapper(mContext, mClassName, bundleExtra, mFlags,
+            return new IntentWrapper(mContext, mTargetClass == null? Class.forName(mClassName) : mTargetClass, bundleExtra, mFlags,
                     mMethod.isAnnotationPresent(RequestCode.class)? mRequestCode : -1);
         }
 
@@ -423,6 +429,10 @@ public class IntentWrapper {
             if (annotation instanceof ClassName)
             {
                 mClassName = ((ClassName)annotation).value();
+            }
+            else if (annotation instanceof TargetClass)
+            {
+                mTargetClass = ((TargetClass) annotation).value();
             }
             else if (annotation instanceof RequestCode)
             {

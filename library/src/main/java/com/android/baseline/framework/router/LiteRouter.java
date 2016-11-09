@@ -51,8 +51,7 @@ public final class LiteRouter {
                 });
     }
 
-    IntentWrapper loadIntentWrapper(Context context, Method method, Object... args)
-    {
+    IntentWrapper loadIntentWrapper(Context context, Method method, Object... args) throws ClassNotFoundException {
         return new IntentWrapper.Builder(context, method, args).build();
     }
 
