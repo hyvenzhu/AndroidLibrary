@@ -36,12 +36,12 @@ public class SSLFactory {
      * 创建SSLSocketFactory
      *
      * @param context
-     * @param certRawResIds 包含公钥的cer证书
+     * @param inputStreams 包含公钥的cer证书
      * @return
      */
-    public static SSLSocketFactory build(Context context, int... certRawResIds) {
+    public static SSLSocketFactory build(Context context, InputStream... inputStreams) {
         try {
-            KeyStore keyStore = buildKeyStore(context, certRawResIds);
+            KeyStore keyStore = buildKeyStore(context, inputStreams);
 
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init(keyStore);
@@ -64,12 +64,12 @@ public class SSLFactory {
      * @param context
      * @param bksRawResIds jks转化之后的bks格式证书(转化方式: https://sourceforge.net/projects/portecle/files/latest/download?source=files下载portecle-1.9.zip)
      * @param pwd 证书的秘钥
-     * @param certRawResIds 包含公钥的cer证书
+     * @param inputStreams 包含公钥的cer证书
      * @return
      */
-    public static SSLSocketFactory buildWithClientAuth(Context context, int bksRawResIds, String pwd, int... certRawResIds) {
+    public static SSLSocketFactory buildWithClientAuth(Context context, int bksRawResIds, String pwd, InputStream... inputStreams) {
         try {
-            KeyStore keyStore = buildKeyStore(context, certRawResIds);
+            KeyStore keyStore = buildKeyStore(context, inputStreams);
 
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             tmf.init(keyStore);
@@ -130,18 +130,18 @@ public class SSLFactory {
      * 创建KeyStore
      *
      * @param context
-     * @param certRawResIds
+     * @param inputStreams
      * @return
      * @throws KeyStoreException
      * @throws CertificateException
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    private static KeyStore buildKeyStore(Context context, int... certRawResIds) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException {
+    private static KeyStore buildKeyStore(Context context, InputStream... inputStreams) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException {
         String keyStoreType = KeyStore.getDefaultType();
         KeyStore keyStore = KeyStore.getInstance(keyStoreType);
         keyStore.load(null, null);
-        List<Certificate> cas = readCert(context, certRawResIds);
+        List<Certificate> cas = readCert(context, inputStreams);
         for (int i = 0; cas != null && i < cas.size(); i++) {
             keyStore.setCertificateEntry(Integer.toString(i), cas.get(i));
         }
@@ -151,15 +151,15 @@ public class SSLFactory {
     /**
      * 创建Certificate
      * @param context
-     * @param certRawResIds
+     * @param inputStreams
      * @return
      */
-    private static List<Certificate> readCert(Context context, int... certRawResIds) throws CertificateException {
+    private static List<Certificate> readCert(Context context, InputStream... inputStreams) throws CertificateException, IOException {
         List<Certificate> cas = new ArrayList<>();
-        for (int certRawResId : certRawResIds) {
-            InputStream inputStream = context.getResources().openRawResource(certRawResId);
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            Certificate ca = cf.generateCertificate(inputStream);
+        CertificateFactory cf = CertificateFactory.getInstance("X.509");
+        for (InputStream is : inputStreams) {
+            Certificate ca = cf.generateCertificate(is);
+            is.close();
             cas.add(ca);
         }
         return cas;
