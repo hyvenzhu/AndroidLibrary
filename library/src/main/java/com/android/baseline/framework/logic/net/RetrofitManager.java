@@ -59,7 +59,7 @@ public class RetrofitManager {
      * @param baseUrl
      * @return
      */
-    public Retrofit getRetrofit(String baseUrl)
+    public synchronized Retrofit getRetrofit(String baseUrl)
     {
         Retrofit retrofit = retrofitPool.get(baseUrl);
         if (retrofitPool.get(baseUrl) == null)

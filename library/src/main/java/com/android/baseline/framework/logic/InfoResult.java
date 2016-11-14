@@ -1,12 +1,14 @@
 package com.android.baseline.framework.logic;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * 网络请求返回数据
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2013-7-23]
  */
-public class InfoResult<T>
+public class InfoResult<T> implements Serializable
 {
     // 成功Code
     public static final String DEFAULT_SUCCESS_CODE = "0";

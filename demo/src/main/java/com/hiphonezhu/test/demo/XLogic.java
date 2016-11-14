@@ -2,6 +2,7 @@ package com.hiphonezhu.test.demo;
 
 import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.InfoResult;
+import com.android.baseline.framework.logic.net.Action1Impl;
 import com.android.baseline.framework.logic.net.IProgress;
 import com.android.baseline.framework.logic.net.PartProgressBody;
 
@@ -38,10 +39,10 @@ public class XLogic extends BaseLogic {
      */
     public void getResult(String phone)
     {
-        sendRequest(phoneService.getResult(phone, "8e13586b86e4b7f3758ba3bd6c9c9135").doOnNext(new Action1<InfoResult<MobileBean>>() {
+        sendRequest(phoneService.getResult(phone, "8e13586b86e4b7f3758ba3bd6c9c9135").doOnNext(new Action1Impl<MobileBean>() {
             @Override
-            public void call(InfoResult<MobileBean> mobileBeanInfoResult) {
-                // do anything you want before call onNext
+            public void nextCall(InfoResult<MobileBean> infoResult) {
+
             }
         }), R.id.mobilenumber);
     }

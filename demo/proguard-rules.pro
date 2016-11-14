@@ -39,11 +39,8 @@
 -keep class sun.misc.Unsafe { *; }
 -keep class com.google.gson.stream.** { *; }
 
-# Application classes that will be serialized/deserialized over Gson
--keep class com.android.baseline.framework.logic.InfoResult { *; }
-
-# gson序列化和反序列化的bean
--keep class com.hiphonezhu.test.demo.MobileBean { *; }
+# gson序列化和反序列化的bean, 必须实现Serializable接口
+-keep class * implements java.io.Serializable { *; }
 ##---------------End: Gson  ----------
 
 
