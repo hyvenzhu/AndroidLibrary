@@ -4,10 +4,11 @@ import java.io.Serializable;
 
 /**
  * 电话号码归属地
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/3 13:05]
  */
-public class MobileBean  implements Serializable {
+public class MobileBean implements Serializable {
     private String phone;
     private String prefix;
     private String supplier;

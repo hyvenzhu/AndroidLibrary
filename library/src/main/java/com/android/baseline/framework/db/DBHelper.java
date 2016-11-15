@@ -9,18 +9,20 @@ import com.android.baseline.util.KVDBHelper;
 
 /**
  * 数据库轻量级操作封装
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2013-3-18]
  */
-public class DBHelper
-{
+public class DBHelper {
     private DataBaseHelper dbHelper;
     private SQLiteDatabase writableDB;
     private SQLiteDatabase readableDB;
-    /** 数据库名称 */
+    /**
+     * 数据库名称
+     */
     private static final String DATABASE_NAME = "project.db";
-    public DBHelper()
-    {
+
+    public DBHelper() {
         dbHelper = new DataBaseHelper(AppDroid.getInstance().getApplicationContext());
     }
 
@@ -29,8 +31,7 @@ public class DBHelper
      *
      * @return SQLiteDatabase
      */
-    public synchronized SQLiteDatabase getWritableSQLiteDatabase()
-    {
+    public synchronized SQLiteDatabase getWritableSQLiteDatabase() {
         writableDB = dbHelper.getWritableDatabase();
         return writableDB;
     }
@@ -40,8 +41,7 @@ public class DBHelper
      *
      * @return SQLiteDatabase
      */
-    public SQLiteDatabase getReadableSQLiteDatabase()
-    {
+    public SQLiteDatabase getReadableSQLiteDatabase() {
         readableDB = dbHelper.getReadableDatabase();
         return readableDB;
     }
@@ -49,58 +49,42 @@ public class DBHelper
     /**
      * 关闭数据库
      */
-    public void close()
-    {
+    public void close() {
         writableDB = null;
         readableDB = null;
-        if (dbHelper != null)
-        {
+        if (dbHelper != null) {
             dbHelper.close();
         }
     }
 
-    public class DataBaseHelper extends SQLiteOpenHelper
-    {
+    public class DataBaseHelper extends SQLiteOpenHelper {
         private static final String TAG = "DataBaseHelper";
 
-        public DataBaseHelper(Context context)
-        {
+        public DataBaseHelper(Context context) {
             super(context, DATABASE_NAME,
                     null, AppDroid.getInstance().getDataBaseVersion());
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db)
-        {
+        public void onCreate(SQLiteDatabase db) {
             db.beginTransaction();
-            try
-            {
+            try {
                 db.execSQL(KVDBHelper.TABLE_CREATE_SQL);
                 AppDroid.getInstance().onDBCreate(db);
                 db.setTransactionSuccessful();
-            }
-            catch (Exception e)
-            {
-            }
-            finally
-            {
+            } catch (Exception e) {
+            } finally {
                 db.endTransaction();
             }
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-        {
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             db.beginTransaction();
-            try
-            {
+            try {
                 AppDroid.getInstance().onDBUpgrade(db, oldVersion, newVersion);
-            }
-            catch (Exception e)
-            {
-            }
-            finally
-            {
+            } catch (Exception e) {
+            } finally {
                 db.endTransaction();
             }
         }

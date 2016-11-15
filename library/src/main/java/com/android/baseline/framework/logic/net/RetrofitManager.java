@@ -3,9 +3,17 @@ package com.android.baseline.framework.logic.net;
 import com.android.baseline.AppDroid;
 import com.android.baseline.util.APKUtil;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
@@ -16,6 +24,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Retrofit Manager
+ * <p>
+ * 支持Https, 需要在App初始化的地方设置, 例如Application#onCreate方法中
+ * RetrofitManager.getInstance().setCertificates(InputStream... cers)
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/27 17:15]
  */
@@ -30,23 +42,18 @@ public class RetrofitManager {
     /**
      * Private constructor
      */
-    private RetrofitManager()
-    {
-        client = getClient();
+    private RetrofitManager() {
     }
 
     /**
      * Single instance
+     *
      * @return
      */
-    public static RetrofitManager getInstance()
-    {
-        if (sInstance == null)
-        {
-            synchronized (RetrofitManager.class)
-            {
-                if (sInstance == null)
-                {
+    public static RetrofitManager getInstance() {
+        if (sInstance == null) {
+            synchronized (RetrofitManager.class) {
+                if (sInstance == null) {
                     sInstance = new RetrofitManager();
                 }
             }
@@ -56,14 +63,13 @@ public class RetrofitManager {
 
     /**
      * Return Retrofit by baseUrl
+     *
      * @param baseUrl
      * @return
      */
-    public synchronized Retrofit getRetrofit(String baseUrl)
-    {
+    public synchronized Retrofit getRetrofit(String baseUrl) {
         Retrofit retrofit = retrofitPool.get(baseUrl);
-        if (retrofitPool.get(baseUrl) == null)
-        {
+        if (retrofitPool.get(baseUrl) == null) {
             Retrofit.Builder builder = new Retrofit.Builder()
                     .baseUrl(baseUrl)
                     .client(client)
@@ -75,12 +81,63 @@ public class RetrofitManager {
         return retrofit;
     }
 
+    X509TrustManager trustManager;
+    SSLSocketFactory sslFactory;
+
+    /**
+     * 设置Https证书
+     * [需要在Application onCreate中初始化]
+     *
+     * @param cers 包含公钥的cer证书
+     */
+    public void setCertificates(InputStream... cers) {
+        try {
+            trustManager = SSLFactory.getX509TrustManager(cers);
+            sslFactory = SSLFactory.build(trustManager);
+
+            client = buildClient();
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 设置Https证书(双向认证)
+     * [需要在Application onCreate中初始化]
+     *
+     * @param bks  jks转化之后的bks格式证书(转化方式: https://sourceforge.net/projects/portecle/files/latest/download?source=files下载portecle-1.9.zip)
+     * @param pwd  证书的秘钥
+     * @param cers 包含公钥的cer证书
+     */
+    public void setCertificates(InputStream bks, String pwd, InputStream... cers) {
+        try {
+            trustManager = SSLFactory.getX509TrustManager(cers);
+            sslFactory = SSLFactory.build(bks, pwd, trustManager);
+
+            client = buildClient();
+        } catch (CertificateException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Custom OkHttpClient
+     *
      * @return
      */
-    private OkHttpClient getClient()
-    {
+    private OkHttpClient buildClient() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
@@ -93,6 +150,9 @@ public class RetrofitManager {
                 // Besides cache setting, we also need cache support(it usually controlled by server),
                 // but, it can also be controlled by client with http header(just like "Cache-Control:public,max-age=120").
                 .cache(new Cache(APKUtil.getDiskCacheDir(AppDroid.getInstance().getApplicationContext(), "Retrofit-Cache"), 10 * 1024 * 1024));
+        if (sslFactory != null) {
+            builder.sslSocketFactory(sslFactory, trustManager);
+        }
         return builder.build();
     }
 }

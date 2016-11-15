@@ -2,6 +2,7 @@ package com.android.baseline.framework.router;
 
 /**
  * Interceptor before actual executor
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/22 10:25]
  */
@@ -9,6 +10,7 @@ package com.android.baseline.framework.router;
 public interface Interceptor {
     /**
      * return true to intercept executor
+     *
      * @param intentWrapper the intent wrapper
      * @return
      */

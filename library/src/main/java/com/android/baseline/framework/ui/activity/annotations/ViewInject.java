@@ -7,13 +7,13 @@ import java.lang.annotation.Target;
 
 /**
  * View注解定义
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-10]
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ViewInject
-{
+public @interface ViewInject {
     // R资源
     int value() default 0;
 }

@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 /**
  * Target ClassName Annotation
  * 适合跨团队Class未知的情况, 已知{@link TargetClass}
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/21 11:30]
  */

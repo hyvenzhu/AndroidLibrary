@@ -10,6 +10,7 @@ import rx.schedulers.Schedulers;
 
 /**
  * '数据'模块统一出口, Retrofit基本封装
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/3 11:07]
  */
@@ -18,16 +19,17 @@ public abstract class BaseLogic extends EventLogic {
 
     /**
      * 构造函数
+     *
      * @param subscriber 最终订阅者
      */
-    public BaseLogic(Object subscriber)
-    {
+    public BaseLogic(Object subscriber) {
         super(subscriber);
         retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl());
     }
 
     /**
      * create api service
+     *
      * @param service
      * @param <T>
      * @return
@@ -38,11 +40,11 @@ public abstract class BaseLogic extends EventLogic {
 
     /**
      * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map、flatMap、doOnNext'等在BaseLogic的子类做好处理)
+     *
      * @param observable
-     * @param what 请求标示
+     * @param what       请求标示
      */
-    public void sendRequest(final Observable observable, final int what)
-    {
+    public void sendRequest(final Observable observable, final int what) {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber() {
@@ -66,10 +68,10 @@ public abstract class BaseLogic extends EventLogic {
 
     /**
      * API根地址
+     *
      * @return
      */
-    protected String getBaseUrl()
-    {
+    protected String getBaseUrl() {
         return "http://apis.baidu.com/";
     }
 }

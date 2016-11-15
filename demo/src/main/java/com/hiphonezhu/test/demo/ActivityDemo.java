@@ -23,6 +23,7 @@ public class ActivityDemo extends BasicActivity {
     private XLogic moduleLogic;
 
     private int n;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +57,9 @@ public class ActivityDemo extends BasicActivity {
                 String filePath;
                 n++;
                 int r = n % 2;
-                if (r == 0)
-                {
+                if (r == 0) {
                     filePath = Environment.getExternalStorageDirectory() + "/file1.jpeg";
-                }
-                else
-                {
+                } else {
                     filePath = Environment.getExternalStorageDirectory() + "/file2.jpeg";
                 }
 
@@ -141,8 +139,7 @@ public class ActivityDemo extends BasicActivity {
                 break;
             case R.id.download:
                 hideProgress();
-                if (checkResponse(msg))
-                {
+                if (checkResponse(msg)) {
                     InfoResult infoResult = (InfoResult) msg.obj;
                     showToast(infoResult.toString());
                 }

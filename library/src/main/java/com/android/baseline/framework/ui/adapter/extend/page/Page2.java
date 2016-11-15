@@ -2,11 +2,11 @@ package com.android.baseline.framework.ui.adapter.extend.page;
 
 /**
  * 分页策略2: startIndex, endIndex
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-09-29 21:54]
  */
-public abstract class Page2 extends IPage
-{
+public abstract class Page2 extends IPage {
     @Override
     public int handlePageIndex(int currPageIndex, int pageSize) {
         if (currPageIndex == getStartPageIndex() - 1) // 加载第一页数据(防止第一页使用"上拉加载更多")
@@ -24,8 +24,7 @@ public abstract class Page2 extends IPage
     /**
      * 起始下标递减
      */
-    public void decreaseStartIndex()
-    {
+    public void decreaseStartIndex() {
         currPageIndex--;
         checkBound();
     }
@@ -33,8 +32,7 @@ public abstract class Page2 extends IPage
     /**
      * 起始下标递减
      */
-    public void decreaseStartIndex(int size)
-    {
+    public void decreaseStartIndex(int size) {
         currPageIndex -= size;
         checkBound();
     }
@@ -42,10 +40,8 @@ public abstract class Page2 extends IPage
     /**
      * 边界检测
      */
-    private void checkBound()
-    {
-        if (currPageIndex < getStartPageIndex() - pageSize)
-        {
+    private void checkBound() {
+        if (currPageIndex < getStartPageIndex() - pageSize) {
             currPageIndex = getStartPageIndex() - pageSize;
         }
     }

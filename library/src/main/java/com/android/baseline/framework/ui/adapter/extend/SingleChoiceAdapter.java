@@ -1,6 +1,7 @@
 package com.android.baseline.framework.ui.adapter.extend;
 
 import android.content.Context;
+
 import com.android.baseline.framework.ui.adapter.BasicAdapter;
 import com.android.baseline.framework.ui.adapter.MultiTypeSupport;
 
@@ -10,6 +11,7 @@ import java.util.List;
 /**
  * 单选适配器
  * 注意：选中与取消选中的泛型T必须是同一个对象或者重写equals方法
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/01/14 13:45]
  * @copyright Copyright 2010 RD information technology Co.,ltd.. All Rights Reserved.
@@ -27,23 +29,22 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
 
     /**
      * 选中某一项
+     *
      * @param position
      */
-    public void selectItem(int position)
-    {
+    public void selectItem(int position) {
         selectItem(getItem(position));
     }
 
     /**
      * 选中某一项
+     *
      * @param choice
      */
-    public void selectItem(T choice)
-    {
+    public void selectItem(T choice) {
         // 保证集合里面只有一个元素
         selectedItems.clear();
-        if (choice != null)
-        {
+        if (choice != null) {
             selectedItems.add(choice);
             notifyDataSetChanged();
         }
@@ -51,21 +52,20 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
 
     /**
      * 取消选中某一项
+     *
      * @param position
      */
-    public void disselectItem(int position)
-    {
+    public void disselectItem(int position) {
         disselectItem(getItem(position));
     }
 
     /**
      * 取消选中某一项
+     *
      * @param choice
      */
-    public void disselectItem(T choice)
-    {
-        if (choice != null && selectedItems.contains(choice))
-        {
+    public void disselectItem(T choice) {
+        if (choice != null && selectedItems.contains(choice)) {
             selectedItems.remove(choice);
             notifyDataSetChanged();
         }
@@ -73,30 +73,30 @@ public abstract class SingleChoiceAdapter<T> extends BasicAdapter<T> {
 
     /**
      * 是否选中某一项
+     *
      * @param position
      * @return
      */
-    public boolean isItemSelected(int position)
-    {
+    public boolean isItemSelected(int position) {
         return isItemSelected(getItem(position));
     }
 
     /**
      * 是否选中某一项
+     *
      * @param choice
      * @return
      */
-    public boolean isItemSelected(T choice)
-    {
+    public boolean isItemSelected(T choice) {
         return selectedItems.contains(choice);
     }
 
     /**
      * 返回所有选中的项目
+     *
      * @return
      */
-    public T getSelectedItem()
-    {
-        return selectedItems.size() > 0? selectedItems.get(0) : null;
+    public T getSelectedItem() {
+        return selectedItems.size() > 0 ? selectedItems.get(0) : null;
     }
 }

@@ -12,9 +12,10 @@ import com.android.baseline.R;
 
 /**
  * 用于实现状态栏透明效果的帮助类
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2015-10-07 20:52]
-*/
+ */
 public class ContentViewHelper {
     /*上下文，创建view的时候需要用到*/
     private Context mContext;
@@ -45,6 +46,7 @@ public class ContentViewHelper {
 
     /**
      * 将View延展到状态栏
+     *
      * @param view
      */
     protected void setFitsSystemWindows(View view) {
@@ -64,11 +66,10 @@ public class ContentViewHelper {
         /*通过inflater获取toolbar的布局文件*/
         View toolbarView = mInflater.inflate(R.layout.toolbar, null);
         mToolBar = (Toolbar) toolbarView.findViewById(R.id.id_tool_bar);
-        mToolBar.setVisibility(mToolBarVisible? View.VISIBLE : View.GONE);
+        mToolBar.setVisibility(mToolBarVisible ? View.VISIBLE : View.GONE);
         mContentView.addView(toolbarView);
 
-        if (mToolBarVisible)
-        {
+        if (mToolBarVisible) {
             // 延伸到状态栏
             setFitsSystemWindows(toolbarView);
         }

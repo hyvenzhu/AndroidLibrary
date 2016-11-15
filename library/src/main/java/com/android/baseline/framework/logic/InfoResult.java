@@ -1,15 +1,16 @@
 package com.android.baseline.framework.logic;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
 /**
  * 网络请求返回数据
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2013-7-23]
  */
-public class InfoResult<T> implements Serializable
-{
+public class InfoResult<T> implements Serializable {
     // 成功Code
     public static final String DEFAULT_SUCCESS_CODE = "0";
     // 内部错误码
@@ -22,53 +23,43 @@ public class InfoResult<T> implements Serializable
     @SerializedName("retData")
     private T extraObj;
 
-    public InfoResult(String errorCode, String desc)
-    {
+    public InfoResult(String errorCode, String desc) {
         this.errorCode = errorCode;
         this.desc = desc;
     }
 
-    public InfoResult(String errorCode)
-    {
+    public InfoResult(String errorCode) {
         this.errorCode = errorCode;
     }
 
-    public InfoResult()
-    {
+    public InfoResult() {
     }
 
-    public boolean isSuccess()
-    {
+    public boolean isSuccess() {
         return DEFAULT_SUCCESS_CODE.equals(errorCode);
     }
 
-    public String getErrorCode()
-    {
+    public String getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(String errorCode)
-    {
+    public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 
-    public T getExtraObj()
-    {
+    public T getExtraObj() {
         return extraObj;
     }
 
-    public void setExtraObj(T extraObj)
-    {
+    public void setExtraObj(T extraObj) {
         this.extraObj = extraObj;
     }
 
-    public String getDesc()
-    {
+    public String getDesc() {
         return desc;
     }
 
-    public void setDesc(String desc)
-    {
+    public void setDesc(String desc) {
         this.desc = desc;
     }
 

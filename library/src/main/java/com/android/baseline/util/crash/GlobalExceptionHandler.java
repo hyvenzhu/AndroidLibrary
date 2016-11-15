@@ -7,11 +7,11 @@ import java.io.PrintStream;
 
 /**
  * 全局异常处理
+ *
  * @author hiphonezhu@gmail.com
  * @version [2014-6-25]
  */
-public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHandler
-{
+public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHandler {
     private final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     private Thread.UncaughtExceptionHandler defaultHandler;
@@ -19,27 +19,23 @@ public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHan
     /**
      * 全局错误处理构造函数
      */
-    public GlobalExceptionHandler()
-    {
+    public GlobalExceptionHandler() {
         this.defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
     }
 
     /**
      * 捕获到异常
-     * @param thread 异常线程
+     *
+     * @param thread    异常线程
      * @param throwable 异常信息
      */
     @Override
-    public void uncaughtException(final Thread thread, final Throwable throwable)
-    {
+    public void uncaughtException(final Thread thread, final Throwable throwable) {
         // 将报错信息发送到指定的邮箱
-        Thread sendMailThread = new Thread()
-        {
+        Thread sendMailThread = new Thread() {
             @Override
-            public void run()
-            {
-                if (!handleException(throwable) && defaultHandler != null)
-                {
+            public void run() {
+                if (!handleException(throwable) && defaultHandler != null) {
                     defaultHandler.uncaughtException(thread, throwable);
                 }
             }
@@ -49,13 +45,11 @@ public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHan
 
     /**
      * 自定义错误处理、收集错误信息 、发送错误报告等操作均在此完成.
-     * 
+     *
      * @return true:如果处理了该异常信息;否则返回false.
      */
-    private boolean handleException(final Throwable throwable)
-    {
-        try
-        {
+    private boolean handleException(final Throwable throwable) {
+        try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             throwable.printStackTrace(ps);
@@ -64,9 +58,7 @@ public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHan
             String content = errorMsg + LINE_SEPARATOR + LINE_SEPARATOR + collectClientInfo();
             LogUtil.e("GlobalExceptionHandler", content);
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
@@ -74,10 +66,10 @@ public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHan
 
     /**
      * Collect device info
+     *
      * @return
      */
-    private String collectClientInfo()
-    {
+    private String collectClientInfo() {
         StringBuilder systemInfo = new StringBuilder();
         systemInfo.append("CLIENT-INFO");
         systemInfo.append(LINE_SEPARATOR);

@@ -8,6 +8,7 @@ import android.view.View;
 
 /**
  * RecyclerView Item点击事件
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/11/9 13:29]
  */

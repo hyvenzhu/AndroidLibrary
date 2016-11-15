@@ -13,6 +13,7 @@ import android.view.View;
 
 /**
  * 横向Decoration
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/09 13:42]
  */

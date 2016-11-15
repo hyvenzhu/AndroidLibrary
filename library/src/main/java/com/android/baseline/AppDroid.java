@@ -9,59 +9,57 @@ import com.android.baseline.util.crash.GlobalExceptionHandler;
 
 /**
  * App application
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2013-5-3]
  */
-public class AppDroid extends Application
-{
+public class AppDroid extends Application {
     private static AppDroid sInstance;
     public UIStateHelper uiStateHelper;
+
     @Override
-    public void onCreate()
-    {
+    public void onCreate() {
         super.onCreate();
         sInstance = this;
         Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         uiStateHelper = new UIStateHelper();
     }
 
-    public static AppDroid getInstance()
-    {
+    public static AppDroid getInstance() {
         return sInstance;
     }
 
     /**
      * 数据库创建
+     *
      * @param db
      */
-    public void onDBCreate(SQLiteDatabase db)
-    {
+    public void onDBCreate(SQLiteDatabase db) {
     }
 
     /**
      * 数据库升级
+     *
      * @param db
      * @param oldVersion
      * @param newVersion
      */
-    public void onDBUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
-    {
+    public void onDBUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
     }
 
     /**
      * 数据库版本
+     *
      * @return
      */
-    public int getDataBaseVersion()
-    {
+    public int getDataBaseVersion() {
         return 1;
     }
 
     /**
      * 退出程序
      */
-    public void exist(Context context)
-    {
+    public void exist(Context context) {
         uiStateHelper.finishAll();
     }
 }

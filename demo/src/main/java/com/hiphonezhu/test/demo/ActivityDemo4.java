@@ -11,8 +11,11 @@ import com.android.baseline.framework.router.LiteRouter;
 import com.android.baseline.framework.ui.activity.BasicActivity;
 import com.hiphonezhu.test.demo.router.IntentService;
 
+import java.util.Random;
+
 /**
  * 路由测试
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
@@ -33,7 +36,7 @@ public class ActivityDemo4 extends BasicActivity {
         findViewById(R.id.btn1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                intentService.intent2ActivityDemo2("android", 2016);
+                intentService.intent2ActivityDemo2("android", 2016 + new Random().nextInt(10));
             }
         });
 
@@ -45,7 +48,7 @@ public class ActivityDemo4 extends BasicActivity {
                 Intent intent = intentWrapper.getIntent();
                 // add your flags
                 intentWrapper.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                // start
+                // call
                 intentWrapper.start();
             }
         });

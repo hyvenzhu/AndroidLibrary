@@ -1,6 +1,8 @@
-package com.hiphonezhu.test.demo;
+package com.hiphonezhu.test.demo.api;
 
 import com.android.baseline.framework.logic.InfoResult;
+import com.hiphonezhu.test.demo.MobileBean;
+import com.hiphonezhu.test.demo.UploadResult;
 
 import java.util.Map;
 
@@ -20,6 +22,7 @@ import rx.Observable;
 
 /**
  * API接口定义
+ *
  * @author hiphonezhu@gmail.com
  * @version [RetrofitDemo, 16/8/18 10:37]
  */

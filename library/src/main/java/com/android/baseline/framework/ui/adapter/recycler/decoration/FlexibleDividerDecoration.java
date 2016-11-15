@@ -20,6 +20,7 @@ import android.view.View;
 
 /**
  * ItemDecoration基类
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/09 13:42]
  */
@@ -181,12 +182,9 @@ public abstract class FlexibleDividerDecoration extends RecyclerView.ItemDecorat
                 return spanIndex < spanCount - 1;
             } else {
                 int[] lastPosition = null;
-                if (manager.getReverseLayout())
-                {
+                if (manager.getReverseLayout()) {
                     lastPosition = manager.findFirstVisibleItemPositions(null);
-                }
-                else
-                {
+                } else {
                     lastPosition = manager.findLastVisibleItemPositions(null);
                 }
                 boolean hasDirectionAlign = false;
@@ -270,6 +268,7 @@ public abstract class FlexibleDividerDecoration extends RecyclerView.ItemDecorat
 
     /**
      * 0-position的总共的span数目
+     *
      * @param manager
      * @param position
      * @return

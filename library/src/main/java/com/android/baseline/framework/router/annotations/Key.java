@@ -7,6 +7,7 @@ import java.lang.annotation.Target;
 
 /**
  * Intent extras key annotation
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/21 13:44]
  */

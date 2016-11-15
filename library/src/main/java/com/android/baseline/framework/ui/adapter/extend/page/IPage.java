@@ -2,6 +2,7 @@ package com.android.baseline.framework.ui.adapter.extend.page;
 
 /**
  * 分页
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/8/25 17:33]
  */
@@ -17,8 +18,7 @@ public abstract class IPage {
     boolean isLoading; // 是否正在加载
     Object lock = new Object(); // 锁
 
-    public IPage()
-    {
+    public IPage() {
         initPageConfig();
     }
 
@@ -26,6 +26,7 @@ public abstract class IPage {
      * 加载分页数据
      * 分页策略1:[param1, param2] = [pageIndex, pageSize]
      * 分页策略2:[param1, param2] = [startIndex, endIndex]
+     *
      * @param param1
      * @param param2
      */
@@ -33,6 +34,7 @@ public abstract class IPage {
 
     /**
      * 根据分页策略,处理第一个分页参数
+     *
      * @param currPageIndex
      * @param pageSize
      * @return
@@ -41,6 +43,7 @@ public abstract class IPage {
 
     /**
      * 根据分页策略,处理第二个分页参数
+     *
      * @param currPageIndex
      * @param pageSize
      * @return
@@ -50,8 +53,7 @@ public abstract class IPage {
     /**
      * 初始化分页参数
      */
-    private void initPageConfig()
-    {
+    private void initPageConfig() {
         currPageIndex = getStartPageIndex() - 1;
         lastPageIndex = currPageIndex;
         pageSize = getPageSize();
@@ -60,77 +62,72 @@ public abstract class IPage {
 
     /**
      * 返回起始页下标
+     *
      * @return
      */
-    protected int getStartPageIndex()
-    {
+    protected int getStartPageIndex() {
         return DEFAULT_START_PAGE_INDEX;
     }
 
     /**
      * 返回分页大小
+     *
      * @return
      */
-    protected int getPageSize()
-    {
+    protected int getPageSize() {
         return DEFAULT_PAGE_SIZE;
     }
 
     /**
      * 设置起始页下标
+     *
      * @param startPageIndex
      * @return
      */
-    public IPage setStartPageIndex(int startPageIndex)
-    {
+    public IPage setStartPageIndex(int startPageIndex) {
         currPageIndex = startPageIndex - 1;
         return this;
     }
 
     /**
      * 设置分页大小
+     *
      * @param pageSize
      * @return
      */
-    public IPage setPageSize(int pageSize)
-    {
+    public IPage setPageSize(int pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
     /**
      * 当前是否是第一页数据
+     *
      * @return
      */
-    public boolean isFirstPage()
-    {
+    public boolean isFirstPage() {
         return currPageIndex <= getStartPageIndex();
     }
 
     /**
      * 分页加载数据
      * [可能会抛出异常，请确认数据加载结束后，你已经调用了finishLoad(boolean success)方法]
+     *
      * @param isFirstPage true: 第一页  false: 下一页
      */
-    public void loadPage(boolean isFirstPage)
-    {
-        synchronized (lock)
-        {
+    public void loadPage(boolean isFirstPage) {
+        synchronized (lock) {
             if (isLoading) // 如果正在加载数据，则抛出异常
             {
                 throw new RuntimeException();
-            }
-            else
-            {
+            } else {
                 isLoading = true;
             }
         }
         if (isFirstPage) // 加载第一页数据
         {
             currPageIndex = getStartPageIndex();
-        }
-        else
-        {
+        } else {
             currPageIndex = handlePageIndex(currPageIndex, pageSize);
         }
         load(currPageIndex, handlePage(currPageIndex, pageSize));
@@ -138,20 +135,16 @@ public abstract class IPage {
 
     /**
      * 加载结束
+     *
      * @param success true：加载成功  false：失败(无数据)
      */
-    public void finishLoad(boolean success)
-    {
-        synchronized (lock)
-        {
+    public void finishLoad(boolean success) {
+        synchronized (lock) {
             isLoading = false;
         }
-        if (success)
-        {
+        if (success) {
             lastPageIndex = currPageIndex;
-        }
-        else
-        {
+        } else {
             currPageIndex = lastPageIndex;
         }
     }
@@ -159,14 +152,12 @@ public abstract class IPage {
     /**
      * 起始下标递减
      */
-    public void decreaseStartIndex()
-    {
+    public void decreaseStartIndex() {
     }
 
     /**
      * 起始下标递减
      */
-    public void decreaseStartIndex(int size)
-    {
+    public void decreaseStartIndex(int size) {
     }
 }

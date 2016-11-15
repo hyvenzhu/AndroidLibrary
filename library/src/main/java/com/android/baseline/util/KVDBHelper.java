@@ -14,47 +14,47 @@ import rx.schedulers.Schedulers;
 
 /**
  * key-value数据库
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-2-20]
  */
-public class KVDBHelper
-{
+public class KVDBHelper {
     public static final String TABLE_NAME = "key_value";
     private static final String COLUMN_KEY = "key";
     private static final String COLUMN_VALUE = "value";
-    /** 建表语句 */
+    /**
+     * 建表语句
+     */
     public static final String TABLE_CREATE_SQL = new StringBuilder()
             .append("CREATE TABLE ")
-                .append(TABLE_NAME)
-                .append("(")
-                .append(COLUMN_KEY)
-                .append(" TEXT,")
-                .append(COLUMN_VALUE)
-                .append(" TEXT)")
-                .toString();
-    
-    /** 数据库操作对象 */
+            .append(TABLE_NAME)
+            .append("(")
+            .append(COLUMN_KEY)
+            .append(" TEXT,")
+            .append(COLUMN_VALUE)
+            .append(" TEXT)")
+            .toString();
+
+    /**
+     * 数据库操作对象
+     */
     private BaseDAO baseDAO;
 
     private static String keyPrefix; // key前缀, 常用来区分用户
 
-    public KVDBHelper()
-    {
+    public KVDBHelper() {
         this(null);
     }
 
-    public KVDBHelper(String keyPrefix)
-    {
-        if (keyPrefix == null)
-        {
+    public KVDBHelper(String keyPrefix) {
+        if (keyPrefix == null) {
             keyPrefix = "";
         }
         this.keyPrefix = keyPrefix;
         baseDAO = BaseDAO.getInstance();
     }
-    
-    public void contains(final String key, final ResultListener<Boolean> listener)
-    {
+
+    public void contains(final String key, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -64,37 +64,30 @@ public class KVDBHelper
         }, listener);
     }
 
-    private boolean contains(final String key)
-    {
+    private boolean contains(final String key) {
         boolean isExist = false;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     null,
                     COLUMN_KEY + "=?",
                     new String[]
-                               { wrapKey(key) },
-                               null,
-                               null,
-                               null);
-            if (cursor.getCount() > 0)
-            {
+                            {wrapKey(key)},
+                    null,
+                    null,
+                    null);
+            if (cursor.getCount() > 0) {
                 isExist = true;
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return isExist;
     }
 
-    public static void contains(final SQLiteDatabase db, final String key, final ResultListener<Boolean> listener)
-    {
+    public static void contains(final SQLiteDatabase db, final String key, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -103,39 +96,32 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
-    private static boolean contains(final SQLiteDatabase db, final String key)
-    {
+
+    private static boolean contains(final SQLiteDatabase db, final String key) {
         boolean isExist = false;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = BaseDAO.query(db,
                     TABLE_NAME,
                     null,
                     COLUMN_KEY + "=?",
                     new String[]
-                               { wrapKey(key) },
-                               null,
-                               null,
-                               null);
-            if (cursor.getCount() > 0)
-            {
+                            {wrapKey(key)},
+                    null,
+                    null,
+                    null);
+            if (cursor.getCount() > 0) {
                 isExist = true;
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return isExist;
     }
-    
-    public void getBoolean(final String key, final boolean defaultResult, final ResultListener<Boolean> listener)
-    {
+
+    public void getBoolean(final String key, final boolean defaultResult, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -147,42 +133,35 @@ public class KVDBHelper
 
     /**
      * 查询某个value是否存在
-     * 
+     *
      * @param key
      * @param defaultResult
      * @return
      */
-    public boolean getBoolean(final String key, final boolean defaultResult)
-    {
+    public boolean getBoolean(final String key, final boolean defaultResult) {
         boolean result = defaultResult;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     null,
                     COLUMN_KEY + "=?",
                     new String[]
-                               { wrapKey(key) },
-                               null,
-                               null,
-                               null);
-            if (cursor.moveToNext())
-            {
+                            {wrapKey(key)},
+                    null,
+                    null,
+                    null);
+            if (cursor.moveToNext()) {
                 result = cursor.getInt(cursor.getColumnIndex(COLUMN_VALUE)) == 1;
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return result;
     }
 
-    public void putBoolean(final String key, final boolean value, final ResultListener<Boolean> listener)
-    {
+    public void putBoolean(final String key, final boolean value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -191,17 +170,15 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
+
     /**
      * 存入布尔值
-     * 
+     *
      * @param key
      * @param value
      */
-    public boolean putBoolean(String key, boolean value)
-    {
-        if (contains(key))
-        {
+    public boolean putBoolean(String key, boolean value) {
+        if (contains(key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -209,10 +186,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -222,9 +197,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public static void putBoolean(final SQLiteDatabase db, final String key, final boolean value, final ResultListener<Boolean> listener)
-    {
+
+    public static void putBoolean(final SQLiteDatabase db, final String key, final boolean value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -234,11 +208,9 @@ public class KVDBHelper
         }, listener);
     }
 
-    public static boolean putBoolean(SQLiteDatabase db, String key, boolean value)
-    {
+    public static boolean putBoolean(SQLiteDatabase db, String key, boolean value) {
         if (contains(db,
-                key))
-        {
+                key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -247,10 +219,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -261,9 +231,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public void getString(final String key, final String defaultValue, final ResultListener<String> listener)
-    {
+
+    public void getString(final String key, final String defaultValue, final ResultListener<String> listener) {
         onResult(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
@@ -273,38 +242,31 @@ public class KVDBHelper
         }, listener);
     }
 
-    public String getString(String key, String defaultValue)
-    {
+    public String getString(String key, String defaultValue) {
         String result = defaultValue;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     new String[]
-                    { COLUMN_VALUE },
+                            {COLUMN_VALUE},
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) },
+                            {wrapKey(key)},
                     null,
                     null,
                     null);
-            if (cursor.moveToNext())
-            {
+            if (cursor.moveToNext()) {
                 result = cursor.getString(cursor.getColumnIndex(COLUMN_VALUE));
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return result;
     }
-    
-    public void putString(final String key, final String value, final ResultListener<Boolean> listener)
-    {
+
+    public void putString(final String key, final String value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -314,10 +276,8 @@ public class KVDBHelper
         }, listener);
     }
 
-    public boolean putString(String key, String value)
-    {
-        if (contains(key))
-        {
+    public boolean putString(String key, String value) {
+        if (contains(key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -325,10 +285,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -338,9 +296,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public static void putString(final SQLiteDatabase db, final String key, final String value, final ResultListener<Boolean> listener)
-    {
+
+    public static void putString(final SQLiteDatabase db, final String key, final String value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -350,11 +307,9 @@ public class KVDBHelper
         }, listener);
     }
 
-    public static boolean putString(SQLiteDatabase db, String key, String value)
-    {
+    public static boolean putString(SQLiteDatabase db, String key, String value) {
         if (contains(db,
-                key))
-        {
+                key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -363,10 +318,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -377,9 +330,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public void getInteger(final String key, final int defaultValue, final ResultListener<Integer> listener)
-    {
+
+    public void getInteger(final String key, final int defaultValue, final ResultListener<Integer> listener) {
         onResult(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {
@@ -389,38 +341,31 @@ public class KVDBHelper
         }, listener);
     }
 
-    public int getInteger(String key, int defaultValue)
-    {
+    public int getInteger(String key, int defaultValue) {
         int result = defaultValue;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     new String[]
-                    { COLUMN_VALUE },
+                            {COLUMN_VALUE},
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) },
+                            {wrapKey(key)},
                     null,
                     null,
                     null);
-            if (cursor.moveToNext())
-            {
+            if (cursor.moveToNext()) {
                 result = cursor.getInt(cursor.getColumnIndex(COLUMN_VALUE));
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return result;
     }
 
-    public void putInteger(final String key, final int value, final ResultListener<Boolean> listener)
-    {
+    public void putInteger(final String key, final int value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -429,11 +374,9 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
-    public boolean putInteger(String key, int value)
-    {
-        if (contains(key))
-        {
+
+    public boolean putInteger(String key, int value) {
+        if (contains(key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -441,10 +384,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -454,9 +395,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public static void putInteger(final SQLiteDatabase db, final String key, final int value, final ResultListener<Boolean> listener)
-    {
+
+    public static void putInteger(final SQLiteDatabase db, final String key, final int value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -465,11 +405,9 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
-    public static boolean putInteger(SQLiteDatabase db, String key, int value)
-    {
-        if (contains(db, key))
-        {
+
+    public static boolean putInteger(SQLiteDatabase db, String key, int value) {
+        if (contains(db, key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -477,10 +415,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -489,9 +425,8 @@ public class KVDBHelper
             return BaseDAO.insert(db, TABLE_NAME, values) != -1;
         }
     }
-    
-    public void getLong(final String key, final long defaultValue, final ResultListener<Long> listener)
-    {
+
+    public void getLong(final String key, final long defaultValue, final ResultListener<Long> listener) {
         onResult(new Observable.OnSubscribe<Long>() {
             @Override
             public void call(Subscriber<? super Long> subscriber) {
@@ -501,38 +436,31 @@ public class KVDBHelper
         }, listener);
     }
 
-    public long getLong(String key, long defaultValue)
-    {
+    public long getLong(String key, long defaultValue) {
         long result = defaultValue;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     new String[]
-                    { COLUMN_VALUE },
+                            {COLUMN_VALUE},
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) },
+                            {wrapKey(key)},
                     null,
                     null,
                     null);
-            if (cursor.moveToNext())
-            {
+            if (cursor.moveToNext()) {
                 result = cursor.getLong(cursor.getColumnIndex(COLUMN_VALUE));
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return result;
     }
-    
-    public void putLong(final String key, final long value, final ResultListener<Boolean> listener)
-    {
+
+    public void putLong(final String key, final long value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -542,10 +470,8 @@ public class KVDBHelper
         }, listener);
     }
 
-    public boolean putLong(String key, long value)
-    {
-        if (contains(key))
-        {
+    public boolean putLong(String key, long value) {
+        if (contains(key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -553,10 +479,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -566,9 +490,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public static void putLong(final SQLiteDatabase db, final String key, final long value, final ResultListener<Boolean> listener)
-    {
+
+    public static void putLong(final SQLiteDatabase db, final String key, final long value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -578,11 +501,9 @@ public class KVDBHelper
         }, listener);
     }
 
-    public static boolean putLong(SQLiteDatabase db, String key, long value)
-    {
+    public static boolean putLong(SQLiteDatabase db, String key, long value) {
         if (contains(db,
-                key))
-        {
+                key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -591,10 +512,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -605,9 +524,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public void getDouble(final String key, final double defaultValue, final ResultListener<Double> listener)
-    {
+
+    public void getDouble(final String key, final double defaultValue, final ResultListener<Double> listener) {
         onResult(new Observable.OnSubscribe<Double>() {
             @Override
             public void call(Subscriber<? super Double> subscriber) {
@@ -616,39 +534,32 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
-    public double getDouble(String key, double defaultValue)
-    {
+
+    public double getDouble(String key, double defaultValue) {
         double result = defaultValue;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     new String[]
-                    { COLUMN_VALUE },
+                            {COLUMN_VALUE},
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) },
+                            {wrapKey(key)},
                     null,
                     null,
                     null);
-            if (cursor.moveToNext())
-            {
+            if (cursor.moveToNext()) {
                 result = cursor.getDouble(cursor.getColumnIndex(COLUMN_VALUE));
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return result;
     }
 
-    public void putDouble(final String key, final double value, final ResultListener<Boolean> listener)
-    {
+    public void putDouble(final String key, final double value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -657,11 +568,9 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
-    public boolean putDouble(String key, double value)
-    {
-        if (contains(key))
-        {
+
+    public boolean putDouble(String key, double value) {
+        if (contains(key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -669,10 +578,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -682,9 +589,8 @@ public class KVDBHelper
                     values) != 0;
         }
     }
-    
-    public static void putDouble(final SQLiteDatabase db, final String key, final double value, final ResultListener<Boolean> listener)
-    {
+
+    public static void putDouble(final SQLiteDatabase db, final String key, final double value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -694,11 +600,9 @@ public class KVDBHelper
         }, listener);
     }
 
-    public static boolean putDouble(SQLiteDatabase db, String key, double value)
-    {
+    public static boolean putDouble(SQLiteDatabase db, String key, double value) {
         if (contains(db,
-                key))
-        {
+                key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -707,10 +611,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -721,9 +623,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public void getFloat(final String key, final float defaultValue, final ResultListener<Float> listener)
-    {
+
+    public void getFloat(final String key, final float defaultValue, final ResultListener<Float> listener) {
         onResult(new Observable.OnSubscribe<Float>() {
             @Override
             public void call(Subscriber<? super Float> subscriber) {
@@ -732,39 +633,32 @@ public class KVDBHelper
             }
         }, listener);
     }
-    
-    public float getFloat(String key, float defaultValue)
-    {
+
+    public float getFloat(String key, float defaultValue) {
         float result = defaultValue;
         Cursor cursor = null;
-        try
-        {
+        try {
             cursor = baseDAO.query(TABLE_NAME,
                     new String[]
-                    { COLUMN_VALUE },
+                            {COLUMN_VALUE},
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) },
+                            {wrapKey(key)},
                     null,
                     null,
                     null);
-            if (cursor.moveToNext())
-            {
+            if (cursor.moveToNext()) {
                 result = cursor.getFloat(cursor.getColumnIndex(COLUMN_VALUE));
             }
-        }
-        finally
-        {
-            if (cursor != null)
-            {
+        } finally {
+            if (cursor != null) {
                 cursor.close();
             }
         }
         return result;
     }
-    
-    public void putFloat(final String key, final float value, final ResultListener<Boolean> listener)
-    {
+
+    public void putFloat(final String key, final float value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -774,10 +668,8 @@ public class KVDBHelper
         }, listener);
     }
 
-    public boolean putFloat(String key, float value)
-    {
-        if (contains(key))
-        {
+    public boolean putFloat(String key, float value) {
+        if (contains(key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -785,10 +677,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -798,9 +688,8 @@ public class KVDBHelper
                     values) != -1;
         }
     }
-    
-    public static void putFloat(final SQLiteDatabase db, final String key, final float value, final ResultListener<Boolean> listener)
-    {
+
+    public static void putFloat(final SQLiteDatabase db, final String key, final float value, final ResultListener<Boolean> listener) {
         onResult(new Observable.OnSubscribe<Boolean>() {
             @Override
             public void call(Subscriber<? super Boolean> subscriber) {
@@ -810,11 +699,9 @@ public class KVDBHelper
         }, listener);
     }
 
-    public static boolean putFloat(SQLiteDatabase db, String key, float value)
-    {
+    public static boolean putFloat(SQLiteDatabase db, String key, float value) {
         if (contains(db,
-                key))
-        {
+                key)) {
             ContentValues values = new ContentValues();
             values.put(COLUMN_VALUE,
                     value);
@@ -823,10 +710,8 @@ public class KVDBHelper
                     values,
                     COLUMN_KEY + "=?",
                     new String[]
-                    { wrapKey(key) }) > 0;
-        }
-        else
-        {
+                            {wrapKey(key)}) > 0;
+        } else {
             ContentValues values = new ContentValues();
             values.put(COLUMN_KEY,
                     wrapKey(key));
@@ -852,16 +737,15 @@ public class KVDBHelper
 
     /**
      * 给key加上前缀
+     *
      * @param key
      * @return
      */
-    private static String wrapKey(String key)
-    {
+    private static String wrapKey(String key) {
         return keyPrefix + "_" + key;
     }
-    
-    public interface ResultListener<T>
-    {
+
+    public interface ResultListener<T> {
         void onResult(T response);
     }
 }

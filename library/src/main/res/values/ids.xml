@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 定义请求的标示符 -->
+<?xml version="1.0" encoding="utf-8"?><!-- 定义请求的标示符 -->
 <resources>
-  <item type="id" name="onLoading"/>
+    <item type="id" name="onLoading" />
 </resources>

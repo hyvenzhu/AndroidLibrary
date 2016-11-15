@@ -1,41 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <Button
         android:id="@+id/net_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get Request"/>
+        android:text="Get Request" />
 
     <Button
         android:id="@+id/task_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Local Task"/>
+        android:text="Local Task" />
 
     <Button
         android:id="@+id/download_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Download"/>
+        android:text="Download" />
 
     <Button
         android:id="@+id/upload_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload"/>
+        android:text="Upload" />
 
     <Button
         android:id="@+id/batchUpload_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Batch Upload"/>
+        android:text="Batch Upload" />
 
     <Button
         android:id="@+id/uploadProgress_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Upload With Progress"/>
+        android:text="Upload With Progress" />
 </LinearLayout>

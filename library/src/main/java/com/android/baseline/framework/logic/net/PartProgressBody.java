@@ -11,6 +11,7 @@ import okio.BufferedSink;
 
 /**
  * Part request body with progress feedback
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/27 09:13]
  */
@@ -20,15 +21,18 @@ public abstract class PartProgressBody {
         if (file == null) throw new NullPointerException("content == null");
 
         return new RequestBody() {
-            @Override public MediaType contentType() {
+            @Override
+            public MediaType contentType() {
                 return contentType;
             }
 
-            @Override public long contentLength() {
+            @Override
+            public long contentLength() {
                 return file.length();
             }
 
-            @Override public void writeTo(BufferedSink sink) throws IOException {
+            @Override
+            public void writeTo(BufferedSink sink) throws IOException {
                 FileInputStream fis = null;
                 try {
                     fis = new FileInputStream(file);
@@ -37,7 +41,7 @@ public abstract class PartProgressBody {
                     int len = -1;
                     // has write lenght
                     long current = 0;
-                    while((len = fis.read(buffer)) != -1) {
+                    while ((len = fis.read(buffer)) != -1) {
                         sink.write(buffer, 0, len);
 
                         // callback upload progress
@@ -46,8 +50,7 @@ public abstract class PartProgressBody {
                             progress.onProgress(current, contentLength());
                         }
                     }
-                }
-                finally {
+                } finally {
                     Util.closeQuietly(fis);
                 }
             }

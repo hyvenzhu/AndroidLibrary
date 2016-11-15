@@ -11,29 +11,26 @@ import java.util.List;
 
 /**
  * 基类Adapter
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-8-29]
  */
-public abstract class BasicAdapter<T> extends BaseAdapter implements IAdapter<T>
-{
+public abstract class BasicAdapter<T> extends BaseAdapter implements IAdapter<T> {
     protected Context mContext;
     protected LayoutInflater mLayoutInflater;
     protected List<T> mData; // data source
     int mLayoutItemId = -1;
     MultiTypeSupport<T> multiTypeSupport;
 
-    public BasicAdapter(Context context, List<T> data, int layoutItemId)
-    {
+    public BasicAdapter(Context context, List<T> data, int layoutItemId) {
         this(context, data, layoutItemId, null);
     }
 
-    public BasicAdapter(Context context, List<T> data, MultiTypeSupport<T> multiTypeSupport)
-    {
+    public BasicAdapter(Context context, List<T> data, MultiTypeSupport<T> multiTypeSupport) {
         this(context, data, -1, multiTypeSupport);
     }
 
-    public BasicAdapter(Context context, List<T> data, int layoutItemId, MultiTypeSupport<T> multiTypeSupport)
-    {
+    public BasicAdapter(Context context, List<T> data, int layoutItemId, MultiTypeSupport<T> multiTypeSupport) {
         mContext = context;
         mData = data;
         mLayoutItemId = layoutItemId;
@@ -43,42 +40,35 @@ public abstract class BasicAdapter<T> extends BaseAdapter implements IAdapter<T>
     }
 
     @Override
-    public void setDataSource(List<T> data)
-    {
+    public void setDataSource(List<T> data) {
         mData = data;
     }
 
     @Override
-    public List<T> getDataSource()
-    {
+    public List<T> getDataSource() {
         return mData;
     }
 
     @Override
-    public int getCount()
-    {
+    public int getCount() {
         return mData != null ? mData.size() : 0;
     }
 
     @Override
-    public T getItem(int position)
-    {
+    public T getItem(int position) {
         return mData.get(position);
     }
 
     @Override
-    public long getItemId(int position)
-    {
+    public long getItemId(int position) {
         return position;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
-    {
-        if (convertView == null)
-        {
+    public View getView(int position, View convertView, ViewGroup parent) {
+        if (convertView == null) {
             int itemType = getItemViewType(position);
-            @LayoutRes int layoutId = (mLayoutItemId != -1 && multiTypeSupport != null)? multiTypeSupport.getLayoutId(itemType) : mLayoutItemId;
+            @LayoutRes int layoutId = (mLayoutItemId != -1 && multiTypeSupport != null) ? multiTypeSupport.getLayoutId(itemType) : mLayoutItemId;
             convertView = mLayoutInflater.inflate(layoutId, null);
         }
         getView(position,
@@ -88,51 +78,43 @@ public abstract class BasicAdapter<T> extends BaseAdapter implements IAdapter<T>
 
     /**
      * 子类需要实现
+     *
      * @param position
      * @param convertView
      */
     protected abstract void getView(final int position, final View convertView);
 
     ViewHolder viewHolder;
+
     /**
      * 类似convertView.findViewById(int viewId), 子类不需要关心如何使用ViewHolder机制
-     * 
+     *
      * @param <V>
      * @param convertView
      * @param viewId
      * @return
      */
-    protected <V extends View> V findViewById(View convertView, int viewId)
-    {
-        if (viewHolder == null)
-        {
+    protected <V extends View> V findViewById(View convertView, int viewId) {
+        if (viewHolder == null) {
             viewHolder = new ViewHolder(convertView);
         }
         return viewHolder.findViewById(viewId);
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
-        if (mLayoutItemId == -1 && multiTypeSupport != null)
-        {
+    public int getItemViewType(int position) {
+        if (mLayoutItemId == -1 && multiTypeSupport != null) {
             return multiTypeSupport.getItemViewType(getItem(position), position);
-        }
-        else
-        {
+        } else {
             return 0;
         }
     }
 
     @Override
-    public int getViewTypeCount()
-    {
-        if (mLayoutItemId == -1 && multiTypeSupport != null)
-        {
+    public int getViewTypeCount() {
+        if (mLayoutItemId == -1 && multiTypeSupport != null) {
             return multiTypeSupport.getViewTypeCount();
-        }
-        else
-        {
+        } else {
             return 1;
         }
     }

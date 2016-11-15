@@ -2,12 +2,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- 自定义dialog -->
     <style name="loading_dialog" parent="@android:style/Theme.Dialog">
-		<item name="android:windowFrame">@null</item>
+        <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@drawable/loading_dialog_bg</item>
         <item name="android:windowIsFloating">true</item>
         <item name="android:windowContentOverlay">@null</item>
-	</style>
+    </style>
 
     <!--Activity全透明样式-->
     <style name="ActivityTransparentTheme" parent="@style/BaseAppTheme">
@@ -16,10 +16,8 @@
     </style>
 
     <!-- App theme -->
-    <style name="AppTheme" parent="@style/BaseAppTheme">
-    </style>
+    <style name="AppTheme" parent="@style/BaseAppTheme"></style>
 
     <!-- 公共属性-->
-    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    </style>
+    <style name="BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
 </resources>

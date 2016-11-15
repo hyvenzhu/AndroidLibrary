@@ -13,27 +13,23 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 /**
  * 自定义的View事件 [触发的方法中反射用户的方法]
- * 
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-9-15]
  */
-public class EventListener implements OnClickListener , OnLongClickListener , OnItemClickListener ,
-        OnItemLongClickListener,OnCheckedChangeListener
-{
+public class EventListener implements OnClickListener, OnLongClickListener, OnItemClickListener,
+        OnItemLongClickListener, OnCheckedChangeListener {
     private Object receiver;
     private String methodName;
 
-    public EventListener(Object receiver, String methodName)
-    {
+    public EventListener(Object receiver, String methodName) {
         this.receiver = receiver;
         this.methodName = methodName;
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-    {
-        try
-        {
+    public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        try {
             Method method = receiver.getClass().getDeclaredMethod(methodName,
                     AdapterView.class,
                     View.class,
@@ -44,19 +40,15 @@ public class EventListener implements OnClickListener , OnLongClickListener , On
                     arg1,
                     arg2,
                     arg3).toString());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3)
-    {
-        try
-        {
+    public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+        try {
             Method method = receiver.getClass().getDeclaredMethod(methodName,
                     AdapterView.class,
                     View.class,
@@ -67,59 +59,45 @@ public class EventListener implements OnClickListener , OnLongClickListener , On
                     arg1,
                     arg2,
                     arg3);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public boolean onLongClick(View v)
-    {
-        try
-        {
+    public boolean onLongClick(View v) {
+        try {
             Method method = receiver.getClass().getDeclaredMethod(methodName,
                     View.class);
             return Boolean.valueOf(method.invoke(receiver,
                     v).toString());
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
     @Override
-    public void onClick(View v)
-    {
-        try
-        {
+    public void onClick(View v) {
+        try {
             Method method = receiver.getClass().getDeclaredMethod(methodName,
                     View.class);
             method.invoke(receiver,
                     v);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
-        try
-        {
-            Method method = receiver.getClass().getDeclaredMethod(methodName,CompoundButton.class,
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        try {
+            Method method = receiver.getClass().getDeclaredMethod(methodName, CompoundButton.class,
                     boolean.class);
-            method.invoke(receiver,buttonView,isChecked);
-        }
-        catch (Exception e)
-        {
+            method.invoke(receiver, buttonView, isChecked);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
     }
 }

@@ -12,15 +12,16 @@ import java.util.List;
 
 /**
  * 通用RecyclerView适配器
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/19 13:42]
  */
-public class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements IAdapter<T>{
+public class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements IAdapter<T> {
     protected Context mContext;
     int mItemLayoutId;
     protected List<T> mData;
-    protected CommonAdapter(Context context, List<T> data, int itemLayoutId)
-    {
+
+    protected CommonAdapter(Context context, List<T> data, int itemLayoutId) {
         mContext = context;
         mData = data;
         mItemLayoutId = itemLayoutId;
@@ -40,28 +41,24 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implement
 
     @Override
     public int getItemCount() {
-        return mData != null? mData.size() : 0;
+        return mData != null ? mData.size() : 0;
     }
 
     @Override
-    public T getItem(int position)
-    {
-        if (position < 0 || position > getItemCount() - 1)
-        {
+    public T getItem(int position) {
+        if (position < 0 || position > getItemCount() - 1) {
             return null;
         }
         return mData.get(position);
     }
 
     @Override
-    public void setDataSource(List<T> data)
-    {
+    public void setDataSource(List<T> data) {
         mData = data;
     }
 
     @Override
-    public List<T> getDataSource()
-    {
+    public List<T> getDataSource() {
         return mData;
     }
 }

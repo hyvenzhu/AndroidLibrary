@@ -1,6 +1,5 @@
 package com.hiphonezhu.test.demo;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.android.baseline.AppDroid;

@@ -8,27 +8,22 @@ import java.io.File;
 
 /**
  * 基础工具类 [尽量减少类似Util的类存在]
- * 
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-8-29]
  */
-public class APKUtil
-{
+public class APKUtil {
     /**
      * 获得版本号
-     * 
+     *
      * @return
      */
-    public static int getVerCode(Context context)
-    {
+    public static int getVerCode(Context context) {
         int verCode = -1;
-        try
-        {
+        try {
             verCode = context.getApplicationContext().getPackageManager()
                     .getPackageInfo(context.getApplicationContext().getPackageName(), 0).versionCode;
-        }
-        catch (NameNotFoundException e)
-        {
+        } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
         return verCode;
@@ -36,19 +31,15 @@ public class APKUtil
 
     /**
      * 获得版本名称
-     * 
+     *
      * @return
      */
-    public static String getVerName(Context context)
-    {
+    public static String getVerName(Context context) {
         String verName = "";
-        try
-        {
+        try {
             verName = context.getApplicationContext().getPackageManager()
                     .getPackageInfo(context.getApplicationContext().getPackageName(), 0).versionName;
-        }
-        catch (NameNotFoundException e)
-        {
+        } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
         return verName;
@@ -56,35 +47,30 @@ public class APKUtil
 
     /**
      * 获得APP包名
-     * 
+     *
      * @return
      */
-    public static String getPackageName(Context context)
-    {
+    public static String getPackageName(Context context) {
         return context.getApplicationContext().getPackageName();
     }
 
     /**
      * 获得磁盘缓存目录 [PS：应用卸载后会被自动删除]
+     *
      * @param context
      * @param uniqueName
      * @return
      */
-    public static File getDiskCacheDir(Context context, String uniqueName)
-    {
+    public static File getDiskCacheDir(Context context, String uniqueName) {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
-                || !Environment.isExternalStorageRemovable())
-        {
+                || !Environment.isExternalStorageRemovable()) {
             cachePath = context.getApplicationContext().getExternalCacheDir().getPath();
-        }
-        else
-        {
+        } else {
             cachePath = context.getApplicationContext().getCacheDir().getPath();
         }
         File dir = new File(cachePath + File.separator + uniqueName);
-        if (!dir.exists())
-        {
+        if (!dir.exists()) {
             dir.mkdirs();
         }
         return dir;

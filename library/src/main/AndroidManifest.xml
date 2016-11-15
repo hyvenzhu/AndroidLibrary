@@ -2,19 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.baseline"
     android:versionCode="4"
-    android:versionName="0.0.4" >
+    android:versionName="0.0.4">
 
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19"/>
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
     <!-- 连接网络权限 -->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
 
     <application>
         <!-- 权限申请 -->
-        <activity android:name=".framework.ui.activity.PermissionsActivity"
+        <activity
+            android:name=".framework.ui.activity.PermissionsActivity"
             android:configChanges="orientation"
             android:theme="@style/ActivityTransparentTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

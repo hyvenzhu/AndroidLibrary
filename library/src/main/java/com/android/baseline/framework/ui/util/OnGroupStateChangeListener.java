@@ -4,6 +4,7 @@ import android.widget.ExpandableListView;
 
 /**
  * 分组ListView展开某一个自动关闭其他
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2014-12-16]
  */
@@ -19,20 +20,20 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
 
     /**
      * 设置展开回调
+     *
      * @param onGroupExpandListener
      */
-    public OnGroupStateChangeListener setOnGroupExpandListener(ExpandableListView.OnGroupExpandListener onGroupExpandListener)
-    {
+    public OnGroupStateChangeListener setOnGroupExpandListener(ExpandableListView.OnGroupExpandListener onGroupExpandListener) {
         this.onGroupExpandListener = onGroupExpandListener;
         return this;
     }
 
     /**
      * 设置合并回调
+     *
      * @param onGroupCollapseListener
      */
-    public OnGroupStateChangeListener setOnGroupCollapseListener(ExpandableListView.OnGroupCollapseListener onGroupCollapseListener)
-    {
+    public OnGroupStateChangeListener setOnGroupCollapseListener(ExpandableListView.OnGroupCollapseListener onGroupCollapseListener) {
         this.onGroupCollapseListener = onGroupCollapseListener;
         return this;
     }
@@ -40,8 +41,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
     /**
      * 绑定事件
      */
-    public void bind()
-    {
+    public void bind() {
         expandableListView.setOnGroupExpandListener(this);
         expandableListView.setOnGroupCollapseListener(this);
     }
@@ -53,8 +53,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
             expandableListView.collapseGroup(lastExpandedGroup);
         }
         lastExpandedGroup = groupPosition;
-        if (onGroupExpandListener != null)
-        {
+        if (onGroupExpandListener != null) {
             onGroupExpandListener.onGroupExpand(groupPosition);
         }
     }
@@ -64,8 +63,7 @@ public class OnGroupStateChangeListener implements ExpandableListView.OnGroupExp
         if (lastExpandedGroup == groupPosition) {
             lastExpandedGroup = -1;
         }
-        if (onGroupCollapseListener != null)
-        {
+        if (onGroupCollapseListener != null) {
             onGroupCollapseListener.onGroupCollapse(groupPosition);
         }
     }

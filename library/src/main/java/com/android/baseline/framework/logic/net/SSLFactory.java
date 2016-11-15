@@ -1,7 +1,5 @@
 package com.android.baseline.framework.logic.net;
 
-import android.content.Context;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -15,6 +13,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.net.ssl.KeyManager;
@@ -35,24 +34,15 @@ public class SSLFactory {
     /**
      * 创建SSLSocketFactory
      *
-     * @param context
-     * @param inputStreams 包含公钥的cer证书
+     * @param trustManager
      * @return
      */
-    public static SSLSocketFactory build(Context context, InputStream... inputStreams) {
+    public static SSLSocketFactory build(X509TrustManager trustManager) {
         try {
-            KeyStore keyStore = buildKeyStore(context, inputStreams);
-
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(keyStore);
-
             SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, tmf.getTrustManagers(), new SecureRandom());
+            sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
             return sslContext.getSocketFactory();
-        } catch (KeyStoreException e1) {
-        } catch (CertificateException e2) {
         } catch (NoSuchAlgorithmException e3) {
-        } catch (IOException e4) {
         } catch (KeyManagementException e5) {
         }
         return null;
@@ -61,37 +51,49 @@ public class SSLFactory {
     /**
      * 创建SSLSocketFactory(双向认证)
      *
-     * @param context
-     * @param bksRawResIds jks转化之后的bks格式证书(转化方式: https://sourceforge.net/projects/portecle/files/latest/download?source=files下载portecle-1.9.zip)
-     * @param pwd 证书的秘钥
-     * @param inputStreams 包含公钥的cer证书
+     * @param bks          jks转化之后的bks格式证书(转化方式: https://sourceforge.net/projects/portecle/files/latest/download?source=files下载portecle-1.9.zip)
+     * @param pwd          证书的秘钥
+     * @param trustManager
      * @return
      */
-    public static SSLSocketFactory buildWithClientAuth(Context context, int bksRawResIds, String pwd, InputStream... inputStreams) {
+    public static SSLSocketFactory build(InputStream bks, String pwd, TrustManager trustManager) {
         try {
-            KeyStore keyStore = buildKeyStore(context, inputStreams);
-
-            TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            tmf.init(keyStore);
-
             SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(buildClient(context, bksRawResIds, pwd), tmf.getTrustManagers(), new SecureRandom());
+            sslContext.init(buildClient(bks, pwd), new TrustManager[]{trustManager}, new SecureRandom());
             return sslContext.getSocketFactory();
-        } catch (KeyStoreException e1) {
-        } catch (CertificateException e2) {
         } catch (NoSuchAlgorithmException e3) {
-        } catch (IOException e4) {
         } catch (KeyManagementException e5) {
         }
         return null;
     }
 
-    private static KeyManager[] buildClient(Context context, int bksRawResIds, String pwd)
-    {
+    /**
+     * 创建X509TrustManager
+     *
+     * @param inputStreams 包含公钥的cer证书
+     * @return
+     * @throws CertificateException
+     * @throws NoSuchAlgorithmException
+     * @throws KeyStoreException
+     * @throws IOException
+     */
+    public static X509TrustManager getX509TrustManager(InputStream... inputStreams) throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
+        KeyStore keyStore = buildKeyStore(inputStreams);
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+        tmf.init(keyStore);
+        TrustManager[] trustManagers = tmf.getTrustManagers();
+        if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+            throw new IllegalStateException("Unexpected default trust managers:"
+                    + Arrays.toString(trustManagers));
+        }
+        return (X509TrustManager) trustManagers[0];
+    }
+
+    private static KeyManager[] buildClient(InputStream bks, String pwd) {
         try {
             KeyStore clientKeyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             // jks证书需要转化为bks格式
-            clientKeyStore.load(context.getResources().openRawResource(bksRawResIds), pwd.toCharArray());
+            clientKeyStore.load(bks, pwd.toCharArray());
             KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
             keyManagerFactory.init(clientKeyStore, pwd.toCharArray());
             return keyManagerFactory.getKeyManagers();
@@ -129,7 +131,6 @@ public class SSLFactory {
     /**
      * 创建KeyStore
      *
-     * @param context
      * @param inputStreams
      * @return
      * @throws KeyStoreException
@@ -137,11 +138,11 @@ public class SSLFactory {
      * @throws NoSuchAlgorithmException
      * @throws IOException
      */
-    private static KeyStore buildKeyStore(Context context, InputStream... inputStreams) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException {
+    private static KeyStore buildKeyStore(InputStream... inputStreams) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException {
         String keyStoreType = KeyStore.getDefaultType();
         KeyStore keyStore = KeyStore.getInstance(keyStoreType);
         keyStore.load(null, null);
-        List<Certificate> cas = readCert(context, inputStreams);
+        List<Certificate> cas = readCert(inputStreams);
         for (int i = 0; cas != null && i < cas.size(); i++) {
             keyStore.setCertificateEntry(Integer.toString(i), cas.get(i));
         }
@@ -150,11 +151,11 @@ public class SSLFactory {
 
     /**
      * 创建Certificate
-     * @param context
+     *
      * @param inputStreams
      * @return
      */
-    private static List<Certificate> readCert(Context context, InputStream... inputStreams) throws CertificateException, IOException {
+    private static List<Certificate> readCert(InputStream... inputStreams) throws CertificateException, IOException {
         List<Certificate> cas = new ArrayList<>();
         CertificateFactory cf = CertificateFactory.getInstance("X.509");
         for (InputStream is : inputStreams) {

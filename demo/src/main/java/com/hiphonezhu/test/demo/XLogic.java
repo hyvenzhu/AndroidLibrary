@@ -5,6 +5,7 @@ import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.logic.net.Action1Impl;
 import com.android.baseline.framework.logic.net.IProgress;
 import com.android.baseline.framework.logic.net.PartProgressBody;
+import com.hiphonezhu.test.demo.api.XAPI;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,16 +19,17 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import rx.functions.Action1;
 import rx.functions.Func1;
 
 /**
  * 业务模块
+ *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/3 12:12]
  */
 public class XLogic extends BaseLogic {
     XAPI phoneService;
+
     public XLogic(Object subscriber) {
         super(subscriber);
         phoneService = create(XAPI.class);
@@ -35,10 +37,10 @@ public class XLogic extends BaseLogic {
 
     /**
      * Get请求
+     *
      * @param phone
      */
-    public void getResult(String phone)
-    {
+    public void getResult(String phone) {
         sendRequest(phoneService.getResult(phone, "8e13586b86e4b7f3758ba3bd6c9c9135").doOnNext(new Action1Impl<MobileBean>() {
             @Override
             public void nextCall(InfoResult<MobileBean> infoResult) {
@@ -49,13 +51,13 @@ public class XLogic extends BaseLogic {
 
     /**
      * 下载文件
-     * @param downloadUrl 下载路径
+     *
+     * @param downloadUrl  下载路径
      * @param destFilePath 本地存储路径
-     * @param iProgress 进度
-     * @param extraInfo 附加信息, 一般用于结束之后判断数据源
+     * @param iProgress    进度
+     * @param extraInfo    附加信息, 一般用于结束之后判断数据源
      */
-    public void download(String downloadUrl, final String destFilePath, final IProgress iProgress, final Object extraInfo)
-    {
+    public void download(String downloadUrl, final String destFilePath, final IProgress iProgress, final Object extraInfo) {
         // 返回值ResponseBody, 使用map操作, 将返回值ResponseBody->InputStream存储到本地, 最后输出InfoResult
         sendRequest(phoneService.download(downloadUrl).map(new Func1<ResponseBody, InfoResult>() {
             @Override
@@ -71,8 +73,7 @@ public class XLogic extends BaseLogic {
                     fos = new FileOutputStream(destFilePath);
                     byte[] buffer = new byte[10240];
                     int len = -1;
-                    while((len = is.read(buffer)) != -1)
-                    {
+                    while ((len = is.read(buffer)) != -1) {
                         fos.write(buffer, 0, len);
                         current += len;
                         iProgress.onProgress(current, total);
@@ -107,11 +108,11 @@ public class XLogic extends BaseLogic {
 
     /**
      * 普通参数和单个文件同时上传
+     *
      * @param account
      * @param filePath
      */
-    public void upload(String account, String filePath)
-    {
+    public void upload(String account, String filePath) {
         File file = new File(filePath);
 
         RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
@@ -122,11 +123,11 @@ public class XLogic extends BaseLogic {
 
     /**
      * 普通参数和单个文件同时上传(上传进度)
+     *
      * @param account
      * @param filePath
      */
-    public void uploadWithProgress(String account, String filePath, IProgress progress)
-    {
+    public void uploadWithProgress(String account, String filePath, IProgress progress) {
         File file = new File(filePath);
 
         RequestBody requestFile = PartProgressBody.create(MediaType.parse("multipart/form-data"), file, progress);
@@ -137,19 +138,19 @@ public class XLogic extends BaseLogic {
 
     /**
      * 普通参数和多个文件同时上传
+     *
      * @param account
      * @param filePath1
      * @param filePath2
      */
-    public void batchUpload(String account, String filePath1, String filePath2)
-    {
+    public void batchUpload(String account, String filePath1, String filePath2) {
         File file1 = new File(filePath1);
         File file2 = new File(filePath2);
 
         Map<String, RequestBody> params = new HashMap<>();
         params.put("account", RequestBody.create(MediaType.parse("text/plain"), account));
-        params.put("avatar\"; filename=\"" + file1.getName(),  RequestBody.create(MediaType.parse("multipart/form-data"), file1));
-        params.put("avatar\"; filename=\"" + file2.getName(),  RequestBody.create(MediaType.parse("multipart/form-data"), file2));
+        params.put("avatar\"; filename=\"" + file1.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file1));
+        params.put("avatar\"; filename=\"" + file2.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file2));
         sendRequest(phoneService.batchUpload("http://115.159.86.13:8080/TPGD/fileUpload", params), R.id.upload);
     }
 }

@@ -3,7 +3,7 @@
     android:id="@+id/loading_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffff" >
+    android:background="#ffffff">
 
     <ProgressBar
         android:id="@+id/loading_progressBar"
@@ -21,7 +21,7 @@
         android:layout_centerInParent="true"
         android:text="@string/app_name"
         android:textColor="#98a5ac"
-        android:textSize="18sp" 
+        android:textSize="18sp"
         android:gravity="center_vertical"
-        android:drawablePadding="5dp"/>
+        android:drawablePadding="5dp" />
 </com.android.baseline.framework.ui.view.LoadingView>
