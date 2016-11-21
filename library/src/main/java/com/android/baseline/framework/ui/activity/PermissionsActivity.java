@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -37,6 +38,21 @@ public class PermissionsActivity extends BasicActivity {
         intent.putExtra("permissionDesc", permissionDesc);
         intent.putExtra("permissions", permissions);
         activity.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 启动Activity
+     *
+     * @param fragment
+     * @param requestCode
+     * @param permissionDesc 权限描述, 例如:发送短信、访问相机。如为空, 会显示"必要"字样
+     * @param permissions    权限列表
+     */
+    public static void actionStartForResult(Fragment fragment, int requestCode, String permissionDesc, String... permissions) {
+        Intent intent = new Intent(fragment.getActivity(), PermissionsActivity.class);
+        intent.putExtra("permissionDesc", permissionDesc);
+        intent.putExtra("permissions", permissions);
+        fragment.startActivityForResult(intent, requestCode);
     }
 
     String[] permissions; // 待申请权限
