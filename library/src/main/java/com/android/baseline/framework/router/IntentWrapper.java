@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 
 import com.android.baseline.framework.router.annotations.ClassName;
@@ -23,6 +24,7 @@ import java.lang.reflect.Method;
 
 public class IntentWrapper {
     private Context mContext;
+    private Fragment mFragment;
     private Bundle mExtras;
     private Class mTargetClass;
     private int mRequestCode = -1;
@@ -31,6 +33,17 @@ public class IntentWrapper {
 
     IntentWrapper(Context context, Class targetClass, int requestCode, Method method) {
         mContext = context;
+        mTargetClass = targetClass;
+        mRequestCode = requestCode;
+        mMethod = method;
+
+        mIntent = new Intent();
+        mIntent.setClass(mContext, mTargetClass);
+    }
+
+    IntentWrapper(Fragment fragment, Class targetClass, int requestCode, Method method) {
+        mContext = fragment.getActivity();
+        mFragment = fragment;
         mTargetClass = targetClass;
         mRequestCode = requestCode;
         mMethod = method;
@@ -89,18 +102,27 @@ public class IntentWrapper {
         if (!(mContext instanceof Activity)) {
             mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
-        mContext.startActivity(mIntent);
+        if (mFragment != null) {
+            mFragment.startActivity(mIntent);
+        } else {
+            mContext.startActivity(mIntent);
+        }
     }
 
     public void startActivityForResult(int requestCode) {
-        if (!(mContext instanceof Activity)) {
-            throw new RuntimeException("startActivityForResult only works for activity context");
+        if (mFragment != null) {
+            mFragment.startActivityForResult(mIntent, requestCode);
+        } else {
+            if (!(mContext instanceof Activity)) {
+                throw new RuntimeException("startActivityForResult only works for activity context");
+            }
+            ((Activity) mContext).startActivityForResult(mIntent, requestCode);
         }
-        ((Activity) mContext).startActivityForResult(mIntent, requestCode);
     }
 
     public static final class Builder {
         private Context mContext;
+        private Fragment mFragment;
 
         Method mMethod;
         String mClassName;
@@ -109,6 +131,11 @@ public class IntentWrapper {
 
         public Builder(Context context, Method method) {
             mContext = context;
+            mMethod = method;
+        }
+
+        public Builder(Fragment fragment, Method method) {
+            mFragment = fragment;
             mMethod = method;
         }
 
@@ -121,8 +148,13 @@ public class IntentWrapper {
             if (TextUtils.isEmpty(mClassName) && mTargetClass == null) {
                 throw new RuntimeException("Target Class is required.");
             }
-            return new IntentWrapper(mContext, mTargetClass == null ? Class.forName(mClassName) : mTargetClass,
-                    mMethod.isAnnotationPresent(RequestCode.class) ? mRequestCode : -1, mMethod);
+            if (mFragment != null) {
+                return new IntentWrapper(mFragment, mTargetClass == null ? Class.forName(mClassName) : mTargetClass,
+                        mMethod.isAnnotationPresent(RequestCode.class) ? mRequestCode : -1, mMethod);
+            } else {
+                return new IntentWrapper(mContext, mTargetClass == null ? Class.forName(mClassName) : mTargetClass,
+                        mMethod.isAnnotationPresent(RequestCode.class) ? mRequestCode : -1, mMethod);
+            }
         }
 
         /**
