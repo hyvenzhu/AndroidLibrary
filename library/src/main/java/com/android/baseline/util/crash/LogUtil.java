@@ -1,52 +1,27 @@
 package com.android.baseline.util.crash;
 
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
 import com.android.baseline.AppDroid;
+import com.android.baseline.BuildConfig;
 import com.android.baseline.util.APKUtil;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 
 /**
- * 日志的功能操作类 可将日志保存至SD卡
- *
+ * Crash日志保存至SD卡
  * @author hiphonezhu@gmail.com
- * @version [OApp, 2014-12-17]
  */
 public class LogUtil {
-
-    /**
-     * 定义当前日志打印级别
-     */
-    private static int logLevel = 5;
-
-    private static final int VERBOSE = 1;
-
-    private static final int DEBUG = 2;
-
-    private static final int INFO = 3;
-
-    private static final int WARNING = 4;
-
-    private static final int ERROR = 5;
-
-    /**
-     * 日志打印控制开关
-     */
-
-    private static boolean isPrintLog = true;
-    /**
-     * 是否保存至SD卡
-     */
-    private static boolean SAVE_TO_SD = false;
-
-    private static boolean isPrintStackInfo = true;
 
     /**
      * 保存LOG日志的目录
@@ -67,122 +42,96 @@ public class LogUtil {
      */
     private static final SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    /**
-     * 用于打印debug级的日志信息
-     *
-     * @param strModule LOG TAG
-     * @param strErrMsg 打印信息
-     */
-    public static void d(String strModule, String strErrMsg) {
-        if (DEBUG >= logLevel) {
-            if (isPrintLog) {
-                Log.d(strModule,
-                        strErrMsg);
-            }
-            if (SAVE_TO_SD) {
-                storeLog(strModule,
-                        strErrMsg);
-            }
-        }
-    }
-
-    /**
-     * 用于打印info级别的日志信息
-     *
-     * @param strModule LOG TAG
-     * @param strErrMsg 打印信息
-     */
-    public static void i(String strModule, String strErrMsg) {
-        if (INFO >= logLevel) {
-            Log.i(strModule,
-                    strErrMsg);
-            if (SAVE_TO_SD) {
-                storeLog(strModule,
-                        strErrMsg);
-            }
-        }
-    }
-
-    /**
-     * 用于打印warning级别的日志信息
-     *
-     * @param strModule LOG TAG
-     * @param strErrMsg 打印信息
-     */
-    public static void w(String strModule, String strErrMsg) {
-        if (WARNING >= logLevel) {
-            if (isPrintLog) {
-                Log.w(strModule,
-                        strErrMsg);
-            }
-            if (SAVE_TO_SD) {
-                storeLog(strModule,
-                        strErrMsg);
-            }
-        }
-    }
-
-    /**
-     * 用于打印verbose级别的日志信息
-     *
-     * @param strModule LOG TAG
-     * @param strErrMsg 打印信息
-     */
-    public static void v(String strModule, String strErrMsg) {
-        if (VERBOSE >= logLevel) {
-            if (isPrintLog) {
-                Log.v(strModule,
-                        strErrMsg);
-            }
-            if (SAVE_TO_SD) {
-                storeLog(strModule,
-                        strErrMsg);
-            }
-        }
-    }
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
     /**
      * 打印异常栈信息
      *
-     * @param strModule
+     * @param tag
      * @param e
      */
-    public static void e(String strModule, Exception e) {
-        if (ERROR >= logLevel) {
-            if (isPrintStackInfo) {
-                if (e != null) {
-                    e.printStackTrace();
-                }
-            }
-            storeLog(strModule,
-                    e.getMessage());
+    static void e(String tag, Throwable e) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PrintStream ps = new PrintStream(baos);
+        e.printStackTrace(ps);
+        String errorMsg = new String(baos.toByteArray());
+
+        if (BuildConfig.DEBUG) { // debug模式打印到LogCat
+            Log.e(tag, errorMsg);
+        } else { // Release模式存储到SD卡
+            storeLog(tag, errorMsg + LINE_SEPARATOR + LINE_SEPARATOR + collectClientInfo());
         }
     }
 
+
     /**
-     * 用于打印error级的日志信息
-     *
-     * @param strModule LOG TAG
-     * @param strErrMsg 打印信息
+     * 手机设备信息
+     * @return
      */
-    public static void e(String strModule, String strErrMsg) {
-        if (ERROR >= logLevel) {
-            if (isPrintLog) {
-                Log.e(strModule,
-                        ">>" + strErrMsg + "<<");
-            }
-            storeLog(strModule,
-                    strErrMsg);
-        }
+    private static String collectClientInfo() {
+        StringBuilder systemInfo = new StringBuilder();
+        systemInfo.append("CLIENT-INFO");
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Id: ");
+        systemInfo.append(Build.ID);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Display: ");
+        systemInfo.append(Build.DISPLAY);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Product: ");
+        systemInfo.append(Build.PRODUCT);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Device: ");
+        systemInfo.append(Build.DEVICE);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Board: ");
+        systemInfo.append(Build.BOARD);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("CpuAbility: ");
+        systemInfo.append(Build.CPU_ABI);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Manufacturer: ");
+        systemInfo.append(Build.MANUFACTURER);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Brand: ");
+        systemInfo.append(Build.BRAND);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Model: ");
+        systemInfo.append(Build.MODEL);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Type: ");
+        systemInfo.append(Build.TYPE);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Tags: ");
+        systemInfo.append(Build.TAGS);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("FingerPrint: ");
+        systemInfo.append(Build.FINGERPRINT);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Version.Incremental: ");
+        systemInfo.append(Build.VERSION.INCREMENTAL);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Version.Release: ");
+        systemInfo.append(Build.VERSION.RELEASE);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("SDKInt: ");
+        systemInfo.append(Build.VERSION.SDK_INT);
+        systemInfo.append(LINE_SEPARATOR);
+        systemInfo.append("Version.CodeName: ");
+        systemInfo.append(Build.VERSION.CODENAME);
+        systemInfo.append(LINE_SEPARATOR);
+        String clientInfomation = systemInfo.toString();
+        systemInfo.delete(0, systemInfo.length());
+        return clientInfomation;
     }
 
     /**
      * 将日志信息保存至SD卡
      *
-     * @param strModule LOG TAG
+     * @param tag LOG TAG
      * @param strErrMsg 保存的打印信息
      */
-    public static void storeLog(String strModule, String strErrMsg) {
+    public static void storeLog(String tag, String strErrMsg) {
         if (Environment
                 .getExternalStorageState()
                 .equals(Environment.MEDIA_MOUNTED)) {
@@ -190,8 +139,6 @@ public class LogUtil {
             // 判断目录是否已经存在
             if (!fileDir.exists()) {
                 if (!fileDir.mkdirs()) {
-                    Log.e(strModule,
-                            "Failed to create directory " + SAVE_LOG_DIR_PATH);
                     return;
                 }
             }
@@ -201,7 +148,6 @@ public class LogUtil {
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             }
             try {
@@ -210,13 +156,11 @@ public class LogUtil {
                         true);
                 PrintWriter out = new PrintWriter(fos);
                 out.println(fmt.format(System.currentTimeMillis()) + "  >>"
-                        + strModule + "<<  " + strErrMsg + '\r');
+                        + tag + "<<  " + strErrMsg + '\r');
                 out.flush();
                 out.close();
             } catch (FileNotFoundException e1) {
-                e1.printStackTrace();
             } catch (Exception e) {
-                e.printStackTrace();
             }
         }
     }
