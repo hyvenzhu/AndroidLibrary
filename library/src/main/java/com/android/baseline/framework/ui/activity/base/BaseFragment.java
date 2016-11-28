@@ -7,8 +7,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.baseline.framework.task.Task;
 import com.android.baseline.framework.logic.EventLogic;
+import com.android.baseline.framework.task.Task;
 import com.android.baseline.framework.ui.activity.annotations.ViewUtils;
 import com.android.baseline.framework.ui.activity.base.helper.TaskHelper;
 

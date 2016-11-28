@@ -1,6 +1,5 @@
 package com.android.baseline.framework.ui.activity;
 
-import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
@@ -188,7 +187,7 @@ public class BasicFragment extends BaseFragment {
     /**
      * 关闭当前Fragment
      */
-    protected void finish() {
+    protected void finishFragment() {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.remove(this);
         transaction.commit();
