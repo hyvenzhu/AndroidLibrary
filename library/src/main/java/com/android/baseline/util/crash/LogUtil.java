@@ -58,6 +58,7 @@ public class LogUtil {
 
         if (BuildConfig.DEBUG) { // debug模式打印到LogCat
             Log.e(tag, errorMsg);
+            storeLog(tag, errorMsg + LINE_SEPARATOR + LINE_SEPARATOR + collectClientInfo());
         } else { // Release模式存储到SD卡
             storeLog(tag, errorMsg + LINE_SEPARATOR + LINE_SEPARATOR + collectClientInfo());
         }

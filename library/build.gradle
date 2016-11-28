@@ -41,5 +41,3 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:23.0.1'
 }
 
-//apply from: "https://raw.githubusercontent.com/xiaopansky/android-library-publish-to-jcenter/master/bintrayUpload.gradle"
-

@@ -25,15 +25,9 @@ public final class GlobalExceptionHandler implements Thread.UncaughtExceptionHan
      */
     @Override
     public void uncaughtException(final Thread thread, final Throwable throwable) {
-        Thread sendMailThread = new Thread() {
-            @Override
-            public void run() {
-                if (!handleException(throwable) && defaultHandler != null) {
-                    defaultHandler.uncaughtException(thread, throwable);
-                }
-            }
-        };
-        sendMailThread.start();
+        if (!handleException(throwable) && defaultHandler != null) {
+            defaultHandler.uncaughtException(thread, throwable);
+        }
     }
 
     /**

@@ -2,6 +2,7 @@ package com.hiphonezhu.test.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.baseline.framework.ui.activity.BasicActivity;
@@ -21,7 +22,9 @@ public class ActivityDemo2 extends BasicActivity {
         Intent intent = getIntent();
         String platform = intent.getStringExtra("platform");
         int year = intent.getIntExtra("year", 0);
-        Log.e("platform: ", platform);
+        if (!TextUtils.isEmpty(platform)) {
+            Log.e("platform: ", platform);
+        }
         Log.e("year: ", String.valueOf(year));
 
         setResult(RESULT_OK);

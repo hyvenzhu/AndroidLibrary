@@ -1,6 +1,7 @@
 package com.android.baseline.framework.logic.net;
 
 import com.android.baseline.AppDroid;
+import com.android.baseline.BuildConfig;
 import com.android.baseline.util.APKUtil;
 
 import java.io.IOException;
@@ -25,8 +26,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Retrofit Manager
  * <p>
- * 支持Https, 需要在App初始化的地方设置, 例如Application#onCreate方法中
- * RetrofitManager.getInstance().setCertificates(InputStream... cers)
+ * 支持Https, 需要使用之前初始化(在App初始化的地方设置, 例如Application#onCreate方法中):
+ *      RetrofitManager.getInstance().initCertificates(InputStream... cers);
+ * 后续设置无效
  *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/27 17:15]
@@ -68,6 +70,10 @@ public class RetrofitManager {
      * @return
      */
     public synchronized Retrofit getRetrofit(String baseUrl) {
+        if (client == null) {
+            client = buildClient();
+        }
+
         Retrofit retrofit = retrofitPool.get(baseUrl);
         if (retrofitPool.get(baseUrl) == null) {
             Retrofit.Builder builder = new Retrofit.Builder()
@@ -90,7 +96,7 @@ public class RetrofitManager {
      *
      * @param cers 包含公钥的cer证书
      */
-    public void setCertificates(InputStream... cers) {
+    public void initCertificates(InputStream... cers) {
         try {
             trustManager = SSLFactory.getX509TrustManager(cers);
             sslFactory = SSLFactory.build(trustManager);
@@ -115,7 +121,7 @@ public class RetrofitManager {
      * @param pwd  证书的秘钥
      * @param cers 包含公钥的cer证书
      */
-    public void setCertificates(InputStream bks, String pwd, InputStream... cers) {
+    public void initCertificates(InputStream bks, String pwd, InputStream... cers) {
         try {
             trustManager = SSLFactory.getX509TrustManager(cers);
             sslFactory = SSLFactory.build(bks, pwd, trustManager);
@@ -139,7 +145,11 @@ public class RetrofitManager {
      */
     private OkHttpClient buildClient() {
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if (BuildConfig.DEBUG) {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        } else {
+            loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
+        }
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor) // log interceptor
