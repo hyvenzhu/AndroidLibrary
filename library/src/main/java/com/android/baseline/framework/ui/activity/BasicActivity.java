@@ -3,12 +3,15 @@ package com.android.baseline.framework.ui.activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
 import com.android.baseline.framework.ui.view.LoadingView;
+import com.android.baseline.util.APKUtil;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
@@ -47,8 +51,11 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     /**
      * 标题栏
      */
+    protected View llLeft;
     protected Button leftBtn;
     protected TextView titleTxt;
+    protected TextView subTitleTxt;
+    protected View llRight;
     protected Button rightBtn;
 
     @Override
@@ -66,9 +73,123 @@ public class BasicActivity extends BaseActivity implements UIInterface {
 
         // 通用标题栏
         View commonTitle = mInflater.inflate(R.layout.layout_common_title, toolbar);
+        llLeft = commonTitle.findViewById(R.id.ll_left);
         leftBtn = (Button) commonTitle.findViewById(R.id.title_left_btn);
         titleTxt = (TextView) commonTitle.findViewById(R.id.title_txt);
+        subTitleTxt = (TextView) commonTitle.findViewById(R.id.sub_title_txt);
+        llRight = commonTitle.findViewById(R.id.ll_right);
         rightBtn = (Button) commonTitle.findViewById(R.id.title_right_btn);
+    }
+
+    protected void setLeftText(@StringRes int left) {
+        leftBtn.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) leftBtn.getLayoutParams();
+        layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        leftBtn.setLayoutParams(layoutParams);
+        leftBtn.setText(left);
+        leftBtn.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+    }
+
+    protected void setLeftDrawable(@DrawableRes int left) {
+        leftBtn.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) leftBtn.getLayoutParams();
+        layoutParams.width = APKUtil.dip2px(this, 20);
+        layoutParams.height = APKUtil.dip2px(this, 20);
+        leftBtn.setLayoutParams(layoutParams);
+        leftBtn.setText(null);
+        leftBtn.setBackgroundResource(left);
+    }
+
+    protected void setLeftDrawable(@DrawableRes int left, int wDp, int hDp) {
+        leftBtn.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) leftBtn.getLayoutParams();
+        layoutParams.width = wDp;
+        layoutParams.height = hDp;
+        leftBtn.setLayoutParams(layoutParams);
+        leftBtn.setText(null);
+        leftBtn.setBackgroundResource(left);
+    }
+
+    protected void hideLeft() {
+        leftBtn.setVisibility(View.INVISIBLE);
+    }
+
+    protected void setLeftListener(View.OnClickListener listener) {
+        if (llLeft != null) {
+            llLeft.setOnClickListener(listener);
+        }
+        if (leftBtn != null) {
+            leftBtn.setOnClickListener(listener);
+        }
+    }
+
+    protected void setLeftFinish(final View.OnClickListener listener) {
+        setLeftListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onClick(v);
+                }
+                finish();
+            }
+        });
+    }
+
+    protected void setRightText(@StringRes int right) {
+        rightBtn.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rightBtn.getLayoutParams();
+        layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        rightBtn.setLayoutParams(layoutParams);
+        rightBtn.setText(right);
+        rightBtn.setBackgroundDrawable(getResources().getDrawable(android.R.color.transparent));
+    }
+
+    protected void setRightDrawable(@DrawableRes int right) {
+        rightBtn.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rightBtn.getLayoutParams();
+        layoutParams.width = APKUtil.dip2px(this, 20);
+        layoutParams.height = APKUtil.dip2px(this, 20);
+        rightBtn.setLayoutParams(layoutParams);
+        rightBtn.setText(null);
+        rightBtn.setBackgroundResource(right);
+    }
+
+    protected void setRightDrawable(@DrawableRes int right, int wDp, int hDp) {
+        rightBtn.setVisibility(View.VISIBLE);
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rightBtn.getLayoutParams();
+        layoutParams.width = wDp;
+        layoutParams.height = hDp;
+        rightBtn.setLayoutParams(layoutParams);
+        rightBtn.setText(null);
+        rightBtn.setBackgroundResource(right);
+    }
+
+    protected void hideRight() {
+        rightBtn.setVisibility(View.INVISIBLE);
+    }
+
+    protected void setRightListener(View.OnClickListener listener) {
+        if (llRight != null) {
+            llRight.setOnClickListener(listener);
+        }
+        if (rightBtn != null) {
+            rightBtn.setOnClickListener(listener);
+        }
+    }
+
+    protected void setTitleText(@StringRes int title) {
+        titleTxt.setText(title);
+    }
+
+    protected void setSubTitleText(@StringRes int subTitle) {
+        subTitleTxt.setVisibility(View.VISIBLE);
+        subTitleTxt.setText(subTitle);
+    }
+
+    protected void hideSubTitle() {
+        subTitleTxt.setVisibility(View.GONE);
     }
 
     /**
@@ -78,7 +199,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
      * @param resId        标题资源id
      * @param rightVisible 右侧按钮是否可见
      */
-    protected void setTitleBar(boolean leftVisible, int resId, boolean rightVisible) {
+    protected void setTitleBar(boolean leftVisible, @StringRes  int resId, boolean rightVisible) {
         leftBtn.setVisibility(leftVisible ? View.VISIBLE : View.INVISIBLE);
         titleTxt.setText(resId);
         rightBtn.setVisibility(rightVisible ? View.VISIBLE : View.INVISIBLE);

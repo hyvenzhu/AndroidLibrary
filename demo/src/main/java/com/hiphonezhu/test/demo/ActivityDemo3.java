@@ -27,6 +27,8 @@ public class ActivityDemo3 extends BasicActivity {
                 PermissionsActivity.actionStartForResult(ActivityDemo3.this, 100, "发送短信", new String[]{Manifest.permission.SEND_SMS});
             }
         });
+
+        setLeftFinish(null);
     }
 
     @Override

@@ -52,6 +52,13 @@ public class ActivityDemo4 extends BasicActivity {
                 intentWrapper.start();
             }
         });
+
+        setLeftFinish(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // anything before finish
+            }
+        });
     }
 
     @Override

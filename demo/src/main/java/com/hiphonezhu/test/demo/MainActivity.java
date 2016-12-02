@@ -44,5 +44,7 @@ public class MainActivity extends BasicActivity {
                 startActivity(new Intent(MainActivity.this, ActivityDemo4.class));
             }
         });
+
+        setTitleBar(false, R.string.app_name, false);
     }
 }
