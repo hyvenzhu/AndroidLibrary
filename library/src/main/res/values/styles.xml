@@ -13,6 +13,7 @@
     <style name="ActivityTransparentTheme" parent="@style/BaseAppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
     <!-- App theme -->
