@@ -13,46 +13,46 @@ import java.io.Serializable;
 public class InfoResult<T> implements Serializable {
     // 成功Code
     public static final String DEFAULT_SUCCESS_CODE = "0";
-    // 内部错误码
+    // App内部错误码
     public static final String INNER_ERROR_CODE = "-1";
 
     @SerializedName("errNum")
-    private String errorCode;
+    private String code;
     @SerializedName("retMsg")
     private String desc;
     @SerializedName("retData")
-    private T extraObj;
+    private T data;
 
-    public InfoResult(String errorCode, String desc) {
-        this.errorCode = errorCode;
+    public InfoResult(String code, String desc) {
+        this.code = code;
         this.desc = desc;
     }
 
-    public InfoResult(String errorCode) {
-        this.errorCode = errorCode;
+    public InfoResult(String code) {
+        this.code = code;
     }
 
     public InfoResult() {
     }
 
     public boolean isSuccess() {
-        return DEFAULT_SUCCESS_CODE.equals(errorCode);
+        return DEFAULT_SUCCESS_CODE.equals(code);
     }
 
-    public String getErrorCode() {
-        return errorCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public T getExtraObj() {
-        return extraObj;
+    public T getData() {
+        return data;
     }
 
-    public void setExtraObj(T extraObj) {
-        this.extraObj = extraObj;
+    public void setData(T data) {
+        this.data = data;
     }
 
     public String getDesc() {
@@ -66,9 +66,9 @@ public class InfoResult<T> implements Serializable {
     @Override
     public String toString() {
         return "InfoResult{" +
-                "errorCode='" + errorCode + '\'' +
+                "code='" + code + '\'' +
                 ", desc='" + desc + '\'' +
-                ", extraObj=" + extraObj +
+                ", data=" + data +
                 '}';
     }
 }

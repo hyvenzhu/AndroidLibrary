@@ -63,7 +63,7 @@ public class XLogic extends BaseLogic {
             @Override
             public InfoResult call(ResponseBody responseBody) {
                 InfoResult infoResult = new InfoResult(InfoResult.INNER_ERROR_CODE);
-                infoResult.setExtraObj(extraInfo);
+                infoResult.setData(extraInfo);
 
                 InputStream is = responseBody.byteStream();
                 FileOutputStream fos = null;
@@ -81,7 +81,7 @@ public class XLogic extends BaseLogic {
                     fos.flush();
 
                     // download success
-                    infoResult.setErrorCode(InfoResult.DEFAULT_SUCCESS_CODE);
+                    infoResult.setCode(InfoResult.DEFAULT_SUCCESS_CODE);
                     infoResult.setDesc("下载成功");
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
