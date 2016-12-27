@@ -1,14 +1,18 @@
 package com.android.baseline.framework.ui.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Process;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.AppOpsManagerCompat;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
@@ -181,12 +185,42 @@ public class PermissionsActivity extends BasicActivity {
      */
     private boolean hasAllPermissionsGranted(@NonNull String[] permissions) {
         for (String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(this, permission)
-                    != PackageManager.PERMISSION_GRANTED) {
+            if (!hasSelfPermission(this, permission)) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Determine context has access to the given permission.
+     * <p>
+     * This is a workaround for RuntimeException of Parcel#readException.
+     * For more detail, check this issue https://github.com/hotchemi/PermissionsDispatcher/issues/107
+     *
+     * @param context    context
+     * @param permission permission
+     * @return returns true if context has access to the given permission, false otherwise.
+     */
+    private static boolean hasSelfPermission(Context context, String permission) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && "Xiaomi".equalsIgnoreCase(Build.MANUFACTURER)) {
+            return hasSelfPermissionForXiaomi(context, permission);
+        }
+        try {
+            return ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
+        } catch (RuntimeException t) {
+            return false;
+        }
+    }
+
+    private static boolean hasSelfPermissionForXiaomi(Context context, String permission) {
+        String permissionToOp = AppOpsManagerCompat.permissionToOp(permission);
+        if (permissionToOp == null) {
+            // in case of normal permissions(e.g. INTERNET)
+            return true;
+        }
+        int noteOp = AppOpsManagerCompat.noteOp(context, permissionToOp, Process.myUid(), context.getPackageName());
+        return noteOp == AppOpsManagerCompat.MODE_ALLOWED && ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
