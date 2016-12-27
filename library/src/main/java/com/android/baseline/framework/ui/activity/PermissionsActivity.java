@@ -95,10 +95,6 @@ public class PermissionsActivity extends BasicActivity {
 
         isRequesting = true;
         /**
-         * 一句话: 被用户拒绝过(第一次申请), 再次申请时如果直接requestPermissions显得比较唐突(会显示一个带有”Don’t ask again”的系统对话框)
-         * , 所以需要一个友好的对话框(我们自己的)向用户解释下为何需要这个权限。
-         *
-         * 场景如下:
          * 1、如果app之前请求过该权限,被用户拒绝, 这个方法就会返回true.
          * 2、如果设备策略禁止应用拥有这条权限, 这个方法也返回false.
          * 3、如果用户之前拒绝权限的时候勾选了对话框中”Don’t ask again”的选项,那么这个方法会返回false.
