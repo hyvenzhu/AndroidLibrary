@@ -26,8 +26,8 @@ public class CustomDialog {
     private @LayoutRes int contentView;
     private boolean cancelable = true;
     private boolean canceledOnTouchOutside = true;
-    private float wPercent = -1; // 宽度占屏幕宽度和高度中较小的百分比
-    private float hPercent = -1f; // 高度占屏幕宽度和高度中较大的百分比
+    private float wPercent = -1; // 宽度占屏幕宽度的百分比
+    private float hPercent = -1f; // 高度占屏幕高度的百分比
     private DialogInterface.OnDismissListener onDismissListener;
     Dialog dialog;
     Map<Integer, OnClickListener> clickMap = new HashMap<>();
@@ -114,10 +114,10 @@ public class CustomDialog {
         int width = wm.getDefaultDisplay().getWidth();
         int height = wm.getDefaultDisplay().getHeight();
         if (wPercent != -1f) {
-            wl.width = (int) (Math.min(width, height) * wPercent);
+            wl.width = (int) (width * wPercent);
         }
         if (hPercent != -1f){
-            wl.height = (int) (Math.max(width, height) * hPercent);
+            wl.height = (int) (height * hPercent);
         }
         window.setAttributes(wl);
         window.setContentView(contentView);
