@@ -1,6 +1,5 @@
 package com.android.baseline.framework.ui.activity;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
@@ -22,6 +21,7 @@ import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
 import com.android.baseline.framework.ui.view.LoadingView;
 import com.android.baseline.util.APKUtil;
+import com.android.baseline.util.CustomDialog;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
@@ -35,7 +35,6 @@ public class BasicActivity extends BaseActivity implements UIInterface {
      * 基类Toast
      */
     private static Toast mToast;
-    private Dialog progressDialog;
     protected boolean isPaused;
     protected boolean mIsNeedRefresh;
 
@@ -334,48 +333,34 @@ public class BasicActivity extends BaseActivity implements UIInterface {
         showProgress(message, true);
     }
 
+    CustomDialog customDialog;
+    TextView tipTextView;
     public void showProgress(String message, boolean cancelable) {
-        if (progressDialog == null) {
-            progressDialog = createLoadingDialog(message);
-        } else if (progressDialog.isShowing()) {
-            progressDialog.dismiss();
+        if (customDialog == null) {
+            customDialog = new CustomDialog(this).setContentView(R.layout.dialog_loading)
+                    .setCancelable(cancelable)
+                    .setCanceledOnTouchOutside(false)
+                    .create();
+        } else {
+            customDialog.dismiss();
         }
+        customDialog.getDialog().setCancelable(cancelable);
+        customDialog.show();
+
+        if (tipTextView == null) {
+            tipTextView = (TextView) customDialog.findViewById(R.id.tipTextView);
+        }
+
         if (!TextUtils.isEmpty(message)) {
             tipTextView.setText(message);
         } else {
             tipTextView.setText("数据加载中...");
         }
-        progressDialog.setCancelable(cancelable);
-        progressDialog.show();
-    }
-
-    TextView tipTextView;
-
-    /**
-     * 得到自定义的progressDialog
-     *
-     * @param msg
-     * @return
-     */
-    private Dialog createLoadingDialog(String msg) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View v = inflater.inflate(R.layout.dialog_loading,
-                null);
-        tipTextView = (TextView) v.findViewById(R.id.tipTextView);
-        if (!TextUtils.isEmpty(msg)) {
-            tipTextView.setText(msg);
-        }
-        Dialog loadingDialog = new Dialog(this,
-                R.style.loading_dialog);
-        loadingDialog.setCancelable(true);
-        loadingDialog.setCanceledOnTouchOutside(false);
-        loadingDialog.setContentView(v);
-        return loadingDialog;
     }
 
     public void hideProgress() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
+        if (customDialog != null) {
+            customDialog.dismiss();
         }
     }
 

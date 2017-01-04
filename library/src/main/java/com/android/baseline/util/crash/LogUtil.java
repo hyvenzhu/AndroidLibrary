@@ -26,9 +26,7 @@ public class LogUtil {
     /**
      * 保存LOG日志的目录
      */
-    private static final String SAVE_LOG_DIR_PATH = Environment
-            .getExternalStorageDirectory().getAbsolutePath()
-            + "/" + APKUtil.getPackageName(AppDroid.getInstance().getApplicationContext()) + "/log/";
+    private static final String SAVE_LOG_DIR_PATH = APKUtil.getDiskCacheDir(AppDroid.getInstance().getApplicationContext(), "log").getAbsolutePath();
 
     /**
      * 保存LOG日志的路径
