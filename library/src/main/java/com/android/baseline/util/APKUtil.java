@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
+
+import com.android.baseline.AppDroid;
 
 import java.io.File;
 
@@ -132,5 +136,21 @@ public class APKUtil {
             }
         }
         return data;
+    }
+
+    /**
+     * 7.0目录权限适配
+     * @param authority
+     * @param inputFile
+     * @return
+     */
+    public static Uri getSupportUri(String authority, File inputFile) {
+        Uri uri;
+        if (Build.VERSION.SDK_INT >= 24) {
+            uri = FileProvider.getUriForFile(AppDroid.getInstance().getApplicationContext(), authority, inputFile);
+        } else {
+            uri = Uri.fromFile(inputFile);
+        }
+        return uri;
     }
 }

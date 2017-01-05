@@ -21,7 +21,7 @@ import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
 import com.android.baseline.framework.ui.view.LoadingView;
 import com.android.baseline.util.APKUtil;
-import com.android.baseline.util.CustomDialog;
+import com.android.baseline.framework.ui.view.CustomDialog;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]

@@ -1,6 +1,5 @@
-package com.android.baseline.framework.ui.activity;
+package com.android.baseline.framework.logic.permissions;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,6 +9,7 @@ import android.os.Bundle;
 import android.os.Process;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.AppOpsManagerCompat;
@@ -23,71 +23,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 6.0权限申请界面
- *
  * @author hiphonezhu@gmail.com
- * @version [Android-BaseLine, 16/9/5 17:12]
+ * @version [Android-BaseLine, 17/1/5 11:05]
  */
-public class PermissionsActivity extends BasicActivity {
-    /**
-     * 启动Activity
-     *
-     * @param activity
-     * @param requestCode
-     * @param permissionDesc 权限描述, 例如:发送短信、访问相机。如为空, 会显示"必要"字样
-     * @param permissions    权限列表
-     */
-    public static void actionStartForResult(Activity activity, int requestCode, String permissionDesc, String... permissions) {
-        Intent intent = new Intent(activity, PermissionsActivity.class);
-        intent.putExtra("permissionDesc", permissionDesc);
-        intent.putExtra("permissions", permissions);
-        activity.startActivityForResult(intent, requestCode);
-    }
 
-    /**
-     * 启动Activity
-     *
-     * @param fragment
-     * @param requestCode
-     * @param permissionDesc 权限描述, 例如:发送短信、访问相机。如为空, 会显示"必要"字样
-     * @param permissions    权限列表
-     */
-    public static void actionStartForResult(Fragment fragment, int requestCode, String permissionDesc, String... permissions) {
-        Intent intent = new Intent(fragment.getActivity(), PermissionsActivity.class);
-        intent.putExtra("permissionDesc", permissionDesc);
-        intent.putExtra("permissions", permissions);
-        fragment.startActivityForResult(intent, requestCode);
-    }
+public class PermissionsFragment extends Fragment {
+    private static final int PERMISSIONS_REQUEST_CODE = 1;
+    MPermissions.PermissionsCallback callback;
 
     String[] permissions; // 待申请权限
     String permissionDesc; // 权限描述, 例如:发送短信、访问相机
-    public static final int PERMISSIONS_GRANTED = 0; // 权限授权
-    public static final int PERMISSIONS_DENIED = 1; // 权限拒绝
 
-    final int REQUEST_PERMISSIONS_CODE = 100;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        permissions = getIntent().getStringArrayExtra("permissions");
-        permissionDesc = getIntent().getStringExtra("permissionDesc");
-
-        if (hasAllPermissionsGranted(permissions)) {
-            setResult(PERMISSIONS_GRANTED);
-            finish();
-        } else {
-            requestPermissions();
-        }
+    public PermissionsFragment() {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if (!isRequesting && !hasAllPermissionsGranted(permissions)) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
+    }
+
+    void requestPermissions(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull MPermissions.PermissionsCallback callback) {
+        this.permissionDesc = permissionDesc;
+        this.permissions = permissions;
+        this.callback = callback;
+
+        if (hasAllPermissionsGranted(permissions)) {
+            callback.onGranted();
+        } else {
             requestPermissions();
-        } else if (!isRequesting && hasAllPermissionsGranted(permissions)) {
-            setResult(PERMISSIONS_GRANTED);
-            finish();
         }
     }
 
@@ -96,67 +60,38 @@ public class PermissionsActivity extends BasicActivity {
      */
     private void requestPermissions() {
         permissions = getAllDeniedPermissions();
-
-        isRequesting = true;
-        /**
-         * 1、如果app之前请求过该权限,被用户拒绝, 这个方法就会返回true.
-         * 2、如果设备策略禁止应用拥有这条权限, 这个方法也返回false.
-         * 3、如果用户之前拒绝权限的时候勾选了对话框中”Don’t ask again”的选项,那么这个方法会返回false.
-         */
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                permissions[0])) // 如果非第一个权限用户勾选了”Don’t ask again”, 并且拒绝了。那么不会提示该类权限, 所以建议每次申请一个权限。
-        {
-            showMissingPermissionDialog(true);
-        } else {
-            ActivityCompat.requestPermissions(this, permissions, REQUEST_PERMISSIONS_CODE);
-        }
+        requestPermissions(permissions, PERMISSIONS_REQUEST_CODE);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == REQUEST_PERMISSIONS_CODE && hasAllPermissionsGranted(grantResults)) {
-            setResult(PERMISSIONS_GRANTED);
-            finish();
+        if (requestCode == PERMISSIONS_REQUEST_CODE && hasAllPermissionsGranted(grantResults)) {
+            callback.onGranted();
         } else {
-            showMissingPermissionDialog(false);
+            showMissingPermissionDialog();
         }
     }
 
-    boolean isRequesting;
-
     /**
      * 权限提示对话框
-     *
-     * @param isShowRationale
      */
-    private void showMissingPermissionDialog(final boolean isShowRationale) {
-        String formatStr = null;
-        if (isShowRationale) {
-            formatStr = getString(R.string.permission_desc_text1);
-        } else {
-            formatStr = getString(R.string.permission_desc_text2);
-        }
+    private void showMissingPermissionDialog() {
+        String formatStr = getString(R.string.permission_desc_text);
         String message = String.format(formatStr, TextUtils.isEmpty(permissionDesc) ? "必要" : permissionDesc);
 
-        Snackbar.make(getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).setAction(R.string.settings, new View.OnClickListener() {
+        Snackbar.make(getActivity().getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).setAction(R.string.settings, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                isRequesting = false;
-                if (isShowRationale) {
-                    ActivityCompat.requestPermissions(PermissionsActivity.this, permissions, REQUEST_PERMISSIONS_CODE);
-                } else {
-                    startAppSettings();
-                }
+                startAppSettings();
             }
         }).setCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
                 // 不是点击按钮取消的
                 if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
-                    setResult(PERMISSIONS_DENIED);
-                    finish();
+                    callback.onDenied();
                 }
             }
         }).show();
@@ -185,7 +120,7 @@ public class PermissionsActivity extends BasicActivity {
      */
     private boolean hasAllPermissionsGranted(@NonNull String[] permissions) {
         for (String permission : permissions) {
-            if (!hasSelfPermission(this, permission)) {
+            if (!hasSelfPermission(getActivity(), permission)) {
                 return false;
             }
         }
@@ -231,7 +166,7 @@ public class PermissionsActivity extends BasicActivity {
     private String[] getAllDeniedPermissions() {
         List<String> deniedPermissions = new ArrayList<>();
         for (String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(this, permission)
+            if (ActivityCompat.checkSelfPermission(getActivity(), permission)
                     != PackageManager.PERMISSION_GRANTED) {
                 deniedPermissions.add(permission);
             }
@@ -246,9 +181,11 @@ public class PermissionsActivity extends BasicActivity {
      */
     private void startAppSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.parse("package:" + getPackageName()));
-        if (intent.resolveActivity(getPackageManager()) != null) {
+        intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
+        if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             startActivity(intent);
+        } else {
+            callback.onDenied();
         }
     }
 }
