@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.android.baseline.R;
+import com.android.baseline.util.IntentUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,7 +184,7 @@ public class PermissionsFragment extends Fragment {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            startActivity(intent);
+            IntentUtil.startActivity(intent, getActivity());
         } else {
             callback.onDenied();
         }

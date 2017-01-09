@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 import com.android.baseline.util.APKUtil;
+import com.android.baseline.util.IntentUtil;
 
 /**
  * @author hiphonezhu@gmail.com
@@ -45,7 +46,7 @@ public class PhotoFragment extends Fragment {
         this.outputX = outputX;
         this.outputY = outputY;
         this.callback = callback;
-        startActivityForResult(intent, requestCode);
+        IntentUtil.startActivityForResult(intent, this, requestCode);
     }
 
     @Override
@@ -115,6 +116,6 @@ public class PhotoFragment extends Fragment {
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         }
-        startActivityForResult(intent, requestCode);
+        IntentUtil.startActivityForResult(intent, this, requestCode);
     }
 }
