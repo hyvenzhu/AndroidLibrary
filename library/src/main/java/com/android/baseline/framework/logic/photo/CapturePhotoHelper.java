@@ -39,7 +39,7 @@ public class CapturePhotoHelper {
             fragmentManager
                     .beginTransaction()
                     .add(photoFragment, TAG)
-                    .commit();
+                    .commitAllowingStateLoss();
             fragmentManager.executePendingTransactions();
         }
         return photoFragment;

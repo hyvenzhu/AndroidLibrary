@@ -149,6 +149,12 @@ public class PermissionsFragment extends Fragment {
         }
     }
 
+    /**
+     * 小米手机如果拒绝过某一个权限，然后主动到设置中打开，还是需要再次申请该权限
+     * @param context
+     * @param permission
+     * @return
+     */
     private static boolean hasSelfPermissionForXiaomi(Context context, String permission) {
         String permissionToOp = AppOpsManagerCompat.permissionToOp(permission);
         if (permissionToOp == null) {
@@ -167,8 +173,7 @@ public class PermissionsFragment extends Fragment {
     private String[] getAllDeniedPermissions() {
         List<String> deniedPermissions = new ArrayList<>();
         for (String permission : permissions) {
-            if (ActivityCompat.checkSelfPermission(getActivity(), permission)
-                    != PackageManager.PERMISSION_GRANTED) {
+            if (!hasSelfPermission(getActivity(), permission)) {
                 deniedPermissions.add(permission);
             }
         }

@@ -14,13 +14,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7997bba9-299d-482b-8b2a-b5fb95ff6f83" name="Default" comment="1、BasicAdapter protected成员变量,开放">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/IntentUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/demo.iml" afterPath="$PROJECT_DIR$/demo/demo.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/library.iml" afterPath="$PROJECT_DIR$/library/library.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/PermissionsFragment.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/PermissionsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/PhotoFragment.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/PhotoFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/CapturePhotoHelper.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/CapturePhotoHelper.java" />
     </list>
     <ignored path="Android-BaseLine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -2613,7 +2612,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/router/IntentService.java" />
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/MyDroid.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/router/IntentCall.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/router/IntentWrapper.java" />
@@ -2656,14 +2654,15 @@
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo3.java" />
         <option value="$PROJECT_DIR$/demo/build/intermediates/exploded-aar/Android-BaseLine/library/unspecified/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/library/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/view/CustomDialog.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/APKUtil.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/CapturePhotoHelper.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/PhotoFragment.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/PhotoFragment.java" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/PermissionsFragment.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/IntentUtil.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/CapturePhotoHelper.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/PermissionsFragment.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java" />
       </list>
     </option>
   </component>
@@ -2696,7 +2695,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2778,78 +2778,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="baseline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="library" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="baseline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="util" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="library" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="baseline" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="framework" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ui" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3011,8 +2939,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -3938,7 +3865,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="310">
           <caret line="1197" column="8" selection-start-line="1197" selection-start-column="8" selection-end-line="1197" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3956,7 +3882,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="226">
           <caret line="1263" column="30" selection-start-line="1263" selection-start-column="30" selection-end-line="1263" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4004,14 +3929,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/PermissionsActivity.java" />
@@ -4030,34 +3955,34 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/build/intermediates/exploded-aar/Android-BaseLine/library/unspecified/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="197">
           <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml">
       <provider editor-type-id="android-manifest">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/build/intermediates/manifest/androidTest/debug/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="23" column="26" selection-start-line="23" selection-start-column="26" selection-end-line="23" selection-end-column="26" />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/AndroidManifest.xml">
       <provider editor-type-id="android-manifest">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/res/values/strings.xml">
@@ -4153,31 +4078,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1969">
           <caret line="673" column="37" selection-start-line="673" selection-start-column="37" selection-end-line="673" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo.java" />
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/CapturePhotoHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1023">
-          <caret line="20" column="13" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="27" column="9" selection-start-line="18" selection-start-column="7" selection-end-line="27" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../software/android-sdk-macosx/sources/android-24/android/content/Intent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-971">
@@ -4190,7 +4094,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4198,17 +4101,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1758">
           <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/PhotoFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2499">
-          <caret line="119" column="5" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4220,26 +4112,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/PermissionsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3339">
-          <caret line="186" column="30" selection-start-line="186" selection-start-column="30" selection-end-line="186" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/AppDroid.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/IntentUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
+        <state relative-caret-position="588">
           <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/PhotoFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="119" column="5" selection-start-line="119" selection-start-column="5" selection-end-line="119" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/CapturePhotoHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="41" column="44" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="44" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/PermissionsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="152" column="35" selection-start-line="152" selection-start-column="35" selection-end-line="152" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

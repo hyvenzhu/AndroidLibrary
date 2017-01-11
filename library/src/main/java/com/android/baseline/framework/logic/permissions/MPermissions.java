@@ -23,7 +23,7 @@ public class MPermissions {
             fragmentManager
                     .beginTransaction()
                     .add(permissionsFragment, TAG)
-                    .commit();
+                    .commitAllowingStateLoss();
             fragmentManager.executePendingTransactions();
         }
     }
