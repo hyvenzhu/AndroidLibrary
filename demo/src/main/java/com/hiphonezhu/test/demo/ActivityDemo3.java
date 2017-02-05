@@ -1,12 +1,16 @@
 package com.hiphonezhu.test.demo;
 
 import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.MediaStore;
 import android.view.View;
 
-import com.android.baseline.framework.logic.permissions.MPermissions;
+import com.android.baseline.framework.logic.permissions.NeedPermission;
 import com.android.baseline.framework.ui.activity.BasicActivity;
+
+import java.io.File;
 
 /**
  * 6.0权限
@@ -24,20 +28,17 @@ public class ActivityDemo3 extends BasicActivity {
         findViewById(R.id.btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MPermissions(ActivityDemo3.this).request("发送短信", new String[]{Manifest.permission.SEND_SMS}, new MPermissions.PermissionsCallback() {
-                    @Override
-                    public void onGranted() {
-                        Log.i(TAG, "onGranted: ");
-                    }
-
-                    @Override
-                    public void onDenied() {
-                        Log.i(TAG, "onDenied: ");
-                    }
-                });
+                camera();
             }
         });
 
         setLeftFinish(null);
+    }
+
+    @NeedPermission(permissions = {Manifest.permission.CAMERA}, rationalMessage = "使用相机")
+    public void camera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(getExternalCacheDir() + "photo.jpg")));
+        startActivity(intent);
     }
 }

@@ -38,13 +38,6 @@ public class MainActivity extends BasicActivity {
             }
         });
 
-        findViewById(R.id.btn4).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, ActivityDemo4.class));
-            }
-        });
-
         setTitleBar(false, R.string.app_name, false);
     }
 }

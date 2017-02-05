@@ -18,7 +18,7 @@ public class UIStateHelper {
     /**
      * 保存栈中的Activity
      */
-    private List<Activity> activityStack = new ArrayList<Activity>();
+    private List<BasicActivity> activityStack = new ArrayList<>();
     /**
      * 保存FragmentTransation中的Fragment
      */
@@ -68,5 +68,14 @@ public class UIStateHelper {
             activity.finish();
         }
         activityStack.clear();
+    }
+
+    /**
+     * 返回栈顶Activity
+     * @return
+     */
+    public BasicActivity getTopActivity() {
+        int size = activityStack.size();
+        return size > 0? activityStack.get(size - 1) : null;
     }
 }

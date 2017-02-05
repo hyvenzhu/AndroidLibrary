@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion COMPILE_SDK_VERSION.toInteger()
-    buildToolsVersion "${BUILD_TOOLS_VERSION}"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
-        minSdkVersion MIN_SDK_VERSION.toInteger()
-        targetSdkVersion TARGET_SDK_VERSION.toInteger()
+        minSdkVersion 14
+        targetSdkVersion 24
         versionCode 5
         versionName "0.0.5"
     }
@@ -23,9 +23,9 @@ android {
 
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
-    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:appcompat-v7:25.0.0'
     // SanckBar
-    compile 'com.android.support:design:23.4.0'
+    compile 'com.android.support:design:25.0.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     // rx support
     compile 'io.reactivex:rxandroid:1.2.1'
@@ -38,6 +38,6 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava:2.0.1'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // RecyclerView support
-    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
 }
 
