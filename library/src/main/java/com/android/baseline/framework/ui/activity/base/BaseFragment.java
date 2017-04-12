@@ -2,6 +2,7 @@ package com.android.baseline.framework.ui.activity.base;
 
 import android.app.Fragment;
 import android.os.Message;
+import android.support.annotation.IdRes;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +42,26 @@ public abstract class BaseFragment extends Fragment {
         mView = view;
         afterSetContentView(view);
         return view;
+    }
+
+    /**
+     * findViewById
+     * @param id
+     * @param <T>
+     * @return
+     */
+    public <T extends View> T findViewById(@IdRes int id) {
+        return (T)mView.findViewById(id);
+    }
+
+    /**
+     * findViewWithTag
+     * @param tag
+     * @param <T>
+     * @return
+     */
+    public <T extends View> T findViewWithTag(Object tag) {
+        return (T)mView.findViewWithTag(tag);
     }
 
     com.android.baseline.framework.ui.activity.base.helper.LogicHelper logicHelper = new com.android.baseline.framework.ui.activity.base.helper.LogicHelper();
