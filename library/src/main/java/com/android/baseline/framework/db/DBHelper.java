@@ -80,13 +80,7 @@ public class DBHelper {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.beginTransaction();
-            try {
-                AppDroid.getInstance().onDBUpgrade(db, oldVersion, newVersion);
-            } catch (Exception e) {
-            } finally {
-                db.endTransaction();
-            }
+            AppDroid.getInstance().onDBUpgrade(db, oldVersion, newVersion);
         }
     }
 }

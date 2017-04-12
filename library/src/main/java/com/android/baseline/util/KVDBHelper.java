@@ -3,6 +3,7 @@ package com.android.baseline.util;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 
 import com.android.baseline.framework.db.BaseDAO;
 
@@ -742,7 +743,7 @@ public class KVDBHelper {
      * @return
      */
     private static String wrapKey(String key) {
-        return keyPrefix + "_" + key;
+        return !TextUtils.isEmpty(keyPrefix)? (keyPrefix + "_" + key) : key;
     }
 
     public interface ResultListener<T> {
