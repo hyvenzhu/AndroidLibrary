@@ -21,7 +21,7 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implement
     int mItemLayoutId;
     protected List<T> mData;
 
-    protected CommonAdapter(Context context, List<T> data, int itemLayoutId) {
+    public CommonAdapter(Context context, List<T> data, int itemLayoutId) {
         mContext = context;
         mData = data;
         mItemLayoutId = itemLayoutId;

@@ -1,8 +1,8 @@
 package com.android.baseline.framework.ui.activity.base;
 
-import android.app.Fragment;
 import android.os.Message;
 import android.support.annotation.IdRes;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;

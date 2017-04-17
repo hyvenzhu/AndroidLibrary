@@ -135,8 +135,6 @@ public abstract class BasicExpandableListAdapter<P, C> extends BaseExpandableLis
     protected abstract void getChildView(final int groupPosition, final int childPosition, boolean isLastChild,
                                          View convertView);
 
-    ViewHolder viewHolder;
-
     /**
      * 类似convertView.findViewById(int viewId), 子类不需要关心如何使用ViewHolder机制
      *
@@ -145,9 +143,10 @@ public abstract class BasicExpandableListAdapter<P, C> extends BaseExpandableLis
      * @return
      */
     protected <Vi extends View> Vi findViewById(View convertView, int viewId) {
-        if (viewHolder == null) {
-            viewHolder = new ViewHolder(convertView);
+        if (convertView.getTag() == null) {
+            convertView.setTag(new ViewHolder(convertView));
         }
+        ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         return viewHolder.findViewById(viewId);
     }
 }

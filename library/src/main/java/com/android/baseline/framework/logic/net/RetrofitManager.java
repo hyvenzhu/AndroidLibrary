@@ -17,6 +17,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
 import okhttp3.Cache;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -40,6 +41,8 @@ public class RetrofitManager {
     static RetrofitManager sInstance; // single instance
 
     OkHttpClient client; // default client
+
+    Interceptor networkInterceptor;
 
     /**
      * Private constructor
@@ -69,7 +72,8 @@ public class RetrofitManager {
      * @param baseUrl
      * @return
      */
-    public synchronized Retrofit getRetrofit(String baseUrl) {
+    public synchronized Retrofit getRetrofit(String baseUrl, Interceptor networkInterceptor) {
+        this.networkInterceptor = networkInterceptor;
         if (client == null) {
             client = buildClient();
         }
@@ -162,6 +166,9 @@ public class RetrofitManager {
                 .cache(new Cache(APKUtil.getDiskCacheDir(AppDroid.getInstance().getApplicationContext(), "Retrofit-Cache"), 10 * 1024 * 1024));
         if (sslFactory != null) {
             builder.sslSocketFactory(sslFactory, trustManager);
+        }
+        if (networkInterceptor != null) {
+            builder.addNetworkInterceptor(networkInterceptor);
         }
         return builder.build();
     }

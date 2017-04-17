@@ -35,6 +35,11 @@ public class XLogic extends BaseLogic {
         phoneService = create(XAPI.class);
     }
 
+    @Override
+    protected String getBaseUrl() {
+        return "http://apis.baidu.com/";
+    }
+
     /**
      * Get请求
      *

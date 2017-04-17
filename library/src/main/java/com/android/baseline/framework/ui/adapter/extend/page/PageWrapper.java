@@ -58,6 +58,7 @@ public class PageWrapper<T> {
      */
     public void finishLoad(boolean success) {
         page.finishLoad(success);
+        notifyDataSetChanged();
     }
 
     /**
@@ -120,5 +121,9 @@ public class PageWrapper<T> {
         } else if (iAdapter instanceof RecyclerView.Adapter) {
             ((RecyclerView.Adapter) iAdapter).notifyDataSetChanged();
         }
+    }
+
+    public boolean isLoading() {
+        return page.isLoading;
     }
 }

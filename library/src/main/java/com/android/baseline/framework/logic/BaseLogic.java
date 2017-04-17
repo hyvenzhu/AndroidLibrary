@@ -2,6 +2,7 @@ package com.android.baseline.framework.logic;
 
 import com.android.baseline.framework.logic.net.RetrofitManager;
 
+import okhttp3.Interceptor;
 import retrofit2.Retrofit;
 import rx.Observable;
 import rx.Subscriber;
@@ -24,7 +25,7 @@ public abstract class BaseLogic extends EventLogic {
      */
     public BaseLogic(Object subscriber) {
         super(subscriber);
-        retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl());
+        retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl(), networkInterceptor());
     }
 
     /**
@@ -56,7 +57,10 @@ public abstract class BaseLogic extends EventLogic {
                     @Override
                     public void onError(Throwable e) {
                         // 无网络、解析报错、404\500
-                        onResult(what, e);
+                        // 无网络、解析报错、404\500
+                        InfoResult<Throwable> infoResult = new InfoResult(InfoResult.INNER_ERROR_CODE);
+                        infoResult.setData(e);
+                        onResult(what, infoResult);
                     }
 
                     @Override
@@ -71,7 +75,13 @@ public abstract class BaseLogic extends EventLogic {
      *
      * @return
      */
-    protected String getBaseUrl() {
-        return "http://apis.baidu.com/";
+    protected abstract String getBaseUrl();
+
+    /**
+     *
+     * @return
+     */
+    protected Interceptor networkInterceptor() {
+        return null;
     }
 }

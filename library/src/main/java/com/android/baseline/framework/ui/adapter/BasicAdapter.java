@@ -84,8 +84,6 @@ public abstract class BasicAdapter<T> extends BaseAdapter implements IAdapter<T>
      */
     protected abstract void getView(final int position, final View convertView);
 
-    ViewHolder viewHolder;
-
     /**
      * 类似convertView.findViewById(int viewId), 子类不需要关心如何使用ViewHolder机制
      *
@@ -95,9 +93,10 @@ public abstract class BasicAdapter<T> extends BaseAdapter implements IAdapter<T>
      * @return
      */
     protected <V extends View> V findViewById(View convertView, int viewId) {
-        if (viewHolder == null) {
-            viewHolder = new ViewHolder(convertView);
+        if (convertView.getTag() == null) {
+            convertView.setTag(new ViewHolder(convertView));
         }
+        ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         return viewHolder.findViewById(viewId);
     }
 
