@@ -19,9 +19,9 @@ import com.android.baseline.R;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
+import com.android.baseline.framework.ui.view.CustomDialog;
 import com.android.baseline.framework.ui.view.LoadingView;
 import com.android.baseline.util.APKUtil;
-import com.android.baseline.framework.ui.view.CustomDialog;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
@@ -78,10 +78,12 @@ public class BasicActivity extends BaseActivity implements UIInterface {
         subTitleTxt = (TextView) commonTitle.findViewById(R.id.sub_title_txt);
         llRight = commonTitle.findViewById(R.id.ll_right);
         rightBtn = (Button) commonTitle.findViewById(R.id.title_right_btn);
+
+        setLeftFinish(null);
     }
 
     protected void setLeftText(@StringRes int left) {
-        leftBtn.setVisibility(View.VISIBLE);
+        llLeft.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) leftBtn.getLayoutParams();
         layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -91,7 +93,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void setLeftDrawable(@DrawableRes int left) {
-        leftBtn.setVisibility(View.VISIBLE);
+        llLeft.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) leftBtn.getLayoutParams();
         layoutParams.width = APKUtil.dip2px(this, 20);
         layoutParams.height = APKUtil.dip2px(this, 20);
@@ -101,7 +103,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void setLeftDrawable(@DrawableRes int left, int wDp, int hDp) {
-        leftBtn.setVisibility(View.VISIBLE);
+        llLeft.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) leftBtn.getLayoutParams();
         layoutParams.width = wDp;
         layoutParams.height = hDp;
@@ -111,7 +113,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void hideLeft() {
-        leftBtn.setVisibility(View.INVISIBLE);
+        llLeft.setVisibility(View.INVISIBLE);
     }
 
     protected void setLeftListener(View.OnClickListener listener) {
@@ -136,7 +138,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void setRightText(@StringRes int right) {
-        rightBtn.setVisibility(View.VISIBLE);
+        llRight.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rightBtn.getLayoutParams();
         layoutParams.width = LinearLayout.LayoutParams.WRAP_CONTENT;
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
@@ -146,7 +148,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void setRightDrawable(@DrawableRes int right) {
-        rightBtn.setVisibility(View.VISIBLE);
+        llRight.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rightBtn.getLayoutParams();
         layoutParams.width = APKUtil.dip2px(this, 20);
         layoutParams.height = APKUtil.dip2px(this, 20);
@@ -156,7 +158,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void setRightDrawable(@DrawableRes int right, int wDp, int hDp) {
-        rightBtn.setVisibility(View.VISIBLE);
+        llRight.setVisibility(View.VISIBLE);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) rightBtn.getLayoutParams();
         layoutParams.width = wDp;
         layoutParams.height = hDp;
@@ -166,7 +168,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     }
 
     protected void hideRight() {
-        rightBtn.setVisibility(View.INVISIBLE);
+        llRight.setVisibility(View.INVISIBLE);
     }
 
     protected void setRightListener(View.OnClickListener listener) {
@@ -199,9 +201,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
      * @param rightVisible 右侧按钮是否可见
      */
     protected void setTitleBar(boolean leftVisible, @StringRes  int resId, boolean rightVisible) {
-        leftBtn.setVisibility(leftVisible ? View.VISIBLE : View.INVISIBLE);
-        titleTxt.setText(resId);
-        rightBtn.setVisibility(rightVisible ? View.VISIBLE : View.INVISIBLE);
+        setTitleBar(leftVisible, getString(resId), rightVisible);
     }
 
     /**
@@ -212,9 +212,9 @@ public class BasicActivity extends BaseActivity implements UIInterface {
      * @param rightVisible 右侧按钮是否可见
      */
     protected void setTitleBar(boolean leftVisible, String title, boolean rightVisible) {
-        leftBtn.setVisibility(leftVisible ? View.VISIBLE : View.INVISIBLE);
+        llLeft.setVisibility(leftVisible ? View.VISIBLE : View.INVISIBLE);
         titleTxt.setText(title);
-        rightBtn.setVisibility(rightVisible ? View.VISIBLE : View.INVISIBLE);
+        llRight.setVisibility(rightVisible ? View.VISIBLE : View.INVISIBLE);
     }
 
     protected void afterSetContentView() {

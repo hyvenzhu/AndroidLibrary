@@ -14,22 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7997bba9-299d-482b-8b2a-b5fb95ff6f83" name="Default" comment="1、BasicAdapter protected成员变量,开放">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/BasicParamsInterceptor.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/FragmentPagerItemAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/demo.iml" afterPath="$PROJECT_DIR$/demo/demo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java" afterPath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/build.gradle" afterPath="$PROJECT_DIR$/library/build.gradle" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/library.iml" afterPath="$PROJECT_DIR$/library/library.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/BaseLogic.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/BaseLogic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/BaseFragment.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/BaseFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicAdapter.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicExpandableListAdapter.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicExpandableListAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/extend/page/PageWrapper.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/extend/page/PageWrapper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/recycler/CommonAdapter.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/recycler/CommonAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/view/LoadingView.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/view/LoadingView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml" afterPath="$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml" />
     </list>
     <ignored path="Android-BaseLine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,7 +53,31 @@
     <favorites_list name="Android-BaseLine" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf>
+      <file leaf-file-name="XLogic.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="295">
+              <caret line="64" column="97" selection-start-line="64" selection-start-column="72" selection-end-line="64" selection-end-column="97" />
+              <folding>
+                <element signature="e#1908#3740#0" expanded="true" />
+                <element signature="e#3739#3740#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XAPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/api/XAPI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="34" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -2843,7 +2856,6 @@
         <option value="$PROJECT_DIR$/demo/build.gradle" />
         <option value="$PROJECT_DIR$/demo/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/demo/src/main/res/layout/activity_demo3.xml" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/util/UIStateHelper.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/NeedPermisson.java" />
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo3.java" />
@@ -2855,7 +2867,6 @@
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/PermissionAspect.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/NeedPermission.java" />
         <option value="$PROJECT_DIR$/library/src/main/res/layout/toolbar.xml" />
-        <option value="$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/KVDBHelper.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/db/DBHelper.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java" />
@@ -2871,6 +2882,8 @@
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/recycler/CommonAdapter.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicAdapter.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicExpandableListAdapter.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" />
+        <option value="$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml" />
       </list>
     </option>
   </component>
@@ -2903,10 +2916,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -3173,6 +3183,9 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3744,7 +3757,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39235127" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -3753,6 +3766,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.50646204" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.58215296" sideWeight="0.49676898" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40710825" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.49353796" order="10" side_tool="false" content_ui="tabs" />
@@ -3776,7 +3790,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40710825" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.055240795" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -3859,12 +3872,6 @@
           <line>61</line>
           <properties />
           <option name="timeStamp" value="36" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java</url>
-          <line>318</line>
-          <properties />
-          <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit2/retrofit/2.1.0/3564ebef90ac75e61ed65ab9af0f422ce92d4afa/retrofit-2.1.0-sources.jar!/retrofit2/ExecutorCallAdapterFactory.java</url>
@@ -4075,13 +4082,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/demo/build/intermediates/classes/debug/com/hiphonezhu/test/demo/ActivityDemo3.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
@@ -4121,16 +4121,6 @@
             <element signature="imports" expanded="false" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/res/values/colors.xml">
@@ -4220,7 +4210,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4236,10 +4225,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="46" column="19" selection-start-line="46" selection-start-column="53" selection-end-line="46" selection-end-column="64" />
-          <folding>
-            <element signature="e#3309#3310#0" expanded="false" />
-            <element signature="e#3339#3340#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4247,7 +4232,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="526">
           <caret line="823" column="22" selection-start-line="823" selection-start-column="22" selection-end-line="823" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4349,19 +4333,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1913">
-          <caret line="48" column="91" selection-start-line="48" selection-start-column="91" selection-end-line="48" selection-end-column="91" />
-          <folding>
-            <element signature="e#1037#1038#0" expanded="false" />
-            <element signature="e#1084#1085#0" expanded="false" />
-            <element signature="e#1908#3740#0" expanded="false" />
-            <element signature="e#3739#3740#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -4430,12 +4401,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1050">
           <caret line="60" column="31" selection-start-line="60" selection-start-column="31" selection-end-line="60" selection-end-column="31" />
-          <folding>
-            <element signature="e#1298#1299#0" expanded="false" />
-            <element signature="e#1370#1371#0" expanded="false" />
-            <element signature="e#2251#2252#0" expanded="false" />
-            <element signature="e#2300#2301#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4459,15 +4424,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/api/XAPI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="38" column="58" selection-start-line="38" selection-start-column="54" selection-end-line="38" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4475,7 +4431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="87" column="34" selection-start-line="87" selection-start-column="34" selection-end-line="87" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4483,7 +4438,46 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="137" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="581">
+          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+          <folding>
+            <element signature="e#177#202#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9030">
+          <caret line="488" column="0" selection-start-line="488" selection-start-column="0" selection-end-line="488" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/api/XAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="34" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="64" column="97" selection-start-line="64" selection-start-column="72" selection-end-line="64" selection-end-column="97" />
+          <folding>
+            <element signature="e#1908#3740#0" expanded="true" />
+            <element signature="e#3739#3740#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
