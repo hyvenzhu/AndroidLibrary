@@ -502,7 +502,7 @@ public abstract class FlexibleDividerDecoration extends RecyclerView.ItemDecorat
         }
 
         public T space(final int space) {
-            return sizeProvider(new SizeProvider() {
+            return spaceProvider(new SizeProvider() {
                 @Override
                 public int dividerSize(int position, RecyclerView parent) {
                     return space;
@@ -511,7 +511,7 @@ public abstract class FlexibleDividerDecoration extends RecyclerView.ItemDecorat
         }
 
         public T spaceResId(@DimenRes int spaceId) {
-            return size(mResources.getDimensionPixelSize(spaceId));
+            return space(mResources.getDimensionPixelSize(spaceId));
         }
 
         public T spaceProvider(SizeProvider provider) {
