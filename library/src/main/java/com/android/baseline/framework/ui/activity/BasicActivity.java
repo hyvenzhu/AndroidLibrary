@@ -30,13 +30,12 @@ import com.android.baseline.util.APKUtil;
  * @version [Android-BaseLine, 2014-9-15]
  */
 public class BasicActivity extends BaseActivity implements UIInterface {
-    private final String TAG = "BasicActivity";
     /**
      * 基类Toast
      */
     private static Toast mToast;
-    protected boolean isPaused;
-    protected boolean mIsNeedRefresh;
+    protected boolean mPaused;
+    protected boolean mDestroyed;
 
     /**
      * 加载进度
@@ -200,7 +199,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
      * @param resId        标题资源id
      * @param rightVisible 右侧按钮是否可见
      */
-    protected void setTitleBar(boolean leftVisible, @StringRes  int resId, boolean rightVisible) {
+    protected void setTitleBar(boolean leftVisible, @StringRes int resId, boolean rightVisible) {
         setTitleBar(leftVisible, getString(resId), rightVisible);
     }
 
@@ -316,7 +315,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
      * @param message 字符串
      */
     public void showToast(CharSequence message) {
-        if (isPaused) {
+        if (mPaused) {
             return;
         }
         if (mToast == null) {
@@ -335,6 +334,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
 
     CustomDialog customDialog;
     TextView tipTextView;
+
     public void showProgress(String message, boolean cancelable) {
         if (customDialog == null) {
             customDialog = new CustomDialog(this).setContentView(R.layout.dialog_loading)
@@ -424,19 +424,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     @Override
     protected void onResume() {
         super.onResume();
-        isPaused = false;
-        if (mIsNeedRefresh) {
-            mIsNeedRefresh = false;
-        }
-    }
-
-    /**
-     * 设置重新启动后需要刷新
-     *
-     * @param isNeedRefresh
-     */
-    protected void setNeedRefresh(boolean isNeedRefresh) {
-        mIsNeedRefresh = isNeedRefresh;
+        mPaused = false;
     }
 
     /**
@@ -466,7 +454,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     @Override
     protected void onPause() {
         super.onPause();
-        isPaused = true;
+        mPaused = true;
         /**
          * 这里进行一些输入法的隐藏操作
          */
@@ -484,5 +472,6 @@ public class BasicActivity extends BaseActivity implements UIInterface {
         super.onDestroy();
         hideProgress();
         AppDroid.getInstance().uiStateHelper.removeActivity(this);
+        mDestroyed = true;
     }
 }
