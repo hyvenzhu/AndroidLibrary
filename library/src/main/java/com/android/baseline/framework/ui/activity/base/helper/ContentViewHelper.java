@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.baseline.R;
+import com.android.baseline.util.APKUtil;
 
 /**
  * 用于实现状态栏透明效果的帮助类
@@ -67,7 +68,8 @@ public class ContentViewHelper {
         View toolbarView = mInflater.inflate(R.layout.toolbar, null);
         mToolBar = (Toolbar) toolbarView.findViewById(R.id.id_tool_bar);
         mToolBar.setVisibility(mToolBarVisible ? View.VISIBLE : View.GONE);
-        mContentView.addView(toolbarView);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mContentView.addView(toolbarView, params);
 
         if (mToolBarVisible) {
             // 延伸到状态栏
@@ -77,7 +79,7 @@ public class ContentViewHelper {
 
     private void initUserView(int id) {
         View mUserView = mInflater.inflate(id, null);
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         mContentView.addView(mUserView, params);
     }
 
