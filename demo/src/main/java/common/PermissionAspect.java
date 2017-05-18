@@ -1,4 +1,4 @@
-package com.hiphonezhu.test.demo;
+package common;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.framework.logic.permissions.MPermissions;

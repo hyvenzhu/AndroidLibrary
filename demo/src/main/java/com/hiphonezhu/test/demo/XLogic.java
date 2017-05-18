@@ -1,6 +1,5 @@
 package com.hiphonezhu.test.demo;
 
-import com.android.baseline.framework.logic.BaseLogic;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.logic.net.Action1Impl;
 import com.android.baseline.framework.logic.net.IProgress;
@@ -15,6 +14,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import common.MyLogic;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -27,17 +27,12 @@ import rx.functions.Func1;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/3 12:12]
  */
-public class XLogic extends BaseLogic {
+public class XLogic extends MyLogic {
     XAPI phoneService;
 
     public XLogic(Object subscriber) {
         super(subscriber);
         phoneService = create(XAPI.class);
-    }
-
-    @Override
-    protected String getBaseUrl() {
-        return "http://apis.baidu.com/";
     }
 
     /**

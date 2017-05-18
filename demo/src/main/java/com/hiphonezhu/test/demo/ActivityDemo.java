@@ -11,7 +11,8 @@ import android.view.View;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.logic.net.IProgress;
 import com.android.baseline.framework.task.TaskExecutor;
-import com.android.baseline.framework.ui.activity.BasicActivity;
+
+import common.MyBaseActivity;
 
 /**
  * 网络请求测试
@@ -19,7 +20,7 @@ import com.android.baseline.framework.ui.activity.BasicActivity;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
-public class ActivityDemo extends BasicActivity {
+public class ActivityDemo extends MyBaseActivity {
     private XLogic moduleLogic;
 
     private int n;

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.baseline.framework.ui.activity.BasicActivity;
+import common.MyBaseActivity;
 
 /**
  * 默认标题栏不可见
@@ -13,7 +13,7 @@ import com.android.baseline.framework.ui.activity.BasicActivity;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
-public class ActivityDemo2 extends BasicActivity {
+public class ActivityDemo2 extends MyBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

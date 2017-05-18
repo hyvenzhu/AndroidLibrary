@@ -8,9 +8,10 @@ import android.provider.MediaStore;
 import android.view.View;
 
 import com.android.baseline.framework.logic.permissions.NeedPermission;
-import com.android.baseline.framework.ui.activity.BasicActivity;
 
 import java.io.File;
+
+import common.MyBaseActivity;
 
 /**
  * 6.0权限
@@ -18,7 +19,7 @@ import java.io.File;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
-public class ActivityDemo3 extends BasicActivity {
+public class ActivityDemo3 extends MyBaseActivity {
     private static final String TAG = "ActivityDemo3";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

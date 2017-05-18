@@ -1,4 +1,4 @@
-package com.hiphonezhu.test.demo;
+package common;
 
 import android.database.sqlite.SQLiteDatabase;
 
