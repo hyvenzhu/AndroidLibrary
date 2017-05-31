@@ -1,5 +1,7 @@
 package com.android.baseline.framework.logic.net;
 
+import android.os.Build;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -30,7 +32,7 @@ import javax.net.ssl.X509TrustManager;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/8 15:46]
  */
-public class SSLFactory {
+public class SSLUtils {
     /**
      * 创建SSLSocketFactory
      *
@@ -41,7 +43,11 @@ public class SSLFactory {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
-            return sslContext.getSocketFactory();
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) { // <=4.4
+                return new TLSSocketFactory(sslContext.getSocketFactory());
+            } else {
+                return sslContext.getSocketFactory();
+            }
         } catch (NoSuchAlgorithmException e3) {
         } catch (KeyManagementException e5) {
         }
@@ -60,9 +66,34 @@ public class SSLFactory {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(buildClient(bks, pwd), new TrustManager[]{trustManager}, new SecureRandom());
-            return sslContext.getSocketFactory();
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) { // <=4.4
+                return new TLSSocketFactory(sslContext.getSocketFactory());
+            } else {
+                return sslContext.getSocketFactory();
+            }
         } catch (NoSuchAlgorithmException e3) {
         } catch (KeyManagementException e5) {
+        }
+        return null;
+    }
+
+    /**
+     * 创建SSLSocketFactory(信任所有https)
+     *
+     * @return
+     */
+    @SuppressWarnings("强烈不建议使用, https形同虚设")
+    public static SSLSocketFactory build() {
+        try {
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new SecureRandom());
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) { // <=4.4
+                return new TLSSocketFactory(sslContext.getSocketFactory());
+            } else {
+                return sslContext.getSocketFactory();
+            }
+        } catch (NoSuchAlgorithmException e1) {
+        } catch (KeyManagementException e2) {
         }
         return null;
     }
@@ -109,23 +140,6 @@ public class SSLFactory {
             e.printStackTrace();
         }
         return null;
-    }
-
-    /**
-     * 创建SSLSocketFactory(信任所有https)
-     *
-     * @return
-     */
-    @SuppressWarnings("强烈不建议使用, https形同虚设")
-    public static SSLSocketFactory build() {
-        SSLContext sslContext = null;
-        try {
-            sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new SecureRandom());
-        } catch (NoSuchAlgorithmException e1) {
-        } catch (KeyManagementException e2) {
-        }
-        return sslContext.getSocketFactory();
     }
 
     /**

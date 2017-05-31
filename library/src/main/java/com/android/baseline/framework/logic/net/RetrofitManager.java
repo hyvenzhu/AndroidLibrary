@@ -102,8 +102,8 @@ public class RetrofitManager {
      */
     public void initCertificates(InputStream... cers) {
         try {
-            trustManager = SSLFactory.getX509TrustManager(cers);
-            sslFactory = SSLFactory.build(trustManager);
+            trustManager = SSLUtils.getX509TrustManager(cers);
+            sslFactory = SSLUtils.build(trustManager);
 
             client = buildClient();
         } catch (CertificateException e) {
@@ -127,8 +127,8 @@ public class RetrofitManager {
      */
     public void initCertificates(InputStream bks, String pwd, InputStream... cers) {
         try {
-            trustManager = SSLFactory.getX509TrustManager(cers);
-            sslFactory = SSLFactory.build(bks, pwd, trustManager);
+            trustManager = SSLUtils.getX509TrustManager(cers);
+            sslFactory = SSLUtils.build(bks, pwd, trustManager);
 
             client = buildClient();
         } catch (CertificateException e) {

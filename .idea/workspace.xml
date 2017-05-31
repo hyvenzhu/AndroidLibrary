@@ -14,16 +14,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7997bba9-299d-482b-8b2a-b5fb95ff6f83" name="Default" comment="1、BasicAdapter protected成员变量,开放">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/java/common/MyBaseActivity.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/src/main/java/common/MyLogic.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/MyDroid.java" afterPath="$PROJECT_DIR$/demo/src/main/java/common/MyDroid.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/PermissionAspect.java" afterPath="$PROJECT_DIR$/demo/src/main/java/common/PermissionAspect.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/TLSSocketFactory.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/SSLFactory.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/SSLUtils.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/demo/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo.java" afterPath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo2.java" afterPath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo2.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo3.java" afterPath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo3.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java" afterPath="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/XLogic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/demo.iml" afterPath="$PROJECT_DIR$/demo/demo.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/UIInterface.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/UIInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/library/src/main/res/values/strings.xml" />
     </list>
     <ignored path="Android-BaseLine.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -2814,9 +2813,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/CapturePhotoHelper.java" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/PhotoFragment.java" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/PhotoFragment.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/photo/CapturePhotoHelper.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/permissions/MPermissions.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/IntentUtil.java" />
@@ -2845,7 +2841,6 @@
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/BasicParamsInterceptor.java" />
         <option value="$PROJECT_DIR$/library/build.gradle" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/BaseFragment.java" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/FragmentPagerItemAdapter.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/extend/page/PageWrapper.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/BaseLogic.java" />
@@ -2855,7 +2850,6 @@
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/BasicExpandableListAdapter.java" />
         <option value="$PROJECT_DIR$/library/src/main/res/layout/layout_common_title.xml" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/recycler/decoration/FlexibleDividerDecoration.java" />
-        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" />
         <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/helper/ContentViewHelper.java" />
         <option value="$PROJECT_DIR$/demo/src/main/java/common/MyDroid.java" />
         <option value="$PROJECT_DIR$/demo/src/main/java/common/MyBaseActivity.java" />
@@ -2865,6 +2859,11 @@
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo.java" />
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo2.java" />
         <option value="$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo3.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/SSLUtils.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/UIInterface.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java" />
+        <option value="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java" />
+        <option value="$PROJECT_DIR$/library/src/main/res/values/strings.xml" />
       </list>
     </option>
   </component>
@@ -2897,7 +2896,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -2926,120 +2925,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="gradle" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="wrapper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Android-BaseLine" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="demo" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="demo" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$PROJECT_DIR$/../../../android-sdk-macosx" />
-    <property name="device.picker.selection" value="4c235f2b7cf3" />
+    <property name="device.picker.selection" value="7N2XEE157R062303" />
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="android.project.structure.last.selected" value="library" />
@@ -3057,13 +2956,15 @@
     <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/demo" />
-      <recent name="$PROJECT_DIR$/library" />
-      <recent name="$PROJECT_DIR$/demo/src/main/res/drawable" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.hiphonezhu.test.demo" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net" />
+      <recent name="$PROJECT_DIR$/library/src/main/res/values" />
+      <recent name="$PROJECT_DIR$/library/src/main/res/drawable-xxhdpi" />
+      <recent name="$PROJECT_DIR$/library/src/main/res/drawable" />
+      <recent name="$PROJECT_DIR$/demo/src/main/res/raw" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="common" />
@@ -3072,12 +2973,10 @@
       <recent name="com.hiphonezhu.test.demo" />
       <recent name="com.android.baseline.framework.ui.adapter.recycler" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/library/src/main/res/values" />
-      <recent name="$PROJECT_DIR$/library/src/main/res/drawable-xxhdpi" />
-      <recent name="$PROJECT_DIR$/library/src/main/res/drawable" />
-      <recent name="$PROJECT_DIR$/demo/src/main/res/raw" />
-      <recent name="$PROJECT_DIR$/library/src/main/res/raw" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/demo" />
+      <recent name="$PROJECT_DIR$/library" />
+      <recent name="$PROJECT_DIR$/demo/src/main/res/drawable" />
     </key>
   </component>
   <component name="RunManager" selected="Android App.demo">
@@ -3621,7 +3520,7 @@
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286119" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30936995" sideWeight="0.49433428" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30936995" sideWeight="0.49433428" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
@@ -3872,12 +3771,6 @@
           <option name="timeStamp" value="131" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java</url>
-          <line>80</line>
-          <properties />
-          <option name="timeStamp" value="132" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/ActivityDemo.java</url>
           <line>81</line>
           <properties />
@@ -3931,41 +3824,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/util/KVDBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="745" column="76" selection-start-line="745" selection-start-column="76" selection-end-line="745" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/db/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1617">
-          <caret line="82" column="12" selection-start-line="82" selection-start-column="12" selection-end-line="82" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="40" selection-start-line="0" selection-start-column="29" selection-end-line="0" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buildsrc/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/proguard-rules.pro">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/EventLogic.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -4072,25 +3930,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="190" column="15" selection-start-line="190" selection-start-column="15" selection-end-line="190" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/BaseFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="164" column="120" selection-start-line="164" selection-start-column="88" selection-end-line="164" selection-end-column="120" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4161,14 +4004,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="17" column="11" selection-start-line="1" selection-start-column="0" selection-end-line="17" selection-end-column="11" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/adapter/recycler/decoration/FlexibleDividerDecoration.java">
@@ -4199,19 +4042,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="78" column="27" selection-start-line="78" selection-start-column="27" selection-end-line="78" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/src/main/java/com/hiphonezhu/test/demo/api/XAPI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
           <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4236,7 +4070,7 @@
         <state relative-caret-position="210">
           <caret line="21" column="49" selection-start-line="21" selection-start-column="49" selection-end-line="21" selection-end-column="49" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -4245,7 +4079,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="21">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4253,7 +4086,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4261,7 +4093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4277,10 +4108,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#318#319#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -4288,7 +4115,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -4312,10 +4138,73 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/TLSSocketFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/RetrofitManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2982">
+          <caret line="164" column="120" selection-start-line="164" selection-start-column="88" selection-end-line="164" selection-end-column="120" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/logic/net/SSLUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2876">
+          <caret line="34" column="13" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/classes/com/android/baseline/framework/ui/base/UIInterface.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#341#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="616">
+          <caret line="169" column="5" selection-start-line="169" selection-start-column="5" selection-end-line="169" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/BasicActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="342" column="0" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+          <folding>
+            <element signature="e#10591#10622#0" expanded="true" />
+            <element signature="e#10672#10699#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/src/main/java/com/android/baseline/framework/ui/activity/base/UIInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="26" column="75" selection-start-line="26" selection-start-column="75" selection-end-line="26" selection-end-column="75" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#418#419#0" expanded="true" />
-            <element signature="e#465#466#0" expanded="true" />
           </folding>
         </state>
       </provider>

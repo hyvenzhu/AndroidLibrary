@@ -19,9 +19,12 @@ import com.android.baseline.R;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
+import com.android.baseline.framework.ui.adapter.extend.page.PageWrapper;
 import com.android.baseline.framework.ui.view.CustomDialog;
 import com.android.baseline.framework.ui.view.LoadingView;
 import com.android.baseline.util.APKUtil;
+
+import java.util.List;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
@@ -336,6 +339,22 @@ public class BasicActivity extends BaseActivity implements UIInterface {
             mToast.setText(message);
         }
         mToast.show();
+    }
+
+    /**
+     * 分页查询空数据提示语
+     * @param pageWrapper
+     * @param source
+     * @param <T>
+     */
+    public <T> void showPagingEmptyToast(PageWrapper pageWrapper, List<T> source) {
+        if (source == null || source.size() == 0) {
+            if (!pageWrapper.isFirstPage()) {
+                showToast(getString(R.string.nomore_data));
+            } else {
+                showToast(getString(R.string.no_data));
+            }
+        }
     }
 
     public void showProgress(String message) {

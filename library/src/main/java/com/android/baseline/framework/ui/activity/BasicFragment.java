@@ -10,7 +10,10 @@ import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.ui.activity.base.BaseFragment;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
+import com.android.baseline.framework.ui.adapter.extend.page.PageWrapper;
 import com.android.baseline.framework.ui.view.LoadingView;
+
+import java.util.List;
 
 /**
  * 基类Fragment
@@ -151,6 +154,19 @@ public class BasicFragment extends BaseFragment {
             return;
         }
         uiInterface.showToast(message);
+    }
+
+    /**
+     * 分页查询空数据提示语
+     * @param pageWrapper
+     * @param source
+     * @param <T>
+     */
+    public <T> void showPagingEmptyToast(PageWrapper pageWrapper, List<T> source) {
+        if (!isVisible()) {
+            return;
+        }
+        uiInterface.showPagingEmptyToast(pageWrapper, source);
     }
 
     public void showProgress(String message) {
