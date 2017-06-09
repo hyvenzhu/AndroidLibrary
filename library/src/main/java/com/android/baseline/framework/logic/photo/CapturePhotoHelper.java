@@ -20,7 +20,6 @@ import java.io.File;
  */
 public class CapturePhotoHelper {
     private static final String TAG = "CapturePhotoHelper";
-    String authority;
     PhotoFragment photoFragment;
 
     File savedDir;
@@ -49,12 +48,10 @@ public class CapturePhotoHelper {
      * 从相机选取
      *
      * @param savedDir
-     * @param authority
      * @return
      */
-    public CapturePhotoHelper camera(@NonNull File savedDir, String authority) {
+    public CapturePhotoHelper camera(@NonNull File savedDir) {
         this.savedDir = savedDir;
-        this.authority = authority;
         return this;
     }
 
@@ -88,15 +85,11 @@ public class CapturePhotoHelper {
     public void capture(Callback callback) {
         if (savedDir != null) {
             File savedFile = new File(savedDir, System.currentTimeMillis() + ".jpg");
-            Uri uri = APKUtil.getSupportUri(authority, savedFile);
+            Uri uri = APKUtil.getSupportUri(photoFragment.getActivity(), savedFile);
 
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            if (Build.VERSION.SDK_INT >= 24) {
-                // 授予目录临时共享权限
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                        | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            }
+            intent = APKUtil.getSupportIntent(intent, true);
             photoFragment.camera(intent, outputX, outputY, callback);
         } else {
             Intent intent;

@@ -2,6 +2,7 @@ package com.android.baseline.util;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
@@ -140,17 +141,34 @@ public class APKUtil {
 
     /**
      * 7.0目录权限适配
-     * @param authority
+     * @param context
      * @param inputFile
      * @return
      */
-    public static Uri getSupportUri(String authority, File inputFile) {
+    public static Uri getSupportUri(Context context, File inputFile) {
         Uri uri;
         if (Build.VERSION.SDK_INT >= 24) {
-            uri = FileProvider.getUriForFile(AppDroid.getInstance().getApplicationContext(), authority, inputFile);
+            uri = FileProvider.getUriForFile(AppDroid.getInstance().getApplicationContext(), context.getPackageName() + ".android7.fileprovider", inputFile);
         } else {
             uri = Uri.fromFile(inputFile);
         }
         return uri;
+    }
+
+    /**
+     * 7.0文件权限适配
+     * @param intent
+     * @param writeAble
+     * @return
+     */
+    public static Intent getSupportIntent(Intent intent, boolean writeAble) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            // 授予目录临时共享权限
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (writeAble) {
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
+        }
+        return intent;
     }
 }

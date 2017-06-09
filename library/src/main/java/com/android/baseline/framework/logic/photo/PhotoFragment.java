@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -14,6 +13,7 @@ import com.android.baseline.util.APKUtil;
 import com.android.baseline.util.IntentUtil;
 
 /**
+ * 处理拍照、裁剪的不可见Fragment
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 17/1/5 15:31]
  */
@@ -110,12 +110,7 @@ public class PhotoFragment extends Fragment {
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true);
 
-        if (Build.VERSION.SDK_INT >= 24)
-        {
-            // 授予目录临时共享权限
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        }
+        intent = APKUtil.getSupportIntent(intent, true);
         IntentUtil.startActivityForResult(intent, this, requestCode);
     }
 }
