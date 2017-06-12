@@ -41,5 +41,6 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // RecyclerView support
     compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'org.jetbrains:annotations-java5:15.0'
 }
 

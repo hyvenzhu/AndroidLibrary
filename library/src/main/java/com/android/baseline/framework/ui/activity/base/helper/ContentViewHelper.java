@@ -68,8 +68,7 @@ public class ContentViewHelper {
         View toolbarView = mInflater.inflate(R.layout.toolbar, null);
         mToolBar = (Toolbar) toolbarView.findViewById(R.id.id_tool_bar);
         mToolBar.setVisibility(mToolBarVisible ? View.VISIBLE : View.GONE);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        mContentView.addView(toolbarView, params);
+        mContentView.addView(toolbarView);
 
         if (mToolBarVisible) {
             // 延伸到状态栏
@@ -79,8 +78,7 @@ public class ContentViewHelper {
 
     private void initUserView(int id) {
         View mUserView = mInflater.inflate(id, null);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        mContentView.addView(mUserView, params);
+        mContentView.addView(mUserView);
     }
 
     public LinearLayout getContentView() {

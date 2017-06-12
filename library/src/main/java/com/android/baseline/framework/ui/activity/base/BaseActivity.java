@@ -7,9 +7,10 @@ import android.support.v7.widget.Toolbar;
 import com.android.baseline.framework.logic.EventLogic;
 import com.android.baseline.framework.task.Task;
 import com.android.baseline.framework.ui.activity.annotations.ViewUtils;
+import com.android.baseline.framework.ui.activity.base.helper.ContentViewHelper;
+import com.android.baseline.framework.ui.activity.base.helper.KeyboardUtil;
 import com.android.baseline.framework.ui.activity.base.helper.LogicHelper;
 import com.android.baseline.framework.ui.activity.base.helper.TaskHelper;
-import com.android.baseline.framework.ui.activity.base.helper.ContentViewHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -24,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public Toolbar toolbar;
     private boolean isDestroyed; // Activity是否已销毁
 
+    KeyboardUtil keyboardUtil;
     @Override
     public void setContentView(int layoutResID) {
         ContentViewHelper mToolBarHelper = new ContentViewHelper(this, layoutResID, defaultTitleBarVisible());
@@ -37,6 +39,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         ViewUtils.inject(this);
 
         afterSetContentView();
+
+        // 解决 fitSystemWindow、adjustResize、FLAG_TRANSLUCENT_STATUS 一起使用的bug
+        keyboardUtil = new KeyboardUtil(this, findViewById(android.R.id.content));
+        //enable it
+        keyboardUtil.enable();
     }
 
     /**
@@ -96,6 +103,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         isDestroyed = true;
         logicHelper.unregistAll();
         taskHelper.unregistAll();
+        keyboardUtil.disable();
     }
 
     /**
