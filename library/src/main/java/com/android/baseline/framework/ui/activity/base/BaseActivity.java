@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * @version [Android-BaseLine, 2014-9-15]
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    public Toolbar toolbar;
+    private Toolbar toolbar;
     private boolean isDestroyed; // Activity是否已销毁
 
     KeyboardUtil keyboardUtil;

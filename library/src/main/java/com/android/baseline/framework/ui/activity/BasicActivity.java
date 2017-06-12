@@ -3,6 +3,7 @@ package com.android.baseline.framework.ui.activity;
 import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -74,24 +75,32 @@ public class BasicActivity extends BaseActivity implements UIInterface {
 
         // 通用标题栏
         if (defaultTitleBarVisible()) {
-            // 通用标题栏
-            View commonTitle = mInflater.inflate(R.layout.layout_common_title, toolbar);
-            llLeft = commonTitle.findViewById(R.id.ll_left);
-            leftBtn = (Button) commonTitle.findViewById(R.id.title_left_btn);
-            titleTxt = (TextView) commonTitle.findViewById(R.id.title_txt);
-            subTitleTxt = (TextView) commonTitle.findViewById(R.id.sub_title_txt);
-            llRight = commonTitle.findViewById(R.id.ll_right);
-            rightBtn = (Button) commonTitle.findViewById(R.id.title_right_btn);
-        } else {
-            llLeft = findViewById(R.id.ll_left);
-            leftBtn = (Button) findViewById(R.id.title_left_btn);
-            titleTxt = (TextView) findViewById(R.id.title_txt);
-            subTitleTxt = (TextView) findViewById(R.id.sub_title_txt);
-            llRight = findViewById(R.id.ll_right);
-            rightBtn = (Button) findViewById(R.id.title_right_btn);
+            if (getCustomTitleLayout() != -1) {
+                // 使用用户自定义的标题布局
+                mInflater.inflate(getCustomTitleLayout(), toolbar);
+            } else {
+                // 通用标题栏
+                View commonTitle = mInflater.inflate(R.layout.layout_common_title, toolbar);
+                llLeft = commonTitle.findViewById(R.id.ll_left);
+                leftBtn = (Button) commonTitle.findViewById(R.id.title_left_btn);
+                titleTxt = (TextView) commonTitle.findViewById(R.id.title_txt);
+                subTitleTxt = (TextView) commonTitle.findViewById(R.id.sub_title_txt);
+                llRight = commonTitle.findViewById(R.id.ll_right);
+                rightBtn = (Button) commonTitle.findViewById(R.id.title_right_btn);
+                setLeftFinish(null);
+            }
         }
+    }
 
-        setLeftFinish(null);
+    /**
+     * 返回用户自定义的标题布局
+     *
+     * @return
+     */
+    protected
+    @LayoutRes
+    int getCustomTitleLayout() {
+        return -1;
     }
 
     protected void setLeftText(@StringRes int left) {
@@ -343,6 +352,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
 
     /**
      * 分页查询空数据提示语
+     *
      * @param pageWrapper
      * @param source
      * @param <T>
