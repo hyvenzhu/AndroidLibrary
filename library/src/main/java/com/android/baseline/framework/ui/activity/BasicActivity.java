@@ -352,7 +352,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
 
     /**
      * 分页查询空数据提示语
-     *
+     * 注意：需要在 {@link PageWrapper#addDataSource}] 之前调用。
      * @param pageWrapper
      * @param source
      * @param <T>
