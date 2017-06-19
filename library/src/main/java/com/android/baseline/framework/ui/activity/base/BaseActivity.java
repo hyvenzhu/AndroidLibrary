@@ -51,14 +51,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         //enable it
         keyboardUtil.enable();
 
-        makeStatusBarTranslucent();
+        makeStatusBarTransparent();
     }
 
     /**
-     * 状态栏着色
+     * 状态栏背景色透明
      */
-    private void makeStatusBarTranslucent() {
-        // 状态栏着色
+    private void makeStatusBarTransparent() {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             // >=5.0
@@ -77,7 +76,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 改变状态栏字体：深色 or 浅色
      * @param isFontColorDark true：深色  false：浅色
      */
-    protected void setStatusBarFont(boolean isFontColorDark){
+    protected void setStatusBarFontColor(boolean isFontColorDark){
         StatusBarFontHelper.setStatusBarMode(this, isFontColorDark);
     }
 
