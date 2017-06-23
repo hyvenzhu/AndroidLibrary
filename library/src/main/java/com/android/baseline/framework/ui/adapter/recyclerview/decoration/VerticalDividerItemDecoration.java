@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter.recycler.decoration;
+package com.android.baseline.framework.ui.adapter.recyclerview.decoration;
 
 import android.content.Context;
 import android.graphics.Rect;
@@ -12,16 +12,16 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 /**
- * 横向Decoration
+ * 垂直Decoration
  *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/10/09 13:42]
  */
-public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
+public class VerticalDividerItemDecoration extends FlexibleDividerDecoration {
 
     private MarginProvider mMarginProvider;
 
-    protected HorizontalDividerItemDecoration(Builder builder) {
+    protected VerticalDividerItemDecoration(Builder builder) {
         super(builder);
         mMarginProvider = builder.mMarginProvider;
     }
@@ -32,38 +32,36 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
         int transitionX = (int) ViewCompat.getTranslationX(child);
         int transitionY = (int) ViewCompat.getTranslationY(child);
         RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child.getLayoutParams();
-        bounds.left = child.getLeft() + transitionX;
-        bounds.right = child.getRight() + transitionX;
+        bounds.top = child.getTop() + transitionY;
+        bounds.bottom = child.getBottom() + transitionY;
 
         int dividerSize = getDividerSize(position, parent);
         if (mDividerType == DividerType.DRAWABLE || mDividerType == DividerType.SPACE) {
-            if (alignLeftEdge(parent, position)) {
-                bounds.left += mMarginProvider.dividerLeftMargin(position, parent);
+            if (alignTopEdge(parent, position)) {
+                bounds.top += mMarginProvider.dividerTopMargin(position, parent);
+            }
+            if (alignBottomEdge(parent, position)) {
+                bounds.bottom -= mMarginProvider.dividerBottomMargin(position, parent);
             }
 
-            if (alignRightEdge(parent, position)) {
-                bounds.right -= mMarginProvider.dividerRightMargin(position, parent);
-            } else {
-                // 交叉位置特殊处理
-                bounds.right += getDividerSize(position, parent);
-            }
-            bounds.top = child.getBottom() + params.bottomMargin + transitionY;
-            bounds.bottom = bounds.top + dividerSize;
+            bounds.left = child.getRight() + params.rightMargin + transitionX;
+            bounds.right = bounds.left + dividerSize;
         } else {
+            // set center point of divider
             int halfSize = dividerSize / 2;
-            bounds.top = child.getBottom() + params.bottomMargin + halfSize + transitionY;
-            bounds.bottom = bounds.top;
+            bounds.left = child.getRight() + params.rightMargin + halfSize + transitionX;
+            bounds.right = bounds.left;
         }
 
         if (mPositionInsideItem) {
-            bounds.top -= dividerSize;
-            bounds.bottom -= dividerSize;
+            bounds.left -= dividerSize;
+            bounds.right -= dividerSize;
         }
 
         return bounds;
     }
 
-    private boolean alignLeftEdge(RecyclerView parent, int position) {
+    private boolean alignTopEdge(RecyclerView parent, int position) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
         if (layoutManager instanceof GridLayoutManager) {
@@ -72,19 +70,21 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             int spanCount = manager.getSpanCount();
             if (manager.getOrientation() == GridLayoutManager.VERTICAL) // 垂直布局
             {
-                if (lookup.getSpanIndex(position, spanCount) == 0) // 第一列
-                {
-                    return true;
-                }
-            } else // 水平布局
-            {
                 if (manager.getReverseLayout()) {
-                    return lookup.getSpanGroupIndex(position, spanCount) == lookup.getSpanGroupIndex(parent.getAdapter().getItemCount() - 1, spanCount);
+                    if (lookup.getSpanGroupIndex(position, spanCount) ==
+                            lookup.getSpanGroupIndex(parent.getAdapter().getItemCount() - 1, spanCount)) // 第一行
+                    {
+                        return true;
+                    }
                 } else {
-                    if (lookup.getSpanGroupIndex(position, spanCount) == 0) {
+                    if (lookup.getSpanGroupIndex(position, spanCount) == 0) // 第一行
+                    {
                         return true;
                     }
                 }
+            } else // 水平布局
+            {
+                return lookup.getSpanIndex(position, spanCount) == 0;
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
@@ -94,25 +94,26 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
 
             if (manager.getOrientation() == StaggeredGridLayoutManager.VERTICAL) // 垂直布局
             {
-                return spanIndex == 0;
-            } else // 水平布局
-            {
                 if (manager.getReverseLayout()) {
                     int[] lastPosition = manager.findLastVisibleItemPositions(null);
-                    boolean hasDirectionAlign = false;
+
+                    boolean hasTop = false;
                     for (int p : lastPosition) {
                         if (p != position && p != -1) {
                             StaggeredGridLayoutManager.LayoutParams params1 = (StaggeredGridLayoutManager.LayoutParams) manager.findViewByPosition(p).getLayoutParams();
                             if (params1.getSpanIndex() == spanIndex) {
-                                hasDirectionAlign = true;
+                                hasTop = true;
                                 break;
                             }
                         }
                     }
-                    return !hasDirectionAlign;
+                    return !hasTop;
                 } else {
                     return position < spanCount;
                 }
+            } else // 水平布局
+            {
+                return params.getSpanIndex() == 0;
             }
         } else if (layoutManager instanceof LinearLayoutManager) {
             return true;
@@ -120,7 +121,7 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
         return false;
     }
 
-    private boolean alignRightEdge(RecyclerView parent, int position) {
+    private boolean alignBottomEdge(RecyclerView parent, int position) {
         RecyclerView.LayoutManager layoutManager = parent.getLayoutManager();
 
         if (layoutManager instanceof GridLayoutManager) {
@@ -129,11 +130,6 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             int spanCount = manager.getSpanCount();
             int itemCount = parent.getAdapter().getItemCount();
             if (manager.getOrientation() == GridLayoutManager.VERTICAL) // 垂直布局
-            {
-                if (positionTotalSpanSize(manager, position) == spanCount) {
-                    return true;
-                }
-            } else // 水平布局
             {
                 if (manager.getReverseLayout()) {
                     return lookup.getSpanGroupIndex(position, spanCount) == 0;
@@ -149,6 +145,9 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
                         return true;
                     }
                 }
+            } else // 水平布局
+            {
+                return positionTotalSpanSize(manager, position) == spanCount;
             }
         } else if (layoutManager instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
@@ -158,26 +157,26 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
 
             if (manager.getOrientation() == StaggeredGridLayoutManager.VERTICAL) // 垂直布局
             {
-                return spanIndex == spanCount - 1;
-            } else // 水平布局
-            {
                 if (manager.getReverseLayout()) {
                     return position < spanCount;
                 } else {
                     int[] lastPosition = manager.findLastVisibleItemPositions(null);
 
-                    boolean hasRight = false;
+                    boolean hasBottom = false;
                     for (int p : lastPosition) {
                         if (p != position && p != -1) {
                             StaggeredGridLayoutManager.LayoutParams params1 = (StaggeredGridLayoutManager.LayoutParams) manager.findViewByPosition(p).getLayoutParams();
                             if (params1.getSpanIndex() == spanIndex) {
-                                hasRight = true;
+                                hasBottom = true;
                                 break;
                             }
                         }
                     }
-                    return !hasRight;
+                    return !hasBottom;
                 }
+            } else // 水平布局
+            {
+                return spanIndex == spanCount - 1;
             }
         } else if (layoutManager instanceof LinearLayoutManager) {
             return true;
@@ -191,7 +190,7 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             outRect.set(0, 0, 0, 0);
             return;
         }
-        outRect.set(0, 0, 0, getDividerSize(position, parent));
+        outRect.set(0, 0, getDividerSize(position, parent), 0);
     }
 
     private int getDividerSize(int position, RecyclerView parent) {
@@ -201,9 +200,7 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             return mSizeProvider.dividerSize(position, parent);
         } else if (mDrawableProvider != null) {
             Drawable drawable = mDrawableProvider.drawableProvider(position, parent);
-            return drawable.getIntrinsicHeight();
-        } else if (mSpaceProvider != null) {
-            return mSpaceProvider.dividerSize(position, parent);
+            return drawable.getIntrinsicWidth();
         }
         throw new RuntimeException("failed to get size");
     }
@@ -214,34 +211,34 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
     public interface MarginProvider {
 
         /**
-         * Returns left margin of divider.
+         * Returns top margin of divider.
          *
          * @param position Divider position (or group index for GridLayoutManager)
          * @param parent   RecyclerView
-         * @return left margin
+         * @return top margin
          */
-        int dividerLeftMargin(int position, RecyclerView parent);
+        int dividerTopMargin(int position, RecyclerView parent);
 
         /**
-         * Returns right margin of divider.
+         * Returns bottom margin of divider.
          *
          * @param position Divider position (or group index for GridLayoutManager)
          * @param parent   RecyclerView
-         * @return right margin
+         * @return bottom margin
          */
-        int dividerRightMargin(int position, RecyclerView parent);
+        int dividerBottomMargin(int position, RecyclerView parent);
     }
 
     public static class Builder extends FlexibleDividerDecoration.Builder<Builder> {
 
         private MarginProvider mMarginProvider = new MarginProvider() {
             @Override
-            public int dividerLeftMargin(int position, RecyclerView parent) {
+            public int dividerTopMargin(int position, RecyclerView parent) {
                 return 0;
             }
 
             @Override
-            public int dividerRightMargin(int position, RecyclerView parent) {
+            public int dividerBottomMargin(int position, RecyclerView parent) {
                 return 0;
             }
         };
@@ -250,31 +247,31 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             super(context);
         }
 
-        public Builder margin(final int leftMargin, final int rightMargin) {
+        public Builder margin(final int topMargin, final int bottomMargin) {
             return marginProvider(new MarginProvider() {
                 @Override
-                public int dividerLeftMargin(int position, RecyclerView parent) {
-                    return leftMargin;
+                public int dividerTopMargin(int position, RecyclerView parent) {
+                    return topMargin;
                 }
 
                 @Override
-                public int dividerRightMargin(int position, RecyclerView parent) {
-                    return rightMargin;
+                public int dividerBottomMargin(int position, RecyclerView parent) {
+                    return bottomMargin;
                 }
             });
         }
 
-        public Builder margin(int horizontalMargin) {
-            return margin(horizontalMargin, horizontalMargin);
+        public Builder margin(int verticalMargin) {
+            return margin(verticalMargin, verticalMargin);
         }
 
-        public Builder marginResId(@DimenRes int leftMarginId, @DimenRes int rightMarginId) {
-            return margin(mResources.getDimensionPixelSize(leftMarginId),
-                    mResources.getDimensionPixelSize(rightMarginId));
+        public Builder marginResId(@DimenRes int topMarginId, @DimenRes int bottomMarginId) {
+            return margin(mResources.getDimensionPixelSize(topMarginId),
+                    mResources.getDimensionPixelSize(bottomMarginId));
         }
 
-        public Builder marginResId(@DimenRes int horizontalMarginId) {
-            return marginResId(horizontalMarginId, horizontalMarginId);
+        public Builder marginResId(@DimenRes int verticalMarginId) {
+            return marginResId(verticalMarginId, verticalMarginId);
         }
 
         public Builder marginProvider(MarginProvider provider) {
@@ -282,9 +279,9 @@ public class HorizontalDividerItemDecoration extends FlexibleDividerDecoration {
             return this;
         }
 
-        public HorizontalDividerItemDecoration build() {
+        public VerticalDividerItemDecoration build() {
             checkBuilderParams();
-            return new HorizontalDividerItemDecoration(this);
+            return new VerticalDividerItemDecoration(this);
         }
     }
 }

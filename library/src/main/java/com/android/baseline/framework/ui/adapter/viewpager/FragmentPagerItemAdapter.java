@@ -1,31 +1,33 @@
-package com.android.baseline.framework.ui.adapter;
-
+package com.android.baseline.framework.ui.adapter.viewpager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.view.ViewGroup;
 
 import java.util.List;
 
 /**
- * FragmentStatePagerAdapter适配器
+ * FragmentPagerAdapter适配器
  *
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 17/4/14 11:57]
  */
-public class FragmentStatePagerItemAdapter extends FragmentStatePagerAdapter {
+public class FragmentPagerItemAdapter extends FragmentPagerAdapter {
     FragmentManager fm;
     private List<Fragment> fragments;
     private List<String> titles;
+    private FragmentTransaction mCurTransaction = null;
 
-    public FragmentStatePagerItemAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public FragmentPagerItemAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.fm = fm;
         this.fragments = fragments;
         this.titles = titles;
     }
 
-    public FragmentStatePagerItemAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public FragmentPagerItemAdapter(FragmentManager fm, List<Fragment> fragments) {
         this(fm, fragments, null);
     }
 
@@ -49,6 +51,16 @@ public class FragmentStatePagerItemAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        super.destroyItem(container, position, object);
+        if (mCurTransaction == null) {
+            mCurTransaction = fm.beginTransaction();
+        }
+        mCurTransaction.remove((Fragment)object);
+        mCurTransaction.commitNowAllowingStateLoss();
+    }
+
+    @Override
     public int getCount() {
         return fragments != null ? fragments.size() : 0;
     }
@@ -61,3 +73,4 @@ public class FragmentStatePagerItemAdapter extends FragmentStatePagerAdapter {
         return titles.get(position);
     }
 }
+

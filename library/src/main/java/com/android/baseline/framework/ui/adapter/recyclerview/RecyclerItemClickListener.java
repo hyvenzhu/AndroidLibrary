@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter.recycler;
+package com.android.baseline.framework.ui.adapter.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

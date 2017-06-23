@@ -1,8 +1,8 @@
-package com.android.baseline.framework.ui.adapter.extend;
+package com.android.baseline.framework.ui.adapter.listview.choice;
 
 import android.content.Context;
 
-import com.android.baseline.framework.ui.adapter.BasicAdapter;
+import com.android.baseline.framework.ui.adapter.listview.BasicAdapter;
 import com.android.baseline.framework.ui.adapter.MultiTypeSupport;
 
 import java.util.ArrayList;

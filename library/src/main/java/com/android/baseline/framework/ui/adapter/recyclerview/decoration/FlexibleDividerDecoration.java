@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter.recycler.decoration;
+package com.android.baseline.framework.ui.adapter.recyclerview.decoration;
 
 import android.content.Context;
 import android.content.res.Resources;

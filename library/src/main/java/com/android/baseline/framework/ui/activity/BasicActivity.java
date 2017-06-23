@@ -20,7 +20,7 @@ import com.android.baseline.R;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
-import com.android.baseline.framework.ui.adapter.extend.page.PageWrapper;
+import com.android.baseline.framework.ui.adapter.page.PageWrapper;
 import com.android.baseline.framework.ui.view.CustomDialog;
 import com.android.baseline.framework.ui.view.LoadingView;
 import com.android.baseline.util.APKUtil;

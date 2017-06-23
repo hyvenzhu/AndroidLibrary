@@ -1,6 +1,6 @@
 package com.android.baseline.framework.ui.activity.base;
 
-import com.android.baseline.framework.ui.adapter.extend.page.PageWrapper;
+import com.android.baseline.framework.ui.adapter.page.PageWrapper;
 
 import java.util.List;
 

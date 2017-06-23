@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter.extend.page;
+package com.android.baseline.framework.ui.adapter.page;
 
 import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;

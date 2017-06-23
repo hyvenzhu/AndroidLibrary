@@ -10,7 +10,7 @@ import com.android.baseline.AppDroid;
 import com.android.baseline.R;
 import com.android.baseline.framework.ui.activity.base.BaseFragment;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
-import com.android.baseline.framework.ui.adapter.extend.page.PageWrapper;
+import com.android.baseline.framework.ui.adapter.page.PageWrapper;
 import com.android.baseline.framework.ui.view.LoadingView;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter.recycler;
+package com.android.baseline.framework.ui.adapter.recyclerview;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,7 @@ import java.util.List;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/19 13:42]
  */
-public class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements IAdapter<T> {
+public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implements IAdapter<T> {
     protected Context mContext;
     int mItemLayoutId;
     protected List<T> mData;
@@ -32,11 +32,6 @@ public class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> implement
         ViewHolder commonViewHolder = new ViewHolder(
                 LayoutInflater.from(mContext).inflate(mItemLayoutId, parent, false));
         return commonViewHolder;
-    }
-
-    @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-
     }
 
     @Override

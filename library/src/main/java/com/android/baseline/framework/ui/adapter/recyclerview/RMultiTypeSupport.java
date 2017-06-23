@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter.recycler;
+package com.android.baseline.framework.ui.adapter.recyclerview;
 
 import com.android.baseline.framework.ui.adapter.MultiTypeSupport;
 
