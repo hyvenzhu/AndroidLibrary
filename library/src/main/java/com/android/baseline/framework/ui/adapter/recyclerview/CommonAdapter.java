@@ -35,6 +35,9 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
     }
 
     @Override
+    public abstract void onBindViewHolder(ViewHolder holder, int position);
+
+    @Override
     public int getItemCount() {
         return mData != null ? mData.size() : 0;
     }

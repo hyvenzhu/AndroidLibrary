@@ -15,7 +15,7 @@ import java.util.List;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 16/9/19 14:16]
  */
-public class MultiTypeAdapter<T> extends CommonAdapter<T> {
+public abstract class MultiTypeAdapter<T> extends CommonAdapter<T> {
     MultiTypeSupport<T> mItemSupport;
 
     protected MultiTypeAdapter(Context context, List<T> data, MultiTypeSupport<T> itemSupport) {
