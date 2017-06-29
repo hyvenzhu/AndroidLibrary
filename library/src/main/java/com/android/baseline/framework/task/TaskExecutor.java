@@ -4,10 +4,13 @@ import android.os.Message;
 
 import org.greenrobot.eventbus.EventBus;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 异步任务执行器封装,使用RxAndroid实现
@@ -47,36 +50,27 @@ public class TaskExecutor {
      * @param task
      */
     public void execute(final Task task) {
-        Observable.create(new Observable.OnSubscribe<Message>() {
+        Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
-            public void call(Subscriber<? super Message> subscriber) {
-                subscriber.onNext(task.execute());
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Message> e) throws Exception {
+                try {
+                    e.onNext(task.execute());
+                    e.onComplete();
+                } catch (Exception ex) {
+                    e.onError(ex);
+                }
             }
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<Message>() {
+                .subscribe(new Consumer<Message>() {
                     @Override
-                    public void onStart() {
-                        super.onStart();
+                    public void accept(@NonNull Message message) throws Exception {
                         // 使用Task反向注册EventBus,为了外层能够统一解除所有Task的订阅者
                         task.register(eventBus);
-                    }
-
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(Message msg) {
-                        eventBus.post(msg);
+                        eventBus.post(message);
                     }
                 });
+
     }
 }

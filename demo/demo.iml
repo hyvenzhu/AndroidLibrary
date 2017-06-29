@@ -97,5 +97,29 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="aspectjrt-1.8.6" level="project" />
     <orderEntry type="module" module-name="library" exported="" />
+    <orderEntry type="library" exported="" name="support-annotations-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="reactive-streams-1.0.0" level="project" />
+    <orderEntry type="library" exported="" name="design-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="adapter-rxjava2-2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="okio-1.13.0" level="project" />
+    <orderEntry type="library" exported="" name="retrofit-2.3.0" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.7" level="project" />
+    <orderEntry type="library" exported="" name="converter-gson-2.1.0" level="project" />
+    <orderEntry type="library" exported="" name="eventbus-3.0.0" level="project" />
+    <orderEntry type="library" exported="" name="okhttp-3.8.0" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-media-compat-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="transition-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-compat-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-fragment-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="animated-vector-drawable-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-core-ui-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="rxandroid-2.0.1" level="project" />
+    <orderEntry type="library" exported="" name="logging-interceptor-3.4.1" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-vector-drawable-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="support-core-utils-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="recyclerview-v7-25.0.0" level="project" />
+    <orderEntry type="library" exported="" name="rxjava-2.1.0" level="project" />
   </component>
 </module>

@@ -1,7 +1,6 @@
 package com.hiphonezhu.test.demo;
 
 import com.android.baseline.framework.logic.InfoResult;
-import com.android.baseline.framework.logic.net.Action1Impl;
 import com.android.baseline.framework.logic.net.IProgress;
 import com.android.baseline.framework.logic.net.PartProgressBody;
 import com.hiphonezhu.test.demo.api.XAPI;
@@ -15,11 +14,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import common.MyLogic;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import rx.functions.Func1;
 
 /**
  * 业务模块
@@ -41,9 +42,9 @@ public class XLogic extends MyLogic {
      * @param phone
      */
     public void getResult(String phone) {
-        sendRequest(phoneService.getResult(phone, "8e13586b86e4b7f3758ba3bd6c9c9135").doOnNext(new Action1Impl<MobileBean>() {
+        sendRequest(phoneService.getResult(phone, "8e13586b86e4b7f3758ba3bd6c9c9135").doOnNext(new Consumer<InfoResult<MobileBean>>() {
             @Override
-            public void nextCall(InfoResult<MobileBean> infoResult) {
+            public void accept(@NonNull InfoResult<MobileBean> mobileBeanInfoResult) throws Exception {
 
             }
         }), R.id.mobilenumber);
@@ -59,9 +60,9 @@ public class XLogic extends MyLogic {
      */
     public void download(String downloadUrl, final String destFilePath, final IProgress iProgress, final Object extraInfo) {
         // 返回值ResponseBody, 使用map操作, 将返回值ResponseBody->InputStream存储到本地, 最后输出InfoResult
-        sendRequest(phoneService.download(downloadUrl).map(new Func1<ResponseBody, InfoResult>() {
+        sendRequest(phoneService.download(downloadUrl).map(new Function<ResponseBody, InfoResult>() {
             @Override
-            public InfoResult call(ResponseBody responseBody) {
+            public InfoResult apply(@NonNull ResponseBody responseBody) throws Exception {
                 InfoResult infoResult = new InfoResult(InfoResult.INNER_ERROR_CODE);
                 infoResult.setData(extraInfo);
 

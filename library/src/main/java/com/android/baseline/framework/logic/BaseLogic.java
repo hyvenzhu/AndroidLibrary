@@ -2,12 +2,13 @@ package com.android.baseline.framework.logic;
 
 import com.android.baseline.framework.logic.net.RetrofitManager;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.Interceptor;
 import retrofit2.Retrofit;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * '数据'模块统一出口, Retrofit基本封装
@@ -48,24 +49,19 @@ public abstract class BaseLogic extends EventLogic {
     public void sendRequest(final Observable observable, final int what) {
         observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber() {
+                .subscribe(new Consumer() {
                     @Override
-                    public void onCompleted() {
-
+                    public void accept(@NonNull Object o) throws Exception {
+                        onResult(what, o);
                     }
-
+                }, new Consumer<Throwable>() {
                     @Override
-                    public void onError(Throwable e) {
+                    public void accept(@NonNull Throwable throwable) throws Exception {
                         // 无网络、解析报错、404\500
                         // 无网络、解析报错、404\500
                         InfoResult<Throwable> infoResult = new InfoResult(InfoResult.INNER_ERROR_CODE);
-                        infoResult.setData(e);
+                        infoResult.setData(throwable);
                         onResult(what, infoResult);
-                    }
-
-                    @Override
-                    public void onNext(Object o) {
-                        onResult(what, o);
                     }
                 });
     }

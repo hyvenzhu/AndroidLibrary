@@ -7,11 +7,13 @@ import android.text.TextUtils;
 
 import com.android.baseline.framework.db.BaseDAO;
 
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * key-value数据库
@@ -56,11 +58,10 @@ public class KVDBHelper {
     }
 
     public void contains(final String key, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(contains(key));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(contains(key));
             }
         }, listener);
     }
@@ -89,11 +90,10 @@ public class KVDBHelper {
     }
 
     public static void contains(final SQLiteDatabase db, final String key, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(contains(db, key));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(contains(db, key));
             }
         }, listener);
     }
@@ -123,11 +123,10 @@ public class KVDBHelper {
     }
 
     public void getBoolean(final String key, final boolean defaultResult, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(getBoolean(key, defaultResult));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(getBoolean(key, defaultResult));
             }
         }, listener);
     }
@@ -163,11 +162,10 @@ public class KVDBHelper {
     }
 
     public void putBoolean(final String key, final boolean value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putBoolean(key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putBoolean(key, value));
             }
         }, listener);
     }
@@ -200,11 +198,10 @@ public class KVDBHelper {
     }
 
     public static void putBoolean(final SQLiteDatabase db, final String key, final boolean value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putBoolean(db, key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putBoolean(db, key, value));
             }
         }, listener);
     }
@@ -234,11 +231,10 @@ public class KVDBHelper {
     }
 
     public void getString(final String key, final String defaultValue, final ResultListener<String> listener) {
-        onResult(new Observable.OnSubscribe<String>() {
+        onResult(new ObservableOnSubscribe<String>() {
             @Override
-            public void call(Subscriber<? super String> subscriber) {
-                subscriber.onNext(getString(key, defaultValue));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<String> e) throws Exception {
+                e.onNext(getString(key, defaultValue));
             }
         }, listener);
     }
@@ -268,11 +264,10 @@ public class KVDBHelper {
     }
 
     public void putString(final String key, final String value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putString(key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putString(key, value));
             }
         }, listener);
     }
@@ -299,11 +294,10 @@ public class KVDBHelper {
     }
 
     public static void putString(final SQLiteDatabase db, final String key, final String value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putString(db, key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putString(db, key, value));
             }
         }, listener);
     }
@@ -333,11 +327,10 @@ public class KVDBHelper {
     }
 
     public void getInteger(final String key, final int defaultValue, final ResultListener<Integer> listener) {
-        onResult(new Observable.OnSubscribe<Integer>() {
+        onResult(new ObservableOnSubscribe<Integer>() {
             @Override
-            public void call(Subscriber<? super Integer> subscriber) {
-                subscriber.onNext(getInteger(key, defaultValue));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Integer> e) throws Exception {
+                e.onNext(getInteger(key, defaultValue));
             }
         }, listener);
     }
@@ -367,11 +360,10 @@ public class KVDBHelper {
     }
 
     public void putInteger(final String key, final int value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putInteger(key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putInteger(key, value));
             }
         }, listener);
     }
@@ -398,11 +390,10 @@ public class KVDBHelper {
     }
 
     public static void putInteger(final SQLiteDatabase db, final String key, final int value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putInteger(db, key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putInteger(db, key, value));
             }
         }, listener);
     }
@@ -428,11 +419,10 @@ public class KVDBHelper {
     }
 
     public void getLong(final String key, final long defaultValue, final ResultListener<Long> listener) {
-        onResult(new Observable.OnSubscribe<Long>() {
+        onResult(new ObservableOnSubscribe<Long>() {
             @Override
-            public void call(Subscriber<? super Long> subscriber) {
-                subscriber.onNext(getLong(key, defaultValue));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Long> e) throws Exception {
+                e.onNext(getLong(key, defaultValue));
             }
         }, listener);
     }
@@ -462,11 +452,10 @@ public class KVDBHelper {
     }
 
     public void putLong(final String key, final long value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putLong(key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putLong(key, value));
             }
         }, listener);
     }
@@ -493,11 +482,10 @@ public class KVDBHelper {
     }
 
     public static void putLong(final SQLiteDatabase db, final String key, final long value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putLong(db, key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putLong(db, key, value));
             }
         }, listener);
     }
@@ -527,11 +515,10 @@ public class KVDBHelper {
     }
 
     public void getDouble(final String key, final double defaultValue, final ResultListener<Double> listener) {
-        onResult(new Observable.OnSubscribe<Double>() {
+        onResult(new ObservableOnSubscribe<Double>() {
             @Override
-            public void call(Subscriber<? super Double> subscriber) {
-                subscriber.onNext(getDouble(key, defaultValue));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Double> e) throws Exception {
+                e.onNext(getDouble(key, defaultValue));
             }
         }, listener);
     }
@@ -561,11 +548,10 @@ public class KVDBHelper {
     }
 
     public void putDouble(final String key, final double value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putDouble(key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putDouble(key, value));
             }
         }, listener);
     }
@@ -592,11 +578,10 @@ public class KVDBHelper {
     }
 
     public static void putDouble(final SQLiteDatabase db, final String key, final double value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putDouble(db, key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putDouble(db, key, value));
             }
         }, listener);
     }
@@ -626,11 +611,10 @@ public class KVDBHelper {
     }
 
     public void getFloat(final String key, final float defaultValue, final ResultListener<Float> listener) {
-        onResult(new Observable.OnSubscribe<Float>() {
+        onResult(new ObservableOnSubscribe<Float>() {
             @Override
-            public void call(Subscriber<? super Float> subscriber) {
-                subscriber.onNext(getFloat(key, defaultValue));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Float> e) throws Exception {
+                e.onNext(getFloat(key, defaultValue));
             }
         }, listener);
     }
@@ -660,11 +644,10 @@ public class KVDBHelper {
     }
 
     public void putFloat(final String key, final float value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putFloat(key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putFloat(key, value));
             }
         }, listener);
     }
@@ -691,11 +674,10 @@ public class KVDBHelper {
     }
 
     public static void putFloat(final SQLiteDatabase db, final String key, final float value, final ResultListener<Boolean> listener) {
-        onResult(new Observable.OnSubscribe<Boolean>() {
+        onResult(new ObservableOnSubscribe<Boolean>() {
             @Override
-            public void call(Subscriber<? super Boolean> subscriber) {
-                subscriber.onNext(putFloat(db, key, value));
-                subscriber.onCompleted();
+            public void subscribe(@NonNull ObservableEmitter<Boolean> e) throws Exception {
+                e.onNext(putFloat(db, key, value));
             }
         }, listener);
     }
@@ -724,14 +706,14 @@ public class KVDBHelper {
         }
     }
 
-    private static <T> void onResult(Observable.OnSubscribe<T> onSubscribe, final ResultListener<T> listener) {
+    private static <T> void onResult(ObservableOnSubscribe<T> onSubscribe, final ResultListener<T> listener) {
         Observable.create(onSubscribe)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<T>() {
+                .subscribe(new Consumer<T>() {
                     @Override
-                    public void call(T o) {
-                        listener.onResult(o);
+                    public void accept(@NonNull T t) throws Exception {
+                        listener.onResult(t);
                     }
                 });
     }
@@ -743,7 +725,7 @@ public class KVDBHelper {
      * @return
      */
     private static String wrapKey(String key) {
-        return !TextUtils.isEmpty(keyPrefix)? (keyPrefix + "_" + key) : key;
+        return !TextUtils.isEmpty(keyPrefix) ? (keyPrefix + "_" + key) : key;
     }
 
     public interface ResultListener<T> {
