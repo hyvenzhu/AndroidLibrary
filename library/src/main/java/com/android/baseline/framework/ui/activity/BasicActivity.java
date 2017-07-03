@@ -375,6 +375,9 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     TextView tipTextView;
 
     public void showProgress(String message, boolean cancelable) {
+        if (mPaused) {
+            return;
+        }
         if (customDialog == null) {
             customDialog = new CustomDialog(this).setContentView(R.layout.dialog_loading)
                     .setCancelable(cancelable)
