@@ -105,8 +105,7 @@ public class PhotoFragment extends Fragment {
         // 使用 uCrop 裁剪库
         UCrop.Options options = new UCrop.Options();
         options.setHideBottomControls(true);
-        options.setCropGridRowCount(0);
-        options.setCropGridColumnCount(0);
+        options.setShowCropGrid(false);
         options.setStatusBarColor(getResources().getColor(R.color.title_bar_color));
         options.setToolbarColor(getResources().getColor(R.color.title_bar_color));
 
