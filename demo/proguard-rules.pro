@@ -57,3 +57,10 @@
  rx.internal.util.atomic.LinkedQueueNode consumerNode;
 }
 ##---------------End: Rxjava  ----------
+
+
+##---------------Begin: uCrop  ----------
+-dontwarn com.yalantis.ucrop**
+-keep class com.yalantis.ucrop** { *; }
+-keep interface com.yalantis.ucrop** { *; }
+##---------------End: uCrop  ----------

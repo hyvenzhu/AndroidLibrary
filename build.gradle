@@ -11,5 +11,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        // uCrop
+        maven { url "https://jitpack.io" }
     }
 }

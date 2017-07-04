@@ -10,8 +10,6 @@ import android.support.v4.app.FragmentManager;
 
 import com.android.baseline.util.APKUtil;
 
-import java.io.File;
-
 /**
  * 从相机、相册选取照片
  *
@@ -22,9 +20,10 @@ public class CapturePhotoHelper {
     private static final String TAG = "CapturePhotoHelper";
     PhotoFragment photoFragment;
 
-    File savedDir;
     int outputX;
     int outputY;
+    Uri cameraOutputUri;
+    Uri cropOutputUri;
 
     public CapturePhotoHelper(@NonNull FragmentActivity activity) {
         photoFragment = getPhotoFragment(activity);
@@ -47,11 +46,11 @@ public class CapturePhotoHelper {
     /**
      * 从相机选取
      *
-     * @param savedDir
+     * @param cameraOutputUri 注意7.0权限问题，见{@link APKUtil#getSupportUri}
      * @return
      */
-    public CapturePhotoHelper camera(@NonNull File savedDir) {
-        this.savedDir = savedDir;
+    public CapturePhotoHelper camera(@NonNull Uri cameraOutputUri) {
+        this.cameraOutputUri = cameraOutputUri;
         return this;
     }
 
@@ -71,9 +70,10 @@ public class CapturePhotoHelper {
      * @param outputY
      * @return
      */
-    public CapturePhotoHelper crop(int outputX, int outputY) {
+    public CapturePhotoHelper crop(int outputX, int outputY, Uri cropOutputUri) {
         this.outputX = outputX;
         this.outputY = outputY;
+        this.cropOutputUri = cropOutputUri;
         return this;
     }
 
@@ -83,14 +83,11 @@ public class CapturePhotoHelper {
      * @param callback
      */
     public void capture(Callback callback) {
-        if (savedDir != null) {
-            File savedFile = new File(savedDir, System.currentTimeMillis() + ".jpg");
-            Uri uri = APKUtil.getSupportUri(photoFragment.getActivity(), savedFile);
-
+        if (cameraOutputUri != null) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraOutputUri);
             intent = APKUtil.getSupportIntent(intent, true);
-            photoFragment.camera(intent, outputX, outputY, callback);
+            photoFragment.camera(intent, cropOutputUri, outputX, outputY, callback);
         } else {
             Intent intent;
             if (Build.VERSION.SDK_INT < 19) {
@@ -99,7 +96,7 @@ public class CapturePhotoHelper {
             } else {
                 intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             }
-            photoFragment.album(intent, outputX, outputY, callback);
+            photoFragment.album(intent, cropOutputUri, outputX, outputY, callback);
         }
     }
 
