@@ -43,5 +43,6 @@ public abstract class Task implements ITask {
         if (eventBus != null && eventBus.isRegistered(subscriber)) {
             eventBus.unregister(subscriber);
         }
+        subscriber = null;
     }
 }

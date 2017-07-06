@@ -53,6 +53,9 @@ public class TaskExecutor {
         Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
             public void subscribe(@NonNull ObservableEmitter<Message> e) throws Exception {
+                // 使用Task反向注册EventBus,为了外层能够统一解除所有Task的订阅者
+                task.register(eventBus);
+
                 try {
                     e.onNext(task.execute());
                     e.onComplete();
@@ -66,8 +69,6 @@ public class TaskExecutor {
                 .subscribe(new Consumer<Message>() {
                     @Override
                     public void accept(@NonNull Message message) throws Exception {
-                        // 使用Task反向注册EventBus,为了外层能够统一解除所有Task的订阅者
-                        task.register(eventBus);
                         eventBus.post(message);
                     }
                 });
