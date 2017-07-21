@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion 25
@@ -23,6 +24,15 @@ android {
     publishNonDefault true
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.7.0'
+    }
+}
+
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.0.0'
@@ -43,5 +53,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.0.0'
     // uCrop 照片裁剪
     compile 'com.github.yalantis:ucrop:2.2.1'
+    // butterknife
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }
 

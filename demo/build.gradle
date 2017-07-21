@@ -27,4 +27,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':library')
+
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }

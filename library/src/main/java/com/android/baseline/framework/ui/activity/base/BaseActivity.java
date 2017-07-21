@@ -11,7 +11,6 @@ import android.view.WindowManager;
 
 import com.android.baseline.framework.logic.EventLogic;
 import com.android.baseline.framework.task.Task;
-import com.android.baseline.framework.ui.activity.annotations.ViewUtils;
 import com.android.baseline.framework.ui.activity.base.helper.ContentViewHelper;
 import com.android.baseline.framework.ui.activity.base.helper.KeyboardUtil;
 import com.android.baseline.framework.ui.activity.base.helper.LogicHelper;
@@ -41,8 +40,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         /*自定义的一些操作*/
         onCreateCustomToolBar(toolbar);
-        /*View注解*/
-        ViewUtils.inject(this);
 
         afterSetContentView();
 

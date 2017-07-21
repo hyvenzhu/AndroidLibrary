@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.R;
+import com.android.baseline.R2;
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.ui.activity.base.BaseActivity;
 import com.android.baseline.framework.ui.activity.base.UIInterface;
@@ -26,6 +28,9 @@ import com.android.baseline.framework.ui.view.LoadingView;
 import com.android.baseline.util.APKUtil;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 基类Activity [主要提供对话框、进度条和其他有关UI才做相关的功能]
@@ -44,7 +49,7 @@ public class BasicActivity extends BaseActivity implements UIInterface {
     /**
      * 加载进度
      */
-    private LoadingView mLoadingView;
+    LoadingView mLoadingView;
     /**
      * 视图加载器
      */
@@ -89,6 +94,15 @@ public class BasicActivity extends BaseActivity implements UIInterface {
                 rightBtn = (Button) commonTitle.findViewById(R.id.title_right_btn);
                 setLeftFinish(null);
             }
+        }
+    }
+
+    protected void afterSetContentView() {
+        ButterKnife.bind(this);
+
+        mLoadingView = (LoadingView) findViewById(R.id.loading_view);
+        if (mLoadingView != null) {
+            mLoadingView.register(this);
         }
     }
 
@@ -236,13 +250,6 @@ public class BasicActivity extends BaseActivity implements UIInterface {
         llLeft.setVisibility(leftVisible ? View.VISIBLE : View.INVISIBLE);
         titleTxt.setText(title);
         llRight.setVisibility(rightVisible ? View.VISIBLE : View.INVISIBLE);
-    }
-
-    protected void afterSetContentView() {
-        mLoadingView = (LoadingView) findViewById(R.id.loading_view);
-        if (mLoadingView != null) {
-            mLoadingView.register(this);
-        }
     }
 
     /**
