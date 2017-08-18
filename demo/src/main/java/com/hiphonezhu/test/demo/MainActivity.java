@@ -24,7 +24,7 @@ public class MainActivity extends BasicActivity {
         setTitleBar(false, R.string.app_name, false);
     }
 
-    @OnClick({R.id.btn1, R.id.btn2})
+    @OnClick({R.id.btn1, R.id.btn2, R.id.btn3})
     void onViewClick(View v) {
         switch (v.getId()) {
             case R.id.btn1:

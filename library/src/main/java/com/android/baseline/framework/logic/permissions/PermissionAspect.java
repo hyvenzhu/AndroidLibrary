@@ -1,4 +1,4 @@
-package common;
+package com.android.baseline.framework.logic.permissions;
 
 import com.android.baseline.AppDroid;
 import com.android.baseline.framework.logic.permissions.MPermissions;
