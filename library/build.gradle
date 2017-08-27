@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+apply plugin: android.plugin.AspectJPlugin
 
 android {
     compileSdkVersion 25
@@ -23,6 +25,15 @@ android {
     publishNonDefault true
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.7.0'
+    }
+}
+
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile 'com.android.support:appcompat-v7:25.0.0'
@@ -41,7 +52,12 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // RecyclerView support
     compile 'com.android.support:recyclerview-v7:25.0.0'
+    // RecyclerViewDivider：https://github.com/Fondesa/RecyclerViewDivider
+    compile 'com.github.fondesa:recycler-view-divider:1.3.3'
     // uCrop 照片裁剪
     compile 'com.github.yalantis:ucrop:2.2.1'
+    // butterknife
+    compile 'com.jakewharton:butterknife:8.7.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }
 

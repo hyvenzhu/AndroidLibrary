@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 
 import com.android.baseline.framework.logic.EventLogic;
 import com.android.baseline.framework.task.Task;
-import com.android.baseline.framework.ui.activity.annotations.ViewUtils;
 import com.android.baseline.framework.ui.activity.base.helper.TaskHelper;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -38,7 +37,6 @@ public abstract class BaseFragment extends Fragment {
         View view = inflater.inflate(resourceId, container, false);
         // 屏蔽Fragment布局的点击事件, 否则事件可能会被“栈”下面的Fragment捕获
         interceptTouchEvent(view, true);
-        ViewUtils.inject(fragment, view);
         mView = view;
         afterSetContentView(view);
         return view;
