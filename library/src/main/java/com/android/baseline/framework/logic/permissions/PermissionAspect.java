@@ -1,10 +1,8 @@
 package com.android.baseline.framework.logic.permissions;
 
 import com.android.baseline.AppDroid;
-import com.android.baseline.framework.logic.permissions.MPermissions;
-import com.android.baseline.framework.logic.permissions.NeedPermission;
 import com.android.baseline.framework.ui.activity.BasicActivity;
-import com.android.baseline.framework.ui.util.UIStateHelper;
+import com.android.baseline.framework.ui.activity.UIStateHelper;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

@@ -4,9 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.android.baseline.framework.ui.adapter.MultiTypeSupport;
-import com.android.baseline.framework.ui.adapter.ViewHolder;
-
 import java.util.List;
 
 /**

@@ -59,5 +59,9 @@ dependencies {
     // butterknife
     compile 'com.jakewharton:butterknife:8.7.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    // https://github.com/orhanobut/logger
+    compile 'com.orhanobut:logger:2.1.1'
+    // https://github.com/hiphonezhu/SmartRefreshLayout
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-2'
 }
 

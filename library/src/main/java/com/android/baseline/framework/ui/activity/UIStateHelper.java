@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.util;
+package com.android.baseline.framework.ui.activity;
 
 import java.util.ArrayList;
 import java.util.List;

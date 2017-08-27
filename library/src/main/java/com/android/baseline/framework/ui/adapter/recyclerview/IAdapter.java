@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter;
+package com.android.baseline.framework.ui.adapter.recyclerview;
 
 import java.util.List;
 

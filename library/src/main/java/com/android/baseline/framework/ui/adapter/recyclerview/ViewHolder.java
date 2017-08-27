@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter;
+package com.android.baseline.framework.ui.adapter.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;

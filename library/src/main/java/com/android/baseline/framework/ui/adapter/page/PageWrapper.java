@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 
-import com.android.baseline.framework.ui.adapter.IAdapter;
+import com.android.baseline.framework.ui.adapter.recyclerview.IAdapter;
 
 import java.util.List;
 

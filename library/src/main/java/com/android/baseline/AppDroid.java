@@ -4,8 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.android.baseline.framework.ui.util.UIStateHelper;
-import com.android.baseline.util.crash.GlobalExceptionHandler;
+import com.android.baseline.framework.ui.activity.UIStateHelper;
 
 /**
  * App application
@@ -21,7 +20,6 @@ public class AppDroid extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-        Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler());
         uiStateHelper = new UIStateHelper();
     }
 

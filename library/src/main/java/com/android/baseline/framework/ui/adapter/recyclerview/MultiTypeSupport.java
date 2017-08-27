@@ -1,4 +1,4 @@
-package com.android.baseline.framework.ui.adapter;
+package com.android.baseline.framework.ui.adapter.recyclerview;
 
 import android.support.annotation.LayoutRes;
 
@@ -25,11 +25,4 @@ public abstract class MultiTypeSupport<T> {
      * @return
      */
     public abstract int getItemViewType(T item, int position);
-
-    /**
-     * 一共有多少种样式(ListView BaseAdapter需要使用)
-     *
-     * @return
-     */
-    public abstract int getViewTypeCount();
 }
