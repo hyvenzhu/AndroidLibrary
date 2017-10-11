@@ -15,7 +15,8 @@ public abstract class MultiTypeSupport<T> {
      * @param itemType
      * @return
      */
-    public abstract int getLayoutId(@LayoutRes int itemType);
+    @LayoutRes
+    public abstract int getLayoutId(int itemType);
 
     /**
      * 返回不同itemType
