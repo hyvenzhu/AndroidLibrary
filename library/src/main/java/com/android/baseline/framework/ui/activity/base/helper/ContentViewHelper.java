@@ -5,11 +5,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.baseline.R;
-import com.android.baseline.util.APKUtil;
 
 /**
  * 用于实现状态栏透明效果的帮助类
@@ -77,8 +75,7 @@ public class ContentViewHelper {
     }
 
     private void initUserView(int id) {
-        View mUserView = mInflater.inflate(id, null);
-        mContentView.addView(mUserView);
+        mInflater.inflate(id, mContentView, true);
     }
 
     public LinearLayout getContentView() {
