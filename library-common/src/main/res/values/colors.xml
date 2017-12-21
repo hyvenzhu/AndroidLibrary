@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="com_colorMenuText">#FF0000</color>
+    <color name="com_colorTitleText">#000000</color>
+    
+    <color name="com_ff03a9f4">#FF03A9F4</color>
+    <color name="com_ededed">#EDEDED</color>
+    <color name="com_333333">#333333</color>
+    <color name="com_ffffff">#ffffff</color>
+    <color name="com_f8a300">#f8a300</color>
+</resources>

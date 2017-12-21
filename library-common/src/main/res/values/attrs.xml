@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="comTitleBar">
+        <attr name="title_bar_height" format="dimension"/>
+        <attr name="title_text" format="reference|string"/>
+        <attr name="title_left_text" format="reference|string"/>
+        <attr name="title_right_text" format="reference|string"/>
+        <attr name="title_left_image" format="reference"/>
+        <attr name="title_right_image" format="reference"/>
+        <attr name="title_icon" format="reference"/>
+    </declare-styleable>
+</resources>

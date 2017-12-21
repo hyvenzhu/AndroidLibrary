@@ -1,1 +1,1 @@
-include ':library', ':demo', ':buildsrc'
+include ':library-common', ':demo'

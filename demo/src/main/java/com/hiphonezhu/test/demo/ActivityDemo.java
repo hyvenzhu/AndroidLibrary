@@ -1,18 +1,14 @@
 package com.hiphonezhu.test.demo;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
 import com.android.baseline.framework.logic.InfoResult;
 import com.android.baseline.framework.logic.net.IProgress;
 import com.android.baseline.framework.task.TaskExecutor;
-
-import common.MyBaseActivity;
+import com.android.baseline.framework.ui.activity.presenter.ActivityPresenter;
 
 /**
  * 网络请求测试
@@ -20,141 +16,118 @@ import common.MyBaseActivity;
  * @author hiphonezhu@gmail.com
  * @version [Android-BaseLine, 2016/03/09 15:01]
  */
-public class ActivityDemo extends MyBaseActivity {
+public class ActivityDemo extends ActivityPresenter<ActivityDemoDelegate> {
     private XLogic moduleLogic;
-
+    
     private int n;
-
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_demo);
-
-        moduleLogic = registLogic(new XLogic(this));
-
-        // 网络请求
-        findViewById(R.id.net_btn).setOnClickListener(new View.OnClickListener() {
+    protected void bindEvenListener() {
+        super.bindEvenListener();
+        moduleLogic = findLogic(new XLogic(this));
+        
+        viewDelegate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showProgress("handling...");
-                moduleLogic.getResult("18068440586");
-            }
-        });
-
-        // 本地任务
-        findViewById(R.id.task_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showProgress("handling...");
-                TaskExecutor.getInstance().execute(registTask(new ModuleTask(R.id.testTask, ActivityDemo.this)));
-            }
-        });
-
-        findViewById(R.id.download_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showProgress("handling...");
-
-                String filePath;
-                n++;
-                int r = n % 2;
-                if (r == 0) {
-                    filePath = Environment.getExternalStorageDirectory() + "/file1.jpeg";
-                } else {
-                    filePath = Environment.getExternalStorageDirectory() + "/file2.jpeg";
-                }
-
-                moduleLogic.download("http://photocdn.sohu.com/20160923/Img468996929.jpeg"
-                        , filePath
-                        , new IProgress() {
+                switch (v.getId()) {
+                    case R.id.net_btn:
+                        viewDelegate.showProgress("handling...", true);
+                        moduleLogic.getResult("18068440586");
+                        break;
+                    case R.id.task_btn:
+                        viewDelegate.showProgress("handling...", true);
+                        TaskExecutor.getInstance().execute(findTask(new ModuleTask(R.id.testTask, ActivityDemo.this)));
+                        break;
+                    case R.id.download_btn:
+                        viewDelegate.showProgress("handling...", true);
+                        
+                        String filePath;
+                        n++;
+                        int r = n % 2;
+                        if (r == 0) {
+                            filePath = Environment.getExternalStorageDirectory() + "/file1.jpeg";
+                        } else {
+                            filePath = Environment.getExternalStorageDirectory() + "/file2.jpeg";
+                        }
+                        
+                        moduleLogic.download("http://photocdn.sohu.com/20160923/Img468996929.jpeg"
+                                , filePath
+                                , new IProgress() {
+                                    @Override
+                                    public void onProgress(long current, long total) {
+                                        Log.e("onProgress", "current: " + current + ", total: " + total);
+                                    }
+                                }, null);
+                        break;
+                    case R.id.upload_btn:
+                        viewDelegate.showProgress("handling...", true);
+                        moduleLogic.upload("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg");
+                        break;
+                    case R.id.batchUpload_btn:
+                        viewDelegate.showProgress("handling...", true);
+                        moduleLogic.batchUpload("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg", Environment.getExternalStorageDirectory() + "/file2.jpeg");
+                        break;
+                    case R.id.uploadProgress_btn:
+                        viewDelegate.showProgress("handling...", true);
+                        moduleLogic.uploadWithProgress("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg", new IProgress() {
                             @Override
                             public void onProgress(long current, long total) {
                                 Log.e("onProgress", "current: " + current + ", total: " + total);
                             }
-                        }, null);
+                        });
+                        break;
+                    default:
+                        break;
+                }
             }
-        });
-
-        findViewById(R.id.upload_btn).setOnClickListener(new View.OnClickListener() {
+        }, R.id.net_btn, R.id.task_btn, R.id.download_btn, R.id.upload_btn, R.id.batchUpload_btn, R.id.uploadProgress_btn);
+    
+        viewDelegate.initLoadViewHelper(findViewById(R.id.refresh));
+        viewDelegate.showLoadView();
+        viewDelegate.getRootView().postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
-                showProgress("handling...");
-                moduleLogic.upload("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg");
+            public void run() {
+                viewDelegate.hideLoadView();
             }
-        });
-
-        findViewById(R.id.batchUpload_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showProgress("handling...");
-                moduleLogic.batchUpload("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg", Environment.getExternalStorageDirectory() + "/file2.jpeg");
-            }
-        });
-
-        findViewById(R.id.uploadProgress_btn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showProgress("handling...");
-                moduleLogic.uploadWithProgress("admin", Environment.getExternalStorageDirectory() + "/file1.jpeg", new IProgress() {
-                    @Override
-                    public void onProgress(long current, long total) {
-                        Log.e("onProgress", "current: " + current + ", total: " + total);
-                    }
-                });
-            }
-        });
+        }, 3000);
     }
-
-    @Override
-    protected void onCreateCustomToolBar(Toolbar toolbar) {
-        // use custom Title Layout
-        // super.onCreateCustomToolBar(toolbar);
-
-        // use ToolBar
-        toolbar.setTitle("标题");
-        toolbar.setLogo(R.drawable.ic_launcher);
-    }
-
-    @Override
-    protected boolean defaultTitleBarVisible() {
-        return true;
-    }
-
+    
     @Override
     public void onResponse(Message msg) {
         super.onResponse(msg);
         switch (msg.what) {
             case R.id.mobilenumber:
-                hideProgress();
-                if (checkResponse(msg)) {
-                    InfoResult phoneResult = (InfoResult) msg.obj;
-                    showToast(phoneResult.toString());
-                }
+                viewDelegate.hideProgress();
+                InfoResult infoResult = (InfoResult) msg.obj;
+                viewDelegate.showToast(infoResult.toString());
                 break;
             case R.id.testTask:
-                hideProgress();
-                if (checkResponse(msg)) {
-                    InfoResult infoResult = (InfoResult) msg.obj;
-                    showToast(infoResult.toString());
-                }
+                viewDelegate.hideProgress();
+                InfoResult infoResult2 = (InfoResult) msg.obj;
+                viewDelegate.showToast(infoResult2.toString());
                 break;
             case R.id.download:
-                hideProgress();
-                if (checkResponse(msg)) {
-                    InfoResult infoResult = (InfoResult) msg.obj;
-                    showToast(infoResult.toString());
-                }
+                viewDelegate.hideProgress();
+                InfoResult infoResult3 = (InfoResult) msg.obj;
+                viewDelegate.showToast(infoResult3.toString());
                 break;
             case R.id.upload:
-                hideProgress();
-                UploadResult result = (UploadResult) msg.obj;
-                showToast(result.toString());
+                viewDelegate.hideProgress();
+                if (msg.obj instanceof UploadResult) {
+                    UploadResult result = (UploadResult) msg.obj;
+                    viewDelegate.showToast(result.toString());
+                } else {
+                    InfoResult infoResult4 = (InfoResult) msg.obj;
+                    viewDelegate.showToast(infoResult4.toString());
+                }
+                break;
+            default:
                 break;
         }
     }
-
+    
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected Class<ActivityDemoDelegate> getDelegateClass() {
+        return ActivityDemoDelegate.class;
     }
 }

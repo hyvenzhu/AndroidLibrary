@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: android.plugin.AspectJPlugin
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -27,7 +26,7 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library')
+    compile project(':library-common')
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
 }

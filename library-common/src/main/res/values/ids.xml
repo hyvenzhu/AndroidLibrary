@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><!-- 定义请求的标示符 -->
+<resources>
+    <item name="com_title_left_text" type="id"/>
+    <item name="com_title_left_image" type="id"/>
+    <item name="com_title_right_text" type="id"/>
+    <item name="com_title_right_image" type="id"/>
+</resources>
