@@ -1,56 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
     
-    <com.android.baseline.framework.ui.widget.CommonTitleBar
+    <Button
+        android:id="@+id/net_btn"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/com_title_bar_height"
-        android:background="@color/com_ff03a9f4"
-        app:title_text="网络请求"/>
+        android:layout_height="wrap_content"
+        android:text="Get Request"/>
     
-    <LinearLayout
-        android:id="@+id/refresh"
+    <Button
+        android:id="@+id/task_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        
-        <Button
-            android:id="@+id/net_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Get Request"/>
-        
-        <Button
-            android:id="@+id/task_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Local Task"/>
-        
-        <Button
-            android:id="@+id/download_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Download"/>
-        
-        <Button
-            android:id="@+id/upload_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload"/>
-        
-        <Button
-            android:id="@+id/batchUpload_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Batch Upload"/>
-        
-        <Button
-            android:id="@+id/uploadProgress_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Upload With Progress"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text="Local Task"/>
+    
+    <Button
+        android:id="@+id/download_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download"/>
+    
+    <Button
+        android:id="@+id/upload_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload"/>
+    
+    <Button
+        android:id="@+id/batchUpload_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Batch Upload"/>
+    
+    <Button
+        android:id="@+id/uploadProgress_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Upload With Progress"/>
 </LinearLayout>

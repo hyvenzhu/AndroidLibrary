@@ -61,11 +61,12 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
         setContentView(viewDelegate.getRootView());
         initToolbar();
         viewDelegate.initWidget();
-        bindEvenListener();
         AppDroid.getInstance().uiStateHelper.addActivity(this);
+        onCreate();
     }
-
-    protected void bindEvenListener() {
+    
+    protected void onCreate() {
+    
     }
 
     protected void initToolbar() {

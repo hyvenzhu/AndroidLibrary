@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp12"
-        android:text="@string/loading_text"
+        android:text="@string/com_loading_text"
         android:textColor="@android:color/darker_gray"
         android:textSize="@dimen/dp11"
         android:visibility="gone"/>

@@ -79,10 +79,10 @@ public class PermissionsFragment extends Fragment {
      * 权限提示对话框
      */
     private void showMissingPermissionDialog() {
-        String formatStr = getString(R.string.permission_desc_text);
+        String formatStr = getString(R.string.com_permission_desc_text);
         String message = String.format(formatStr, TextUtils.isEmpty(permissionDesc) ? "必要" : permissionDesc);
 
-        Snackbar.make(getActivity().getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).setAction(R.string.settings, new View.OnClickListener() {
+        Snackbar.make(getActivity().getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).setAction(R.string.com_settings, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startAppSettings();

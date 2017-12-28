@@ -22,8 +22,7 @@ public class ActivityDemo extends ActivityPresenter<ActivityDemoDelegate> {
     private int n;
     
     @Override
-    protected void bindEvenListener() {
-        super.bindEvenListener();
+    protected void onCreate() {
         moduleLogic = findLogic(new XLogic(this));
         
         viewDelegate.setOnClickListener(new View.OnClickListener() {
@@ -82,12 +81,18 @@ public class ActivityDemo extends ActivityPresenter<ActivityDemoDelegate> {
             }
         }, R.id.net_btn, R.id.task_btn, R.id.download_btn, R.id.upload_btn, R.id.batchUpload_btn, R.id.uploadProgress_btn);
     
-        viewDelegate.initLoadViewHelper(findViewById(R.id.refresh));
         viewDelegate.showLoadView();
         viewDelegate.getRootView().postDelayed(new Runnable() {
             @Override
             public void run() {
-                viewDelegate.hideLoadView();
+                if (viewDelegate != null) {
+                    viewDelegate.showLoadError("错误提示", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            viewDelegate.hideLoadView();
+                        }
+                    });
+                }
             }
         }, 3000);
     }
