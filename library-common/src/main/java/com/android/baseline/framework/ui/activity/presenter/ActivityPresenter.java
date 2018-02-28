@@ -17,8 +17,6 @@ package com.android.baseline.framework.ui.activity.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -152,7 +150,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
      *
      * @param msg
      */
-    @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEventMainThread(Message msg) {
         if (!isDestroyed && !isFinishing()) {
             onResponse(msg);

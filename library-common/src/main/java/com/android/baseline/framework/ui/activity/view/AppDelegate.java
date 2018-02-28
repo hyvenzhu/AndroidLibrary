@@ -180,7 +180,7 @@ public abstract class AppDelegate implements IDelegate {
     }
     
     public void setBackgroundColor(@ColorInt int color) {
-        getTitleView().setBackgroundColor(color);
+        titleView.setBackgroundColor(color);
     }
     
     public void setTitleText(@StringRes int txtResId) {
