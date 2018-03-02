@@ -7,16 +7,35 @@ package com.android.baseline.framework.ui.adapter.page;
  * @version [Android-BaseLine, 16/8/25 17:33]
  */
 public abstract class IPage {
-    // 默认起始页下标
+    /**
+     * 默认起始页下标
+     */
     public static final int DEFAULT_START_PAGE_INDEX = 0;
-    // 默认分页大小
+    /**
+     * 默认分页大小
+     */
     public static final int DEFAULT_PAGE_SIZE = 10;
-
-    protected int currPageIndex; // 当前页下标
-    int lastPageIndex; // 记录上一次的页下标
-    protected int pageSize; // 分页大小
-    boolean isLoading; // 是否正在加载
-    Object lock = new Object(); // 锁
+    
+    /**
+     * 当前页下标
+     */
+    protected int currPageIndex;
+    /**
+     * 记录上一次的页下标
+     */
+    int lastPageIndex;
+    /**
+     * 分页大小
+     */
+    protected int pageSize;
+    /**
+     * 是否正在加载
+     */
+    boolean isLoading;
+    /**
+     * 锁
+     */
+    Object lock = new Object();
 
     public IPage() {
         initPageConfig();
@@ -117,14 +136,16 @@ public abstract class IPage {
      */
     public void loadPage(boolean isFirstPage) {
         synchronized (lock) {
-            if (isLoading) // 如果正在加载数据，则抛出异常
+            // 如果正在加载数据，则抛出异常
+            if (isLoading)
             {
                 throw new RuntimeException();
             } else {
                 isLoading = true;
             }
         }
-        if (isFirstPage) // 加载第一页数据
+        // 加载第一页数据
+        if (isFirstPage)
         {
             currPageIndex = getStartPageIndex();
         } else {

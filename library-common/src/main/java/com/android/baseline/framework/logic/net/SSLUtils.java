@@ -43,7 +43,8 @@ public class SSLUtils {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, new TrustManager[]{trustManager}, new SecureRandom());
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) { // <=4.4
+            // <=4.4
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
                 return new TLSSocketFactory(sslContext.getSocketFactory());
             } else {
                 return sslContext.getSocketFactory();
@@ -66,7 +67,8 @@ public class SSLUtils {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(buildClient(bks, pwd), new TrustManager[]{trustManager}, new SecureRandom());
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) { // <=4.4
+            // <=4.4
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
                 return new TLSSocketFactory(sslContext.getSocketFactory());
             } else {
                 return sslContext.getSocketFactory();
@@ -87,7 +89,8 @@ public class SSLUtils {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, new TrustManager[]{new TrustAnyTrustManager()}, new SecureRandom());
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) { // <=4.4
+            // <=4.4
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
                 return new TLSSocketFactory(sslContext.getSocketFactory());
             } else {
                 return sslContext.getSocketFactory();

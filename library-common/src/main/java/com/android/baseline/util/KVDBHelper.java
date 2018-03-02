@@ -42,8 +42,11 @@ public class KVDBHelper {
      * 数据库操作对象
      */
     private BaseDAO baseDAO;
-
-    private static String keyPrefix; // key前缀, 常用来区分用户
+    
+    /**
+     * key前缀, 常用来区分用户
+     */
+    private static String keyPrefix;
 
     public KVDBHelper() {
         this(null);

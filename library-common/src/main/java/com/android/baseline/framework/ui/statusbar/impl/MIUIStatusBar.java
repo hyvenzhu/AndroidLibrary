@@ -19,6 +19,7 @@ public class MIUIStatusBar implements IStatusBar {
     /**
      * 设置状态栏字体图标为深色，需要MIUI6以上
      *
+     * @param activity
      * @param isFontColorDark 是否把状态栏字体及图标颜色设置为深色
      * @return boolean 成功执行返回true
      */

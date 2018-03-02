@@ -13,9 +13,14 @@ import java.util.List;
  * @version [Android-BaseLine, 16/9/3 11:07]
  */
 public class EventLogic {
-    // 存储所有的订阅者
+    /**
+     * 存储所有的订阅者
+     */
     private List<Object> subscribers = new ArrayList<Object>();
-    // Default EventBus
+    /**
+     * Default EventBus
+     */
+   
     protected EventBus mEventBus;
 
     /**

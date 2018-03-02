@@ -38,7 +38,7 @@ public class TaskExecutor {
      *
      * @param subscriber
      */
-    public void unregist(Object subscriber) {
+    public void unregister(Object subscriber) {
         if (eventBus.isRegistered(subscriber)) {
             eventBus.unregister(subscriber);
         }

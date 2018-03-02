@@ -14,6 +14,8 @@ import com.android.baseline.framework.ui.statusbar.IStatusBar;
  */
 public class AndroidMStatusBar implements IStatusBar {
     /**
+     * @param activity
+     * @param isFontColorDark
      * @return if version is lager than M
      */
     @Override

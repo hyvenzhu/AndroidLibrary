@@ -56,6 +56,7 @@ public class AppDroid extends Application {
 
     /**
      * 退出程序
+     * @param context
      */
     public void exist(Context context) {
         uiStateHelper.finishAll();

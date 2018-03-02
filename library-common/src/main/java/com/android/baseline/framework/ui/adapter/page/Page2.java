@@ -9,7 +9,8 @@ package com.android.baseline.framework.ui.adapter.page;
 public abstract class Page2 extends IPage {
     @Override
     public int handlePageIndex(int currPageIndex, int pageSize) {
-        if (currPageIndex == getStartPageIndex() - 1) // 加载第一页数据(防止第一页使用"上拉加载更多")
+        // 加载第一页数据(防止第一页使用"上拉加载更多")
+        if (currPageIndex == getStartPageIndex() - 1)
         {
             return getStartPageIndex();
         }
@@ -24,6 +25,7 @@ public abstract class Page2 extends IPage {
     /**
      * 起始下标递减
      */
+    @Override
     public void decreaseStartIndex() {
         currPageIndex--;
         checkBound();
@@ -31,7 +33,9 @@ public abstract class Page2 extends IPage {
 
     /**
      * 起始下标递减
+     * @param size
      */
+    @Override
     public void decreaseStartIndex(int size) {
         currPageIndex -= size;
         checkBound();

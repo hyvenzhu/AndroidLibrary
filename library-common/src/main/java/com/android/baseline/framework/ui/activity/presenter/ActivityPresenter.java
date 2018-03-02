@@ -27,7 +27,6 @@ import com.android.baseline.framework.task.Task;
 import com.android.baseline.framework.ui.activity.base.helper.LogicHelper;
 import com.android.baseline.framework.ui.activity.base.helper.TaskHelper;
 import com.android.baseline.framework.ui.activity.view.IDelegate;
-import com.android.baseline.framework.ui.statusbar.StatusBarFontHelper;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -41,7 +40,7 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatActivity {
     protected T viewDelegate;
-
+    
     public ActivityPresenter() {
         try {
             viewDelegate = getDelegateClass().newInstance();
@@ -51,7 +50,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
             throw new RuntimeException("create IDelegate error");
         }
     }
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,14 +65,14 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
     protected void onCreate() {
     
     }
-
+    
     protected void initToolbar() {
         Toolbar toolbar = viewDelegate.getToolbar();
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
     }
-
+    
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
@@ -87,7 +86,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
             }
         }
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (viewDelegate.getOptionsMenuId() != 0) {
@@ -95,33 +94,23 @@ public abstract class ActivityPresenter<T extends IDelegate> extends AppCompatAc
         }
         return super.onCreateOptionsMenu(menu);
     }
-
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
         viewDelegate = null;
-    
+        
         isDestroyed = true;
-        logicHelper.unregistAll();
-        taskHelper.unregistAll();
+        logicHelper.unregisterAll();
+        taskHelper.unregisterAll();
         AppDroid.getInstance().uiStateHelper.removeActivity(this);
     }
-
+    
     protected abstract Class<T> getDelegateClass();
-    
-    
-    /**
-     * 改变状态栏字体：深色 or 浅色
-     *
-     * @param isFontColorDark true：深色  false：浅色
-     */
-    protected void setStatusBarFontColor(boolean isFontColorDark) {
-        StatusBarFontHelper.setStatusBarMode(this, isFontColorDark);
-    }
     
     LogicHelper logicHelper = new LogicHelper();
     TaskHelper taskHelper = new TaskHelper();
-    private boolean isDestroyed;
+    boolean isDestroyed;
     
     /**
      * 注册BaseLogic, Activity销毁时是自动取消解绑

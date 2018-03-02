@@ -12,7 +12,10 @@ import java.util.List;
  * @version [Android-BaseLine, 16/8/17 14:58]
  */
 public class LogicHelper {
-    private List<EventLogic> logics = new ArrayList<EventLogic>(); // 存储BaseLogic
+    /**
+     * 存储BaseLogic
+     */
+    private List<EventLogic> logics = new ArrayList<EventLogic>();
 
     /**
      * 注册BaseLogic, Activity销毁时是自动取消解绑
@@ -31,7 +34,7 @@ public class LogicHelper {
      *
      * @param iLogics
      */
-    public void unregist(EventLogic... iLogics) {
+    public void unregister(EventLogic... iLogics) {
         for (EventLogic iLogic : iLogics) {
             if (iLogic != null) {
                 iLogic.unregisterAll();
@@ -42,9 +45,9 @@ public class LogicHelper {
     /**
      * 解绑所有订阅者
      */
-    public void unregistAll() {
+    public void unregisterAll() {
         for (EventLogic iLogic : logics) {
-            unregist(iLogic);
+            unregister(iLogic);
         }
     }
 }

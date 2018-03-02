@@ -129,6 +129,7 @@ public class BaseDAO {
     /**
      * 删除数据
      *
+     * @param db
      * @param tableName
      * @param whereClause
      * @param whereArgs
@@ -159,6 +160,7 @@ public class BaseDAO {
     /**
      * 更新数据
      *
+     * @param db
      * @param tableName
      * @param values
      * @param whereClause
@@ -184,6 +186,7 @@ public class BaseDAO {
     /**
      * execSQL语句
      *
+     * @param db
      * @param sql
      */
     public static synchronized void execSQL(SQLiteDatabase db, String sql) {
@@ -204,6 +207,7 @@ public class BaseDAO {
     /**
      * execSQL语句
      *
+     * @param db
      * @param sql
      * @param bindArgs
      */

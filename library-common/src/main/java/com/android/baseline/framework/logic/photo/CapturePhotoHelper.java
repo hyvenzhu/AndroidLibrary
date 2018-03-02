@@ -68,6 +68,7 @@ public class CapturePhotoHelper {
      *
      * @param outputX
      * @param outputY
+     * @param cropOutputUri
      * @return
      */
     public CapturePhotoHelper crop(int outputX, int outputY, Uri cropOutputUri) {

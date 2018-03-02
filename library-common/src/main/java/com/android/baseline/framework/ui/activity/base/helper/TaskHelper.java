@@ -31,7 +31,7 @@ public class TaskHelper {
      *
      * @param tasks
      */
-    public void unregist(Task... tasks) {
+    public void unregister(Task... tasks) {
         for (Task task : tasks) {
             if (task != null) {
                 task.unregister();
@@ -42,9 +42,9 @@ public class TaskHelper {
     /**
      * 解绑所有订阅者
      */
-    public void unregistAll() {
+    public void unregisterAll() {
         for (Task task : tasks) {
-            unregist(task);
+            unregister(task);
         }
     }
 }

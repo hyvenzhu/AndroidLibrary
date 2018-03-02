@@ -31,9 +31,15 @@ import java.util.List;
 public class PermissionsFragment extends Fragment {
     private static final int PERMISSIONS_REQUEST_CODE = 1;
     MPermissions.PermissionsCallback callback;
-
-    String[] permissions; // 待申请权限
-    String permissionDesc; // 权限描述, 例如:发送短信、访问相机
+    
+    /**
+     * 待申请权限
+     */
+    String[] permissions;
+    /**
+     * 权限描述, 例如:发送短信、访问相机
+     */
+    String permissionDesc;
 
     public PermissionsFragment() {
     }

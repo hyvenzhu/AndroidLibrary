@@ -26,8 +26,14 @@ public class CustomDialog {
     private @LayoutRes int contentView;
     private boolean cancelable = true;
     private boolean canceledOnTouchOutside = true;
-    private float wPercent = -1.0f; // 宽度占屏幕宽度的百分比
-    private float hPercent = -1.0f; // 高度占屏幕高度的百分比
+    /**
+     * 宽度占屏幕宽度的百分比
+     */
+    private float wPercent = -1.0f;
+    /**
+     * 高度占屏幕高度的百分比
+     */
+    private float hPercent = -1.0f;
     private DialogInterface.OnDismissListener onDismissListener;
     Dialog dialog;
     Map<Integer, OnClickListener> clickMap = new HashMap<>();

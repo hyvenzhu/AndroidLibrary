@@ -11,6 +11,8 @@ android {
         versionCode 5
         versionName "0.0.5"
         resourcePrefix 'com_'
+        // lib module 混淆配置
+        consumerProguardFiles 'proguard-rules.pro'
     }
 
     lintOptions {
@@ -36,10 +38,10 @@ buildscript {
 
 dependencies {
     api fileTree(include: '*.jar', dir: 'libs')
-    api 'com.android.support:support-v4:26.0.2'
-    api 'com.android.support:appcompat-v7:26.0.2'
+    api 'com.android.support:support-v4:27.0.2'
+    api 'com.android.support:appcompat-v7:27.0.2'
     // SnackBar
-    api 'com.android.support:design:26.0.2'
+    api 'com.android.support:design:27.0.2'
     api 'org.greenrobot:eventbus:3.0.0'
     // rx support
     api 'io.reactivex.rxjava2:rxandroid:2.0.1'
@@ -52,7 +54,7 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // RecyclerView support
-    api 'com.android.support:recyclerview-v7:26.0.2'
+    api 'com.android.support:recyclerview-v7:27.0.2'
     // RecyclerViewDivider：https://github.com/Fondesa/RecyclerViewDivider
     api 'com.github.fondesa:recycler-view-divider:1.3.3'
     // uCrop 照片裁剪
@@ -62,7 +64,12 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     // https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.1.1'
-    // https://github.com/hiphonezhu/SmartRefreshLayout
+    // SmartRefreshLayout
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-2'
+    // glide
+    implementation 'com.github.bumptech.glide:glide:4.6.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    // glide-transformations
+    implementation 'jp.wasabeef:glide-transformations:3.1.1'
 }
 

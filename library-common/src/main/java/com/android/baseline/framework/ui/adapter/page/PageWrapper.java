@@ -25,6 +25,7 @@ public class PageWrapper<T> {
 
     /**
      * 初始化分页参数
+     * @param page
      */
     private void initPage(IPage page) {
         this.page = page;
@@ -86,6 +87,7 @@ public class PageWrapper<T> {
 
     /**
      * 起始下标递减
+     * @param size
      */
     public void decreaseStartIndex(int size) {
         page.decreaseStartIndex(size);

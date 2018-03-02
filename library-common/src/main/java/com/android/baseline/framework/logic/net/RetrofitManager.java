@@ -36,11 +36,20 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class RetrofitManager {
-    Map<String, Retrofit> retrofitPool = new HashMap<>(); // Retrofit cache pool, key is 'baseUrl'
-
-    static RetrofitManager sInstance; // single instance
-
-    OkHttpClient client; // default client
+    /**
+     * Retrofit cache pool, key is 'baseUrl'
+     */
+    Map<String, Retrofit> retrofitPool = new HashMap<>();
+    
+    /**
+     * single instance
+     */
+    static RetrofitManager sInstance;
+    
+    /**
+     * default client
+     */
+    OkHttpClient client;
 
     Interceptor networkInterceptor;
 
@@ -156,11 +165,16 @@ public class RetrofitManager {
         }
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor) // log interceptor
-                .retryOnConnectionFailure(true) // retry when connect failure
-                .connectTimeout(10, TimeUnit.SECONDS) // connect timeout 10s
-                .readTimeout(20, TimeUnit.SECONDS) // read timeout 20s
-                .writeTimeout(20, TimeUnit.SECONDS) // write timeout 20s
+                // log interceptor
+                .addInterceptor(loggingInterceptor)
+                // retry when connect failure
+                .retryOnConnectionFailure(true)
+                // connect timeout 10s
+                .connectTimeout(10, TimeUnit.SECONDS)
+                // read timeout 20s
+                .readTimeout(20, TimeUnit.SECONDS)
+                // write timeout 20s
+                .writeTimeout(20, TimeUnit.SECONDS)
                 // Besides cache setting, we also need cache support(it usually controlled by server),
                 // but, it can also be controlled by client with http header(just like "Cache-Control:public,max-age=120").
                 .cache(new Cache(APKUtil.getDiskCacheDir(AppDroid.getInstance().getApplicationContext(), "Retrofit-Cache"), 10 * 1024 * 1024));

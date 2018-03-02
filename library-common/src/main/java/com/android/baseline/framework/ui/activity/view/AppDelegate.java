@@ -274,6 +274,8 @@ public abstract class AppDelegate implements IDelegate {
     
     /**
      * 显示空数据页面
+     * @param emptyMsg
+     * @param imageId
      */
     public void showLoadEmpty(String emptyMsg, int imageId) {
         if (mLoadViewHelper != null) {
@@ -288,6 +290,7 @@ public abstract class AppDelegate implements IDelegate {
     
     /**
      * 显示特定布局
+     * @param layout
      */
     public void showLayout(View layout) {
         if (mLoadViewHelper != null) {
