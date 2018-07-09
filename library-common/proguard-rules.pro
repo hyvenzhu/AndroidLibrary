@@ -59,13 +59,6 @@
 ##---------------End: Rxjava  ----------
 
 
-##---------------Begin: uCrop  ----------
--dontwarn com.yalantis.ucrop**
--keep class com.yalantis.ucrop** { *; }
--keep interface com.yalantis.ucrop** { *; }
-##---------------End: uCrop  ----------
-
-
 ##---------------Begin: glide  ----------
 -keep public class * implements com.bumptech.glide.module.GlideModule
 -keep public class * extends com.bumptech.glide.module.AppGlideModule
@@ -73,7 +66,4 @@
   **[] $VALUES;
   public *;
 }
-
-# for DexGuard only
--keepresourcexmlelements manifest/application/meta-data@value=GlideModule
 ##---------------End: glide  ----------

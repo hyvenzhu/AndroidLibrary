@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <item name="mobilenumber" type="id" />
-    <item name="citylist" type="id" />
-    <item name="testTask" type="id" />
-    <item name="download" type="id" />
-    <item name="upload" type="id" />
+    <item name="demo_id" type="id"></item>
 </resources>

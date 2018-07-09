@@ -5,12 +5,12 @@
               android:orientation="vertical">
     
     <FrameLayout
-        android:id="@+id/title"
+        android:tag="title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/com_title_bar_height"/>
+        android:layout_height="wrap_content"/>
     
-    <ViewSwitcher
-        android:id="@+id/content"
+    <FrameLayout
+        android:tag="content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="comTitleBar">
-        <attr name="title_bar_height" format="dimension"/>
-        <attr name="title_text" format="reference|string"/>
-        <attr name="title_left_text" format="reference|string"/>
-        <attr name="title_right_text" format="reference|string"/>
-        <attr name="title_left_image" format="reference"/>
-        <attr name="title_right_image" format="reference"/>
-        <attr name="title_icon" format="reference"/>
+    <declare-styleable name="com_TitleBar">
+        <attr name="com_title_bar_height" format="dimension"/>
+        <attr name="com_title_text" format="reference|string"/>
+        <attr name="com_title_left_text" format="reference|string"/>
+        <attr name="com_title_right_text" format="reference|string"/>
+        <attr name="com_title_left_image" format="reference"/>
+        <attr name="com_title_right_image" format="reference"/>
+        <attr name="com_title_icon" format="reference"/>
+    </declare-styleable>
+    
+    <declare-styleable name="com_FixedRatioLayout">
+        <attr name="com_heightRatio" format="float"/>
+        <attr name="com_widthRatio" format="float"/>
+    </declare-styleable>
+    
+    <declare-styleable name="com_DashLine">
+        <attr name="com_strokeWidth" format="dimension"/>
+        <attr name="com_dashGap" format="dimension"/>
+        <attr name="com_dashWidth" format="dimension"/>
+        <attr name="com_vertical" format="boolean"/>
+        <attr name="com_color" format="reference"/>
     </declare-styleable>
 </resources>

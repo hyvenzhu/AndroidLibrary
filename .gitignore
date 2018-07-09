@@ -1,12 +1,7 @@
-.git/
 .gradle/
 .idea/
 .settings/
-bin/
 build/
-gen/
 gradle/
-library/build/
 local.properties
-library/local.properties
 *.iml

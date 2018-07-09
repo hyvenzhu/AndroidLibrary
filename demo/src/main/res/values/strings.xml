@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Demo</string>
+    <string name="common_request_failure">服务器开小差了~</string>
+    <string name="common_request_no_network">好像与世界失去了联系~</string>
+    <string name="common_request_parse_error">数据解析异常~</string>
 </resources>

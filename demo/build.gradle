@@ -7,26 +7,85 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-
-        applicationId "com.hiphonezhu.test.demo"
-        versionCode 1
-        versionName "1.0"
+        applicationId "com.jcgroup.demo"
+        versionCode VERSION_CODE as int
+        versionName VERSION_NAME
     }
+
+    signingConfigs {
+        keyConfig {
+            keyAlias rootProject.ext.KEY_MOBILE_ALIAS
+            keyPassword rootProject.ext.KEY_PASSWORD
+            storeFile file(rootProject.ext.KEY_FILE)
+            storePassword rootProject.ext.KEY_PASSWORD
+        }
+    }
+
     buildTypes {
         release {
-            minifyEnabled false
+            // 发布用打包配置
+            minifyEnabled IS_OPEN_MINIFY.toBoolean()
+            zipAlignEnabled true
+            debuggable IS_DEBUG_MODE_RELEASE.toBoolean()
+            signingConfig signingConfigs.keyConfig
+            buildConfigField 'boolean', 'IS_DEBUG_MODE', IS_DEBUG_MODE_RELEASE
+            resValue 'string', 'app_name', "Demo"
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        prerelease {
+            // 预发布用打包配置
+            minifyEnabled IS_OPEN_MINIFY.toBoolean()
+            zipAlignEnabled true
+            debuggable IS_DEBUG_MODE_PRERELEASE.toBoolean()
+            signingConfig signingConfigs.keyConfig
+            buildConfigField 'boolean', 'IS_DEBUG_MODE', IS_DEBUG_MODE_PRERELEASE
+            resValue 'string', 'app_name', "Demo预发"
+            ndk {
+                abiFilters "armeabi-v7a", "x86"
+            }
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        beta {
+            // 测试用打包配置
+            minifyEnabled IS_OPEN_MINIFY.toBoolean()
+            zipAlignEnabled false
+            debuggable IS_DEBUG_MODE_BETA.toBoolean()
+            signingConfig signingConfigs.keyConfig
+            buildConfigField 'boolean', 'IS_DEBUG_MODE', IS_DEBUG_MODE_BETA
+            resValue 'string', 'app_name', "Demo测试"
+            ndk {
+                abiFilters "armeabi-v7a", "x86"
+            }
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            //调试用打包配置
+            minifyEnabled IS_OPEN_MINIFY.toBoolean()
+            zipAlignEnabled false
+            debuggable IS_DEBUG_MODE_DEBUG.toBoolean()
+            signingConfig signingConfigs.keyConfig
+            buildConfigField 'boolean', 'IS_DEBUG_MODE', IS_DEBUG_MODE_DEBUG
+            resValue 'string', 'app_name', "Demo开发"
+            ndk {
+                abiFilters "armeabi-v7a", "x86"
+            }
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
-    packagingOptions {
-        exclude 'AndroidManifest.xml'
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def newName
+            newName = 'demo-' + VERSION_NAME + '-' + variant.buildType.name + '.apk'
+            outputFileName = new File(newName)
+        }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':library-common')
-
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.7.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':library-common')
 }

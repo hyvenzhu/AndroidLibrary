@@ -1,4 +1,10 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+// 正式签名存储位置(需要与根目录同级别)，需要联系管理员获得正式签名的使用权限
+if (file(getRootDir().parent + "/keystore-android/keystore.gradle").exists()) {
+    apply from: '../keystore-android/keystore.gradle'
+} else {
+    apply from: 'keystore.gradle'
+}
 buildscript {
     repositories {
         jcenter()
