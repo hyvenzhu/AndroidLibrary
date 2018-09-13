@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.jcgroup.demo">
+          package="android.demo">
     
     <application
-        android:name="com.jcgroup.demo.AppDroid"
+        android:name="android.demo.AppDroid"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/com_AppTheme">
         <activity
-            android:name=".ui.MainActivity"
+            android:name="android.demo.ui.MainActivity"
             android:theme="@style/com_FullScreenTheme"
             android:screenOrientation="portrait">
             <intent-filter>

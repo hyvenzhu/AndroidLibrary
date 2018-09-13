@@ -7,7 +7,7 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        applicationId "com.jcgroup.demo"
+        applicationId "android.demo"
         versionCode VERSION_CODE as int
         versionName VERSION_NAME
     }
