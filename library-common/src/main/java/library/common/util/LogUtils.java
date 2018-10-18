@@ -10,13 +10,13 @@ import com.orhanobut.logger.Logger;
  * @author hiphonezhu@gmail.com
  * @version [AndroidLibrary, 2018-3-6]
  */
-public class LogUtil {
+public class LogUtils {
 
     static {
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return APKUtil.isDebug();
+                return APKUtils.isDebug();
             }
         });
     }

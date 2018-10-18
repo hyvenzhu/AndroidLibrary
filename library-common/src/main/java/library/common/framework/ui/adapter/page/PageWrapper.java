@@ -29,8 +29,8 @@ public class PageWrapper<T> {
      */
     private void initPage(IPage page) {
         this.page = page;
-        this.page.setStartPageIndex(IPage.DEFAULT_START_PAGE_INDEX)
-                .setPageSize(IPage.DEFAULT_PAGE_SIZE);
+        this.page.setStartPageIndex(page.getStartPageIndex())
+                .setPageSize(page.getPageSize());
     }
 
     /**

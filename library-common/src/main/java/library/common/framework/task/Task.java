@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference;
  * @version [AndroidLibrary, 2018-3-6]
  */
 public abstract class Task implements ITask {
-    int taskId;
+    protected int taskId;
     WeakReference<LogicCallback> callbackReference;
 
     public Task(int taskId, Object subscriber) {

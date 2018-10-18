@@ -6,9 +6,11 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import com.tencent.mmkv.MMKV;
+
 import library.common.framework.logic.net.RetrofitManager;
 import library.common.framework.ui.activity.UIStateHelper;
-import library.common.util.APKUtil;
+import library.common.util.APKUtils;
 
 /**
  * @author hiphonezhu@gmail.com
@@ -21,55 +23,55 @@ public class App {
     InnerDB innerDB = new InnerDB() {
         @Override
         public void onDBCreate(SQLiteDatabase db) {
-        
+
         }
-        
+
         @Override
         public void onDBUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        
+
         }
-        
+
         @Override
         public int getDataBaseVersion() {
             return 1;
         }
     };
-    
+
     public static void init(Application application) {
         sInstance = new App();
         appContext = application.getApplicationContext();
         uiStateHelper = new UIStateHelper();
-        APKUtil.syncIsDebug(appContext);
+        APKUtils.syncIsDebug(appContext);
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 uiStateHelper.addActivity(activity);
             }
-            
+
             @Override
             public void onActivityStarted(Activity activity) {
-            
+
             }
-            
+
             @Override
             public void onActivityResumed(Activity activity) {
-            
+
             }
-            
+
             @Override
             public void onActivityPaused(Activity activity) {
-            
+
             }
-            
+
             @Override
             public void onActivityStopped(Activity activity) {
             }
-            
+
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-            
+
             }
-            
+
             @Override
             public void onActivityDestroyed(Activity activity) {
                 uiStateHelper.removeActivity(activity);
@@ -80,31 +82,32 @@ public class App {
          * 当然，如果服务器最低支持 TLS1.0，则可以不需要做任何适配。
          */
         RetrofitManager.getInstance().initHttps();
+        MMKV.initialize(application);
     }
-    
+
     public static App getInstance() {
         if (sInstance == null) {
             throw new RuntimeException("must call init() first");
         }
         return sInstance;
     }
-    
+
     public Context getApplicationContext() {
         return appContext;
     }
-    
+
     public UIStateHelper getUiStateHelper() {
         return uiStateHelper;
     }
-    
+
     public void setInnerDB(InnerDB innerDB) {
         this.innerDB = innerDB;
     }
-    
+
     public InnerDB getInnerDB() {
         return innerDB;
     }
-    
+
     public interface InnerDB {
         /**
          * 数据库创建
@@ -112,7 +115,7 @@ public class App {
          * @param db
          */
         void onDBCreate(SQLiteDatabase db);
-        
+
         /**
          * 数据库升级
          *
@@ -121,7 +124,7 @@ public class App {
          * @param newVersion
          */
         void onDBUpgrade(SQLiteDatabase db, int oldVersion, int newVersion);
-        
+
         /**
          * 数据库版本
          *
@@ -129,8 +132,8 @@ public class App {
          */
         int getDataBaseVersion();
     }
-    
-    
+
+
     /**
      * 退出程序
      *

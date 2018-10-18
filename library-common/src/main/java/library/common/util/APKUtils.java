@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
@@ -25,7 +26,7 @@ import java.io.File;
  * @author hiphonezhu@gmail.com
  * @version [AndroidLibrary, 2018-3-6]
  */
-public class APKUtil {
+public class APKUtils {
     /**
      * 获得版本号
      *
@@ -82,7 +83,12 @@ public class APKUtil {
         } else {
             cachePath = context.getApplicationContext().getCacheDir().getPath();
         }
-        File dir = new File(cachePath + File.separator + uniqueName);
+        File dir;
+        if (TextUtils.isEmpty(uniqueName)) {
+            dir = new File(cachePath);
+        } else {
+            dir = new File(cachePath + File.separator + uniqueName);
+        }
         if (!dir.exists()) {
             dir.mkdirs();
         }

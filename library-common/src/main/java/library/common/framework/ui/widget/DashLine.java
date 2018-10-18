@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import library.common.R;
-import library.common.util.APKUtil;
+import library.common.util.APKUtils;
 
 /**
  * 虚线
@@ -36,13 +36,13 @@ public class DashLine extends View {
         TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.com_DashLine);
         isVertical = a.getBoolean(R.styleable.com_DashLine_com_vertical, false);
-        strokeWidth = a.getDimensionPixelSize(R.styleable.com_DashLine_com_strokeWidth, APKUtil.dip2px(context, 2));
+        strokeWidth = a.getDimensionPixelSize(R.styleable.com_DashLine_com_strokeWidth, APKUtils.dip2px(context, 2));
         paint.setColor(a.getColor(R.styleable.com_DashLine_com_color, Color.parseColor("#dddddd")));
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(strokeWidth);
         paint.setPathEffect(new DashPathEffect(new float[]{
-                a.getDimensionPixelSize(R.styleable.com_DashLine_com_dashWidth, APKUtil.dip2px(context, 3)),
-                a.getDimensionPixelSize(R.styleable.com_DashLine_com_dashGap, APKUtil.dip2px(context, 1))}, 0));
+                a.getDimensionPixelSize(R.styleable.com_DashLine_com_dashWidth, APKUtils.dip2px(context, 3)),
+                a.getDimensionPixelSize(R.styleable.com_DashLine_com_dashGap, APKUtils.dip2px(context, 1))}, 0));
         
         a.recycle();
     }

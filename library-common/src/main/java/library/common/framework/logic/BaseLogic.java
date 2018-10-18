@@ -3,7 +3,7 @@ package library.common.framework.logic;
 import library.common.framework.logic.net.RetrofitManager;
 import library.common.framework.task.Task;
 import library.common.framework.task.TaskExecutor;
-import library.common.util.LogUtil;
+import library.common.util.LogUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -75,7 +75,7 @@ public abstract class BaseLogic extends EventLogic {
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
-                        LogUtil.e(throwable, null, null);
+                        LogUtils.e(throwable, null, null);
                         if (errorConsumer != null && errorConsumer.onError(throwable) != null) {
                             onResult(what, errorConsumer.onError(throwable));
                         } else {

@@ -3,8 +3,8 @@ package library.common.framework.logic.net;
 import android.text.TextUtils;
 
 import library.common.App;
-import library.common.util.APKUtil;
-import library.common.util.LogUtil;
+import library.common.util.APKUtils;
+import library.common.util.LogUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -198,13 +198,13 @@ public class RetrofitManager {
                 if (!TextUtils.isEmpty(message)
                         && message.startsWith("{")
                         && message.endsWith("}")) {
-                    LogUtil.json(message);
+                    LogUtils.json(message);
                 } else if (!TextUtils.isEmpty(message)) {
-                    LogUtil.d(message);
+                    LogUtils.d(message);
                 }
             }
         });
-        if (APKUtil.isDebug()) {
+        if (APKUtils.isDebug()) {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         } else {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
@@ -212,9 +212,9 @@ public class RetrofitManager {
         
         File cacheDir = null;
         try {
-            cacheDir = APKUtil.getDiskCacheDir(App.getInstance().getApplicationContext(), "Retrofit-Cache");
+            cacheDir = APKUtils.getDiskCacheDir(App.getInstance().getApplicationContext(), "Retrofit-Cache");
         } catch (Exception ex) {
-            LogUtil.e(ex, null, null);
+            LogUtils.e(ex, null, null);
         }
         
         OkHttpClient.Builder builder = new OkHttpClient.Builder()

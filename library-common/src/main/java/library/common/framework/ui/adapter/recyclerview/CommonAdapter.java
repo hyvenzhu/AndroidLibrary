@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import com.bumptech.glide.request.target.DrawableImageViewTarget;
-import library.common.framework.image.ImageLoaderFactory;
-
 import java.util.Collections;
 import java.util.List;
 
@@ -118,11 +113,6 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         tv.setTextColor(ContextCompat.getColor(mContext, color));
     }
     
-    public void setImageUrl(ViewHolder holder, @IdRes int viewId, String url) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().display(mContext, iv, url);
-    }
-    
     public void setImageSrc(ViewHolder holder, @IdRes int viewId, @DrawableRes int src) {
         ImageView iv = holder.findViewById(viewId);
         iv.setImageResource(src);
@@ -133,36 +123,6 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         iv.setImageBitmap(bitmap);
     }
 
-    public void setImageUrl(ViewHolder holder, @IdRes int viewId, String url, @DrawableRes int placeHolder) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().display(mContext, iv, url, placeHolder, placeHolder);
-    }
-    
-    public void setImageUrl(ViewHolder holder, @IdRes int viewId, String url, @DrawableRes int placeHolder, @DrawableRes int errorHolder) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().display(mContext, iv, url, placeHolder, errorHolder);
-    }
-    
-    public void setCircleImageUrl(ViewHolder holder, @IdRes int viewId, String url) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().displayCircle(mContext, iv, url);
-    }
-    
-    public void setCircleImageUrl(ViewHolder holder, @IdRes int viewId, String url, @DrawableRes int placeHolder, @DrawableRes int errorHolder) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().displayCircle(mContext, iv, url, placeHolder, errorHolder);
-    }
-    
-    public void setRoundImageUrl(ViewHolder holder, @IdRes int viewId, String url, int cornerRadius) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().displayRoundedCorners(mContext, iv, url, cornerRadius);
-    }
-    
-    public void setRoundImageUrl(ViewHolder holder, @IdRes int viewId, String url, int cornerRadius, @DrawableRes int placeHolder, @DrawableRes int errorHolder) {
-        ImageView iv = holder.findViewById(viewId);
-        ImageLoaderFactory.createDefault().displayRoundedCorners(mContext, iv, url, cornerRadius, placeHolder, errorHolder);
-    }
-    
     public void setProgress(ViewHolder holder, @IdRes int viewId, int maxPorgress, int currentProgress) {
         ProgressBar pb = holder.findViewById(viewId);
         pb.setMax(maxPorgress);

@@ -13,19 +13,19 @@ import java.util.List;
  * @author hiphonezhu@gmail.com
  * @version [AndroidLibrary, 2018-3-6]
  */
-public class FragmentStatePagerItemAdapter extends FragmentStatePagerAdapter {
+public class FragmentAdapter extends FragmentStatePagerAdapter {
     FragmentManager fm;
     private List<Fragment> fragments;
     private List<String> titles;
 
-    public FragmentStatePagerItemAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
+    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments, List<String> titles) {
         super(fm);
         this.fm = fm;
         this.fragments = fragments;
         this.titles = titles;
     }
 
-    public FragmentStatePagerItemAdapter(FragmentManager fm, List<Fragment> fragments) {
+    public FragmentAdapter(FragmentManager fm, List<Fragment> fragments) {
         this(fm, fragments, null);
     }
 

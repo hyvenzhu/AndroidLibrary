@@ -15,7 +15,12 @@ import java.util.List;
 public abstract class MultiTypeAdapter<T> extends CommonAdapter<T> {
     MultiTypeSupport<T> mItemSupport;
 
-    protected MultiTypeAdapter(Context context, List<T> data, MultiTypeSupport<T> itemSupport) {
+    public MultiTypeAdapter(Context context, MultiTypeSupport<T> itemSupport) {
+        super(context, -1);
+        mItemSupport = itemSupport;
+    }
+
+    public MultiTypeAdapter(Context context, List<T> data, MultiTypeSupport<T> itemSupport) {
         super(context, data, -1);
         mItemSupport = itemSupport;
     }

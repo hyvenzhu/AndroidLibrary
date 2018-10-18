@@ -3,6 +3,7 @@ apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion "$buildToolsVersion"
 
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
@@ -27,7 +28,7 @@ android {
         beta {}
         debug {}
     }
-    buildToolsVersion '27.0.3'
+
 }
 
 buildscript {
@@ -41,10 +42,10 @@ buildscript {
 
 dependencies {
     api fileTree(include: '*.jar', dir: 'libs')
-    api 'com.android.support:support-v4:27.0.2'
-    api 'com.android.support:appcompat-v7:27.0.2'
+    api "com.android.support:support-v4:$supportLibVersion"
+    api "com.android.support:appcompat-v7:$supportLibVersion"
     // SnackBar
-    api 'com.android.support:design:27.0.2'
+    api "com.android.support:design:$supportLibVersion"
     // eventbus
     api 'org.greenrobot:eventbus:3.0.0'
     // rx support
@@ -58,7 +59,7 @@ dependencies {
     api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     api 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     // RecyclerView support
-    api 'com.android.support:recyclerview-v7:27.0.2'
+    api "com.android.support:recyclerview-v7:$supportLibVersion"
     // RecyclerViewDivider：https://github.com/Fondesa/RecyclerViewDivider
     api 'com.github.fondesa:recycler-view-divider:2.0.0'
     // butterknife
@@ -67,11 +68,18 @@ dependencies {
     // https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.1.1'
     // SmartRefreshLayout
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3-alpha-2'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     // glide
-    api 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+    api 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     // glide-transformations
-    api 'jp.wasabeef:glide-transformations:3.1.1'
+    api ('jp.wasabeef:glide-transformations:3.1.1')
+    {
+        exclude  group:'com.github.bumptech.glide'
+    }
+    // mmkv
+    api 'com.tencent:mmkv:1.0.10'
+    // statusbarutil
+    api 'com.jaeger.statusbarutil:library:1.5.1'
 }
 

@@ -5,7 +5,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import library.common.App;
-import library.common.util.KVDBHelper;
 
 /**
  * 数据库轻量级操作封装
@@ -69,7 +68,6 @@ public class DBHelper {
         public void onCreate(SQLiteDatabase db) {
             db.beginTransaction();
             try {
-                db.execSQL(KVDBHelper.TABLE_CREATE_SQL);
                 App.getInstance().getInnerDB().onDBCreate(db);
                 db.setTransactionSuccessful();
             } catch (Exception e) {

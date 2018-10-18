@@ -18,7 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import library.common.R;
-import library.common.util.IntentUtil;
+import library.common.util.IntentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ public class PermissionsFragment extends Fragment {
         String formatStr = getString(R.string.com_permission_desc_text);
         String message = String.format(formatStr, TextUtils.isEmpty(permissionDesc) ? "必要" : permissionDesc);
 
-        Snackbar.make(getActivity().getWindow().getDecorView(), message, Snackbar.LENGTH_LONG).setAction(R.string.com_settings, new View.OnClickListener() {
+        Snackbar.make(getActivity().getWindow().getDecorView().findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG).setAction(R.string.com_settings, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startAppSettings();
@@ -195,7 +195,7 @@ public class PermissionsFragment extends Fragment {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
-            IntentUtil.startActivity(intent, getActivity());
+            IntentUtils.startActivity(intent, getActivity());
         } else {
             callback.onDenied();
         }

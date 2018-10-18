@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
  * @version [AndroidLibrary, 2018-3-6]
  */
 
-public class IntentUtil {
+public class IntentUtils {
 
     public static void startActivity(Activity activity, Class destClass) {
         startActivity(activity, destClass, null);
