@@ -90,7 +90,7 @@ public class IntentUtils {
         context.startActivity(intent);
     }
 
-    public static boolean isIntentAvaileble(Context context, Intent intent){
+    public static boolean isIntentAvailable(Context context, Intent intent){
         List resolves = context.getPackageManager().queryIntentActivities(intent,0);
         return resolves.size()>0;
     }
