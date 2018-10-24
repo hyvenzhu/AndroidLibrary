@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
+import java.util.List;
+
 /**
  * Intent跳转工具类
  * @author hiphonezhu@gmail.com
@@ -86,5 +88,10 @@ public class IntentUtils {
         }
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
+    }
+
+    public static boolean isIntentAvaileble(Context context, Intent intent){
+        List resolves = context.getPackageManager().queryIntentActivities(intent,0);
+        return resolves.size()>0;
     }
 }
