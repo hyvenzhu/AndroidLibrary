@@ -17,6 +17,8 @@ import android.widget.TextView;
 import java.util.Collections;
 import java.util.List;
 
+import library.common.util.NoDoubleClickListener;
+
 /**
  * 通用RecyclerView适配器
  *
@@ -137,8 +139,19 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         holder.mItemView.setVisibility(visibility);
     }
     
-    public void setOnClickListener(ViewHolder holder, @IdRes int viewId, View.OnClickListener onClickListener) {
-        holder.findViewById(viewId).setOnClickListener(onClickListener);
+    public void setOnClickListener(ViewHolder holder, @IdRes int viewId, final View.OnClickListener onClickListener) {
+        if (onClickListener == null) {
+            holder.findViewById(viewId).setOnClickListener(null);
+        } else {
+            holder.findViewById(viewId).setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v);
+                    }
+                }
+            });
+        }
     }
     
     public void setOnItemClickListener(ViewHolder holder, View.OnClickListener onClickListener) {

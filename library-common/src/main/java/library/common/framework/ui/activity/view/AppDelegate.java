@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -35,6 +36,7 @@ import library.common.R;
 import library.common.framework.ui.widget.AbstractLoadHelper;
 import library.common.framework.ui.widget.DefaultLoadHelper;
 import library.common.util.Callback;
+import library.common.util.NoDoubleClickListener;
 
 /**
  * View delegate base class
@@ -203,12 +205,23 @@ public abstract class AppDelegate implements IDelegate {
         return (T) bindView(id);
     }
 
-    public void setOnClickListener(View.OnClickListener listener, int... ids) {
+    public void setOnClickListener(final View.OnClickListener listener, int... ids) {
         if (ids == null) {
             return;
         }
         for (int id : ids) {
-            get(id).setOnClickListener(listener);
+            if (listener == null) {
+                get(id).setOnClickListener(null);
+            } else {
+                get(id).setOnClickListener(new NoDoubleClickListener() {
+                    @Override
+                    protected void onNoDoubleClick(View v) {
+                        if (listener != null) {
+                            listener.onClick(v);
+                        }
+                    }
+                });
+            }
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.Calendar;
 import java.util.Set;
 
 
@@ -27,7 +28,9 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
     private boolean mIsPrePressed = false;
     private boolean mIsShowPress = false;
     private View mPressedView = null;
-    
+    static final int MIN_CLICK_DELAY_TIME = 1000;
+    private long lastClickTime = 0;
+
     @Override
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         if (recyclerView == null) {
@@ -51,29 +54,30 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
         }
         return false;
     }
-    
+
     @Override
     public void onTouchEvent(RecyclerView rv, MotionEvent e) {
         mGestureDetector.onTouchEvent(e);
     }
-    
+
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
     }
-    
+
     private class ItemTouchHelperGestureListener extends GestureDetector.SimpleOnGestureListener {
-        
+
+
         private RecyclerView recyclerView;
-        
+
         @Override
         public boolean onDown(MotionEvent e) {
             mIsPrePressed = true;
             mPressedView = recyclerView.findChildViewUnder(e.getX(), e.getY());
-            
+
             super.onDown(e);
             return false;
         }
-        
+
         @Override
         public void onShowPress(MotionEvent e) {
             if (mIsPrePressed && mPressedView != null) {
@@ -82,11 +86,11 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
             }
             super.onShowPress(e);
         }
-        
+
         ItemTouchHelperGestureListener(RecyclerView recyclerView) {
             this.recyclerView = recyclerView;
         }
-        
+
         @Override
         public boolean onSingleTapUp(MotionEvent e) {
             if (mIsPrePressed && mPressedView != null) {
@@ -95,7 +99,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                 }
                 final View pressedView = mPressedView;
                 ViewHolder vh = (ViewHolder) recyclerView.getChildViewHolder(pressedView);
-                
+
                 if (isHeaderOrFooterPosition(vh.getLayoutPosition())) {
                     return false;
                 }
@@ -107,14 +111,16 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                             if (inRangeOfView(childView, e) && childView.isEnabled()) {
                                 setPressViewHotSpot(e, childView);
                                 childView.setPressed(true);
-                                onItemChildClick(childView, vh.getLayoutPosition());
+                                if (!isDoubleClick()) {
+                                    onItemChildClick(childView, vh.getLayoutPosition());
+                                }
                                 resetPressedView(childView);
                                 return true;
                             } else {
                                 childView.setPressed(false);
                             }
                         }
-                        
+
                     }
                     setPressViewHotSpot(e, pressedView);
                     mPressedView.setPressed(true);
@@ -124,7 +130,9 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                             childView.setPressed(false);
                         }
                     }
-                    onItemClick(pressedView, vh.getLayoutPosition());
+                    if (!isDoubleClick()) {
+                        onItemClick(pressedView, vh.getLayoutPosition());
+                    }
                 } else {
                     setPressViewHotSpot(e, pressedView);
                     mPressedView.setPressed(true);
@@ -136,15 +144,17 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                             }
                         }
                     }
-                    
-                    onItemClick(pressedView, vh.getLayoutPosition());
+
+                    if (!isDoubleClick()) {
+                        onItemClick(pressedView, vh.getLayoutPosition());
+                    }
                 }
                 resetPressedView(pressedView);
-                
+
             }
             return true;
         }
-        
+
         private void resetPressedView(final View pressedView) {
             if (pressedView != null) {
                 pressedView.post(new Runnable() {
@@ -153,15 +163,15 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                         if (pressedView != null) {
                             pressedView.setPressed(false);
                         }
-                        
+
                     }
                 });
             }
-            
+
             mIsPrePressed = false;
             mPressedView = null;
         }
-        
+
         @Override
         public void onLongPress(MotionEvent e) {
             boolean isChildLongClick = false;
@@ -187,7 +197,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                         }
                     }
                     if (!isChildLongClick) {
-                        
+
                         onItemLongClick(mPressedView, vh.getLayoutPosition());
                         setPressViewHotSpot(e, mPressedView);
                         mPressedView.setPressed(true);
@@ -203,7 +213,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
             }
         }
     }
-    
+
     private void setPressViewHotSpot(final MotionEvent e, final View mPressedView) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             /**
@@ -214,7 +224,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
             }
         }
     }
-    
+
     /**
      * Callback method to be invoked when an item in this AdapterView has
      * been clicked.
@@ -224,7 +234,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
      * @param position The position of the view in the adapter.
      */
     public abstract void onItemClick(View view, int position);
-    
+
     /**
      * callback method to be invoked when an item in this view has been
      * click and held
@@ -234,11 +244,11 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
      * @return true if the callback consumed the long click ,false otherwise
      */
     public abstract void onItemLongClick(View view, int position);
-    
+
     public abstract void onItemChildClick(View view, int position);
-    
+
     public abstract void onItemChildLongClick(View view, int position);
-    
+
     public boolean inRangeOfView(View view, MotionEvent ev) {
         int[] location = new int[2];
         if (view == null || !view.isShown()) {
@@ -255,7 +265,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
         }
         return true;
     }
-    
+
     private boolean isHeaderOrFooterPosition(int position) {
         /**
          *  have a headview and EMPTY_VIEW FOOTER_VIEW LOADING_VIEW
@@ -268,14 +278,24 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
             }
         }
         int type = commonAdapter.getItemViewType(position);
-        
+
         return false;
 //        return (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW);
     }
-    
+
     private boolean isHeaderOrFooterView(int type) {
         return false;
 //        return (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW);
+    }
+
+    private boolean isDoubleClick() {
+        long currentTime = Calendar.getInstance().getTimeInMillis();
+        if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
+            lastClickTime = currentTime;
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
