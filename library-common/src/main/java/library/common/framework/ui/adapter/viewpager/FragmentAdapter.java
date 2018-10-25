@@ -40,7 +40,11 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return fragments.get(position);
+        if (position >= 0 && position < getCount()) {
+            return fragments.get(position);
+        } else {
+            return null;
+        }
     }
 
     @Override
