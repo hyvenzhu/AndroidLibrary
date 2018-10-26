@@ -144,7 +144,7 @@ public class PermissionsFragment extends Fragment {
      * @param permission permission
      * @return returns true if context has access to the given permission, false otherwise.
      */
-    private static boolean hasSelfPermission(Context context, String permission) {
+    public static boolean hasSelfPermission(Context context, String permission) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && "Xiaomi".equalsIgnoreCase(Build.MANUFACTURER)) {
             return hasSelfPermissionForXiaomi(context, permission);
         }
