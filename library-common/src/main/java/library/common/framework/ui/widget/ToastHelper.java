@@ -7,7 +7,7 @@ import android.view.Gravity;
  * Toast 工具类
  *
  * @author zhuhf
- * @version [JCLauncher-5.10, 2018-05-13]
+ * @version [AndroidLibrary-5.10, 2018-05-13]
  */
 public class ToastHelper {
     private static android.widget.Toast mToast;

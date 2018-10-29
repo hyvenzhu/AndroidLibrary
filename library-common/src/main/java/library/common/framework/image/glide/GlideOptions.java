@@ -10,7 +10,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Glide Options
  *
  * @author zhuhf
- * @version [JCLauncher, 2018-04-26]
+ * @version [AndroidLibrary, 2018-04-26]
  */
 public class GlideOptions {
     public static RequestOptions withOptions(int placeHolderId, int errorHolderId) {

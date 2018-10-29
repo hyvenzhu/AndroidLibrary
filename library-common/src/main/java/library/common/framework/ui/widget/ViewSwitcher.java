@@ -10,7 +10,7 @@ import android.view.ViewTreeObserver;
  * 两个 View 切换显示
  *
  * @author zhuhf
- * @version [JCLauncher, 2018-04-12]
+ * @version [AndroidLibrary, 2018-04-12]
  */
 public class ViewSwitcher {
     /**

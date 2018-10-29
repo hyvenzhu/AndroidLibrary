@@ -13,7 +13,7 @@ import library.common.R;
  * 默认加载布局
  *
  * @author zhuhf
- * @version [JCLauncher, 2018-04-21]
+ * @version [AndroidLibrary, 2018-04-21]
  */
 public class DefaultLoadHelper extends AbstractLoadHelper {
     CustomDialog customDialog;

@@ -11,7 +11,7 @@ import android.view.View;
  * 加载、错误、空数据、Toast、模态（非模态）对话框辅助类
  *
  * @author zhuhf
- * @version [JCLauncher, 2018-04-21]
+ * @version [AndroidLibrary, 2018-04-21]
  */
 public abstract class AbstractLoadHelper {
     private ViewSwitcher vs;
