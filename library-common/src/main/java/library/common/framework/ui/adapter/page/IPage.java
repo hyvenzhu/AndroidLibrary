@@ -139,7 +139,7 @@ public abstract class IPage {
             // 如果正在加载数据，则抛出异常
             if (isLoading)
             {
-                throw new RuntimeException();
+                return;
             } else {
                 isLoading = true;
             }

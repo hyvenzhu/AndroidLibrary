@@ -74,7 +74,7 @@ public class PermissionsFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == PERMISSIONS_REQUEST_CODE && hasAllPermissionsGranted(grantResults)) {
+        if (requestCode == PERMISSIONS_REQUEST_CODE && hasAllPermissionsGranted(grantResults) && callback != null) {
             callback.onGranted();
         } else {
             showMissingPermissionDialog();
@@ -97,7 +97,7 @@ public class PermissionsFragment extends Fragment {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
                 // 不是点击按钮取消的
-                if (event != Snackbar.Callback.DISMISS_EVENT_ACTION) {
+                if (event != Snackbar.Callback.DISMISS_EVENT_ACTION && callback != null) {
                     callback.onDenied();
                 }
             }
