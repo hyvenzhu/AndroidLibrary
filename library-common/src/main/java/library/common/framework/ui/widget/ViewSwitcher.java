@@ -22,6 +22,7 @@ public class ViewSwitcher {
     private int viewIndex;
     private ViewGroup.LayoutParams params;
     int height;
+    int statusBarHeight;
 
     /**
      * 加载布局
@@ -36,6 +37,10 @@ public class ViewSwitcher {
         mView = view;
         init();
         mView.getViewTreeObserver().addOnGlobalLayoutListener(globalLayoutListener);
+        int resourceId = view.getContext().getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            statusBarHeight = view.getContext().getResources().getDimensionPixelSize(resourceId);
+        }
     }
 
     ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -75,6 +80,7 @@ public class ViewSwitcher {
                     ((ViewGroup) mView.getParent()).removeView(mView);
                 }
                 frameLayout.addView(mView);
+                view.setPadding(0, statusBarHeight, 0, 0);
             }
             frameLayout.addView(view);
             params.height = height;
