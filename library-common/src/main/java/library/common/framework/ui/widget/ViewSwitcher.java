@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.FrameLayout;
 
 /**
  * 两个 View 切换显示
@@ -41,7 +42,7 @@ public class ViewSwitcher {
         @Override
         public void onGlobalLayout() {
             Rect rect = new Rect();
-            parentView.getLocalVisibleRect(rect);
+            mView.getLocalVisibleRect(rect);
             int height = rect.height();
             if (null != loadingView && loadingView != mView && height != 0) {
                 ViewGroup.LayoutParams layoutParams = loadingView.getLayoutParams();
@@ -67,8 +68,17 @@ public class ViewSwitcher {
                 parent.removeView(view);
             }
             parentView.removeViewAt(viewIndex);
+            // 将 view 覆盖在 mView 上面，这样 view 可以随着 mView 的"可见区域"高度动态变化
+            FrameLayout frameLayout = new FrameLayout(mView.getContext());
+            if (view != mView) {
+                if (mView.getParent() != null) {
+                    ((ViewGroup) mView.getParent()).removeView(mView);
+                }
+                frameLayout.addView(mView);
+            }
+            frameLayout.addView(view);
             params.height = height;
-            parentView.addView(view, viewIndex, params);
+            parentView.addView(frameLayout, viewIndex, params);
         }
     }
 
