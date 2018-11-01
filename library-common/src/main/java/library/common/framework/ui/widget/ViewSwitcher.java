@@ -96,7 +96,9 @@ public class ViewSwitcher {
      * 显示 mView
      */
     public void reset() {
-        show(mView);
+        if (loadingView != mView) {
+            show(mView);
+        }
     }
 
     public View inflate(int layoutId) {
