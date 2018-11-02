@@ -37,6 +37,7 @@ public class HolderGlideTarget extends DrawableImageViewTarget {
     public HolderGlideTarget(ImageView view, @DrawableRes int bgRes) {
         super(view);
         this.bgRes = bgRes;
+        mScaleType = view.getScaleType();
     }
 
     @Override
