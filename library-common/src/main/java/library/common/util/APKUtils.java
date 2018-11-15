@@ -15,10 +15,11 @@ import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
-import library.common.App;
+import android.widget.EditText;
 
 import java.io.File;
+
+import library.common.App;
 
 /**
  * 基础工具类 [尽量减少类似Util的类存在]
@@ -42,7 +43,7 @@ public class APKUtils {
         }
         return verCode;
     }
-    
+
     /**
      * 获得版本名称
      *
@@ -58,7 +59,7 @@ public class APKUtils {
         }
         return verName;
     }
-    
+
     /**
      * 获得APP包名
      *
@@ -67,7 +68,7 @@ public class APKUtils {
     public static String getPackageName(Context context) {
         return context.getApplicationContext().getPackageName();
     }
-    
+
     /**
      * 获得磁盘缓存目录 [PS：应用卸载后会被自动删除]
      *
@@ -94,7 +95,7 @@ public class APKUtils {
         }
         return dir;
     }
-    
+
     /**
      * dip转pix
      *
@@ -106,7 +107,7 @@ public class APKUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-    
+
     /**
      * pix转dip
      *
@@ -118,7 +119,7 @@ public class APKUtils {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
     }
-    
+
     /**
      * Try to return the absolute file path from the given Uri
      *
@@ -148,7 +149,7 @@ public class APKUtils {
         }
         return data;
     }
-    
+
     /**
      * 7.0目录权限适配
      *
@@ -165,7 +166,7 @@ public class APKUtils {
         }
         return uri;
     }
-    
+
     /**
      * 7.0文件权限适配
      *
@@ -183,7 +184,7 @@ public class APKUtils {
         }
         return intent;
     }
-    
+
     /**
      * 隐藏输入法
      *
@@ -198,7 +199,7 @@ public class APKUtils {
             }
         }
     }
-    
+
     /**
      * 隐藏输入法
      *
@@ -206,7 +207,7 @@ public class APKUtils {
      * @param focusedView
      */
     public static void hideSoftInputFromWindow(Context context, View focusedView) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) context.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (null != imm && imm.isActive()) {
             if (null != focusedView.getWindowToken()) {
                 imm.hideSoftInputFromWindow(focusedView.getApplicationWindowToken(),
@@ -214,13 +215,24 @@ public class APKUtils {
             }
         }
     }
-    
+
+    /**
+     * 显示键盘
+     *
+     * @param context
+     * @param editText
+     */
+    public static void showSoftInput(Context context, EditText editText) {
+        InputMethodManager inputMethodManager = (InputMethodManager) context.getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.showSoftInput(editText, 0);
+    }
+
     private static Boolean isDebug = null;
-    
+
     public static boolean isDebug() {
         return isDebug == null ? false : isDebug.booleanValue();
     }
-    
+
     /**
      * Sync lib debug with app's debug value. Should be called in module Application
      *

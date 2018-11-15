@@ -249,6 +249,13 @@ public abstract class AppDelegate implements IDelegate {
         return null;
     }
 
+    public String getString(@StringRes int strRes, Object... formatArgs) {
+        if (getActivity() != null) {
+            return getActivity().getString(strRes, formatArgs);
+        }
+        return null;
+    }
+
     AbstractLoadHelper mLoadViewHelper;
 
     /**
