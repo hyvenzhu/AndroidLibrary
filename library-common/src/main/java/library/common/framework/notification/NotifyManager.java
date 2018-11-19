@@ -1,5 +1,6 @@
 package library.common.framework.notification;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationChannelGroup;
@@ -33,8 +34,8 @@ public class NotifyManager {
     private NotificationManager notificationManager;
     private Random random;
 
-    public NotifyManager(@NonNull Context context) {
-        this.context = context.getApplicationContext();
+    public NotifyManager(@NonNull Activity context) {
+        this.context = context;
         init();
     }
 
