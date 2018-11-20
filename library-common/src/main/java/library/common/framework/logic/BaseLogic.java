@@ -1,16 +1,14 @@
 package library.common.framework.logic;
 
-import library.common.framework.logic.net.RetrofitManager;
-import library.common.framework.task.Task;
-import library.common.framework.task.TaskExecutor;
-import library.common.util.LogUtils;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Interceptor;
+import library.common.framework.logic.net.RetrofitManager;
+import library.common.framework.task.Task;
+import library.common.framework.task.TaskExecutor;
+import library.common.util.LogUtils;
 import retrofit2.Retrofit;
 
 /**
@@ -21,11 +19,11 @@ import retrofit2.Retrofit;
  */
 public abstract class BaseLogic extends EventLogic {
     protected Retrofit retrofit;
-    
+
     public BaseLogic() {
         this(null);
     }
-    
+
     /**
      * 构造函数
      *
@@ -33,9 +31,9 @@ public abstract class BaseLogic extends EventLogic {
      */
     public BaseLogic(Object subscriber) {
         super(subscriber);
-        retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl(), networkInterceptor(), interceptor());
+        retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl());
     }
-    
+
     /**
      * create api service
      *
@@ -46,7 +44,7 @@ public abstract class BaseLogic extends EventLogic {
     public <T> T create(final Class<T> service) {
         return retrofit.create(service);
     }
-    
+
     /**
      * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map、flatMap、doOnNext'等在BaseLogic的子类做好处理)
      *
@@ -56,7 +54,7 @@ public abstract class BaseLogic extends EventLogic {
     public void sendRequest(final Observable observable, final int what) {
         sendRequest(observable, null, what);
     }
-    
+
     /**
      * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map、flatMap、doOnNext'等在BaseLogic的子类做好处理)
      *
@@ -84,7 +82,7 @@ public abstract class BaseLogic extends EventLogic {
                     }
                 });
     }
-    
+
     /**
      * 执行本地任务
      *
@@ -93,22 +91,11 @@ public abstract class BaseLogic extends EventLogic {
     public void executeTask(Task task) {
         TaskExecutor.getInstance().execute(task);
     }
-    
+
     /**
      * API根地址
      *
      * @return
      */
     protected abstract String getBaseUrl();
-    
-    /**
-     * @return
-     */
-    protected Interceptor networkInterceptor() {
-        return null;
-    }
-    
-    protected Interceptor interceptor() {
-        return null;
-    }
 }

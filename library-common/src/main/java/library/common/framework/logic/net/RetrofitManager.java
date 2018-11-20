@@ -2,10 +2,6 @@ package library.common.framework.logic.net;
 
 import android.text.TextUtils;
 
-import library.common.App;
-import library.common.util.APKUtils;
-import library.common.util.LogUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +15,9 @@ import java.util.concurrent.TimeUnit;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
 
+import library.common.App;
+import library.common.util.APKUtils;
+import library.common.util.LogUtils;
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -43,30 +42,30 @@ public class RetrofitManager {
      * Retrofit cache pool, key is 'baseUrl'
      */
     Map<String, Retrofit> retrofitPool = new HashMap<>();
-    
+
     /**
      * single instance
      */
     static RetrofitManager sInstance;
-    
+
     /**
      * default client
      */
     OkHttpClient client;
-    
+
     Interceptor networkInterceptor;
-    
-    Interceptor interceptor;
-    
+
+    Interceptor applicationInterceptor;
+
     X509TrustManager trustManager;
     SSLSocketFactory sslFactory;
-    
+
     /**
      * Private constructor
      */
     private RetrofitManager() {
     }
-    
+
     /**
      * Single instance
      *
@@ -82,29 +81,17 @@ public class RetrofitManager {
         }
         return sInstance;
     }
-    
+
     /**
      * Return Retrofit by baseUrl
      *
      * @param baseUrl
-     * @param networkInterceptor 网络拦截器
-     * @param interceptor        应用拦截器
      * @return
      */
-    public synchronized Retrofit getRetrofit(String baseUrl, Interceptor networkInterceptor, Interceptor interceptor) {
-        this.networkInterceptor = networkInterceptor;
-        this.interceptor = interceptor;
+    public synchronized Retrofit getRetrofit(String baseUrl) {
         if (client == null) {
             client = buildClient();
-        } else {
-            if (networkInterceptor != null && !client.networkInterceptors().contains(networkInterceptor)) {
-                client = client.newBuilder().addNetworkInterceptor(networkInterceptor).build();
-            }
-            if (interceptor != null && !client.interceptors().contains(interceptor)) {
-                client = client.newBuilder().addInterceptor(interceptor).build();
-            }
         }
-        
         Retrofit retrofit = retrofitPool.get(baseUrl);
         if (retrofitPool.get(baseUrl) == null) {
             Retrofit.Builder builder = new Retrofit.Builder()
@@ -114,12 +101,22 @@ public class RetrofitManager {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create());
             retrofit = builder.build();
             retrofitPool.put(baseUrl, retrofit);
-        } else {
-            retrofit = retrofit.newBuilder().client(client).build();
         }
         return retrofit;
     }
-    
+
+    /**
+     * 设置拦截器
+     * [需要在Application onCreate中初始化]
+     *
+     * @param applicationInterceptor
+     * @param networkInterceptor
+     */
+    public void initInterceptor(Interceptor applicationInterceptor, Interceptor networkInterceptor) {
+        this.applicationInterceptor = applicationInterceptor;
+        this.networkInterceptor = networkInterceptor;
+    }
+
     /**
      * 初始化 https
      * [需要在Application onCreate中初始化]
@@ -128,7 +125,7 @@ public class RetrofitManager {
         try {
             trustManager = SSLUtils.getDefaultX509TrustManager();
             sslFactory = SSLUtils.build(trustManager);
-            
+
             client = buildClient();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -136,8 +133,7 @@ public class RetrofitManager {
             e.printStackTrace();
         }
     }
-    
-    
+
     /**
      * 设置Https证书
      * [需要在Application onCreate中初始化]
@@ -148,7 +144,7 @@ public class RetrofitManager {
         try {
             trustManager = SSLUtils.getX509TrustManager(cers);
             sslFactory = SSLUtils.build(trustManager);
-            
+
             client = buildClient();
         } catch (CertificateException e) {
             e.printStackTrace();
@@ -160,7 +156,7 @@ public class RetrofitManager {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * 设置Https证书(双向认证)
      * [需要在Application onCreate中初始化]
@@ -173,7 +169,7 @@ public class RetrofitManager {
         try {
             trustManager = SSLUtils.getX509TrustManager(cers);
             sslFactory = SSLUtils.build(bks, pwd, trustManager);
-            
+
             client = buildClient();
         } catch (CertificateException e) {
             e.printStackTrace();
@@ -185,7 +181,7 @@ public class RetrofitManager {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Custom OkHttpClient
      *
@@ -209,14 +205,14 @@ public class RetrofitManager {
         } else {
             loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);
         }
-        
+
         File cacheDir = null;
         try {
             cacheDir = APKUtils.getDiskCacheDir(App.getInstance().getApplicationContext(), "Retrofit-Cache");
         } catch (Exception ex) {
             LogUtils.e(ex, null, null);
         }
-        
+
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 // log interceptor
                 .addInterceptor(loggingInterceptor)
@@ -238,8 +234,8 @@ public class RetrofitManager {
             builder.addNetworkInterceptor(networkInterceptor);
         }
         builder.addInterceptor(new ProgressResponseInterceptor());
-        if (interceptor != null) {
-            builder.addInterceptor(interceptor);
+        if (applicationInterceptor != null) {
+            builder.addInterceptor(applicationInterceptor);
         }
         return builder.build();
     }
