@@ -114,11 +114,11 @@ public abstract class AppDelegate implements IDelegate {
         create(fragment.getContext(), inflater, container, savedInstanceState);
     }
 
-    protected void transparentWithOffsetInActivity(Activity activity, View offsetView) {
+    public void transparentWithOffsetInActivity(Activity activity, View offsetView) {
         StatusBarUtils.transparentWithOffsetInActivity(activity, offsetView);
     }
 
-    protected void setLightMode(Activity activity, boolean lightMode) {
+    public void setLightMode(Activity activity, boolean lightMode) {
         StatusBarUtils.setLightMode(activity, lightMode);
     }
 

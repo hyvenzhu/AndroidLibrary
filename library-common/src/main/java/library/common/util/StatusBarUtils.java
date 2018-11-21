@@ -22,12 +22,6 @@ public class StatusBarUtils {
         StatusBarUtil.setTranslucentForImageViewInFragment(activity, 0, offsetView);
     }
 
-    /**
-     * 状态栏着色，会使得 window 位于状态栏之下（如果使用滑动返回，阴影效果无法延展到状态栏）
-     *
-     * @param activity
-     * @param color
-     */
     public static void setColor(Activity activity, @ColorInt int color) {
         StatusBarUtil.setColor(activity, color, 0);
     }
