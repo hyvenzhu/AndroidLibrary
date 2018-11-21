@@ -19,6 +19,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -52,10 +53,9 @@ public abstract class AppDelegate implements IDelegate {
     ViewGroup titleGroup;
     Context context;
     Fragment fragment;
-
     Callback callback;
-
     boolean isVisible;
+    protected boolean isActivity;
 
     public <T> void setCallback(Callback<T> callback) {
         this.callback = callback;
@@ -76,6 +76,7 @@ public abstract class AppDelegate implements IDelegate {
     @Override
     public void create(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.context = context;
+        isActivity = true;
         rootView = (ViewGroup) getRootView();
         if (rootView == null) {
             rootView = (ViewGroup) inflater.inflate(R.layout.com_activity_common, container, false);
@@ -87,9 +88,9 @@ public abstract class AppDelegate implements IDelegate {
         if (titleView != null) {
             titleGroup.setVisibility(View.VISIBLE);
             titleGroup.addView(titleView);
-            // 如果使用通用标题栏，则统一处理
-            if (getFragment() == null) {
-                transparentWithOffsetInActivity(getActivity(), titleGroup);
+            // 如果使用通用标题栏，则状态栏直接透明
+            if (isActivity) {
+                setTranslucent(getActivity(), titleGroup);
             }
         } else {
             titleGroup.setVisibility(View.GONE);
@@ -114,12 +115,52 @@ public abstract class AppDelegate implements IDelegate {
         create(fragment.getContext(), inflater, container, savedInstanceState);
     }
 
-    public void transparentWithOffsetInActivity(Activity activity, View offsetView) {
-        StatusBarUtils.transparentWithOffsetInActivity(activity, offsetView);
+    /**
+     * 设置状态栏透明
+     *
+     * @param activity
+     * @param offsetView
+     */
+    public void setTranslucent(Activity activity, View offsetView) {
+        StatusBarUtils.setTranslucent(activity, offsetView);
     }
 
-    public void setLightMode(Activity activity, boolean lightMode) {
-        StatusBarUtils.setLightMode(activity, lightMode);
+    /**
+     * 设置状态栏透明
+     *
+     * @param fragment
+     * @param offsetView
+     */
+    public void setTranslucent(Fragment fragment, View offsetView) {
+        StatusBarUtils.setTranslucent(fragment, offsetView);
+    }
+
+    /**
+     * 设置状态栏颜色，
+     * 直接设置跟布局的背景色，而不是给状态栏着色。这样，整个布局会延展到状态栏。当用到滑动返回等类似效果时，阴影效果会延展到状态栏
+     *
+     * @param color
+     */
+    protected void setStatusBarColor(@ColorInt int color) {
+        rootView.setBackgroundColor(color);
+    }
+
+    /**
+     * 设置状态栏字体黑色
+     *
+     * @param activity
+     */
+    public void setLightMode(Activity activity) {
+        StatusBarUtils.setLightMode(activity);
+    }
+
+    /**
+     * 设置状态栏字体白色
+     *
+     * @param activity
+     */
+    public void setDarkMode(Activity activity) {
+        StatusBarUtils.setDarkMode(activity);
     }
 
     /**

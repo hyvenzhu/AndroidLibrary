@@ -80,6 +80,6 @@ dependencies {
     // mmkv
     api 'com.tencent:mmkv:1.0.10'
     // statusbarutil
-    api 'com.jaeger.statusbarutil:library:1.5.1'
+    implementation 'com.jaeger.statusbarutil:library:1.5.1'
 }
 

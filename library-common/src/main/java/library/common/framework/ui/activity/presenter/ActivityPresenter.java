@@ -61,7 +61,6 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
         initToolbar();
         isDestroyed = false;
         viewDelegate.initWidget();
-        setScrimColor(0x00000000);
         onCreate();
     }
 
