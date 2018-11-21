@@ -22,4 +22,19 @@
         <attr name="com_vertical" format="boolean"/>
         <attr name="com_color" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="com_SwipeBackLayout">
+        <attr name="com_edge_size" format="dimension"/>
+        <attr name="com_edge_flag">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="2" />
+            <enum name="all" value="3" />
+        </attr>
+        <attr name="com_shadow_left" format="reference"/>
+        <attr name="com_shadow_right" format="reference"/>
+        <attr name="com_shadow_bottom" format="reference"/>
+    </declare-styleable>
+
+    <attr name="com_SwipeBackLayoutStyle" format="reference"/>
 </resources>

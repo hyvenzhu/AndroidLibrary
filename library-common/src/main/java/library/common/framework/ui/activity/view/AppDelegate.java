@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -37,6 +36,7 @@ import library.common.framework.ui.widget.AbstractLoadHelper;
 import library.common.framework.ui.widget.DefaultLoadHelper;
 import library.common.util.Callback;
 import library.common.util.NoDoubleClickListener;
+import library.common.util.StatusBarUtils;
 
 /**
  * View delegate base class
@@ -48,11 +48,10 @@ import library.common.util.NoDoubleClickListener;
 public abstract class AppDelegate implements IDelegate {
     protected final SparseArray<View> mViews = new SparseArray<View>();
 
-    protected ViewGroup rootView;
+    ViewGroup rootView;
     ViewGroup titleGroup;
     Context context;
     Fragment fragment;
-    View titleView;
 
     Callback callback;
 
@@ -84,10 +83,14 @@ public abstract class AppDelegate implements IDelegate {
         titleGroup = rootView.findViewWithTag("title");
         ViewGroup content = rootView.findViewWithTag("content");
 
-        titleView = getTitleView();
+        View titleView = getTitleView();
         if (titleView != null) {
             titleGroup.setVisibility(View.VISIBLE);
             titleGroup.addView(titleView);
+            // 如果使用通用标题栏，则统一处理
+            if (getFragment() == null) {
+                transparentWithOffsetInActivity(getActivity(), titleGroup);
+            }
         } else {
             titleGroup.setVisibility(View.GONE);
         }
@@ -109,6 +112,14 @@ public abstract class AppDelegate implements IDelegate {
     public void create(Fragment fragment, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.fragment = fragment;
         create(fragment.getContext(), inflater, container, savedInstanceState);
+    }
+
+    protected void transparentWithOffsetInActivity(Activity activity, View offsetView) {
+        StatusBarUtils.transparentWithOffsetInActivity(activity, offsetView);
+    }
+
+    protected void setLightMode(Activity activity, boolean lightMode) {
+        StatusBarUtils.setLightMode(activity, lightMode);
     }
 
     /**

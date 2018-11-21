@@ -24,5 +24,13 @@
     </style>
     
     <!-- 公共属性-->
-    <style name="com_BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar"></style>
+    <style name="com_BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+    <style name="com_SwipeBackLayout">
+        <item name="com_edge_size">50dp</item>
+        <item name="com_shadow_left">@drawable/shadow_left</item>
+        <item name="com_shadow_right">@drawable/shadow_right</item>
+        <item name="com_shadow_bottom">@drawable/shadow_bottom</item>
+    </style>
 </resources>
