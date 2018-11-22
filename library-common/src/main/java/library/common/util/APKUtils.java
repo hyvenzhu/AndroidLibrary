@@ -80,8 +80,14 @@ public class APKUtils {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
+            if (context.getApplicationContext().getExternalCacheDir() == null) {
+                return null;
+            }
             cachePath = context.getApplicationContext().getExternalCacheDir().getPath();
         } else {
+            if (context.getApplicationContext().getCacheDir() == null) {
+                return null;
+            }
             cachePath = context.getApplicationContext().getCacheDir().getPath();
         }
         File dir;
