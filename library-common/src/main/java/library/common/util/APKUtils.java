@@ -80,15 +80,17 @@ public class APKUtils {
         String cachePath;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
                 || !Environment.isExternalStorageRemovable()) {
-            if (context.getApplicationContext().getExternalCacheDir() == null) {
+            File dir = context.getApplicationContext().getExternalCacheDir();
+            if (dir == null) {
                 return null;
             }
-            cachePath = context.getApplicationContext().getExternalCacheDir().getPath();
+            cachePath = dir.getPath();
         } else {
-            if (context.getApplicationContext().getCacheDir() == null) {
+            File dir = context.getApplicationContext().getCacheDir();
+            if (dir == null) {
                 return null;
             }
-            cachePath = context.getApplicationContext().getCacheDir().getPath();
+            cachePath = dir.getPath();
         }
         File dir;
         if (TextUtils.isEmpty(uniqueName)) {
