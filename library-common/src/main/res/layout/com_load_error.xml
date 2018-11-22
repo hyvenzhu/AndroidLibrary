@@ -13,7 +13,7 @@
         android:layout_above="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:scaleType="centerInside"
+        android:scaleType="fitCenter"
         android:src="@drawable/com_ic_loading_error"/>
     
     <TextView

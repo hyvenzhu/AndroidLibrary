@@ -115,6 +115,14 @@ public abstract class AppDelegate implements IDelegate {
         create(fragment.getContext(), inflater, container, savedInstanceState);
     }
 
+    public void hideTitle() {
+        titleGroup.setVisibility(View.GONE);
+    }
+
+    public void showTitle() {
+        titleGroup.setVisibility(View.VISIBLE);
+    }
+
     /**
      * 设置状态栏透明
      *
