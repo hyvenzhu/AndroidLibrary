@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.Proxy;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -214,6 +215,8 @@ public class RetrofitManager {
         }
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                // no proxy
+                .proxy(Proxy.NO_PROXY)
                 // log interceptor
                 .addInterceptor(loggingInterceptor)
                 // retry when connect failure
