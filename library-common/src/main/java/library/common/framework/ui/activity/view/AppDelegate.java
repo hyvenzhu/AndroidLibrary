@@ -34,7 +34,6 @@ import android.widget.LinearLayout;
 import butterknife.ButterKnife;
 import library.common.R;
 import library.common.framework.ui.widget.AbstractLoadHelper;
-import library.common.framework.ui.widget.DefaultLoadHelper;
 import library.common.util.Callback;
 import library.common.util.NoDoubleClickListener;
 import library.common.util.StatusBarUtils;
@@ -346,9 +345,7 @@ public abstract class AppDelegate implements IDelegate {
      * @param view
      * @return
      */
-    protected AbstractLoadHelper getLoadViewHelper(View view) {
-        return new DefaultLoadHelper(view);
-    }
+    protected abstract AbstractLoadHelper getLoadViewHelper(View view);
 
     public void showLoadView() {
         showLoadView(null, -1, -1);
