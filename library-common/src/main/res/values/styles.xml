@@ -9,19 +9,19 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
-    <!--Activity全透明样式-->
-    <style name="com_ActivityTransparentTheme" parent="@style/com_BaseAppTheme">
+    <!-- 全屏幕透明样式 -->
+    <style name="com_TransparentFullScreenTheme" parent="@style/com_TransparentTheme">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- 透明样式 -->
+    <style name="com_TransparentTheme" parent="@style/com_AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:windowFullscreen">true</item>
     </style>
 
     <!-- App theme -->
     <style name="com_AppTheme" parent="@style/com_BaseAppTheme"></style>
-    
-    <style name="com_FullScreenTheme" parent="@style/com_AppTheme">
-        <item name="android:windowFullscreen">true</item>
-    </style>
     
     <!-- 公共属性-->
     <style name="com_BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
