@@ -87,10 +87,6 @@ public abstract class AppDelegate implements IDelegate {
         if (titleView != null) {
             titleGroup.setVisibility(View.VISIBLE);
             titleGroup.addView(titleView);
-            // 如果使用通用标题栏，则状态栏直接透明
-            if (isActivity) {
-                setTranslucent(getActivity(), titleGroup);
-            }
         } else {
             titleGroup.setVisibility(View.GONE);
         }
@@ -123,10 +119,34 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     /**
+     * 自定义标题栏适应状态栏（标题栏高度需要为 WrapContent）
+     *
+     * @param title
+     */
+    public void fitCustomTitle(View title) {
+        setTranslucent(getActivity(), null);
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+            title.setPadding(0, statusBarHeight, 0, 0);
+        }
+    }
+
+    /**
+     * 设置通用标题栏颜色（状态栏会随之改变）
+     *
+     * @param color
+     */
+    public void setCommonTitleColor(@ColorInt int color) {
+        setTranslucent(getActivity(), null);
+        titleGroup.setBackgroundColor(color);
+    }
+
+    /**
      * 设置状态栏透明
      *
      * @param activity
-     * @param offsetView
+     * @param offsetView 需要适应状态栏的View
      */
     public void setTranslucent(Activity activity, View offsetView) {
         StatusBarUtils.setTranslucent(activity, offsetView);
@@ -140,16 +160,6 @@ public abstract class AppDelegate implements IDelegate {
      */
     public void setTranslucent(Fragment fragment, View offsetView) {
         StatusBarUtils.setTranslucent(fragment, offsetView);
-    }
-
-    /**
-     * 设置状态栏颜色，
-     * 直接设置跟布局的背景色，而不是给状态栏着色。这样，整个布局会延展到状态栏。当用到滑动返回等类似效果时，阴影效果会延展到状态栏
-     *
-     * @param color
-     */
-    protected void setStatusBarColor(@ColorInt int color) {
-        rootView.setBackgroundColor(color);
     }
 
     /**
