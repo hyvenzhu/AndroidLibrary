@@ -119,7 +119,7 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     /**
-     * 自定义标题栏适应状态栏（标题栏高度需要为 WrapContent）
+     * 自定义标题栏适应状态栏（标题栏高度需要为 wrap_content）
      *
      * @param title
      */
@@ -128,7 +128,8 @@ public abstract class AppDelegate implements IDelegate {
         int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) {
             int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-            title.setPadding(0, statusBarHeight, 0, 0);
+            title.setPadding(title.getPaddingLeft(), title.getPaddingTop() + statusBarHeight,
+                    title.getPaddingRight(), title.getPaddingBottom());
         }
     }
 
