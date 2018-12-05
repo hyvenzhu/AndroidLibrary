@@ -124,12 +124,14 @@ public abstract class AppDelegate implements IDelegate {
      * @param title
      */
     public void fitCustomTitle(View title) {
-        setTranslucent(getActivity(), null);
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-            title.setPadding(title.getPaddingLeft(), title.getPaddingTop() + statusBarHeight,
-                    title.getPaddingRight(), title.getPaddingBottom());
+        StatusBarUtils.setTranslucent(getActivity(), null);
+        if (title != null) {
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+                title.setPadding(title.getPaddingLeft(), title.getPaddingTop() + statusBarHeight,
+                        title.getPaddingRight(), title.getPaddingBottom());
+            }
         }
     }
 
@@ -139,28 +141,8 @@ public abstract class AppDelegate implements IDelegate {
      * @param color
      */
     public void setCommonTitleColor(@ColorInt int color) {
-        setTranslucent(getActivity(), null);
+        StatusBarUtils.setTranslucent(getActivity(), null);
         titleGroup.setBackgroundColor(color);
-    }
-
-    /**
-     * 设置状态栏透明
-     *
-     * @param activity
-     * @param offsetView 需要适应状态栏的View
-     */
-    public void setTranslucent(Activity activity, View offsetView) {
-        StatusBarUtils.setTranslucent(activity, offsetView);
-    }
-
-    /**
-     * 设置状态栏透明
-     *
-     * @param fragment
-     * @param offsetView
-     */
-    public void setTranslucent(Fragment fragment, View offsetView) {
-        StatusBarUtils.setTranslucent(fragment, offsetView);
     }
 
     /**
