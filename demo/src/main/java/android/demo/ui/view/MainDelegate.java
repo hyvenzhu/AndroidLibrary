@@ -2,6 +2,9 @@ package android.demo.ui.view;
 
 import android.demo.R;
 import android.demo.base.CommonTitleBarDelegate;
+import android.view.View;
+
+import library.common.framework.ui.widget.AbstractLoadHelper;
 
 
 /**
@@ -17,5 +20,10 @@ public class MainDelegate extends CommonTitleBarDelegate {
     @Override
     public void initWidget() {
         super.initWidget();
+    }
+
+    @Override
+    protected AbstractLoadHelper getLoadViewHelper(View view) {
+        return null;
     }
 }

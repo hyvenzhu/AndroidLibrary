@@ -26,18 +26,4 @@ public class DemoBaseLogic extends library.common.framework.logic.BaseLogic {
     protected String getBaseUrl() {
         return "http://10.100.122.34:3000";
     }
-    
-    @Override
-    protected Interceptor interceptor() {
-        return interceptor;
-    }
-    
-    public static BasicParamsInterceptor interceptor = new BasicParamsInterceptor() {
-        @Override
-        public Map<String, String> getHeaders() {
-            Map<String, String> headers = new HashMap<>();
-            headers.put("accessToken", "xxx");
-            return headers;
-        }
-    };
 }
