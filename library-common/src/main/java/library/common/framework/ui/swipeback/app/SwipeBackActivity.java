@@ -55,10 +55,6 @@ public class SwipeBackActivity extends AppCompatActivity implements SwipeBackAct
         getSwipeBackLayout().addSwipeListener(swipeListener);
     }
 
-    public void setEnableSwipeBackGesture(boolean enable) {
-        getSwipeBackLayout().setEnableGesture(enable);
-    }
-
     public void setScrimColor(@ColorInt int color) {
         getSwipeBackLayout().setScrimColor(color);
     }
