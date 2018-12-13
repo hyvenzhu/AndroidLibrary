@@ -11,9 +11,11 @@ import android.widget.ImageView;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import library.common.R;
+
 
 /**
- * 定制 ImageView 的占位图显示的尺寸和样式，居中显示，支持 View 背景的定制
+ * 支持占位图、背景的定制
  *
  * @author zhuhf
  * @version [AndroidLibrary, 2018-04-18]
@@ -37,7 +39,13 @@ public class HolderGlideTarget extends DrawableImageViewTarget {
     public HolderGlideTarget(ImageView view, @DrawableRes int bgRes) {
         super(view);
         this.bgRes = bgRes;
-        mScaleType = view.getScaleType();
+        Object scaleType = view.getTag(R.id.com_scaleType);
+        if (scaleType != null) {
+            mScaleType = (ImageView.ScaleType) scaleType;
+        } else {
+            mScaleType = view.getScaleType();
+            view.setTag(R.id.com_scaleType, mScaleType);
+        }
     }
 
     @Override
