@@ -7,6 +7,7 @@ import android.app.NotificationChannelGroup;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.ColorInt;
@@ -232,8 +233,25 @@ public class NotifyManager {
      * 打开通知设置
      */
     public void gotoNotificationSetting() {
-        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+            if (IntentUtils.isIntentAvailable(context, intent)) {
+                context.startActivity(intent);
+            } else {
+                openAppSetting();
+            }
+        } else {
+            openAppSetting();
+        }
+    }
+
+    /**
+     * 打开App的设置页
+     */
+    void openAppSetting() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
         if (IntentUtils.isIntentAvailable(context, intent)) {
             context.startActivity(intent);
         }
