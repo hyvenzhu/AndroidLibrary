@@ -85,7 +85,7 @@ public class APKUtils {
                 || !Environment.isExternalStorageRemovable()) {
             File dir = context.getApplicationContext().getExternalCacheDir();
             if (dir == null) {
-                return null;
+                dir = context.getApplicationContext().getCacheDir();
             }
             cachePath = dir.getPath();
         } else {
