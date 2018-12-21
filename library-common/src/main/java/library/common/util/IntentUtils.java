@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Intent跳转工具类
+ *
  * @author hiphonezhu@gmail.com
  * @version [AndroidLibrary, 2018-3-6]
  */
@@ -90,8 +91,8 @@ public class IntentUtils {
         context.startActivity(intent);
     }
 
-    public static boolean isIntentAvailable(Context context, Intent intent){
-        List resolves = context.getPackageManager().queryIntentActivities(intent,0);
-        return resolves.size()>0;
+    public static boolean isIntentAvailable(Context context, Intent intent) {
+        List resolves = context.getPackageManager().queryIntentActivities(intent, 0);
+        return resolves.size() > 0;
     }
 }
