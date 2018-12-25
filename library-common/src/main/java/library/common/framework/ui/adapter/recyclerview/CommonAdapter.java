@@ -154,8 +154,19 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         }
     }
     
-    public void setOnItemClickListener(ViewHolder holder, View.OnClickListener onClickListener) {
-        holder.mItemView.setOnClickListener(onClickListener);
+    public void setOnItemClickListener(ViewHolder holder, final View.OnClickListener onClickListener) {
+        if (onClickListener == null) {
+            holder.mItemView.setOnClickListener(null);
+        } else {
+            holder.mItemView.setOnClickListener(new NoDoubleClickListener() {
+                @Override
+                protected void onNoDoubleClick(View v) {
+                    if (onClickListener != null) {
+                        onClickListener.onClick(v);
+                    }
+                }
+            });
+        }
     }
     
     public void setOnItemLongClickListener(ViewHolder holder, View.OnLongClickListener onLongClickListener) {
