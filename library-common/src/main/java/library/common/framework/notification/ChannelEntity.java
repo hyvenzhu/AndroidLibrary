@@ -28,7 +28,7 @@ public class ChannelEntity {
     /**
      * 是否显示icon角标
      */
-    private boolean showBadge = true;
+    private boolean showBadge;
 
     public ChannelEntity(@NonNull String channelId, @NonNull String channelName, @ImportanceType int importance) {
         this.channelId = channelId;

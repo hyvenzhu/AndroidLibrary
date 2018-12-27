@@ -40,6 +40,7 @@ public class PermissionsFragment extends Fragment {
      * 权限描述, 例如:发送短信、访问相机
      */
     String permissionDesc;
+    boolean showDenied;
 
     public PermissionsFragment() {
     }
@@ -50,10 +51,11 @@ public class PermissionsFragment extends Fragment {
         setRetainInstance(true);
     }
 
-    void requestPermissions(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull MPermissions.PermissionsCallback callback) {
+    void requestPermissions(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull MPermissions.PermissionsCallback callback, boolean showDenied) {
         this.permissionDesc = permissionDesc;
         this.permissions = permissions;
         this.callback = callback;
+        this.showDenied = showDenied;
 
         if (hasAllPermissionsGranted(permissions)) {
             callback.onGranted();
@@ -77,7 +79,11 @@ public class PermissionsFragment extends Fragment {
         if (requestCode == PERMISSIONS_REQUEST_CODE && hasAllPermissionsGranted(grantResults) && callback != null) {
             callback.onGranted();
         } else {
-            showMissingPermissionDialog();
+            if (showDenied) {
+                showMissingPermissionDialog();
+            } else {
+                callback.onDenied();
+            }
         }
     }
 
@@ -93,7 +99,7 @@ public class PermissionsFragment extends Fragment {
             public void onClick(View v) {
                 startAppSettings();
             }
-        }).setCallback(new Snackbar.Callback() {
+        }).addCallback(new Snackbar.Callback() {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
                 // 不是点击按钮取消的

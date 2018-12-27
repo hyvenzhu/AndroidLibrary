@@ -21,6 +21,7 @@ public class App {
     static App sInstance;
     static Context appContext;
     static UIStateHelper uiStateHelper;
+    int visibleActivityCount = 0;
     InnerDB innerDB = new InnerDB() {
         @Override
         public void onDBCreate(SQLiteDatabase db) {
@@ -55,7 +56,7 @@ public class App {
 
             @Override
             public void onActivityStarted(Activity activity) {
-
+                sInstance.visibleActivityCount++;
             }
 
             @Override
@@ -70,6 +71,7 @@ public class App {
 
             @Override
             public void onActivityStopped(Activity activity) {
+                sInstance.visibleActivityCount--;
             }
 
             @Override
@@ -96,6 +98,15 @@ public class App {
             throw new RuntimeException("must call init() first");
         }
         return sInstance;
+    }
+
+    /**
+     * App 是否在后台
+     *
+     * @return true：后台
+     */
+    public boolean isInBackground() {
+        return visibleActivityCount == 0;
     }
 
     public Context getApplicationContext() {

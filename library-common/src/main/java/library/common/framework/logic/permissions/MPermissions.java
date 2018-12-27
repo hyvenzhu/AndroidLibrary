@@ -16,8 +16,18 @@ import android.support.v4.app.FragmentManager;
 public class MPermissions {
     private static final String TAG = "PermissionsFragment";
     PermissionsFragment permissionsFragment;
+    boolean showDenied;
 
     public MPermissions(@NonNull FragmentActivity activity) {
+        this(activity, true);
+    }
+
+    /**
+     * @param activity
+     * @param showDenied 是否提示权限被拒绝
+     */
+    public MPermissions(@NonNull FragmentActivity activity, boolean showDenied) {
+        this.showDenied = showDenied;
         permissionsFragment = (PermissionsFragment) activity.getSupportFragmentManager().findFragmentByTag(TAG);
         if (permissionsFragment == null) {
             permissionsFragment = new PermissionsFragment();
@@ -38,7 +48,7 @@ public class MPermissions {
      * @param callback       回调函数
      */
     public void request(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull PermissionsCallback callback) {
-        permissionsFragment.requestPermissions(permissionDesc, permissions, callback);
+        permissionsFragment.requestPermissions(permissionDesc, permissions, callback, showDenied);
     }
 
     /**

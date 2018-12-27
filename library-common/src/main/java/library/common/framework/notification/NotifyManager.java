@@ -35,7 +35,7 @@ public class NotifyManager {
     private NotificationManager notificationManager;
     private Random random;
 
-    public NotifyManager(@NonNull Activity context) {
+    public NotifyManager(@NonNull Context context) {
         this.context = context;
         init();
     }
@@ -218,42 +218,43 @@ public class NotifyManager {
     /**
      * 调转到渠道设置页
      *
+     * @param activity
      * @param channelId
      */
-    public void gotoChannelSetting(@NonNull String channelId) {
+    public void gotoChannelSetting(Activity activity, @NonNull String channelId) {
         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
-        intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
+        intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.getPackageName());
         intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
-        if (IntentUtils.isIntentAvailable(context, intent)) {
-            context.startActivity(intent);
+        if (IntentUtils.isIntentAvailable(activity, intent)) {
+            activity.startActivity(intent);
         }
     }
 
     /**
      * 打开通知设置
      */
-    public void gotoNotificationSetting() {
+    public void gotoNotificationSetting(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-            intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
-            if (IntentUtils.isIntentAvailable(context, intent)) {
-                context.startActivity(intent);
+            intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.getPackageName());
+            if (IntentUtils.isIntentAvailable(activity, intent)) {
+                activity.startActivity(intent);
             } else {
-                openAppSetting();
+                openAppSetting(activity);
             }
         } else {
-            openAppSetting();
+            openAppSetting(activity);
         }
     }
 
     /**
      * 打开App的设置页
      */
-    void openAppSetting() {
+    void openAppSetting(Activity activity) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
-        if (IntentUtils.isIntentAvailable(context, intent)) {
-            context.startActivity(intent);
+        intent.setData(Uri.fromParts("package", activity.getPackageName(), null));
+        if (IntentUtils.isIntentAvailable(activity, intent)) {
+            activity.startActivity(intent);
         }
     }
 
