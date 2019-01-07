@@ -3,6 +3,7 @@ package library.common.framework.logic.permissions;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 
@@ -32,6 +33,32 @@ public class MPermissions {
         if (permissionsFragment == null) {
             permissionsFragment = new PermissionsFragment();
             FragmentManager fragmentManager = activity.getSupportFragmentManager();
+            fragmentManager
+                    .beginTransaction()
+                    .add(permissionsFragment, TAG)
+                    .commitAllowingStateLoss();
+            fragmentManager.executePendingTransactions();
+        }
+    }
+
+    /**
+     * @param fragment
+     */
+    public MPermissions(@NonNull Fragment fragment) {
+        this(fragment, true);
+
+    }
+
+    /**
+     * @param fragment
+     * @param showDenied 是否提示权限被拒绝
+     */
+    public MPermissions(@NonNull Fragment fragment, boolean showDenied) {
+        this.showDenied = showDenied;
+        permissionsFragment = (PermissionsFragment) fragment.getChildFragmentManager().findFragmentByTag(TAG);
+        if (permissionsFragment == null) {
+            permissionsFragment = new PermissionsFragment();
+            FragmentManager fragmentManager = fragment.getChildFragmentManager();
             fragmentManager
                     .beginTransaction()
                     .add(permissionsFragment, TAG)
