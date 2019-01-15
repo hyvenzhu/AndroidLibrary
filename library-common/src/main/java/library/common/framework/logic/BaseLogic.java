@@ -3,6 +3,7 @@ package library.common.framework.logic;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import library.common.framework.logic.net.RetrofitManager;
@@ -51,8 +52,8 @@ public abstract class BaseLogic extends EventLogic {
      * @param observable
      * @param what       请求标示
      */
-    public void sendRequest(final Observable observable, final int what) {
-        sendRequest(observable, null, what);
+    public Disposable sendRequest(final Observable observable, final int what) {
+        return sendRequest(observable, null, what);
     }
 
     /**
@@ -61,9 +62,10 @@ public abstract class BaseLogic extends EventLogic {
      * @param observable
      * @param what          请求标示
      * @param errorConsumer 异常自定义处理
+     * @return
      */
-    public <T> void sendRequest(final Observable observable, final ErrorConsumer<T> errorConsumer, final int what) {
-        observable.subscribeOn(Schedulers.io())
+    public <T> Disposable sendRequest(final Observable observable, final ErrorConsumer<T> errorConsumer, final int what) {
+        return observable.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer() {
                     @Override
