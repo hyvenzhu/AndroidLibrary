@@ -28,7 +28,7 @@ import library.common.util.IntentUtils;
  * 通知管理类
  *
  * @author zhuhf
- * @version [motorfans, 2018/10/26]
+ * @version [AndroidLibrary, 2018/10/26]
  */
 public class NotifyManager {
     private Context context;

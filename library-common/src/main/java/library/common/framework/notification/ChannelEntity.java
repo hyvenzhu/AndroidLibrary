@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
  * 通知渠道
  *
  * @author zhuhf
- * @version [motorfans, 2018/10/26]
+ * @version [AndroidLibrary, 2018/10/26]
  */
 public class ChannelEntity {
     /**

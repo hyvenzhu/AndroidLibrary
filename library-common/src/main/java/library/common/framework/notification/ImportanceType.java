@@ -6,7 +6,7 @@ import android.support.annotation.IntDef;
  * 通知重要级别
  *
  * @author zhuhf
- * @version [motorfans, 2018/10/26]
+ * @version [AndroidLibrary, 2018/10/26]
  */
 @IntDef({ImportanceType.IMPORTANCE_NONE,
         ImportanceType.IMPORTANCE_MIN,

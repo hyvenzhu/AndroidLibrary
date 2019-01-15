@@ -6,7 +6,7 @@ import android.view.View;
  * 方便选择性的实现部分方法
  *
  * @author zhuhf
- * @version [motorfans, 2018/9/17]
+ * @version [AndroidLibrary, 2018/9/17]
  */
 public class SimpleRecyclerClickListener extends RecyclerClickListener {
     @Override
