@@ -97,7 +97,7 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isDestroyed = false;
-        viewDelegate.initWidget();
+        viewDelegate.initWidget(getArguments());
         onCreate();
     }
     

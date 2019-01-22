@@ -83,7 +83,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isDestroyed = false;
-        viewDelegate.initWidget();
+        viewDelegate.initWidget(getArguments());
         onCreate();
     }
     

@@ -17,6 +17,7 @@ package library.common.framework.ui.activity.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -242,6 +243,16 @@ public abstract class AppDelegate implements IDelegate {
 
     @Override
     public void initWidget() {
+    }
+
+    @Override
+    public void initWidget(Intent intent) {
+        initWidget();
+    }
+
+    @Override
+    public void initWidget(Bundle args) {
+        initWidget();
     }
 
     public <T extends View> T bindView(int id) {

@@ -60,7 +60,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
         setContentView(viewDelegate.getContentView());
         initToolbar();
         isDestroyed = false;
-        viewDelegate.initWidget();
+        viewDelegate.initWidget(getIntent());
         onCreate();
     }
 

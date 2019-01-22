@@ -1,12 +1,8 @@
 package library.common.framework.task;
 
 import android.os.Message;
-
-import library.common.framework.logic.LogicCallback;
-
-import org.greenrobot.eventbus.EventBus;
-
 import java.lang.ref.WeakReference;
+import library.common.framework.logic.LogicCallback;
 
 /**
  * 任务父类, 子类继承并实现doInBackground()方法, 在其中执行耗时操作
@@ -27,6 +23,10 @@ public abstract class Task implements ITask {
         }
     }
 
+    public Task() {
+
+    }
+
     /**
      * 封装结果,将doInBackground()与taskId合并成Message
      *
@@ -38,7 +38,7 @@ public abstract class Task implements ITask {
         msg.obj = doInBackground();
         return msg;
     }
-    
+
     public void callback(Message message) {
         if (callbackReference != null && callbackReference.get() != null) {
             callbackReference.get().call(message);
