@@ -36,7 +36,6 @@ public interface IDelegate {
     
     void create(Fragment fragment, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
-    @Deprecated
     void initWidget();
 
     void initWidget(Intent intent);

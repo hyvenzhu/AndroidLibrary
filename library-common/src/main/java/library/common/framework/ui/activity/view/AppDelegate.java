@@ -303,7 +303,7 @@ public abstract class AppDelegate implements IDelegate {
         return (T) context;
     }
 
-    protected <T extends Fragment> T getFragment() {
+    public <T extends Fragment> T getFragment() {
         return (T) fragment;
     }
 
