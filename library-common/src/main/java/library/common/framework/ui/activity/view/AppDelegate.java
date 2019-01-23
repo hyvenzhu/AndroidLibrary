@@ -30,7 +30,9 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import library.common.R;
@@ -49,13 +51,14 @@ import library.common.util.StatusBarUtils;
 public abstract class AppDelegate implements IDelegate {
     protected final SparseArray<View> mViews = new SparseArray<View>();
 
-    ViewGroup rootView;
-    ViewGroup titleGroup;
-    Context context;
-    Fragment fragment;
-    Callback callback;
-    boolean isVisible;
+    private ViewGroup rootView;
+    private ViewGroup titleGroup;
+    private Context context;
+    private Fragment fragment;
+    private Callback callback;
+    private boolean isVisible;
     protected boolean isActivity;
+    private List<ViewController> viewControllers = new ArrayList<>();
 
     public <T> void setCallback(Callback<T> callback) {
         this.callback = callback;
@@ -71,7 +74,20 @@ public abstract class AppDelegate implements IDelegate {
         doCall(null);
     }
 
-    public abstract int getContentLayoutId();
+    /**
+     * 返回标题栏，通过重写自定义标题栏
+     *
+     * @param root
+     * @return
+     */
+    protected abstract View getTitleView(ViewGroup root);
+
+    /**
+     * 返回内容布局
+     *
+     * @return
+     */
+    protected abstract int getContentLayoutId();
 
     @Override
     public void create(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,10 +100,9 @@ public abstract class AppDelegate implements IDelegate {
         titleGroup = rootView.findViewWithTag("title");
         ViewGroup content = rootView.findViewWithTag("content");
 
-        View titleView = getTitleView();
+        View titleView = getTitleView(titleGroup);
         if (titleView != null) {
             titleGroup.setVisibility(View.VISIBLE);
-            titleGroup.addView(titleView);
         } else {
             titleGroup.setVisibility(View.GONE);
         }
@@ -95,8 +110,7 @@ public abstract class AppDelegate implements IDelegate {
         // 内容布局
         int contentLayoutId = getContentLayoutId();
         if (contentLayoutId > 0) {
-            View contentView = inflater.inflate(contentLayoutId, container, false);
-            content.addView(contentView, 0, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
+            inflater.inflate(contentLayoutId, content, true);
 
             // ButterKnife
             ButterKnife.bind(this, rootView);
@@ -109,6 +123,7 @@ public abstract class AppDelegate implements IDelegate {
     public void create(Fragment fragment, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.fragment = fragment;
         create(fragment.getContext(), inflater, container, savedInstanceState);
+        isActivity = false;
     }
 
     public void hideTitle() {
@@ -120,7 +135,7 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     /**
-     * 自定义标题栏适应状态栏（标题栏高度需要为 wrap_content）
+     * 自定义标题栏适应状态栏（标题栏高度需要为wrap_content或者match_parent）
      *
      * @param title
      */
@@ -180,16 +195,25 @@ public abstract class AppDelegate implements IDelegate {
     @Override
     public void onShow() {
         isVisible = true;
+        for (ViewController controller : viewControllers) {
+            controller.onShow();
+        }
     }
 
     @Override
     public void onHide() {
         isVisible = false;
+        for (ViewController controller : viewControllers) {
+            controller.onHide();
+        }
     }
 
     @Override
     public void onDestroy() {
-
+        for (ViewController controller : viewControllers) {
+            controller.onDestroy();
+        }
+        viewControllers.clear();
     }
 
     /**
@@ -200,15 +224,6 @@ public abstract class AppDelegate implements IDelegate {
     @Override
     public boolean isVisible() {
         return isVisible;
-    }
-
-    /**
-     * 返回标题栏，通过重写自定义标题栏
-     *
-     * @return
-     */
-    protected View getTitleView() {
-        return null;
     }
 
     @Override
@@ -237,7 +252,7 @@ public abstract class AppDelegate implements IDelegate {
      *
      * @return
      */
-    public View getRootView() {
+    protected View getRootView() {
         return null;
     }
 
@@ -255,17 +270,13 @@ public abstract class AppDelegate implements IDelegate {
         initWidget();
     }
 
-    public <T extends View> T bindView(int id) {
+    public <T extends View> T get(int id) {
         T view = (T) mViews.get(id);
         if (view == null) {
-            view = (T) rootView.findViewById(id);
+            view = rootView.findViewById(id);
             mViews.put(id, view);
         }
         return view;
-    }
-
-    public <T extends View> T get(int id) {
-        return (T) bindView(id);
     }
 
     public void setOnClickListener(final View.OnClickListener listener, int... ids) {
@@ -288,7 +299,7 @@ public abstract class AppDelegate implements IDelegate {
         }
     }
 
-    public <T extends Activity> T getActivity() {
+    protected <T extends Activity> T getActivity() {
         return (T) context;
     }
 
@@ -296,7 +307,7 @@ public abstract class AppDelegate implements IDelegate {
         return (T) fragment;
     }
 
-    public Resources getResources() {
+    protected Resources getResources() {
         FragmentActivity activity = getActivity();
         if (activity != null) {
             return activity.getResources();
@@ -305,14 +316,14 @@ public abstract class AppDelegate implements IDelegate {
         }
     }
 
-    public String getString(@StringRes int strRes) {
+    protected String getString(@StringRes int strRes) {
         if (getActivity() != null) {
             return getActivity().getString(strRes);
         }
         return null;
     }
 
-    public String getString(@StringRes int strRes, Object... formatArgs) {
+    protected String getString(@StringRes int strRes, Object... formatArgs) {
         if (getActivity() != null) {
             return getActivity().getString(strRes, formatArgs);
         }
@@ -462,5 +473,9 @@ public abstract class AppDelegate implements IDelegate {
      */
     public void hideProgress() {
         mLoadViewHelper.hideProgress();
+    }
+
+    void addViewController(ViewController viewController) {
+        viewControllers.add(viewController);
     }
 }

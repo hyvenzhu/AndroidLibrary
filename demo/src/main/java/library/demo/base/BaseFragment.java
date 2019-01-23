@@ -1,8 +1,8 @@
-package android.demo.base;
+package library.demo.base;
 
 import android.os.Message;
 
-import library.common.framework.ui.activity.presenter.ActivityPresenter;
+import library.common.framework.ui.activity.presenter.FragmentPresenter;
 import library.common.framework.ui.activity.view.IDelegate;
 
 
@@ -10,7 +10,7 @@ import library.common.framework.ui.activity.view.IDelegate;
  * @author zhuhf
  * @version [AndroidLibrary, 2018-03-07]
  */
-public abstract class BaseActivity<T extends IDelegate> extends ActivityPresenter<T> {
+public abstract class BaseFragment<T extends IDelegate> extends FragmentPresenter<T> {
     @Override
     protected void onResponse(Message msg) {
         super.onResponse(msg);
@@ -22,7 +22,7 @@ public abstract class BaseActivity<T extends IDelegate> extends ActivityPresente
                 onFailure(msg.what, infoResult.getData(), infoResult.getCode(), infoResult.getErrmsg());
             }
         } else {
-            onFailure(msg.what, msg.obj, null, NetworkError.errorMsg(getApplicationContext(), msg.obj));
+            onFailure(msg.what, msg.obj, null, NetworkError.errorMsg(getActivity(), msg.obj));
         }
     }
     

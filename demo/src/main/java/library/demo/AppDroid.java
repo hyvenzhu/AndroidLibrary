@@ -1,4 +1,4 @@
-package android.demo;
+package library.demo;
 
 import android.app.Application;
 

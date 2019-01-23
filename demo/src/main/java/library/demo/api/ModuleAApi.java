@@ -1,7 +1,7 @@
-package android.demo.api;
+package library.demo.api;
 
-import android.demo.api.res.ListCategory;
-import android.demo.base.InfoResult;
+import library.demo.api.res.ListCategory;
+import library.demo.base.InfoResult;
 
 import io.reactivex.Observable;
 import retrofit2.http.POST;

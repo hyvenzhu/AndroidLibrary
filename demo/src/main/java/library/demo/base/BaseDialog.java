@@ -1,4 +1,4 @@
-package android.demo.base;
+package library.demo.base;
 
 import android.content.Context;
 import android.graphics.Color;

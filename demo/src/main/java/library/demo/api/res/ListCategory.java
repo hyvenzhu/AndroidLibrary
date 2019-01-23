@@ -1,4 +1,4 @@
-package android.demo.api.res;
+package library.demo.api.res;
 
 import java.io.Serializable;
 import java.util.List;

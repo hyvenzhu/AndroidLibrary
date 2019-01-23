@@ -1,15 +1,16 @@
-package android.demo.base;
+package library.demo.base;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.google.gson.JsonParseException;
-import android.demo.R;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.util.concurrent.TimeoutException;
+
+import library.demo.R;
 
 /**
  * @author zhuhf

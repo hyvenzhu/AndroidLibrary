@@ -1,4 +1,4 @@
-package android.demo.base;
+package library.demo.base;
 
 import java.io.Serializable;
 
