@@ -1,6 +1,7 @@
-package android.demo.base;
+package library.demo.base;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 import library.common.framework.ui.activity.view.AppDelegate;
 
@@ -13,7 +14,7 @@ import library.common.framework.ui.activity.view.AppDelegate;
  */
 public abstract class NoTitleBarDelegate extends AppDelegate {
     @Override
-    protected View getTitleView() {
+    public View getTitleView(ViewGroup root) {
         return null;
     }
 }

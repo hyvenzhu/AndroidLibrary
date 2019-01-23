@@ -1,8 +1,8 @@
-package android.demo.logic;
+package library.demo.logic;
 
-import android.demo.R;
-import android.demo.api.ModuleAApi;
-import android.demo.base.DemoBaseLogic;
+import library.demo.R;
+import library.demo.api.ModuleAApi;
+import library.demo.base.DemoBaseLogic;
 
 
 /**
