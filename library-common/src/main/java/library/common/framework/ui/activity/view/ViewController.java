@@ -20,11 +20,12 @@ import butterknife.ButterKnife;
  */
 public abstract class ViewController {
     AppDelegate mAppDelegate;
+    View mView;
 
     public ViewController(@NonNull AppDelegate appDelegate, int parentId) {
         mAppDelegate = appDelegate;
         ViewGroup parent = appDelegate.getContentView().findViewById(parentId);
-        LayoutInflater.from(parent.getContext()).inflate(getView(), parent, true);
+        mView = LayoutInflater.from(parent.getContext()).inflate(getView(), parent, true);
         ButterKnife.bind(this, parent);
         appDelegate.addViewController(this);
         initWidget();
@@ -38,7 +39,8 @@ public abstract class ViewController {
     public abstract @LayoutRes
     int getView();
 
-    protected void initWidget() {
+    public void setVisibility(int visibility) {
+        mView.setVisibility(visibility);
     }
 
     public void setOnClickListener(final View.OnClickListener listener, int... ids) {
@@ -47,6 +49,9 @@ public abstract class ViewController {
 
     public boolean isVisible() {
         return mAppDelegate.isVisible();
+    }
+
+    protected void initWidget() {
     }
 
     protected <T extends Activity> T getActivity() {

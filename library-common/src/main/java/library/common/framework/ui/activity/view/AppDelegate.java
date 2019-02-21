@@ -17,6 +17,7 @@ package library.common.framework.ui.activity.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -141,6 +142,18 @@ public abstract class AppDelegate implements IDelegate {
      */
     public void fitCustomTitle(View title) {
         StatusBarUtils.setTranslucent(getActivity(), null);
+        if (title != null) {
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+                title.setPadding(title.getPaddingLeft(), title.getPaddingTop() + statusBarHeight,
+                        title.getPaddingRight(), title.getPaddingBottom());
+            }
+        }
+    }
+
+    public void fitCustomTitle(Fragment fragment, View title) {
+        StatusBarUtils.setTranslucent(fragment, null);
         if (title != null) {
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
@@ -466,6 +479,17 @@ public abstract class AppDelegate implements IDelegate {
      */
     public void showProgress(String message, boolean cancelable) {
         mLoadViewHelper.showProgress(message, cancelable);
+    }
+
+    /**
+     * 显示加载框
+     *
+     * @param message
+     * @param cancelable
+     * @param cancelListener
+     */
+    public void showProgress(String message, boolean cancelable, DialogInterface.OnCancelListener cancelListener) {
+        mLoadViewHelper.showProgress(message, cancelable, cancelListener);
     }
 
     /**

@@ -1,6 +1,7 @@
 package library.common.framework.ui.widget;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
@@ -94,7 +95,16 @@ public abstract class AbstractLoadHelper {
      * @param cancelable
      */
     public abstract void showProgress(String message, boolean cancelable);
-    
+
+    /**
+     * 显示加载框
+     *
+     * @param message
+     * @param cancelable
+     * @param cancelListener
+     */
+    public abstract void showProgress(String message, boolean cancelable, DialogInterface.OnCancelListener cancelListener);
+
     /**
      * 隐藏加载框
      */
