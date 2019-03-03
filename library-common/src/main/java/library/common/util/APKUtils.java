@@ -1,6 +1,7 @@
 package library.common.util;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.os.Process;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
@@ -21,6 +23,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import java.io.File;
+import java.util.Iterator;
+import java.util.List;
 
 import library.common.App;
 
@@ -288,5 +292,52 @@ public class APKUtils {
             e.printStackTrace();
         }
         return false;
+    }
+
+    /**
+     * 是否是应用主进程
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isMainProcess(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        String mainProcessName = context.getPackageName();
+        int myPid = Process.myPid();
+        List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
+        if (processInfos == null) {
+            LogUtils.i("isMainProcess get getRunningAppProcesses null");
+            List<ActivityManager.RunningServiceInfo> processList = am.getRunningServices(2147483647);
+            if (processList == null) {
+                LogUtils.i("isMainProcess get getRunningServices null");
+                return false;
+            } else {
+                Iterator var9 = processList.iterator();
+
+                ActivityManager.RunningServiceInfo rsi;
+                do {
+                    if (!var9.hasNext()) {
+                        return false;
+                    }
+
+                    rsi = (ActivityManager.RunningServiceInfo) var9.next();
+                } while (rsi.pid != myPid || !mainProcessName.equals(rsi.service.getPackageName()));
+
+                return true;
+            }
+        } else {
+            Iterator var5 = processInfos.iterator();
+
+            ActivityManager.RunningAppProcessInfo info;
+            do {
+                if (!var5.hasNext()) {
+                    return false;
+                }
+
+                info = (ActivityManager.RunningAppProcessInfo) var5.next();
+            } while (info.pid != myPid || !mainProcessName.equals(info.processName));
+
+            return true;
+        }
     }
 }

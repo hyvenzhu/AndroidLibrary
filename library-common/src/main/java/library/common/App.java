@@ -22,6 +22,7 @@ public class App {
     static Context appContext;
     static UIStateHelper uiStateHelper;
     int visibleActivityCount = 0;
+    static Application sApplication;
     InnerDB innerDB = new InnerDB() {
         @Override
         public void onDBCreate(SQLiteDatabase db) {
@@ -44,6 +45,7 @@ public class App {
     }
 
     public static void init(Application application, Interceptor applicationInterceptor, Interceptor networkInterceptor) {
+        sApplication = application;
         sInstance = new App();
         appContext = application.getApplicationContext();
         uiStateHelper = new UIStateHelper();
@@ -111,6 +113,10 @@ public class App {
 
     public Context getApplicationContext() {
         return appContext;
+    }
+
+    public Application getApplication() {
+        return sApplication;
     }
 
     public UIStateHelper getUiStateHelper() {

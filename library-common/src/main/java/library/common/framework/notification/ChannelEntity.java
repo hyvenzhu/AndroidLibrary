@@ -1,5 +1,6 @@
 package library.common.framework.notification;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
 /**
@@ -29,6 +30,14 @@ public class ChannelEntity {
      * 是否显示icon角标
      */
     private boolean showBadge;
+    /**
+     * 铃声
+     */
+    private Uri sound;
+    /**
+     * 震动
+     */
+    private long[] vibratePattern;
 
     public ChannelEntity(@NonNull String channelId, @NonNull String channelName, @ImportanceType int importance) {
         this.channelId = channelId;
@@ -62,5 +71,21 @@ public class ChannelEntity {
 
     public void setShowBadge(boolean showBadge) {
         this.showBadge = showBadge;
+    }
+
+    public void setSound(Uri sound) {
+        this.sound = sound;
+    }
+
+    public Uri getSound() {
+        return sound;
+    }
+
+    public long[] getVibratePattern() {
+        return vibratePattern;
+    }
+
+    public void setVibratePattern(long[] vibratePattern) {
+        this.vibratePattern = vibratePattern;
     }
 }

@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 /**
@@ -58,5 +57,5 @@ public interface IDelegate {
      * 返回 Activity、Fragment、Dialog 的内容布局
      * @return
      */
-    View getContentView();
+    ViewGroup getContentView();
 }

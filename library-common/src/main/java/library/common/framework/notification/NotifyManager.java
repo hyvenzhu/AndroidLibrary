@@ -104,6 +104,12 @@ public class NotifyManager {
         if (!TextUtils.isEmpty(groupId)) {
             channel.setGroup(groupId);
         }
+        if (channelEntity.getSound() != null) {
+            channel.setSound(channelEntity.getSound(), null);
+        }
+        if (channelEntity.getVibratePattern() != null) {
+            channel.setVibrationPattern(channelEntity.getVibratePattern());
+        }
         notificationManager.createNotificationChannel(channel);
     }
 
@@ -164,13 +170,35 @@ public class NotifyManager {
         return notifyId;
     }
 
+    public int notifyNotify(String tag, int notifyId, @NonNull Notification notification) {
+        notificationManager.notify(tag, notifyId, notification);
+        return notifyId;
+    }
+
     /**
-     * 关闭状态栏通知的显示
+     * 关闭状态栏通知
      *
      * @param notifyId 通知Id
      */
     public void cancelNotify(int notifyId) {
         notificationManager.cancel(notifyId);
+    }
+
+    /**
+     * 关闭状态栏通知
+     *
+     * @param tag
+     * @param notifyId
+     */
+    public void cancelNotify(String tag, int notifyId) {
+        notificationManager.cancel(tag, notifyId);
+    }
+
+    /**
+     * 关闭状态栏所有通知
+     */
+    public void cancelAll() {
+        notificationManager.cancelAll();
     }
 
     /**
@@ -263,7 +291,7 @@ public class NotifyManager {
      *
      * @return int, [0, 50000)
      */
-    private int getRandomId() {
+    public int getRandomId() {
         return random.nextInt(50000);
     }
 }

@@ -15,7 +15,7 @@ public class UIStateHelper {
     /**
      * 保存栈中的Activity
      */
-    private List<Activity> activityStack = new ArrayList<>();
+    public List<Activity> activityStack = new ArrayList<>();
     
     /**
      * Activity创建时加入栈中

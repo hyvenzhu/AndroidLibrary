@@ -21,7 +21,7 @@ import library.common.R;
  * @version [AndroidLibrary, 2018-04-18]
  */
 public class HolderGlideTarget extends DrawableImageViewTarget {
-    ImageView.ScaleType mScaleType = ImageView.ScaleType.CENTER_CROP;
+    ImageView.ScaleType mScaleType;
     /**
      * ImageView 背景
      */
@@ -70,7 +70,9 @@ public class HolderGlideTarget extends DrawableImageViewTarget {
 
     void preLoad(final Drawable preDrawable) {
         ImageView imageView = getView();
-        imageView.setBackgroundResource(bgRes);
+        if (bgRes != -1) {
+            imageView.setBackgroundResource(bgRes);
+        }
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setImageDrawable(preDrawable);
     }

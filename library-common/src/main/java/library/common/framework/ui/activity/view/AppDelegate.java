@@ -250,7 +250,7 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     @Override
-    public View getContentView() {
+    public ViewGroup getContentView() {
         return rootView;
     }
 
