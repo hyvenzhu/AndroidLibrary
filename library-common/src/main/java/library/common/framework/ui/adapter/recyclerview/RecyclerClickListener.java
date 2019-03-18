@@ -11,6 +11,8 @@ import android.view.View;
 import java.util.Calendar;
 import java.util.Set;
 
+import library.common.util.NoDoubleClickListener;
+
 
 /**
  * <p>
@@ -28,7 +30,6 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
     private boolean mIsPrePressed = false;
     private boolean mIsShowPress = false;
     private View mPressedView = null;
-    static final int MIN_CLICK_DELAY_TIME = 1000;
     private long lastClickTime = 0;
 
     @Override
@@ -290,7 +291,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
 
     private boolean isDoubleClick() {
         long currentTime = Calendar.getInstance().getTimeInMillis();
-        if (currentTime - lastClickTime > MIN_CLICK_DELAY_TIME) {
+        if (currentTime - lastClickTime > NoDoubleClickListener.MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
             return false;
         } else {

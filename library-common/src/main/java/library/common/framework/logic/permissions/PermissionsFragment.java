@@ -20,6 +20,7 @@ import android.view.View;
 import library.common.R;
 import library.common.util.IntentUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ import java.util.List;
 
 public class PermissionsFragment extends Fragment {
     private static final int PERMISSIONS_REQUEST_CODE = 1;
-    MPermissions.PermissionsCallback callback;
+    WeakReference<MPermissions.PermissionsCallback> ref;
     
     /**
      * 待申请权限
@@ -54,10 +55,10 @@ public class PermissionsFragment extends Fragment {
     void requestPermissions(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull MPermissions.PermissionsCallback callback, boolean showDenied) {
         this.permissionDesc = permissionDesc;
         this.permissions = permissions;
-        this.callback = callback;
+        ref = new WeakReference<>(callback);
         this.showDenied = showDenied;
 
-        if (hasAllPermissionsGranted(permissions)) {
+        if (hasAllPermissionsGranted(permissions) && callback != null) {
             callback.onGranted();
         } else {
             requestPermissions();
@@ -76,12 +77,13 @@ public class PermissionsFragment extends Fragment {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        MPermissions.PermissionsCallback callback = ref.get();
         if (requestCode == PERMISSIONS_REQUEST_CODE && hasAllPermissionsGranted(grantResults) && callback != null) {
             callback.onGranted();
         } else {
             if (showDenied) {
                 showMissingPermissionDialog();
-            } else {
+            } else if (callback != null) {
                 callback.onDenied();
             }
         }
@@ -103,6 +105,7 @@ public class PermissionsFragment extends Fragment {
             @Override
             public void onDismissed(Snackbar snackbar, int event) {
                 // 不是点击按钮取消的
+                MPermissions.PermissionsCallback callback = ref.get();
                 if (event != Snackbar.Callback.DISMISS_EVENT_ACTION && callback != null) {
                     callback.onDenied();
                 }
@@ -203,7 +206,10 @@ public class PermissionsFragment extends Fragment {
         if (intent.resolveActivity(getActivity().getPackageManager()) != null) {
             IntentUtils.startActivity(intent, getActivity());
         } else {
-            callback.onDenied();
+            MPermissions.PermissionsCallback callback = ref.get();
+            if (callback != null) {
+                callback.onDenied();
+            }
         }
     }
 }
