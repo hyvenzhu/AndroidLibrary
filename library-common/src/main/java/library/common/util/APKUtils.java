@@ -76,6 +76,10 @@ public class APKUtils {
         return context.getApplicationContext().getPackageName();
     }
 
+    public static String getAuthority(Context context) {
+        return getPackageName(context) + ".android7.fileprovider";
+    }
+
     /**
      * 获得磁盘缓存目录 [PS：应用卸载后会被自动删除]
      *

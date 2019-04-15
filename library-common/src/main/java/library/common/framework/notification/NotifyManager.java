@@ -294,6 +294,11 @@ public class NotifyManager {
     public int getRandomId() {
         return random.nextInt(50000);
     }
+
+    public static long[] getVibrate() {
+        // 静止、震动
+        return new long[]{0, 200, 200, 200};
+    }
 }
 
 

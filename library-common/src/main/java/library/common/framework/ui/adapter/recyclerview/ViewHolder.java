@@ -57,6 +57,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         childClickViewIds.add(viewId);
         return this;
     }
+
+    public ViewHolder removeOnClickListener(int viewId) {
+        childClickViewIds.remove(viewId);
+        return this;
+    }
     
     /**
      * add long click view id
@@ -66,6 +71,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
      */
     public ViewHolder addOnLongClickListener(int viewId) {
         itemChildLongClickViewIds.add(viewId);
+        return this;
+    }
+
+    public ViewHolder removeOnLongClickListener(int viewId) {
+        itemChildLongClickViewIds.remove(viewId);
         return this;
     }
 }

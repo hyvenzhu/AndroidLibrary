@@ -143,22 +143,48 @@ public abstract class AppDelegate implements IDelegate {
     public void fitCustomTitle(View title) {
         StatusBarUtils.setTranslucent(getActivity(), null);
         if (title != null) {
+            Object tag = title.getTag(R.id.com_paddingTop);
+            if (tag == null) {
+                tag = title.getPaddingTop();
+                title.setTag(R.id.com_paddingTop, tag);
+            }
+            int paddingTop = Integer.parseInt(tag.toString());
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
                 int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-                title.setPadding(title.getPaddingLeft(), title.getPaddingTop() + statusBarHeight,
+                title.setPadding(title.getPaddingLeft(), paddingTop + statusBarHeight,
                         title.getPaddingRight(), title.getPaddingBottom());
             }
+        }
+    }
+
+    public void cancelFitCustomTitle(View title) {
+        StatusBarUtils.setTranslucent(getActivity(), null);
+        if (title != null) {
+            Object tag = title.getTag(R.id.com_paddingTop);
+            if (tag == null) {
+                tag = title.getPaddingTop();
+                title.setTag(R.id.com_paddingTop, tag);
+            }
+            int paddingTop = Integer.parseInt(tag.toString());
+            title.setPadding(title.getPaddingLeft(), paddingTop,
+                    title.getPaddingRight(), title.getPaddingBottom());
         }
     }
 
     public void fitCustomTitle(Fragment fragment, View title) {
         StatusBarUtils.setTranslucent(fragment, null);
         if (title != null) {
+            Object tag = title.getTag(R.id.com_paddingTop);
+            if (tag == null) {
+                tag = title.getPaddingTop();
+                title.setTag(R.id.com_paddingTop, tag);
+            }
+            int paddingTop = Integer.parseInt(tag.toString());
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
                 int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-                title.setPadding(title.getPaddingLeft(), title.getPaddingTop() + statusBarHeight,
+                title.setPadding(title.getPaddingLeft(), paddingTop + statusBarHeight,
                         title.getPaddingRight(), title.getPaddingBottom());
             }
         }
@@ -175,7 +201,7 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     /**
-     * 设置状态栏字体黑色
+     * 设置状态栏字体黑色（需要先调用{@link AppDelegate#fitCustomTitle(View)}、{@link AppDelegate#fitCustomTitle(Fragment, View)}）
      *
      * @param activity
      */
@@ -184,7 +210,7 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     /**
-     * 设置状态栏字体白色
+     * 设置状态栏字体白色（需要先调用{@link AppDelegate#fitCustomTitle(View)}、{@link AppDelegate#fitCustomTitle(Fragment, View)}）
      *
      * @param activity
      */
@@ -422,6 +448,10 @@ public abstract class AppDelegate implements IDelegate {
 
     public void showLoadEmpty(String emptyMsg) {
         showLoadEmpty(emptyMsg, -1, -1, null);
+    }
+
+    public void showLoadEmpty(String emptyMsg, View.OnClickListener onClickListener) {
+        showLoadEmpty(emptyMsg, -1, -1, onClickListener);
     }
 
     public void showLoadEmpty(@DrawableRes int bgRes) {
