@@ -27,4 +27,16 @@ public class ToastHelper {
         }
         mToast.show();
     }
+
+    public static void showToast(Context context, int message) {
+        if (mToast == null) {
+            mToast = android.widget.Toast.makeText(context.getApplicationContext(),
+                    context.getString(message),
+                    android.widget.Toast.LENGTH_SHORT);
+            mToast.setGravity(Gravity.CENTER, 0, 0);
+        } else {
+            mToast.setText(message);
+        }
+        mToast.show();
+    }
 }

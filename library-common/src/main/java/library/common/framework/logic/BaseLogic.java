@@ -36,6 +36,13 @@ public abstract class BaseLogic extends EventLogic {
     }
 
     /**
+     * 重新读取配置
+     */
+    public void rebuildConfig() {
+        retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl());
+    }
+
+    /**
      * create api service
      *
      * @param service

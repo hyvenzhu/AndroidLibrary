@@ -4,25 +4,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Process;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.AppOpsManagerCompat;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 
-import library.common.R;
-import library.common.util.IntentUtils;
-
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import library.common.R;
+import library.common.util.IntentUtils;
 
 /**
  * @author hiphonezhu@gmail.com
@@ -32,7 +29,7 @@ import java.util.List;
 public class PermissionsFragment extends Fragment {
     private static final int PERMISSIONS_REQUEST_CODE = 1;
     WeakReference<MPermissions.PermissionsCallback> ref;
-    
+
     /**
      * 待申请权限
      */
@@ -154,30 +151,11 @@ public class PermissionsFragment extends Fragment {
      * @return returns true if context has access to the given permission, false otherwise.
      */
     public static boolean hasSelfPermission(Context context, String permission) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && "Xiaomi".equalsIgnoreCase(Build.MANUFACTURER)) {
-            return hasSelfPermissionForXiaomi(context, permission);
-        }
         try {
             return ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
         } catch (RuntimeException t) {
             return false;
         }
-    }
-
-    /**
-     * 小米手机如果拒绝过某一个权限，然后主动到设置中打开，还是需要再次申请该权限
-     * @param context
-     * @param permission
-     * @return
-     */
-    private static boolean hasSelfPermissionForXiaomi(Context context, String permission) {
-        String permissionToOp = AppOpsManagerCompat.permissionToOp(permission);
-        if (permissionToOp == null) {
-            // in case of normal permissions(e.g. INTERNET)
-            return true;
-        }
-        int noteOp = AppOpsManagerCompat.noteOp(context, permissionToOp, Process.myUid(), context.getPackageName());
-        return noteOp == AppOpsManagerCompat.MODE_ALLOWED && ActivityCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED;
     }
 
     /**
