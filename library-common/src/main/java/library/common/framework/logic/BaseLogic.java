@@ -5,6 +5,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import library.common.framework.logic.net.RetrofitManager;
 import library.common.framework.task.Task;
@@ -20,6 +21,7 @@ import retrofit2.Retrofit;
  */
 public abstract class BaseLogic extends EventLogic {
     protected Retrofit retrofit;
+    private IRetryHandler retryHandler;
 
     public BaseLogic() {
         this(null);
@@ -40,6 +42,15 @@ public abstract class BaseLogic extends EventLogic {
      */
     public void rebuildConfig() {
         retrofit = RetrofitManager.getInstance().getRetrofit(getBaseUrl());
+    }
+
+    /**
+     * 重试
+     *
+     * @param retryHandler
+     */
+    public void retryWhen(IRetryHandler retryHandler) {
+        this.retryHandler = retryHandler;
     }
 
     /**
@@ -72,7 +83,28 @@ public abstract class BaseLogic extends EventLogic {
      * @return
      */
     public <T> Disposable sendRequest(final Observable observable, final ErrorConsumer<T> errorConsumer, final int what) {
-        return observable.subscribeOn(Schedulers.io())
+        Observable observableSource = observable;
+        if (retryHandler != null) {
+            observableSource = observable.flatMap(new Function() {
+                @Override
+                public Object apply(Object o) throws Exception {
+                    if (retryHandler.needRetry(o)) {
+                        return retryHandler.beforeSource().flatMap(new Function() {
+                            @Override
+                            public Object apply(Object o) throws Exception {
+                                if (retryHandler.isBeforeSourceSuccess(o)) {
+                                    return observable;
+                                } else {
+                                    return Observable.just(o);
+                                }
+                            }
+                        });
+                    }
+                    return Observable.just(o);
+                }
+            });
+        }
+        return observableSource.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer() {
                     @Override
@@ -83,7 +115,7 @@ public abstract class BaseLogic extends EventLogic {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         LogUtils.e(throwable, null, null);
-                        if (errorConsumer != null && errorConsumer.onError(throwable) != null) {
+                        if (errorConsumer != null) {
                             onResult(what, errorConsumer.onError(throwable));
                         } else {
                             onResult(what, throwable);
