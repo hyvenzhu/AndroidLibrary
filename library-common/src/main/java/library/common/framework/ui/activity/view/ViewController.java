@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * @version [AndroidLibrary, 2019-1-23]
  */
 public abstract class ViewController {
-    AppDelegate mAppDelegate;
+    protected AppDelegate mAppDelegate;
     View mView;
 
     public ViewController(@NonNull AppDelegate appDelegate, int parentId) {

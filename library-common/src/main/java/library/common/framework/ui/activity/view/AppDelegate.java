@@ -323,7 +323,7 @@ public abstract class AppDelegate implements IDelegate {
         }
     }
 
-    protected <T extends Activity> T getActivity() {
+    public <T extends Activity> T getActivity() {
         return (T) context;
     }
 

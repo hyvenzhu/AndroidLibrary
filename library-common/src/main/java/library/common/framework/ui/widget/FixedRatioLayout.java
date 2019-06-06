@@ -45,7 +45,23 @@ public class FixedRatioLayout extends FrameLayout {
             requestLayout();
         }
     }
-    
+
+    @UiThread
+    public void setWidthRatio(float ratio) {
+        if (ratio != mWidthRatio) {
+            mWidthRatio = ratio;
+            requestLayout();
+        }
+    }
+
+    public float getHeightRatio() {
+        return mHeightRatio;
+    }
+
+    public float getWidthRatio() {
+        return mWidthRatio;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
