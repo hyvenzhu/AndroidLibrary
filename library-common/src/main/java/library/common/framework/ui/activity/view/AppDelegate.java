@@ -23,6 +23,7 @@ import java.util.List;
 import butterknife.ButterKnife;
 import library.common.R;
 import library.common.framework.ui.widget.AbstractLoadHelper;
+import library.common.util.APKUtils;
 import library.common.util.Callback;
 import library.common.util.NoDoubleClickListener;
 import library.common.util.StatusBarUtils;
@@ -38,7 +39,7 @@ public abstract class AppDelegate implements IDelegate {
     protected final SparseArray<View> mViews = new SparseArray<View>();
 
     private ViewGroup rootView;
-    private ViewGroup titleGroup;
+    protected ViewGroup titleGroup;
     private Context context;
     private Fragment fragment;
     private Callback callback;
@@ -75,6 +76,15 @@ public abstract class AppDelegate implements IDelegate {
      */
     protected abstract int getContentLayoutId();
 
+    /**
+     * 返回标题栏高度（单位：px）
+     *
+     * @return
+     */
+    protected int getTitleHeight() {
+        return  APKUtils.dip2px(context, 45);
+    }
+
     @Override
     public void create(Context context, LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.context = context;
@@ -89,6 +99,14 @@ public abstract class AppDelegate implements IDelegate {
         View titleView = getTitleView(titleGroup);
         if (titleView != null) {
             titleGroup.setVisibility(View.VISIBLE);
+
+            int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
+                ViewGroup.LayoutParams params = titleGroup.getLayoutParams();
+                params.height = statusBarHeight + getTitleHeight();
+                titleGroup.setLayoutParams(params);
+            }
         } else {
             titleGroup.setVisibility(View.GONE);
         }
