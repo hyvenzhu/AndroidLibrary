@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -28,16 +27,6 @@ android {
         beta {}
         debug {}
     }
-
-}
-
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
-    }
 }
 
 dependencies {
@@ -63,8 +52,8 @@ dependencies {
     // RecyclerViewDivider：https://github.com/Fondesa/RecyclerViewDivider
     api 'com.github.fondesa:recycler-view-divider:2.0.0'
     // butterknife
-    api 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    api 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.1.1'
     // SmartRefreshLayout

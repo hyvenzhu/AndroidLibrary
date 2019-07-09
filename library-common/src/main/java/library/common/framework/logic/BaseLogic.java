@@ -60,7 +60,7 @@ public abstract class BaseLogic extends EventLogic {
      * @param <T>
      * @return
      */
-    public <T> T create(final Class<T> service) {
+    protected <T> T create(final Class<T> service) {
         return retrofit.create(service);
     }
 
@@ -70,7 +70,7 @@ public abstract class BaseLogic extends EventLogic {
      * @param observable
      * @param what       请求标示
      */
-    public Disposable sendRequest(final Observable observable, final int what) {
+    protected Disposable sendRequest(final Observable observable, final int what) {
         return sendRequest(observable, null, what);
     }
 
@@ -82,7 +82,7 @@ public abstract class BaseLogic extends EventLogic {
      * @param errorConsumer 异常自定义处理
      * @return
      */
-    public <T> Disposable sendRequest(final Observable observable, final ErrorConsumer<T> errorConsumer, final int what) {
+    protected <T> Disposable sendRequest(final Observable observable, final ErrorConsumer<T> errorConsumer, final int what) {
         Observable observableSource = observable;
         if (retryHandler != null) {
             observableSource = observable.flatMap(new Function() {
@@ -129,7 +129,7 @@ public abstract class BaseLogic extends EventLogic {
      *
      * @param task
      */
-    public void executeTask(Task task) {
+    protected void executeTask(Task task) {
         TaskExecutor.getInstance().execute(task);
     }
 
