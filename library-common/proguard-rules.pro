@@ -67,3 +67,7 @@
   public *;
 }
 ##---------------End: glide  ----------
+
+##---------------Begin: jsbridge  ----------
+-keep class org.json.** { *; }
+##---------------Begin: jsbridge  ----------

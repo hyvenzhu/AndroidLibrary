@@ -145,4 +145,13 @@ public class GlideDisplayable implements Displayable {
             Glide.with(context).load(resourceId).listener(mListener).apply(mRequestOptions).into(getTarget(imageView));
         }
     }
+
+    @Override
+    public void displayGif(Context context, ImageView imageView, @Nullable Integer resourceId) {
+        if (mRequestOptions == null) {
+            Glide.with(context).asGif().load(resourceId).into(imageView);
+        } else {
+            Glide.with(context).asGif().load(resourceId).apply(mRequestOptions).into(imageView);
+        }
+    }
 }

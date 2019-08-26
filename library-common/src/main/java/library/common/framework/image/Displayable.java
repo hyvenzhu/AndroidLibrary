@@ -134,4 +134,13 @@ public interface Displayable {
      * @param resourceId
      */
     void displayLocal(Context context, ImageView imageView, @Nullable Integer resourceId);
+
+    /**
+     * 显示Gif
+     *
+     * @param context
+     * @param imageView
+     * @param resourceId
+     */
+    void displayGif(Context context, ImageView imageView, @Nullable Integer resourceId);
 }
