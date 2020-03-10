@@ -1,8 +1,8 @@
 package library.common.util;
 
 import android.app.Activity;
-import android.support.annotation.ColorInt;
-import android.support.v4.app.Fragment;
+import androidx.annotation.ColorInt;
+import androidx.fragment.app.Fragment;
 import android.view.View;
 
 import com.jaeger.library.StatusBarUtil;

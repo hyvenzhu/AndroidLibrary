@@ -2,7 +2,7 @@ package library.common.framework.ui.statusbar;
 
 import android.app.Activity;
 import android.os.Build;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 import library.common.framework.ui.statusbar.impl.AndroidMStatusBar;
 import library.common.framework.ui.statusbar.impl.FlymeStatusBar;

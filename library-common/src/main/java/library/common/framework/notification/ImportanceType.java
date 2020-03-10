@@ -1,6 +1,6 @@
 package library.common.framework.notification;
 
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 
 /**
  * 通知重要级别

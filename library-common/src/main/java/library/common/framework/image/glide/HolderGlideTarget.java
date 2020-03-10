@@ -3,9 +3,9 @@ package library.common.framework.image.glide;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
@@ -73,7 +73,6 @@ public class HolderGlideTarget extends DrawableImageViewTarget {
         if (bgRes != -1) {
             imageView.setBackgroundResource(bgRes);
         }
-        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setImageDrawable(preDrawable);
     }
 }

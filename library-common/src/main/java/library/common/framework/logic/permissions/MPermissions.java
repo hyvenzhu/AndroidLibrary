@@ -1,11 +1,10 @@
 package library.common.framework.logic.permissions;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 /**
  * M运行时权限
@@ -76,22 +75,6 @@ public class MPermissions {
      */
     public void request(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull PermissionsCallback callback) {
         permissionsFragment.requestPermissions(permissionDesc, permissions, callback, showDenied);
-    }
-
-    /**
-     * 是否所有权限都已通过
-     *
-     * @param context
-     * @param permissions
-     * @return
-     */
-    public static boolean hasAllPermissionsGranted(Context context, @NonNull String[] permissions) {
-        for (String permission : permissions) {
-            if (!PermissionsFragment.hasSelfPermission(context, permission)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public interface PermissionsCallback {

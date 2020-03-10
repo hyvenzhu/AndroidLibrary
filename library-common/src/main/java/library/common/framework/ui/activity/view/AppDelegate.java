@@ -6,12 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -82,7 +82,7 @@ public abstract class AppDelegate implements IDelegate {
      * @return
      */
     protected int getTitleHeight() {
-        return  APKUtils.dip2px(context, 45);
+        return APKUtils.dip2px(context, 45);
     }
 
     @Override
@@ -420,15 +420,19 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     public void showLoadError(final View.OnClickListener listener) {
-        showLoadError(null, -1, null, -1, listener);
+        showLoadError(null, -1, true, null, -1, listener);
     }
 
     public void showLoadError(String errMsg, final View.OnClickListener listener) {
-        showLoadError(errMsg, -1, null, -1, listener);
+        showLoadError(errMsg, -1, true, null, -1, listener);
     }
 
     public void showLoadError(String errMsg, @DrawableRes int bgResId, View.OnClickListener listener) {
-        showLoadError(errMsg, -1, null, bgResId, listener);
+        showLoadError(errMsg, -1, true, null, bgResId, listener);
+    }
+
+    public void showLoadErrorWithoutButton(String errMsg) {
+        showLoadError(errMsg, -1, false, null, -1, null);
     }
 
     /**
@@ -436,13 +440,14 @@ public abstract class AppDelegate implements IDelegate {
      *
      * @param errorText
      * @param errorRes
+     * @param showButton
      * @param buttonText
      * @param bgRes
      * @param onClickListener
      */
-    public void showLoadError(String errorText, @DrawableRes int errorRes, String buttonText, @DrawableRes int bgRes,
+    public void showLoadError(String errorText, @DrawableRes int errorRes, boolean showButton, String buttonText, @DrawableRes int bgRes,
                               View.OnClickListener onClickListener) {
-        mLoadViewHelper.show(mLoadViewHelper.errorView(errorText, errorRes, buttonText, bgRes, onClickListener));
+        mLoadViewHelper.show(mLoadViewHelper.errorView(errorText, errorRes, showButton, buttonText, bgRes, onClickListener));
     }
 
     public void showLoadEmpty() {
@@ -486,6 +491,10 @@ public abstract class AppDelegate implements IDelegate {
      */
     public void showLoadEmpty(String emptyMsg, @DrawableRes int emptyRes, @DrawableRes int bgRes, View.OnClickListener onClickListener) {
         mLoadViewHelper.show(mLoadViewHelper.emptyView(emptyMsg, emptyRes, null, bgRes, onClickListener));
+    }
+
+    public void showLoadEmpty(String emptyMsg, String buttonText, View.OnClickListener onClickListener) {
+        mLoadViewHelper.show(mLoadViewHelper.emptyView(emptyMsg, -1, buttonText, -1, onClickListener));
     }
 
     /**

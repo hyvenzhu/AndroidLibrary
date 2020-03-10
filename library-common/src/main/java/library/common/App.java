@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import com.tencent.mmkv.MMKV;
 
+import java.util.List;
+
 import library.common.framework.logic.net.RetrofitManager;
 import library.common.framework.ui.activity.UIStateHelper;
 import library.common.util.APKUtils;
@@ -44,7 +46,7 @@ public class App {
         init(application, null, null);
     }
 
-    public static void init(Application application, Interceptor applicationInterceptor, Interceptor networkInterceptor) {
+    public static void init(Application application, List<Interceptor> applicationInterceptorList, List<Interceptor> networkInterceptorList) {
         sApplication = application;
         sInstance = new App();
         appContext = application.getApplicationContext();
@@ -90,9 +92,13 @@ public class App {
          * 如果使用CA机构的证书，最低也需要适配 Android 4.x 对 TLS1.1、TLS1.2 的支持（默认 Android 20+ 才支持）。
          * 当然，如果服务器最低支持 TLS1.0，则可以不需要做任何适配。
          */
-        RetrofitManager.getInstance().initInterceptor(applicationInterceptor, networkInterceptor);
+        RetrofitManager.getInstance().initInterceptor(applicationInterceptorList, networkInterceptorList);
         RetrofitManager.getInstance().initHttps();
         MMKV.initialize(application);
+    }
+
+    private App() {
+
     }
 
     public static App getInstance() {

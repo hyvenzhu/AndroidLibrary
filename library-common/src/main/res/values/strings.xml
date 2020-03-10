@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="com_loading_text">正在加载, 请稍候...</string>
+    <string name="com_permission_title_text">权限申请</string>
     <string name="com_permission_desc_text">需要%1$s的权限, 但此权限已被禁止, 你可以到设置中更改</string>
     <string name="com_settings">去设置</string>
     <string name="com_retry">重试</string>

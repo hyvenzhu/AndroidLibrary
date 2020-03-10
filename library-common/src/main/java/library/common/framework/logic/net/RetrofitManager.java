@@ -10,6 +10,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -54,9 +55,9 @@ public class RetrofitManager {
      */
     OkHttpClient client;
 
-    Interceptor networkInterceptor;
+    List<Interceptor> networkInterceptorList;
 
-    Interceptor applicationInterceptor;
+    List<Interceptor> applicationInterceptorList;
 
     X509TrustManager trustManager;
     SSLSocketFactory sslFactory;
@@ -110,12 +111,12 @@ public class RetrofitManager {
      * 设置拦截器
      * [需要在Application onCreate中初始化]
      *
-     * @param applicationInterceptor
-     * @param networkInterceptor
+     * @param applicationInterceptorList
+     * @param networkInterceptorList
      */
-    public void initInterceptor(Interceptor applicationInterceptor, Interceptor networkInterceptor) {
-        this.applicationInterceptor = applicationInterceptor;
-        this.networkInterceptor = networkInterceptor;
+    public void initInterceptor(List<Interceptor> applicationInterceptorList, List<Interceptor> networkInterceptorList) {
+        this.applicationInterceptorList = applicationInterceptorList;
+        this.networkInterceptorList = networkInterceptorList;
     }
 
     /**
@@ -215,8 +216,6 @@ public class RetrofitManager {
         }
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
-                // no proxy
-                .proxy(Proxy.NO_PROXY)
                 // log interceptor
                 .addInterceptor(loggingInterceptor)
                 // retry when connect failure
@@ -230,15 +229,23 @@ public class RetrofitManager {
                 // Besides cache setting, we also need cache support(it usually controlled by server),
                 // but, it can also be controlled by client with http header(just like "Cache-Control:public,max-age=120").
                 .cache(cacheDir != null ? new Cache(cacheDir, 10 * 1024 * 1024) : null);
+        if (!APKUtils.isDebug()) {
+            // no proxy
+            builder.proxy(Proxy.NO_PROXY);
+        }
         if (sslFactory != null) {
             builder.sslSocketFactory(sslFactory, trustManager);
         }
-        if (networkInterceptor != null) {
-            builder.addNetworkInterceptor(networkInterceptor);
+        if (networkInterceptorList != null && networkInterceptorList.size() > 0) {
+            for (Interceptor interceptor : networkInterceptorList) {
+                builder.addNetworkInterceptor(interceptor);
+            }
         }
         builder.addInterceptor(new ProgressResponseInterceptor());
-        if (applicationInterceptor != null) {
-            builder.addInterceptor(applicationInterceptor);
+        if (applicationInterceptorList != null && applicationInterceptorList.size() > 0) {
+            for (Interceptor interceptor : applicationInterceptorList) {
+                builder.addInterceptor(interceptor);
+            }
         }
         return builder.build();
     }

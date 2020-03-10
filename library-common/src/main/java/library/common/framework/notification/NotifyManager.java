@@ -10,13 +10,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -249,7 +249,7 @@ public class NotifyManager {
      * @param activity
      * @param channelId
      */
-    public void gotoChannelSetting(Activity activity, @NonNull String channelId) {
+    public static void gotoChannelSetting(Activity activity, @NonNull String channelId) {
         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
         intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.getPackageName());
         intent.putExtra(Settings.EXTRA_CHANNEL_ID, channelId);
@@ -261,7 +261,7 @@ public class NotifyManager {
     /**
      * 打开通知设置
      */
-    public void gotoNotificationSetting(Activity activity) {
+    public static void gotoNotificationSetting(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
             intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.getPackageName());
@@ -278,7 +278,7 @@ public class NotifyManager {
     /**
      * 打开App的设置页
      */
-    void openAppSetting(Activity activity) {
+    static void openAppSetting(Activity activity) {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", activity.getPackageName(), null));
         if (IntentUtils.isIntentAvailable(activity, intent)) {

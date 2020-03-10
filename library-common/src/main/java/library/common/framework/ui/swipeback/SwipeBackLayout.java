@@ -6,7 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.ViewCompat;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -62,7 +62,7 @@ public class SwipeBackLayout extends FrameLayout {
     public static final int STATE_DRAGGING = ViewDragHelper.STATE_DRAGGING;
 
     /**
-     * A view is currently settling into place as a result of a fling or
+     * A view is currently settling into place as a result of a fling orO
      * predefined non-interactive motion.
      */
     public static final int STATE_SETTLING = ViewDragHelper.STATE_SETTLING;
@@ -373,6 +373,8 @@ public class SwipeBackLayout extends FrameLayout {
         } catch (ArrayIndexOutOfBoundsException e) {
             // FIXME: handle exception
             // issues #9
+            return false;
+        } catch (NullPointerException ex) {
             return false;
         }
     }

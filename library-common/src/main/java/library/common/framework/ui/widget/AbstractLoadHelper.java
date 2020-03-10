@@ -3,8 +3,8 @@ package library.common.framework.ui.widget;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.LayoutRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.LayoutRes;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -43,12 +43,13 @@ public abstract class AbstractLoadHelper {
      *
      * @param errorText
      * @param errorRes
+     * @param showButton
      * @param buttonText
      * @param bgRes
      * @param onClickListener
      * @return
      */
-    public abstract View errorView(String errorText, @DrawableRes int errorRes, String buttonText,
+    public abstract View errorView(String errorText, @DrawableRes int errorRes, boolean showButton, String buttonText,
                                    @DrawableRes int bgRes, View.OnClickListener onClickListener);
     
     /**

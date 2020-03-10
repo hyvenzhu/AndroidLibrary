@@ -2,8 +2,8 @@ package library.common.framework.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
+import androidx.annotation.Nullable;
+import androidx.annotation.UiThread;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 

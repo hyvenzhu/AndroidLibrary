@@ -3,6 +3,8 @@ package library.common.framework.ui.widget;
 import android.content.Context;
 import android.view.Gravity;
 
+import androidx.annotation.StringRes;
+
 /**
  * Toast 工具类
  *
@@ -28,15 +30,7 @@ public class ToastHelper {
         mToast.show();
     }
 
-    public static void showToast(Context context, int message) {
-        if (mToast == null) {
-            mToast = android.widget.Toast.makeText(context.getApplicationContext(),
-                    context.getString(message),
-                    android.widget.Toast.LENGTH_SHORT);
-            mToast.setGravity(Gravity.CENTER, 0, 0);
-        } else {
-            mToast.setText(message);
-        }
-        mToast.show();
+    public static void showToast(Context context, @StringRes int message) {
+        showToast(context, context.getString(message));
     }
 }

@@ -1,6 +1,6 @@
 package library.common.framework.ui.adapter.recyclerview;
 
-import android.support.annotation.LayoutRes;
+import androidx.annotation.LayoutRes;
 
 /**
  * 多样式支持

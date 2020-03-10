@@ -2,8 +2,8 @@ package library.common.framework.ui.activity.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 
 import org.greenrobot.eventbus.Subscribe;

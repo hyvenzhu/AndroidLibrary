@@ -1,8 +1,8 @@
 package library.common.framework.ui.adapter.recyclerview;
 
 import android.os.Build;
-import android.support.v4.view.GestureDetectorCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.core.view.GestureDetectorCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
@@ -26,7 +26,7 @@ import library.common.util.NoDoubleClickListener;
 public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchListener {
     private GestureDetectorCompat mGestureDetector;
     private RecyclerView recyclerView;
-    protected CommonAdapter commonAdapter;
+    protected RecyclerView.Adapter commonAdapter;
     private boolean mIsPrePressed = false;
     private boolean mIsShowPress = false;
     private View mPressedView = null;
@@ -36,11 +36,11 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
     public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
         if (recyclerView == null) {
             this.recyclerView = rv;
-            this.commonAdapter = (CommonAdapter) recyclerView.getAdapter();
+            this.commonAdapter = recyclerView.getAdapter();
             mGestureDetector = new GestureDetectorCompat(recyclerView.getContext(), new ItemTouchHelperGestureListener(recyclerView));
         } else if (recyclerView != rv) {
             this.recyclerView = rv;
-            this.commonAdapter = (CommonAdapter) recyclerView.getAdapter();
+            this.commonAdapter = recyclerView.getAdapter();
             mGestureDetector = new GestureDetectorCompat(recyclerView.getContext(), new ItemTouchHelperGestureListener(recyclerView));
         }
         if (!mGestureDetector.onTouchEvent(e) && e.getActionMasked() == MotionEvent.ACTION_UP && mIsShowPress) {
@@ -273,7 +273,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
          */
         if (commonAdapter == null) {
             if (recyclerView != null) {
-                commonAdapter = (CommonAdapter) recyclerView.getAdapter();
+                commonAdapter = recyclerView.getAdapter();
             } else {
                 return false;
             }

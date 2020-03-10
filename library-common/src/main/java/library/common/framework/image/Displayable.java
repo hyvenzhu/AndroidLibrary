@@ -2,11 +2,10 @@ package library.common.framework.image;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
+import android.net.Uri;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.Nullable;
 import android.widget.ImageView;
-
-import com.bumptech.glide.request.FutureTarget;
 
 import java.io.File;
 
@@ -92,7 +91,6 @@ public interface Displayable {
     
     /**
      * 下载图片
-     * FutureTarget.get() 获取下载结果，注意：此方法会阻塞
      *
      * @param context
      * @param url
@@ -143,4 +141,12 @@ public interface Displayable {
      * @param resourceId
      */
     void displayGif(Context context, ImageView imageView, @Nullable Integer resourceId);
+
+    /**
+     * 显示本地图片、视频
+     * @param context
+     * @param imageView
+     * @param uri
+     */
+    void displayUri(Context context, ImageView imageView, Uri uri);
 }

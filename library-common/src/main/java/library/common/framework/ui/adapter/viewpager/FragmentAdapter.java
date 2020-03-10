@@ -1,9 +1,9 @@
 package library.common.framework.ui.adapter.viewpager;
 
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.List;
 
@@ -45,6 +45,10 @@ public class FragmentAdapter extends FragmentStatePagerAdapter {
         } else {
             return null;
         }
+    }
+
+    public void setTitles(List<String> titles) {
+        this.titles = titles;
     }
 
     @Override

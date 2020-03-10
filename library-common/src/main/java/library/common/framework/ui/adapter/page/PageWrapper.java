@@ -1,6 +1,6 @@
 package library.common.framework.ui.adapter.page;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.BaseAdapter;
 import android.widget.BaseExpandableListAdapter;
 

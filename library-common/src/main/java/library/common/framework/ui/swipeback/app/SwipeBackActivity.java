@@ -2,8 +2,8 @@
 package library.common.framework.ui.swipeback.app;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.ColorInt;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import library.common.framework.ui.swipeback.SwipeBackLayout;

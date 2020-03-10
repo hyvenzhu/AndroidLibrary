@@ -2,12 +2,12 @@ package library.common.framework.ui.adapter.recyclerview;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
-import android.support.annotation.StringRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
+import androidx.annotation.IdRes;
+import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -70,6 +71,26 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         return mData.get(position);
     }
 
+    public void clear() {
+        if (mData != null) {
+            mData.clear();
+        }
+    }
+
+    public void insertData(int position, T appendedData) {
+        if (mData == null) {
+            mData = new ArrayList<>();
+        }
+        mData.add(position, appendedData);
+    }
+
+    public void appendData(T appendedData) {
+        if (mData == null) {
+            mData = new ArrayList<>();
+        }
+        mData.add(appendedData);
+    }
+
     @Override
     public void setDataSource(List<T> data) {
         mData = data;
@@ -77,7 +98,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
 
     public void appendData(List<T> appendedData) {
         if (mData == null) {
-            mData = Collections.emptyList();
+            mData = new ArrayList<>();
         }
         mData.addAll(appendedData);
     }

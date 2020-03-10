@@ -2,7 +2,8 @@ package library.common.framework.image.glide;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import android.net.Uri;
+import androidx.annotation.Nullable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -152,6 +153,15 @@ public class GlideDisplayable implements Displayable {
             Glide.with(context).asGif().load(resourceId).into(imageView);
         } else {
             Glide.with(context).asGif().load(resourceId).apply(mRequestOptions).into(imageView);
+        }
+    }
+
+    @Override
+    public void displayUri(Context context, ImageView imageView, Uri uri) {
+        if (mRequestOptions == null) {
+            Glide.with(context).load(uri).listener(mListener).into(getTarget(imageView));
+        } else {
+            Glide.with(context).load(uri).listener(mListener).apply(mRequestOptions).into(getTarget(imageView));
         }
     }
 }

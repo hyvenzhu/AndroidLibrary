@@ -1,10 +1,12 @@
 package library.common.framework.ui.widget;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.*;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,7 +32,7 @@ public class FixBehavior extends AppBarLayout.Behavior {
     public FixBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
         /**
-         * 方法一：setDragCallback 返回 true，详见 {@link android.support.design.widget.HeaderBehavior#canDragView(View)}
+         * 方法一：setDragCallback 返回 true，详见 {@link HeaderBehavior#canDragView(View)}
          */
         setDragCallback(new DragCallback() {
             @Override
