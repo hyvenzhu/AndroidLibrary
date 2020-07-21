@@ -1,2 +1,2 @@
 include ':demo'
-include ':library-common'
+include ':library_android'

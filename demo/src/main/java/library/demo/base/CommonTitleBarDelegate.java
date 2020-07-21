@@ -24,6 +24,11 @@ public abstract class CommonTitleBarDelegate extends AppDelegate {
     }
 
     @Override
+    protected Class getViewBindClass() {
+        return null;
+    }
+
+    @Override
     public void initWidget() {
         super.initWidget();
         setCommonTitleColor(Color.parseColor("#ffffff"));

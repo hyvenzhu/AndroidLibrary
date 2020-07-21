@@ -5,11 +5,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Message;
-import android.support.annotation.DrawableRes;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
+
+import androidx.annotation.DrawableRes;
 
 import library.common.framework.ui.activity.presenter.DialogPresenter;
 import library.common.framework.ui.activity.view.IDelegate;
