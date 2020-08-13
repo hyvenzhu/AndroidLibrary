@@ -84,6 +84,13 @@ public class RetrofitManager {
         return sInstance;
     }
 
+    public OkHttpClient getOkHttpClient() {
+        if (client == null) {
+            client = buildClient();
+        }
+        return client;
+    }
+
     /**
      * Return Retrofit by baseUrl
      *

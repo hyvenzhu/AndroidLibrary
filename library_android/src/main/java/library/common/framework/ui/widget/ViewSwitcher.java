@@ -44,18 +44,23 @@ public class ViewSwitcher {
         if (parentView == null) {
             init();
         }
-        if (parentView.getChildAt(viewIndex) != view) {
+        if (view != mView) {
             ViewGroup parent = (ViewGroup) view.getParent();
             if (parent != null) {
                 parent.removeView(view);
             }
-            parentView.removeViewAt(viewIndex);
-            if (view != mView) {
-                if (mView.getParent() != null) {
-                    ((ViewGroup) mView.getParent()).removeView(mView);
-                }
+            // 显示其他视图
+            mView.setVisibility(View.GONE);
+            if (parentView.getChildAt(viewIndex) != mView) {
+                parentView.removeViewAt(viewIndex);
             }
             parentView.addView(view, viewIndex, params);
+        } else {
+            // 显示原视图
+            mView.setVisibility(View.VISIBLE);
+            if (parentView.getChildAt(viewIndex) != mView) {
+                parentView.removeViewAt(viewIndex);
+            }
         }
     }
 

@@ -307,4 +307,17 @@ public class APKUtils {
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
     }
+
+    /**
+     * 重启应用
+     *
+     * @param context
+     * @param intent
+     */
+    public static void triggerRebirth(Context context, Intent intent) {
+        Intent targetIntent = intent == null? context.getPackageManager().getLaunchIntentForPackage(context.getPackageName()) : intent;
+        targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+        Runtime.getRuntime().exit(0);
+    }
 }
