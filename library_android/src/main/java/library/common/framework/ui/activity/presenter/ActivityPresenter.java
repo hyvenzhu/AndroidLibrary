@@ -2,7 +2,6 @@ package library.common.framework.ui.activity.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
-import android.view.Menu;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -49,6 +48,7 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
         initToolbar();
         isDestroyed = false;
         viewDelegate.initWidget(getIntent());
+        viewDelegate.initChildControllers();
         onCreate();
     }
 
@@ -87,14 +87,6 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
                 throw new RuntimeException("create IDelegate error");
             }
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        if (viewDelegate.getOptionsMenuId() != 0) {
-            getMenuInflater().inflate(viewDelegate.getOptionsMenuId(), menu);
-        }
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -168,14 +160,10 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
         liveData.observe(this, new Observer<R>() {
             @Override
             public void onChanged(R r) {
-                if (beforeOnChanged(r)) {
-                    observer.onChanged(r);
-                }
+                observer.onChanged((R) beforeOnChanged(r));
             }
         });
     }
 
-    protected boolean beforeOnChanged(Object res) {
-        return true;
-    }
+    protected abstract Object beforeOnChanged(Object res);
 }

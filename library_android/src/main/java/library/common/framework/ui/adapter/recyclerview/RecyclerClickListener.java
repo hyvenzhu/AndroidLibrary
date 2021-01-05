@@ -3,6 +3,8 @@ package library.common.framework.ui.adapter.recyclerview;
 import android.os.Build;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.SystemClock;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
@@ -290,7 +292,7 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
     }
 
     private boolean isDoubleClick() {
-        long currentTime = Calendar.getInstance().getTimeInMillis();
+        long currentTime = SystemClock.elapsedRealtime();
         if (currentTime - lastClickTime > NoDoubleClickListener.MIN_CLICK_DELAY_TIME) {
             lastClickTime = currentTime;
             return false;

@@ -37,4 +37,12 @@
     </declare-styleable>
 
     <attr name="com_SwipeBackLayoutStyle" format="reference"/>
+
+    <declare-styleable name="com_RoundImageView">
+        <attr name="com_border_width" format="dimension"/>
+        <attr name="com_border_color" format="color"/>
+        <attr name="com_border_overlay" format="boolean"/>
+        <attr name="com_fill_color" format="color"/>
+        <attr name="com_round_corner" format="dimension"/>
+    </declare-styleable>
 </resources>

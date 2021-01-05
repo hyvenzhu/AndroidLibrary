@@ -317,7 +317,7 @@ public class APKUtils {
     public static void triggerRebirth(Context context, Intent intent) {
         Intent targetIntent = intent == null? context.getPackageManager().getLaunchIntentForPackage(context.getPackageName()) : intent;
         targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(intent);
+        context.startActivity(targetIntent);
         Runtime.getRuntime().exit(0);
     }
 }

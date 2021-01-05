@@ -274,11 +274,6 @@ public abstract class AppDelegate implements IDelegate {
     }
 
     @Override
-    public int getOptionsMenuId() {
-        return 0;
-    }
-
-    @Override
     public Toolbar getToolbar() {
         return null;
     }
@@ -300,7 +295,7 @@ public abstract class AppDelegate implements IDelegate {
         return rootView;
     }
 
-    protected <T extends Object> T getViewBinding() {
+    protected <T> T getViewBinding() {
         return (T) viewBinding;
     }
 
@@ -321,6 +316,7 @@ public abstract class AppDelegate implements IDelegate {
 
     @Override
     public void initWidget() {
+
     }
 
     @Override
@@ -331,6 +327,15 @@ public abstract class AppDelegate implements IDelegate {
     @Override
     public void initWidget(Bundle args) {
         initWidget();
+    }
+
+    @Override
+    public void initChildControllers() {
+        if (viewControllers != null) {
+            for (ViewController viewController : viewControllers) {
+                viewController.initWidget();
+            }
+        }
     }
 
     public <T extends View> T get(int id) {

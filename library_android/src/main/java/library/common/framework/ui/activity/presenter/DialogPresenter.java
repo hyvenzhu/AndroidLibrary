@@ -2,14 +2,16 @@ package library.common.framework.ui.activity.presenter;
 
 import android.os.Bundle;
 import android.os.Message;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import library.common.framework.logic.EventLogic;
 import library.common.framework.logic.LogicCallback;
@@ -18,9 +20,6 @@ import library.common.framework.ui.activity.base.helper.LogicHelper;
 import library.common.framework.ui.activity.base.helper.TaskHelper;
 import library.common.framework.ui.activity.view.IDelegate;
 import library.common.util.Callback;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Presenter base class for DialogFragment
@@ -31,19 +30,19 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class DialogPresenter<T extends IDelegate> extends DialogFragment implements LogicCallback {
     public T viewDelegate;
-    
+
     Callback callback;
-    
+
     public <T> void setCallback(Callback<T> callback) {
         this.callback = callback;
     }
-    
+
     public <T> void doCall(T data) {
         if (callback != null) {
             callback.call(data);
         }
     }
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,19 +54,19 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
             e.printStackTrace();
         }
     }
-    
+
     @Override
     public void onResume() {
         super.onResume();
         viewDelegate.onShow();
     }
-    
+
     @Override
     public void onPause() {
         super.onPause();
         viewDelegate.onHide();
     }
-    
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -77,26 +76,19 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
         viewDelegate.create(this, inflater, container, savedInstanceState);
         return viewDelegate.getContentView();
     }
-    
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         isDestroyed = false;
         viewDelegate.initWidget(getArguments());
+        viewDelegate.initChildControllers();
         onCreate();
     }
-    
+
     protected void onCreate() {
     }
-    
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        if (viewDelegate.getOptionsMenuId() != 0) {
-            inflater.inflate(viewDelegate.getOptionsMenuId(), menu);
-        }
-    }
-    
+
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
@@ -110,24 +102,24 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
             }
         }
     }
-    
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         viewDelegate.onDestroy();
         viewDelegate = null;
-        
+
         isDestroyed = true;
         logicHelper.unregisterAll();
         taskHelper.unregisterAll();
     }
-    
+
     protected abstract Class<T> getDelegateClass();
-    
+
     LogicHelper logicHelper = new LogicHelper();
     TaskHelper taskHelper = new TaskHelper();
     boolean isDestroyed;
-    
+
     /**
      * 注册BaseLogic, Activity销毁时是自动取消解绑
      *
@@ -138,7 +130,7 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
     protected <T extends EventLogic> T findLogic(EventLogic logic) {
         return logicHelper.findLogic(logic);
     }
-    
+
     /**
      * 注册Task, Activity销毁时是自动取消解绑
      *
@@ -149,7 +141,7 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
     protected <T extends Task> T findTask(Task task) {
         return taskHelper.findTask(task);
     }
-    
+
     /**
      * EventBus订阅者事件通知的函数, UI线程
      *
@@ -161,7 +153,7 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
             onResponse(msg);
         }
     }
-    
+
     /**
      * 业务层回调
      *
@@ -173,8 +165,8 @@ public abstract class DialogPresenter<T extends IDelegate> extends DialogFragmen
             onResponse(msg);
         }
     }
-    
+
     protected void onResponse(Message msg) {
-    
+
     }
 }

@@ -10,17 +10,17 @@ import java.io.InputStreamReader;
 
 public class BridgeUtil {
 	final static String WVJB_OVERRIDE_SCHEMA = "wvjbscheme://";
-	final static String WVJB_BRIDGE_LOADED = WVJB_OVERRIDE_SCHEMA + "__BRIDGE_LOADED__"; // load bridge
-	final static String WVJB_QUEUE_HAS_MESSAGE = WVJB_OVERRIDE_SCHEMA + "__WVJB_QUEUE_MESSAGE__"; // queue has message
-	final static String WVJB_RETURN_DATA = WVJB_OVERRIDE_SCHEMA + "return/";//格式为   yy://return/{function}/returncontent
+	public final static String WVJB_BRIDGE_LOADED = WVJB_OVERRIDE_SCHEMA + "__BRIDGE_LOADED__"; // load bridge
+	public  final static String WVJB_QUEUE_HAS_MESSAGE = WVJB_OVERRIDE_SCHEMA + "__WVJB_QUEUE_MESSAGE__"; // queue has message
+	public final static String WVJB_RETURN_DATA = WVJB_OVERRIDE_SCHEMA + "return/";//格式为   yy://return/{function}/returncontent
 	final static String WVJB_FETCH_QUEUE = WVJB_RETURN_DATA + "_fetchQueue/";
 	final static String EMPTY_STR = "";
-	final static String UNDERLINE_STR = "_";
+	public  final static String UNDERLINE_STR = "_";
 	final static String SPLIT_MARK = "/";
 	
-	final static String CALLBACK_ID_FORMAT = "JAVA_CB_%s";
-	final static String JS_HANDLE_MESSAGE_FROM_JAVA = "javascript:WebViewJavascriptBridge._handleMessageFromNative('%s');";
-	final static String JS_FETCH_QUEUE_FROM_JAVA = "javascript:WebViewJavascriptBridge._fetchQueue();";
+	public final static String CALLBACK_ID_FORMAT = "JAVA_CB_%s";
+	public final static String JS_HANDLE_MESSAGE_FROM_JAVA = "javascript:WebViewJavascriptBridge._handleMessageFromNative('%s');";
+	public final static String JS_FETCH_QUEUE_FROM_JAVA = "javascript:WebViewJavascriptBridge._fetchQueue();";
 
 	public static String parseFunctionName(String jsUrl){
 		return jsUrl.replace("javascript:WebViewJavascriptBridge.", "").replaceAll("\\(.*\\);", "");

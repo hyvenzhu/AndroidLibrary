@@ -3,8 +3,6 @@ package library.common.framework.ui.activity.presenter;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -72,6 +70,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
         super.onViewCreated(view, savedInstanceState);
         isDestroyed = false;
         viewDelegate.initWidget(getArguments());
+        viewDelegate.initChildControllers();
         onCreate();
     }
 
@@ -148,14 +147,6 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
      */
     public void onHide() {
         viewDelegate.onHide();
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        if (viewDelegate.getOptionsMenuId() != 0) {
-            inflater.inflate(viewDelegate.getOptionsMenuId(), menu);
-        }
     }
 
     @Override
@@ -244,14 +235,10 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
         liveData.observe(getViewLifecycleOwner(), new Observer<R>() {
             @Override
             public void onChanged(R r) {
-                if (beforeOnChanged(r)) {
-                    observer.onChanged(r);
-                }
+                observer.onChanged((R) beforeOnChanged(r));
             }
         });
     }
 
-    protected boolean beforeOnChanged(Object res) {
-        return true;
-    }
+    protected abstract Object beforeOnChanged(Object res);
 }

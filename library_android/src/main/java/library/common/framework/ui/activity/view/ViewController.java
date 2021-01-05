@@ -29,7 +29,6 @@ public abstract class ViewController {
         parent.addView(mView);
         ButterKnife.bind(this, parent);
         appDelegate.addViewController(this);
-        initWidget();
     }
 
     /**

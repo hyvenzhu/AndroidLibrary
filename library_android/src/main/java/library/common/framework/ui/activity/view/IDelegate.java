@@ -26,6 +26,8 @@ public interface IDelegate {
 
     void initWidget(Bundle args);
 
+    void initChildControllers();
+
     void onShow();
     
     void onHide();
@@ -33,8 +35,6 @@ public interface IDelegate {
     boolean isVisible();
     
     void onDestroy();
-    
-    int getOptionsMenuId();
     
     Toolbar getToolbar();
     
