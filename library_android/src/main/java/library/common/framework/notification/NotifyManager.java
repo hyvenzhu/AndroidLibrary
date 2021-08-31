@@ -249,6 +249,7 @@ public class NotifyManager {
      * @param activity
      * @param channelId
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static void gotoChannelSetting(Activity activity, @NonNull String channelId) {
         Intent intent = new Intent(Settings.ACTION_CHANNEL_NOTIFICATION_SETTINGS);
         intent.putExtra(Settings.EXTRA_APP_PACKAGE, activity.getPackageName());

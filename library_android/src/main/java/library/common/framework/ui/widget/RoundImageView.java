@@ -1,5 +1,6 @@
 package library.common.framework.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -68,6 +69,8 @@ public class RoundImageView extends AppCompatImageView {
 
     private int roundRadius;
 
+    private RectF viewRect;
+
     public RoundImageView(Context context) {
         super(context);
 
@@ -81,7 +84,7 @@ public class RoundImageView extends AppCompatImageView {
     public RoundImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.com_RoundImageView, defStyle, 0);
+        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.com_RoundImageView, defStyle, 0);
 
         mBorderWidth = a.getDimensionPixelSize(R.styleable.com_RoundImageView_com_border_width, DEFAULT_BORDER_WIDTH);
         mBorderColor = a.getColor(R.styleable.com_RoundImageView_com_border_color, DEFAULT_BORDER_COLOR);
@@ -134,18 +137,18 @@ public class RoundImageView extends AppCompatImageView {
 
         if (mFillColor != Color.TRANSPARENT) {
             if (!mDrawCircle) {
-                canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadius, roundRadius, mFillPaint);
+                canvas.drawRoundRect(viewRect, roundRadius, roundRadius, mFillPaint);
             }
         }
         if (mDrawCircle) {
             canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, getWidth() / 2f, mBitmapPaint);
         } else {
-            canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadius, roundRadius, mBitmapPaint);
+            canvas.drawRoundRect(viewRect, roundRadius, roundRadius, mBitmapPaint);
         }
 
         if (mBorderWidth != 0) {
             if (!mDrawCircle) {
-                canvas.drawRoundRect(new RectF(0, 0, getWidth(), getHeight()), roundRadius, roundRadius, mBorderPaint);
+                canvas.drawRoundRect(viewRect, roundRadius, roundRadius, mBorderPaint);
             } else {
                 // 半径需要减去 border/2
                 canvas.drawCircle(getWidth() / 2f, getHeight() / 2f, getWidth() / 2f - mBorderWidth / 2f, mBorderPaint);
@@ -337,6 +340,8 @@ public class RoundImageView extends AppCompatImageView {
             mDrawableRect.inset(mBorderWidth, mBorderWidth);
         }
         mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f);
+
+        viewRect = new RectF(0, 0, getWidth(), getHeight());
 
         updateShaderMatrix();
         invalidate();

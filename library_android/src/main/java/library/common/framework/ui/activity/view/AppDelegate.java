@@ -49,6 +49,7 @@ public abstract class AppDelegate implements IDelegate {
     protected boolean isActivity;
     private List<ViewController> viewControllers = new ArrayList<>();
     private Object viewBinding;
+    private ViewGroup content;
 
     public <T> void setCallback(Callback<T> callback) {
         this.callback = callback;
@@ -99,14 +100,14 @@ public abstract class AppDelegate implements IDelegate {
             rootView = (ViewGroup) inflater.inflate(R.layout.com_activity_common, container, false);
         }
         titleGroup = rootView.findViewWithTag("title");
-        ViewGroup content = rootView.findViewWithTag("content");
+        content = rootView.findViewWithTag("content");
 
         View titleView = getTitleView(titleGroup);
         if (titleView != null) {
             titleGroup.setVisibility(View.VISIBLE);
 
             int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-            if (resourceId > 0) {
+            if (resourceId > 0 && fitStatusBarHeight()) {
                 int statusBarHeight = getResources().getDimensionPixelSize(resourceId);
                 ViewGroup.LayoutParams params = titleGroup.getLayoutParams();
                 params.height = statusBarHeight + getTitleHeight();
@@ -126,6 +127,10 @@ public abstract class AppDelegate implements IDelegate {
             // 初始化加载布局
             initLoadViewHelper(content);
         }
+    }
+
+    protected boolean fitStatusBarHeight() {
+        return true;
     }
 
     @Override
@@ -261,6 +266,7 @@ public abstract class AppDelegate implements IDelegate {
             controller.onDestroy();
         }
         viewControllers.clear();
+        viewBinding = null;
     }
 
     /**
@@ -284,10 +290,7 @@ public abstract class AppDelegate implements IDelegate {
         if (viewBinding == null && (viewBindingClass = getViewBindClass()) != null) {
             try {
                 Method bindMethod = viewBindingClass.getMethod("bind", new Class[]{View.class});
-                viewBinding = bindMethod.invoke(null, rootView);
-
-                Method getRootMethod = viewBindingClass.getMethod("getRoot", null);
-                rootView = (ViewGroup) getRootMethod.invoke(viewBinding, null);
+                viewBinding = bindMethod.invoke(null, content.getChildAt(0));
             } catch (Exception e) {
                 e.printStackTrace();
             }

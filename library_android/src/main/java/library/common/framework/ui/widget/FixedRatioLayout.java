@@ -1,5 +1,6 @@
 package library.common.framework.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import androidx.annotation.Nullable;
@@ -29,7 +30,7 @@ public class FixedRatioLayout extends FrameLayout {
     
     public FixedRatioLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.com_FixedRatioLayout);
+        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.com_FixedRatioLayout);
         if (a.hasValue(R.styleable.com_FixedRatioLayout_com_heightRatio)) {
             mHeightRatio = a.getFloat(R.styleable.com_FixedRatioLayout_com_heightRatio, 1f / 1f);
         } else if (a.hasValue(R.styleable.com_FixedRatioLayout_com_widthRatio)) {

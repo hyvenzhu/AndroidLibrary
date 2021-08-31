@@ -71,3 +71,8 @@
 ##---------------Begin: jsbridge  ----------
 -keep class org.json.** { *; }
 ##---------------Begin: jsbridge  ----------
+
+# 使用了反射封装 ViewBinding
+-keepclassmembers class * implements androidx.viewbinding.ViewBinding {
+  public static * bind(android.view.View);
+}

@@ -219,7 +219,7 @@ public class RetrofitManager {
         try {
             cacheDir = APKUtils.getDiskCacheDir(App.getInstance().getApplicationContext(), "Retrofit-Cache");
         } catch (Exception ex) {
-            LogUtils.e(ex, null, (Object) null);
+            LogUtils.e(ex);
         }
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()

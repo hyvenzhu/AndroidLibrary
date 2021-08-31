@@ -2,8 +2,10 @@ package library.common.framework.ui.adapter.recyclerview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -27,8 +29,20 @@ public abstract class MultiTypeAdapter<T> extends CommonAdapter<T> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder commonViewHolder = new ViewHolder(
-                LayoutInflater.from(mContext).inflate(mItemSupport.getLayoutId(viewType), parent, false));
+        View itemView = LayoutInflater.from(mContext).inflate(mItemSupport.getLayoutId(viewType), parent, false);
+
+        Class viewBindingClass;
+        Object viewBinding = null;
+        if ((viewBindingClass = getViewBindClass()) != null) {
+            try {
+                Method bindMethod = viewBindingClass.getMethod("bind", new Class[]{View.class});
+                viewBinding = bindMethod.invoke(null, itemView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        ViewHolder commonViewHolder = new ViewHolder(itemView, viewBinding);
         return commonViewHolder;
     }
 

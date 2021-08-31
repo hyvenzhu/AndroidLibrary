@@ -16,6 +16,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,9 +52,25 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        viewHolder = new ViewHolder(
-                LayoutInflater.from(mContext).inflate(mItemLayoutId, parent, false));
+        View itemView = LayoutInflater.from(mContext).inflate(mItemLayoutId, parent, false);
+
+        Class viewBindingClass;
+        Object viewBinding = null;
+        if ((viewBindingClass = getViewBindClass()) != null) {
+            try {
+                Method bindMethod = viewBindingClass.getMethod("bind", new Class[]{View.class});
+                viewBinding = bindMethod.invoke(null, itemView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        viewHolder = new ViewHolder(itemView, viewBinding);
         return viewHolder;
+    }
+
+    protected Class getViewBindClass() {
+        return null;
     }
 
     protected View getItemView() {

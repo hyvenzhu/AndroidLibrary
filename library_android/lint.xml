@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- list of issues to configure -->
+    <issue id="IconMissingDensityFolder" severity="ignore" />
+    <issue id="ShowToast">
+        <ignore path="**/library/common/framework/ui/widget/ToastHelper.java" />
+    </issue>
+</lint>

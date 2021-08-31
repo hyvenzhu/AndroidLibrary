@@ -103,10 +103,10 @@ public abstract class BaseLogic extends EventLogic {
                 @Override
                 public Object apply(Object o) throws Exception {
                     if (retryHandler.needRetry(o)) {
-                        return retryHandler.beforeSource().flatMap(new Function() {
+                        return retryHandler.dependsOn().flatMap(new Function() {
                             @Override
                             public Object apply(Object o) throws Exception {
-                                if (retryHandler.isBeforeSourceSuccess(o)) {
+                                if (retryHandler.dependsOnSuccess(o)) {
                                     return observable;
                                 } else {
                                     return Observable.just(o);
@@ -129,7 +129,7 @@ public abstract class BaseLogic extends EventLogic {
                     @Override
                     public void accept(@NonNull Throwable throwable) throws Exception {
                         if (throwable != null) {
-                            LogUtils.e(throwable, "", "");
+                            LogUtils.e(throwable);
                         }
                         if (errorConsumer != null) {
                             onResult(liveData, what, errorConsumer.onError(throwable));

@@ -25,8 +25,7 @@ public class SwipeBackActivityHelper {
     public void onActivityCreate() {
         mActivity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         mActivity.getWindow().getDecorView().setBackgroundDrawable(null);
-        mSwipeBackLayout = (SwipeBackLayout) LayoutInflater.from(mActivity).inflate(
-                R.layout.com_swipeback_layout, null);
+        mSwipeBackLayout = (SwipeBackLayout) View.inflate(mActivity, R.layout.com_swipeback_layout, null);
     }
 
     public void onPostCreate() {

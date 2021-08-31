@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 if (rootProject.file('config/gradle-mvn-push.gradle').exists()) {
     apply from: rootProject.file('config/gradle-mvn-push.gradle')
 }
@@ -23,16 +24,20 @@ android {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/NOTICE.txt'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     api fileTree(include: '*.jar', dir: 'libs')
     api 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'androidx.appcompat:appcompat:1.0.2'
-    api 'androidx.constraintlayout:constraintlayout:1.1.3'
-    api 'androidx.recyclerview:recyclerview:1.0.0'
-    api 'androidx.annotation:annotation:1.0.0'
-    api 'com.google.android.material:material:1.0.0'
+    api 'androidx.appcompat:appcompat:1.2.0'
+    api 'androidx.constraintlayout:constraintlayout:2.0.4'
+    api 'androidx.recyclerview:recyclerview:1.1.0'
+    api 'androidx.annotation:annotation:1.1.0'
+    api 'com.google.android.material:material:1.2.1'
 
     // eventbus
     api 'org.greenrobot:eventbus:3.0.0'
@@ -49,7 +54,7 @@ dependencies {
     api 'com.squareup.retrofit2:converter-gson:2.8.1'
     api 'com.squareup.retrofit2:adapter-rxjava2:2.8.1'
     api 'com.squareup.okhttp3:logging-interceptor:3.5.0'
-    implementation("com.squareup.okhttp3:okhttp:3.12.0")
+    implementation("com.squareup.okhttp3:okhttp:3.14.7")
     // RecyclerViewDivider：https://github.com/Fondesa/RecyclerViewDivider
     api 'com.github.fondesa:recycler-view-divider:3.1.0'
     // butterknife
@@ -75,5 +80,8 @@ dependencies {
         exclude  group:'com.android.support'
     }
     implementation 'pub.devrel:easypermissions:3.0.0'
+
+    api 'androidx.core:core-ktx:1.3.2'
+    api 'org.jetbrains.kotlin:kotlin-stdlib:1.4.21'
 }
 

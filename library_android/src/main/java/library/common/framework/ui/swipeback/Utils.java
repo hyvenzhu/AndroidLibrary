@@ -1,6 +1,7 @@
 
 package library.common.framework.ui.swipeback;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.os.Build;
@@ -82,7 +83,7 @@ public class Utils {
      */
     private static void convertActivityToTranslucentAfterL(Activity activity) {
         try {
-            Method getActivityOptions = Activity.class.getDeclaredMethod("getActivityOptions");
+            @SuppressLint("DiscouragedPrivateApi") Method getActivityOptions = Activity.class.getDeclaredMethod("getActivityOptions");
             getActivityOptions.setAccessible(true);
             Object options = getActivityOptions.invoke(activity);
 

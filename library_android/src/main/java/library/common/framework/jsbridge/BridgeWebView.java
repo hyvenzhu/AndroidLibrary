@@ -58,11 +58,7 @@ public class BridgeWebView extends WebView {
 	 * @return
 	 */
 	public static Context getFixedContext(Context context) {
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-			return context.createConfigurationContext(new Configuration());
-		} else {
-			return context;
-		}
+		return context.createConfigurationContext(new Configuration());
 	}
 
     private void init() {

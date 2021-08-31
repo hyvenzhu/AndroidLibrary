@@ -39,9 +39,9 @@ public class ToastHelper {
      */
     public static void showToast(Context context, CharSequence message) {
         if (mToast == null) {
-            mToast = android.widget.Toast.makeText(context.getApplicationContext(),
+            mToast = Toast.makeText(context.getApplicationContext(),
                     message,
-                    android.widget.Toast.LENGTH_SHORT);
+                    Toast.LENGTH_SHORT);
             mToast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             mToast.setText(message);

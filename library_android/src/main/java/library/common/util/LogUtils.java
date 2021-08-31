@@ -33,8 +33,8 @@ public class LogUtils {
         Logger.e(message, args);
     }
 
-    public static void e(Throwable throwable, String message, Object... args) {
-        Logger.e(throwable, message, args);
+    public static void e(Throwable throwable) {
+        Logger.e(throwable, "", "");
     }
 
     public static void w(String message, Object... args) {

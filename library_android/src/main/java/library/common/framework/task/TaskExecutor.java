@@ -1,5 +1,6 @@
 package library.common.framework.task;
 
+import android.annotation.SuppressLint;
 import android.os.Message;
 
 import io.reactivex.Observable;
@@ -18,22 +19,23 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class TaskExecutor {
     private static TaskExecutor sInstance;
-    
+
     private TaskExecutor() {
     }
-    
+
     public synchronized static TaskExecutor getInstance() {
         if (sInstance == null) {
             sInstance = new TaskExecutor();
         }
         return sInstance;
     }
-    
+
     /**
      * 执行任务
      *
      * @param task
      */
+    @SuppressLint("CheckResult")
     public void execute(final Task task) {
         Observable.create(new ObservableOnSubscribe<Message>() {
             @Override
@@ -54,6 +56,6 @@ public class TaskExecutor {
                         task.callback(message);
                     }
                 });
-        
+
     }
 }

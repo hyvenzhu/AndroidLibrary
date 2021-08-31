@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="library.common">
     <!-- 连接网络权限 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:networkSecurityConfig="@xml/com_network_security_config"
+        tools:targetApi="n">
         <provider
             android:name=".framework.Android7FileProvider"
             android:authorities="${applicationId}.android7.fileprovider"
@@ -15,7 +17,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
+                android:resource="@xml/com_file_paths" />
         </provider>
     </application>
 </manifest>

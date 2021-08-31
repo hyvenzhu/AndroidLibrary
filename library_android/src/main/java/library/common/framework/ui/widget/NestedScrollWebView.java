@@ -1,5 +1,6 @@
 package library.common.framework.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.core.view.MotionEventCompat;
 import androidx.core.view.NestedScrollingChild;
@@ -47,6 +48,7 @@ public class NestedScrollWebView extends WebView implements NestedScrollingChild
         setNestedScrollingEnabled(true);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         boolean result = false;

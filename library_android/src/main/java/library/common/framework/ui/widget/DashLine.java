@@ -1,5 +1,6 @@
 package library.common.framework.ui.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -33,7 +34,7 @@ public class DashLine extends View {
         // 禁止硬件加速
         setLayerType(LAYER_TYPE_SOFTWARE, null);
         
-        TypedArray a = context.obtainStyledAttributes(attrs,
+        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs,
                 R.styleable.com_DashLine);
         isVertical = a.getBoolean(R.styleable.com_DashLine_com_vertical, false);
         strokeWidth = a.getDimensionPixelSize(R.styleable.com_DashLine_com_strokeWidth, APKUtils.dip2px(context, 2));

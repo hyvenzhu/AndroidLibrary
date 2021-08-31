@@ -1,11 +1,14 @@
 package library.common.framework.ui.swipeback;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -136,7 +139,7 @@ public class SwipeBackLayout extends FrameLayout {
         super(context, attrs);
         mDragHelper = ViewDragHelper.create(this, new ViewDragCallback());
 
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.com_SwipeBackLayout, defStyle,
+        @SuppressLint("CustomViewStyleable") TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.com_SwipeBackLayout, defStyle,
                 R.style.com_SwipeBackLayout);
 
         int edgeSize = a.getDimensionPixelSize(R.styleable.com_SwipeBackLayout_com_edge_size, -1);
@@ -146,11 +149,11 @@ public class SwipeBackLayout extends FrameLayout {
         setEdgeTrackingEnabled(mode);
 
         int shadowLeft = a.getResourceId(R.styleable.com_SwipeBackLayout_com_shadow_left,
-                R.drawable.shadow_left);
+                R.drawable.com_shadow_left);
         int shadowRight = a.getResourceId(R.styleable.com_SwipeBackLayout_com_shadow_right,
-                R.drawable.shadow_right);
+                R.drawable.com_shadow_right);
         int shadowBottom = a.getResourceId(R.styleable.com_SwipeBackLayout_com_shadow_bottom,
-                R.drawable.shadow_bottom);
+                R.drawable.com_shadow_bottom);
         setShadow(shadowLeft, EDGE_LEFT);
         setShadow(shadowRight, EDGE_RIGHT);
         setShadow(shadowBottom, EDGE_BOTTOM);
@@ -337,7 +340,7 @@ public class SwipeBackLayout extends FrameLayout {
      * @see #EDGE_BOTTOM
      */
     public void setShadow(int resId, int edgeFlag) {
-        setShadow(getResources().getDrawable(resId), edgeFlag);
+        setShadow(ResourcesCompat.getDrawable(getResources(), resId, null), edgeFlag);
     }
 
     /**
@@ -379,6 +382,7 @@ public class SwipeBackLayout extends FrameLayout {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (!mEnable) {

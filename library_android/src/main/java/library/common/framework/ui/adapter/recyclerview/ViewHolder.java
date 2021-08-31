@@ -20,13 +20,16 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     private final LinkedHashSet<Integer> childClickViewIds;
     
     private final LinkedHashSet<Integer> itemChildLongClickViewIds;
+
+    private Object viewBinding;
     
-    public ViewHolder(View itemView) {
+    public ViewHolder(View itemView, Object viewBinding) {
         super(itemView);
         this.childClickViewIds = new LinkedHashSet<>();
         this.itemChildLongClickViewIds = new LinkedHashSet<>();
         this.mItemView = itemView;
         this.mViews = new SparseArray<>();
+        this.viewBinding = viewBinding;
     }
     
     public <T extends View> T findViewById(int id) {
@@ -77,5 +80,9 @@ public class ViewHolder extends RecyclerView.ViewHolder {
     public ViewHolder removeOnLongClickListener(int viewId) {
         itemChildLongClickViewIds.remove(viewId);
         return this;
+    }
+
+    public <T> T getViewBinding() {
+        return (T) viewBinding;
     }
 }

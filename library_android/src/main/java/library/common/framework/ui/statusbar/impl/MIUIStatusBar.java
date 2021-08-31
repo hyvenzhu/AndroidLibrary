@@ -1,5 +1,6 @@
 package library.common.framework.ui.statusbar.impl;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.Window;
 
@@ -31,7 +32,7 @@ public class MIUIStatusBar implements IStatusBar {
             Class clazz = window.getClass();
             try {
                 int darkModeFlag = 0;
-                Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+                @SuppressLint("PrivateApi") Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
                 Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
                 darkModeFlag = field.getInt(layoutParams);
                 Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);

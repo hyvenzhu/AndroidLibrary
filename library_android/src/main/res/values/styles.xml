@@ -24,8 +24,8 @@
 
     <style name="com_SwipeBackLayout">
         <item name="com_edge_size">50dp</item>
-        <item name="com_shadow_left">@drawable/shadow_left</item>
-        <item name="com_shadow_right">@drawable/shadow_right</item>
-        <item name="com_shadow_bottom">@drawable/shadow_bottom</item>
+        <item name="com_shadow_left">@drawable/com_shadow_left</item>
+        <item name="com_shadow_right">@drawable/com_shadow_right</item>
+        <item name="com_shadow_bottom">@drawable/com_shadow_bottom</item>
     </style>
 </resources>
