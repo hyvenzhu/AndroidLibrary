@@ -286,6 +286,10 @@ public abstract class AppDelegate implements IDelegate {
 
     @Override
     public ViewGroup getContentView() {
+        return rootView;
+    }
+
+    protected <T> T getViewBinding() {
         Class viewBindingClass;
         if (viewBinding == null && (viewBindingClass = getViewBindClass()) != null) {
             try {
@@ -295,10 +299,6 @@ public abstract class AppDelegate implements IDelegate {
                 e.printStackTrace();
             }
         }
-        return rootView;
-    }
-
-    protected <T> T getViewBinding() {
         return (T) viewBinding;
     }
 
