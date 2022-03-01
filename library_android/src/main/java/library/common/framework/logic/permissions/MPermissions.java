@@ -1,10 +1,15 @@
 package library.common.framework.logic.permissions;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Size;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * M运行时权限
@@ -75,6 +80,11 @@ public class MPermissions {
      */
     public void request(@Nullable String permissionDesc, @NonNull String[] permissions, @NonNull PermissionsCallback callback) {
         permissionsFragment.requestPermissions(permissionDesc, permissions, callback, showDenied);
+    }
+
+    public static boolean hasAllPermissionsGranted(@NonNull Context context,
+                                                   @Size(min = 1) @NonNull String... perms) {
+        return EasyPermissions.hasPermissions(context, perms);
     }
 
     public interface PermissionsCallback {

@@ -80,6 +80,16 @@ public abstract class BaseLogic extends EventLogic {
      * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map、flatMap、doOnNext'等在BaseLogic的子类做好处理)
      *
      * @param observable
+     * @param what       请求标示
+     */
+    protected <T> Disposable sendRequest(final Observable observable, final ErrorConsumer<T> errorConsumer, final int what) {
+        return sendRequest(observable, errorConsumer, what, null);
+    }
+
+    /**
+     * 发送请求(一般情况是可以拿到结果的最终请求,如需要'map、flatMap、doOnNext'等在BaseLogic的子类做好处理)
+     *
+     * @param observable
      */
     protected <T> MutableLiveData<T> sendRequest(final Observable observable) {
         MutableLiveData<T> liveData = new MutableLiveData<>();
