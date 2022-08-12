@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleRegistry;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
@@ -33,6 +36,11 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
     public T viewDelegate;
 
     Callback callback;
+
+    /**
+     * 接管生命周期感知，解决 Fragment 有部分场景下，onPause、onResume 不回调或回调不准确问题。
+     */
+    private LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
 
     public <T> void setCallback(Callback<T> callback) {
         this.callback = callback;
@@ -75,6 +83,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
     }
 
     protected void onCreate() {
+        lifecycleRegistry.setCurrentState(Lifecycle.State.CREATED);
     }
 
     @Override
@@ -129,6 +138,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
      * 　　此时判断Fragment　Show/Hide应该用setUserVisibleHint，而非OnResume/OnPause
      */
     public void onShow() {
+        lifecycleRegistry.setCurrentState(Lifecycle.State.RESUMED);
         viewDelegate.onShow();
     }
 
@@ -146,7 +156,14 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
      * 　　此时判断Fragment　Show/Hide应该用setUserVisibleHint，而非OnResume/OnPause
      */
     public void onHide() {
+        lifecycleRegistry.setCurrentState(Lifecycle.State.STARTED);
         viewDelegate.onHide();
+    }
+
+    @NonNull
+    @Override
+    public Lifecycle getLifecycle() {
+        return lifecycleRegistry;
     }
 
     @Override
@@ -166,6 +183,7 @@ public abstract class FragmentPresenter<T extends IDelegate> extends Fragment im
     @Override
     public void onDestroy() {
         super.onDestroy();
+        lifecycleRegistry.setCurrentState(Lifecycle.State.DESTROYED);
         viewDelegate.onDestroy();
         viewDelegate = null;
 
