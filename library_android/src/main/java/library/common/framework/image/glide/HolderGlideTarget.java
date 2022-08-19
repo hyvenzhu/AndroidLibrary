@@ -63,7 +63,9 @@ public class HolderGlideTarget extends DrawableImageViewTarget {
     @Override
     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
         ImageView imageView = getView();
-        imageView.setBackgroundColor(Color.TRANSPARENT);
+        if (bgRes != -1) {
+            imageView.setBackgroundColor(Color.TRANSPARENT);
+        }
         imageView.setScaleType(mScaleType);
         super.onResourceReady(resource, transition);
     }
