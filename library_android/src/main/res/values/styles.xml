@@ -16,7 +16,9 @@
     </style>
 
     <!-- App theme -->
-    <style name="com_AppTheme" parent="@style/com_BaseAppTheme"></style>
+    <style name="com_AppTheme" parent="@style/com_BaseAppTheme">
+        <item name="buttonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+    </style>
     
     <!-- 公共属性-->
     <style name="com_BaseAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
