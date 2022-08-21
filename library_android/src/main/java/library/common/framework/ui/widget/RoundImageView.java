@@ -162,7 +162,7 @@ public class RoundImageView extends AppCompatImageView {
         setup();
     }
 
-    public void setmDrawCircle(boolean mDrawCircle) {
+    public void setDrawCircle(boolean mDrawCircle) {
         this.mDrawCircle = mDrawCircle;
     }
 
