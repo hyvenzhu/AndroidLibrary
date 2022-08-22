@@ -56,7 +56,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
 
         Class viewBindingClass;
         Object viewBinding = null;
-        if ((viewBindingClass = getViewBindClass()) != null) {
+        if ((viewBindingClass = getViewBindClass(viewType)) != null) {
             try {
                 Method bindMethod = viewBindingClass.getMethod("bind", new Class[]{View.class});
                 viewBinding = bindMethod.invoke(null, itemView);
@@ -69,7 +69,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         return viewHolder;
     }
 
-    protected Class getViewBindClass() {
+    protected Class getViewBindClass(int viewType) {
         return null;
     }
 

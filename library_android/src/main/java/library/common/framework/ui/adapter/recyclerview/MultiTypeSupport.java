@@ -10,13 +10,13 @@ import androidx.annotation.LayoutRes;
  */
 public abstract class MultiTypeSupport<T> {
     /**
-     * 根据itemType返回不同布局
+     * 根据 {@param viewType} 返回不同布局
      *
-     * @param itemType
+     * @param viewType
      * @return
      */
     @LayoutRes
-    public abstract int getLayoutId(int itemType);
+    public abstract int getLayoutId(int viewType);
 
     /**
      * 返回不同itemType

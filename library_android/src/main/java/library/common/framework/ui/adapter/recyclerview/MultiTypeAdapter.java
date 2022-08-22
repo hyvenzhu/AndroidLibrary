@@ -33,7 +33,7 @@ public abstract class MultiTypeAdapter<T> extends CommonAdapter<T> {
 
         Class viewBindingClass;
         Object viewBinding = null;
-        if ((viewBindingClass = getViewBindClass()) != null) {
+        if ((viewBindingClass = getViewBindClass(viewType)) != null) {
             try {
                 Method bindMethod = viewBindingClass.getMethod("bind", new Class[]{View.class});
                 viewBinding = bindMethod.invoke(null, itemView);
