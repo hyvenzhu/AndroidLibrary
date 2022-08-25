@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Message;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
@@ -45,7 +44,6 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
         super.onCreate(savedInstanceState);
         viewDelegate.create(this, getLayoutInflater(), null, savedInstanceState);
         setContentView(viewDelegate.getContentView());
-        initToolbar();
         isDestroyed = false;
         viewDelegate.initWidget(getIntent());
         viewDelegate.initChildControllers();
@@ -66,13 +64,6 @@ public abstract class ActivityPresenter<T extends IDelegate> extends SwipeBackAc
 
     protected void onCreate() {
 
-    }
-
-    protected void initToolbar() {
-        Toolbar toolbar = viewDelegate.getToolbar();
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
     }
 
     @Override

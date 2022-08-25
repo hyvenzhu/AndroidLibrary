@@ -62,11 +62,11 @@ abstract class ViewController(private val appDelegate: AppDelegate, parentId: In
         return appDelegate.getActivity()
     }
 
-    protected fun <T : Fragment?> getFragment(): T {
+    protected fun <T : Fragment?> getFragment(): T? {
         return appDelegate.getFragment()
     }
 
-    protected fun getResource(): Resources = appDelegate.resources
+    protected fun getResource(): Resources = appDelegate.getResources()
 
     protected fun getString(@StringRes strRes: Int): String {
         return appDelegate.getString(strRes)
