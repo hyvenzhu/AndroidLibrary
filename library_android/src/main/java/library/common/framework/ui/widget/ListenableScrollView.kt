@@ -11,7 +11,7 @@ import androidx.core.widget.NestedScrollView
  * @author hyvenzhu
  * @version 2022/8/19
  */
-class NestedScrollViewObservable(context: Context, attributeSet: AttributeSet?) :
+class ListenableScrollView(context: Context, attributeSet: AttributeSet?) :
     NestedScrollView(context, attributeSet) {
     constructor(context: Context) : this(context, null)
 
