@@ -16,13 +16,13 @@ import java.util.LinkedHashSet;
 public class ViewHolder extends RecyclerView.ViewHolder {
     SparseArray<View> mViews;
     public View mItemView;
-    
+
     private final LinkedHashSet<Integer> childClickViewIds;
-    
+
     private final LinkedHashSet<Integer> itemChildLongClickViewIds;
 
     private Object viewBinding;
-    
+
     public ViewHolder(View itemView, Object viewBinding) {
         super(itemView);
         this.childClickViewIds = new LinkedHashSet<>();
@@ -31,7 +31,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         this.mViews = new SparseArray<>();
         this.viewBinding = viewBinding;
     }
-    
+
     public <T extends View> T findViewById(int id) {
         View view = mViews.get(id);
         if (view == null) {
@@ -41,15 +41,15 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         }
         return (T) view;
     }
-    
+
     public HashSet<Integer> getItemChildLongClickViewIds() {
         return itemChildLongClickViewIds;
     }
-    
+
     public HashSet<Integer> getChildClickViewIds() {
         return childClickViewIds;
     }
-    
+
     /**
      * add childView id
      *
@@ -65,7 +65,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         childClickViewIds.remove(viewId);
         return this;
     }
-    
+
     /**
      * add long click view id
      *

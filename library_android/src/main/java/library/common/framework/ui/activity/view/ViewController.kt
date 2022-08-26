@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
  * @author hiphonezhu@gmail.com
  * @version [AndroidLibrary, 2019-1-23]
  */
-abstract class ViewController(private val appDelegate: AppDelegate, parentId: Int) {
+abstract class ViewController(val appDelegate: AppDelegate, parentId: Int) {
 
     val mView: View
 
