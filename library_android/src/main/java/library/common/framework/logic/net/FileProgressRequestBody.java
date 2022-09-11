@@ -17,21 +17,18 @@ import okio.BufferedSink;
  * @version [AndroidLibrary, 2018-3-6]
  */
 
-public class ProgressRequestBody extends RequestBody {
+public class FileProgressRequestBody extends RequestBody {
     
-    private MediaType contentType;
+    private final MediaType contentType;
+    private final File file;
+    private final WeakReference<IProgress> listener;
     
-    private File file;
+    private final long contentLength;
     
-    private WeakReference<IProgress> listener;
-    
-    private long totalBytesWrite = 0;
-    private long fullLength;
-    
-    public ProgressRequestBody(final MediaType contentType, final File file, final IProgress progress) {
+    public FileProgressRequestBody(final MediaType contentType, final File file, final IProgress progress) {
         this.contentType = contentType;
         this.file = file;
-        fullLength = file.length();
+        contentLength = file.length();
         listener = new WeakReference<>(progress);
     }
     
@@ -42,18 +39,17 @@ public class ProgressRequestBody extends RequestBody {
     
     @Override
     public long contentLength() {
-        return fullLength;
+        return contentLength;
     }
     
     @Override
     public void writeTo(BufferedSink sink) throws IOException {
         FileInputStream fis = null;
         try {
+            long totalBytesWrite = 0;
             fis = new FileInputStream(file);
-            // buffer
             byte[] buffer = new byte[10240];
             int len;
-            // has write length
             while ((len = fis.read(buffer)) != -1) {
                 sink.write(buffer, 0, len);
                 
