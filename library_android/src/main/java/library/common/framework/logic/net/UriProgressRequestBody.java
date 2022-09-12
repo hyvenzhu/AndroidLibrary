@@ -11,6 +11,8 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import okhttp3.internal.Util;
 import okio.BufferedSink;
+import okio.Okio;
+import okio.Source;
 
 /**
  * 带进度的附件上传
@@ -44,35 +46,35 @@ public class UriProgressRequestBody extends RequestBody {
             Util.closeQuietly(is);
         }
     }
-    
+
     @Override
     public MediaType contentType() {
         return contentType;
     }
-    
+
     @Override
     public long contentLength() {
         return contentLength;
     }
-    
+
     @Override
     public void writeTo(BufferedSink sink) throws IOException {
-        InputStream is = null;
+        Source source = null;
         try {
             long totalBytesWrite = 0;
-            is = context.getContentResolver().openInputStream(uri);
-            byte[] buffer = new byte[10240];
-            int len;
-            while ((len = is.read(buffer)) != -1) {
-                sink.write(buffer, 0, len);
-                
+            InputStream is = context.getContentResolver().openInputStream(uri);
+            source = Okio.source(is);
+            long len;
+            while ((len = source.read(sink.buffer(), 10240)) != -1) {
+                sink.flush();
+
                 if (listener != null && listener.get() != null) {
                     totalBytesWrite += len;
-                    listener.get().onProgress(totalBytesWrite, contentLength());
+                    listener.get().onProgress(totalBytesWrite, contentLength);
                 }
             }
         } finally {
-            Util.closeQuietly(is);
+            Util.closeQuietly(source);
         }
     }
 }
