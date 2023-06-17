@@ -5,12 +5,12 @@ if (rootProject.file('config/gradle-mvn-push.gradle').exists()) {
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 33
     buildToolsVersion "$buildToolsVersion"
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 33
         resourcePrefix 'com_'
         // lib module 混淆配置
         consumerProguardFiles 'proguard-rules.pro'
