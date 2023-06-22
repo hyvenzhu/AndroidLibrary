@@ -73,7 +73,10 @@ abstract class AppDelegate: IDelegate {
         }
 
         // 内容布局
-        inflater.inflate(getContentLayoutId(), content, true)
+        val layoutId = getContentLayoutId()
+        if (layoutId != View.NO_ID) {
+            inflater.inflate(layoutId, content, true)
+        }
         // 初始化加载布局
         initLoadViewHelper(content)
     }
