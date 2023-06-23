@@ -68,11 +68,6 @@ dependencies {
     // glide
     api 'com.github.bumptech.glide:glide:4.13.2'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.2'
-    // glide-transformations
-    api ('jp.wasabeef:glide-transformations:3.1.1')
-    {
-        exclude  group:'com.github.bumptech.glide'
-    }
     // mmkv
     api 'com.tencent:mmkv:1.0.10'
     // statusbarutil
