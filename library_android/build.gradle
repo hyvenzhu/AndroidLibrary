@@ -73,7 +73,7 @@ dependencies {
     // mmkv
     api 'com.tencent:mmkv:1.3.0'
     // statusbarutil
-    implementation ('com.jaeger.statusbarutil:library:1.5.1')
+    implementation ('com.github.laobie:StatusBarUtil:2aac14c8e8')
     {
         exclude  group:'com.android.support'
     }
