@@ -15,4 +15,10 @@ public interface IAdapter<T> {
     List<T> getDataSource();
 
     T getItem(int position);
+
+    void appendData(List<T> appendedData);
+
+    void notifyDataSetChanged();
+
+    int getItemCount();
 }
