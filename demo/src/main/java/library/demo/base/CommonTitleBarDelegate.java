@@ -23,7 +23,6 @@ public abstract class CommonTitleBarDelegate extends AppDelegate {
         return LayoutInflater.from(getActivity()).inflate(R.layout.layout_common_title, root);
     }
 
-    @Override
     protected Class getViewBindClass() {
         return null;
     }

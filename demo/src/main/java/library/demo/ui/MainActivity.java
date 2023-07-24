@@ -18,6 +18,11 @@ public class MainActivity extends BaseActivity<MainDelegate> {
     }
 
     @Override
+    protected Object beforeOnChanged(Object res) {
+        return null;
+    }
+
+    @Override
     protected void onCreate() {
         super.onCreate();
 
@@ -30,6 +35,11 @@ public class MainActivity extends BaseActivity<MainDelegate> {
             }
         }, R.id.btn);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     @Override

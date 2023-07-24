@@ -38,7 +38,7 @@ abstract class ViewController(val appDelegate: AppDelegate, parentId: Int) {
         }
     }
 
-    fun initWidget() {}
+    open fun initWidget() {}
 
     fun onShow() {}
 

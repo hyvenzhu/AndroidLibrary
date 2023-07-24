@@ -6,7 +6,6 @@ if (rootProject.file('config/gradle-mvn-push.gradle').exists()) {
 
 android {
     compileSdkVersion 33
-    buildToolsVersion "$buildToolsVersion"
 
     defaultConfig {
         minSdkVersion 21

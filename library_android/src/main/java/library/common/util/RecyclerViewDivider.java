@@ -89,6 +89,7 @@ public class RecyclerViewDivider {
 
         private LayoutManagerDivider(@ColorInt int dividerColor, int dividerSize, boolean hideLast) {
             super();
+            paint.setStyle(Paint.Style.STROKE);
             paint.setColor(dividerColor);
             this.dividerSize = dividerSize;
             this.hideLast = hideLast;
