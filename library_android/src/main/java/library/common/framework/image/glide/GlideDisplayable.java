@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
+import com.bumptech.glide.signature.EmptySignature;
+import com.bumptech.glide.signature.ObjectKey;
 
 import java.io.File;
 import java.util.concurrent.ExecutionException;
@@ -137,9 +139,9 @@ public class GlideDisplayable implements Displayable {
     @Override
     public void displayLocal(Context context, ImageView imageView, @Nullable File file) {
         if (mRequestOptions == null) {
-            Glide.with(context).load(file).listener(mListener).into(getTarget(imageView));
+            Glide.with(context).load(file).signature(file != null ? new ObjectKey(file.lastModified()) : EmptySignature.obtain()).listener(mListener).into(getTarget(imageView));
         } else {
-            Glide.with(context).load(file).listener(mListener).apply(mRequestOptions).into(getTarget(imageView));
+            Glide.with(context).load(file).signature(file != null ? new ObjectKey(file.lastModified()) : EmptySignature.obtain()).listener(mListener).apply(mRequestOptions).into(getTarget(imageView));
         }
     }
 
