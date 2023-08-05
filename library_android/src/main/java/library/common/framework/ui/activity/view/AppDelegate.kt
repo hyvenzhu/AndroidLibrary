@@ -32,7 +32,7 @@ abstract class AppDelegate: IDelegate {
     private lateinit var rootView: ViewGroup
     protected lateinit var titleGroup: ViewGroup
     private lateinit var context: Context
-    private lateinit var mLoadViewHelper: AbstractLoadHelper
+    private var loadViewHelper: AbstractLoadHelper? = null
     lateinit var content: ViewGroup
 
     private var fragment: Fragment? = null
@@ -353,7 +353,7 @@ abstract class AppDelegate: IDelegate {
      * @param view
      */
     private fun initLoadViewHelper(view: View) {
-        mLoadViewHelper = getLoadViewHelper(getLoadView() ?: view)
+        loadViewHelper = getLoadViewHelper(getLoadView() ?: view)
     }
 
     /**
@@ -385,7 +385,7 @@ abstract class AppDelegate: IDelegate {
      * 加载中页面
      */
     fun showLoadView(loadString: String?, @DrawableRes loadRes: Int, @DrawableRes bgRes: Int) {
-        mLoadViewHelper!!.show(mLoadViewHelper!!.loadingView(loadString, loadRes, bgRes))
+        loadViewHelper?.show(loadViewHelper?.loadingView(loadString, loadRes, bgRes))
     }
 
     fun showLoadError(listener: View.OnClickListener?) {
@@ -426,8 +426,8 @@ abstract class AppDelegate: IDelegate {
         @DrawableRes bgRes: Int,
         onClickListener: View.OnClickListener?
     ) {
-        mLoadViewHelper!!.show(
-            mLoadViewHelper!!.errorView(
+        loadViewHelper?.show(
+            loadViewHelper?.errorView(
                 errorText,
                 errorRes,
                 showButton,
@@ -487,8 +487,8 @@ abstract class AppDelegate: IDelegate {
         @DrawableRes bgRes: Int,
         onClickListener: View.OnClickListener?
     ) {
-        mLoadViewHelper!!.show(
-            mLoadViewHelper!!.emptyView(
+        loadViewHelper?.show(
+            loadViewHelper?.emptyView(
                 emptyMsg,
                 emptyRes,
                 null,
@@ -503,8 +503,8 @@ abstract class AppDelegate: IDelegate {
         buttonText: String?,
         onClickListener: View.OnClickListener?
     ) {
-        mLoadViewHelper!!.show(
-            mLoadViewHelper!!.emptyView(
+        loadViewHelper?.show(
+            loadViewHelper?.emptyView(
                 emptyMsg,
                 -1,
                 buttonText,
@@ -518,7 +518,7 @@ abstract class AppDelegate: IDelegate {
      * 隐藏加载页面
      */
     fun hideLoadView() {
-        mLoadViewHelper!!.hide()
+        loadViewHelper?.hide()
     }
 
     /**
@@ -527,7 +527,7 @@ abstract class AppDelegate: IDelegate {
      * @param message
      */
     fun showToast(message: CharSequence?) {
-        mLoadViewHelper!!.showToast(message)
+        loadViewHelper?.showToast(message)
     }
 
     /**
@@ -536,7 +536,7 @@ abstract class AppDelegate: IDelegate {
      * @param message
      */
     fun showProgress(message: String?) {
-        mLoadViewHelper!!.showProgress(message, false)
+        loadViewHelper?.showProgress(message, false)
     }
 
     /**
@@ -546,7 +546,7 @@ abstract class AppDelegate: IDelegate {
      * @param cancelable
      */
     fun showProgress(message: String?, cancelable: Boolean) {
-        mLoadViewHelper!!.showProgress(message, cancelable)
+        loadViewHelper?.showProgress(message, cancelable)
     }
 
     /**
@@ -561,14 +561,14 @@ abstract class AppDelegate: IDelegate {
         cancelable: Boolean,
         cancelListener: DialogInterface.OnCancelListener?
     ) {
-        mLoadViewHelper!!.showProgress(message, cancelable, cancelListener)
+        loadViewHelper?.showProgress(message, cancelable, cancelListener)
     }
 
     /**
      * 隐藏加载框
      */
     fun hideProgress() {
-        mLoadViewHelper!!.hideProgress()
+        loadViewHelper?.hideProgress()
     }
 
     fun addViewController(viewController: ViewController) {

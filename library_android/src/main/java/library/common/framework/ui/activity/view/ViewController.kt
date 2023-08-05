@@ -15,15 +15,15 @@ import androidx.fragment.app.Fragment
  * @author hiphonezhu@gmail.com
  * @version [AndroidLibrary, 2019-1-23]
  */
-abstract class ViewController(val appDelegate: AppDelegate, parentId: Int) {
+abstract class ViewController(private val appDelegate: AppDelegate, parentId: Int) {
 
-    val mView: View
+    val view: View
 
     init {
         val parent = appDelegate.contentView.findViewById<ViewGroup>(parentId)
-        mView = LayoutInflater.from(parent.context).inflate(getView(), null, false)
+        view = LayoutInflater.from(parent.context).inflate(getView(), null, false)
         parent.removeAllViews()
-        parent.addView(mView)
+        parent.addView(view)
         appDelegate.addViewController(this)
     }
 
@@ -32,7 +32,7 @@ abstract class ViewController(val appDelegate: AppDelegate, parentId: Int) {
     inline fun <reified T> getViewBinding(): T {
         return (viewBindingObj as T?) ?: let {
             val bindMethod = T::class.java.getMethod("bind", View::class.java)
-            (bindMethod.invoke(null, mView) as T).apply {
+            (bindMethod.invoke(null, view) as T).apply {
                 viewBindingObj = this
             }
         }
