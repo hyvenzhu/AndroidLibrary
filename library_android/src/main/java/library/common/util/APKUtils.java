@@ -18,6 +18,7 @@ import android.provider.MediaStore;
 import androidx.core.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import android.widget.EditText;
 import java.io.File;
 
 import library.common.App;
+import library.common.R;
 
 /**
  * 基础工具类 [尽量减少类似Util的类存在]
@@ -319,5 +321,23 @@ public class APKUtils {
         targetIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(targetIntent);
         Runtime.getRuntime().exit(0);
+    }
+
+    /**
+     * 返回状态栏高度
+     *
+     * @param activity
+     * @return
+     */
+    public static int getStatusBarHeight(Activity activity) {
+        int statusBarHeight;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowInsets insets = activity.getWindow().getDecorView().getRootWindowInsets();
+            statusBarHeight = insets.getInsets(WindowInsets.Type.statusBars()).top;
+        } else {
+            int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+            statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
+        }
+        return statusBarHeight;
     }
 }

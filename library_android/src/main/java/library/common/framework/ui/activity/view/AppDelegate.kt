@@ -60,9 +60,8 @@ abstract class AppDelegate: IDelegate {
         val titleView = getTitleView(titleGroup)
         if (titleView != null) {
             titleGroup.visibility = View.VISIBLE
-            val resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android")
-            if (resourceId > 0 && fitStatusBarHeight()) {
-                val statusBarHeight = getResources().getDimensionPixelSize(resourceId)
+            if (fitStatusBarHeight()) {
+                val statusBarHeight = APKUtils.getStatusBarHeight(context as Activity)
                 titleGroup.layoutParams.apply {
                     height = statusBarHeight + getTitleHeight()
                     titleGroup.layoutParams = this
@@ -145,14 +144,11 @@ abstract class AppDelegate: IDelegate {
                 }
             }
             val paddingTop = tag.toString().toInt()
-            val resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android")
-            if (resourceId > 0) {
-                val statusBarHeight = getResources().getDimensionPixelSize(resourceId)
-                title.setPadding(
-                    title.paddingLeft, paddingTop + statusBarHeight,
-                    title.paddingRight, title.paddingBottom
-                )
-            }
+            val statusBarHeight = APKUtils.getStatusBarHeight(getActivity())
+            title.setPadding(
+                title.paddingLeft, paddingTop + statusBarHeight,
+                title.paddingRight, title.paddingBottom
+            )
         }
     }
 
@@ -181,14 +177,11 @@ abstract class AppDelegate: IDelegate {
                 }
             }
             val paddingTop = tag.toString().toInt()
-            val resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android")
-            if (resourceId > 0) {
-                val statusBarHeight = getResources().getDimensionPixelSize(resourceId)
-                title.setPadding(
-                    title.paddingLeft, paddingTop + statusBarHeight,
-                    title.paddingRight, title.paddingBottom
-                )
-            }
+            val statusBarHeight = APKUtils.getStatusBarHeight(fragment.requireActivity())
+            title.setPadding(
+                title.paddingLeft, paddingTop + statusBarHeight,
+                title.paddingRight, title.paddingBottom
+            )
         }
     }
 
