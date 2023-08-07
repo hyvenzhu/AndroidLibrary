@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,18 +16,17 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.core.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.core.content.FileProvider;
+
 import java.io.File;
 
 import library.common.App;
-import library.common.R;
 
 /**
  * 基础工具类 [尽量减少类似Util的类存在]
@@ -326,18 +326,12 @@ public class APKUtils {
     /**
      * 返回状态栏高度
      *
-     * @param activity
+     * @param context
      * @return
      */
-    public static int getStatusBarHeight(Activity activity) {
-        int statusBarHeight;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            WindowInsets insets = activity.getWindow().getDecorView().getRootWindowInsets();
-            statusBarHeight = insets.getInsets(WindowInsets.Type.statusBars()).top;
-        } else {
-            int resourceId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
-            statusBarHeight = activity.getResources().getDimensionPixelSize(resourceId);
-        }
-        return statusBarHeight;
+    public static int getStatusBarHeight(Context context) {
+        final Resources resources = context.getResources();
+        final int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+        return resources.getDimensionPixelSize(resourceId);
     }
 }
