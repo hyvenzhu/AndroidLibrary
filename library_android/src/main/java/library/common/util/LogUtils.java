@@ -1,6 +1,10 @@
 package library.common.util;
 
+import android.content.Context;
+
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.CsvFormatStrategy;
+import com.orhanobut.logger.DiskLogAdapter;
 import com.orhanobut.logger.Logger;
 
 /**
@@ -12,6 +16,8 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtils {
 
+    private static final int FILE = 8;
+
     static {
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override
@@ -19,6 +25,27 @@ public class LogUtils {
                 return APKUtils.isDebug();
             }
         });
+    }
+
+    public static void tag(String tag) {
+        Logger.t(tag);
+    }
+
+    public static void addDiskLogAdapter(Context context) {
+        Logger.addLogAdapter(new DiskLogAdapter(CsvFormatStrategy.newBuilder().logStrategy(new CacheDiskLogStrategy(context)).build()) {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return priority == FILE;
+            }
+        });
+    }
+
+    public static void toFile(String tag, String message) {
+        Logger.log(FILE, tag, message, null);
+    }
+
+    public static void toFile(String message) {
+        Logger.log(FILE, "toFile", message, null);
     }
 
     public static void d(Object object) {
