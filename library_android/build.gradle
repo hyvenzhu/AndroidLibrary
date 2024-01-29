@@ -1,8 +1,5 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-if (rootProject.file('config/gradle-mvn-push.gradle').exists()) {
-    apply from: rootProject.file('config/gradle-mvn-push.gradle')
-}
 
 android {
     compileSdkVersion 33

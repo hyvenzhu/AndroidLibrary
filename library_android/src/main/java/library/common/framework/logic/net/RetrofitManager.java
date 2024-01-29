@@ -248,7 +248,6 @@ public class RetrofitManager {
                 builder.addNetworkInterceptor(interceptor);
             }
         }
-        builder.addInterceptor(new ProgressResponseInterceptor());
         if (applicationInterceptorList != null && applicationInterceptorList.size() > 0) {
             for (Interceptor interceptor : applicationInterceptorList) {
                 builder.addInterceptor(interceptor);

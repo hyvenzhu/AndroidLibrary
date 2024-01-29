@@ -1,2 +1,3 @@
 include ':demo'
 include ':library_android'
+include ':library_mqtt'
