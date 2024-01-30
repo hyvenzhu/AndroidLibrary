@@ -65,7 +65,7 @@ class MqttService {
                     eventCallbackRef?.get()?.messageArrived(topic, message)
                 }
 
-                override fun connectionLost(cause: Throwable) {
+                override fun connectionLost(cause: Throwable?) {
                     Log.e(TAG, "连接断开", cause)
                     if (!reconnect()) {
                         eventCallbackRef?.get()?.connectionLost(cause)
@@ -124,6 +124,11 @@ class MqttService {
     }
 
     fun subscribe(topic: String, qos: Int, callback: IMqttActionListener? = null) {
+        if (!mqttAndroidClient.isConnected) {
+            Log.e(TAG, "连接已断开")
+            return
+        }
+
         mqttAndroidClient.subscribe(topic, qos, null, object : IMqttActionListener {
             override fun onSuccess(asyncActionToken: IMqttToken) {
                 Log.i(TAG, "topic 订阅成功：${asyncActionToken.topics?.joinToString(",")}")
@@ -141,6 +146,11 @@ class MqttService {
     }
 
     fun publish(topic: String, payload: ByteArray, qos: Int, retained: Boolean, callback: IMqttActionListener? = null) {
+        if (!mqttAndroidClient.isConnected) {
+            Log.e(TAG, "连接已断开")
+            return
+        }
+
         mqttAndroidClient.publish(topic, payload, qos, retained, null, object : IMqttActionListener {
             override fun onSuccess(asyncActionToken: IMqttToken) {
                 Log.i(TAG, "发送数据成功")
@@ -158,10 +168,21 @@ class MqttService {
     }
 
     fun disconnect(quiesceTimeout: Long = 0L) {
+        autoReconnect = false
+        if (!mqttAndroidClient.isConnected) {
+            Log.e(TAG, "连接已断开")
+            return
+        }
+
         mqttAndroidClient.disconnect(quiesceTimeout)
     }
 
     fun unsubscribe(topic: String) {
+        if (!mqttAndroidClient.isConnected) {
+            Log.e(TAG, "连接已断开")
+            return
+        }
+
         mqttAndroidClient.unsubscribe(topic)
     }
 
