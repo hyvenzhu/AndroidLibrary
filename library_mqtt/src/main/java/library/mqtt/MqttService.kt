@@ -55,6 +55,8 @@ class MqttService {
 
     private var maxConnectRetryCount = 10
 
+    private var actionCallbackRef: WeakReference<IMqttActionListener>? = null
+
     private var eventCallbackRef: WeakReference<MqttCallback>? = null
 
     private val mqttAndroidClient: MqttAndroidClient by lazy {
@@ -73,7 +75,7 @@ class MqttService {
                 }
 
                 override fun deliveryComplete(token: IMqttDeliveryToken) {
-                    Log.i(TAG, "发送数据成功：${token.topics.joinToString(",")}")
+                    Log.i(TAG, "消息分发完成")
                     eventCallbackRef?.get()?.deliveryComplete(token)
                 }
             })
@@ -97,6 +99,7 @@ class MqttService {
         this.clientId = clientId
         this.autoReconnect = autoReconnect
         this.maxConnectRetryCount = maxConnectRetryCount
+        this.actionCallbackRef = WeakReference(actionCallback)
         this.eventCallbackRef = WeakReference(eventCallback)
         retryCount = 0
         if (!mqttAndroidClient.isConnected) {
@@ -200,7 +203,7 @@ class MqttService {
                 } catch (e: InterruptedException) {
                     Log.e(TAG, "reconnect interrupted", e)
                 }
-                connect(context, clientId, autoReconnect = autoReconnect, maxConnectRetryCount = maxConnectRetryCount)
+                connect(context, clientId, autoReconnect = autoReconnect, maxConnectRetryCount = maxConnectRetryCount, actionCallbackRef?.get(), eventCallbackRef?.get())
                 true
             } else {
                 Log.e(TAG, "")
