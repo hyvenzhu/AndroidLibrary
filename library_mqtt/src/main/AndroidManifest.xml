@@ -6,8 +6,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application>
-        <service
-            android:name=".MqttService"/>
         <service android:name="org.eclipse.paho.android.service.MqttService" />
     </application>
 </manifest>
