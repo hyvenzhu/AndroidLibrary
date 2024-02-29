@@ -87,8 +87,8 @@ abstract class AppDelegate: IDelegate {
         savedInstanceState: Bundle?
     ) {
         this.fragment = fragment
-        isActivity = false
         create(fragment.requireContext(), inflater, container, savedInstanceState)
+        isActivity = false
     }
 
     override fun onShow() {
