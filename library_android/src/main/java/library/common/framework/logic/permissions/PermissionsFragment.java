@@ -47,12 +47,12 @@ public class PermissionsFragment extends Fragment implements EasyPermissions.Per
         this.permissionsCallback = callback;
         this.showDenied = showDenied;
 
-        if (EasyPermissions.hasPermissions(getActivity(), permissions)) {
+        if (EasyPermissions.hasPermissions(requireActivity(), permissions)) {
             // Already have permission, do the thing
             callback.onGranted();
         } else {
             // Do not have permissions, request them now
-            EasyPermissions.requestPermissions(this, permissionDesc,
+            EasyPermissions.requestPermissions(this, null,
                     PERMISSIONS_REQUEST_CODE, permissions);
         }
     }
@@ -70,7 +70,7 @@ public class PermissionsFragment extends Fragment implements EasyPermissions.Per
 
     @Override
     public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-        if (EasyPermissions.hasPermissions(getActivity(), permissions) && permissionsCallback != null) {
+        if (EasyPermissions.hasPermissions(requireContext(), permissions) && permissionsCallback != null) {
             permissionsCallback.onGranted();
         }
     }
@@ -94,7 +94,7 @@ public class PermissionsFragment extends Fragment implements EasyPermissions.Per
         if (requestCode == PERMISSIONS_REQUEST_CODE) {
             // Do something after user returned from app settings screen
             if (permissionsCallback != null) {
-                if (EasyPermissions.hasPermissions(getActivity(), permissions)) {
+                if (EasyPermissions.hasPermissions(requireContext(), permissions)) {
                     permissionsCallback.onGranted();
                 } else {
                     permissionsCallback.onDenied();
