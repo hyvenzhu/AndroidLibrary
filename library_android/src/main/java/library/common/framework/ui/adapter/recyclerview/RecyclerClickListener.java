@@ -280,7 +280,6 @@ public abstract class RecyclerClickListener implements RecyclerView.OnItemTouchL
                 return false;
             }
         }
-        int type = commonAdapter.getItemViewType(position);
 
         return false;
 //        return (type == EMPTY_VIEW || type == HEADER_VIEW || type == FOOTER_VIEW || type == LOADING_VIEW);
