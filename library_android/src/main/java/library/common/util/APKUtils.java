@@ -81,7 +81,7 @@ public class APKUtils {
     }
 
     /**
-     * 获得磁盘缓存目录 [PS：应用卸载后会被自动删除]
+     * 返回应用缓存目录
      *
      * @param context
      * @param uniqueName
@@ -98,6 +98,41 @@ public class APKUtils {
             cachePath = dir.getPath();
         } else {
             File dir = context.getApplicationContext().getCacheDir();
+            if (dir == null) {
+                return null;
+            }
+            cachePath = dir.getPath();
+        }
+        File dir;
+        if (TextUtils.isEmpty(uniqueName)) {
+            dir = new File(cachePath);
+        } else {
+            dir = new File(cachePath + File.separator + uniqueName);
+        }
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+        return dir;
+    }
+
+    /**
+     * 返回应用缓存目录
+     *
+     * @param context
+     * @param uniqueName
+     * @return
+     */
+    public static File getDiskFilesDir(Context context, String uniqueName) {
+        String cachePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            File dir = context.getApplicationContext().getExternalFilesDir(null);
+            if (dir == null) {
+                dir = context.getApplicationContext().getFilesDir();
+            }
+            cachePath = dir.getPath();
+        } else {
+            File dir = context.getApplicationContext().getFilesDir();
             if (dir == null) {
                 return null;
             }
